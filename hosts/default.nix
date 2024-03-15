@@ -9,7 +9,7 @@ _:
   # };
 
   # NixOS configurations
-  parts.nixosConfigurations = {
+  flake-parts.nixosConfigurations = {
     x280 = {
       system = "x86_64-linux";
       # This value determines the NixOS release from which the default
