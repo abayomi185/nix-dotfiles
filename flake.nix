@@ -3,7 +3,10 @@
 
   inputs = {
     ### -- nix
-    parts.url = "github:hercules-ci/flake-parts";
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
+    };
 
     ### -- nixpkgs
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
