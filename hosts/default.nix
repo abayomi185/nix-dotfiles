@@ -1,6 +1,8 @@
-_:
-
 {
+  self,
+  inputs,
+  ...
+}:{
   # nix-darwin configurations
   # parts.darwinConfigurations.m1 = {
   #   system = "aarch64-darwin";
