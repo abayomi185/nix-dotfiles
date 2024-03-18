@@ -12,7 +12,7 @@
 }: {
   imports =
     [ # Include the results of the hardware scan.
-      <nixos-hardware/lenovo/thinkpad/x280>
+      inputs.hardware.nixosModules.lenovo-thinkpad-x280
       ./hardware-configuration.nix
     ];
 
@@ -118,7 +118,7 @@
   # Enable the KDE Plasma Desktop Environment.
   services.xserver.displayManager.sddm.enable = true;
   services.xserver.displayManager.sddm.wayland.enable = true;
-  services.xserver.desktopManager.plasma6.enable = true;
+  services.desktopManager.plasma6.enable = true;
 
   # Configure keymap in X11
   services.xserver = {
@@ -154,15 +154,6 @@
   # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.yomi = {
-    isNormalUser = true;
-    description = "yomi";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-      firefox
-    #  thunderbird
-    ];
-  };
   users.users = {
     yomi = {
       isNormalUser = true;
