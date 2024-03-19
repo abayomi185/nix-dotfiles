@@ -16,6 +16,53 @@
       ./hardware-configuration.nix
     ];
 
+  nixpkgs = {
+    # You can add overlays here
+    overlays = [
+      # Add overlays your own flake exports (from overlays and pkgs dir):
+      outputs.overlays.additions
+      outputs.overlays.modifications
+      outputs.overlays.unstable-packages
+
+      # You can also add overlays exported from other flakes:
+      # neovim-nightly-overlay.overlays.default
+
+      # Or define it inline, for example:
+      # (final: prev: {
+      #   hi = final.hello.overrideAttrs (oldAttrs: {
+      #     patches = [ ./change-hello-to-hi.patch ];
+      #   });
+      # })
+    ];
+    # Configure your nixpkgs instance
+    config = {
+      # Allow unfree packages
+      allowUnfree = true;
+    };
+  };
+
+  # This will add each flake input as a registry
+  # To make nix3 commands consistent with your flake
+  nix.registry = (lib.mapAttrs (_: flake: { inherit flake; })) ((lib.filterAttrs (_: lib.isType "flake")) inputs);
+
+  # This will additionally add your inputs to the system's legacy channels
+  # Making legacy nix commands consistent as well, awesome!
+  nix.nixPath = [ "/etc/nix/path" ];
+  environment.etc =
+    lib.mapAttrs'
+      (name: value: {
+        name = "nix/path/${name}";
+        value.source = value.flake;
+      })
+      config.nix.registry;
+
+  nix.settings = {
+    # Enable flakes and new 'nix' command
+    experimental-features = "nix-command flakes";
+    # Deduplicate and optimize nix store
+    auto-optimise-store = true;
+  };
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -55,6 +102,11 @@
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
+
+  # Enable the KDE Plasma Desktop Environment.
+  # services.xserver.displayManager.sddm.enable = true;
+  # services.xserver.displayManager.sddm.wayland.enable = true;
+  # services.desktopManager.plasma6.enable = true;
 
   # Configure keymap in X11
   services.xserver = {
@@ -102,9 +154,6 @@
     };
   };
 
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
-
   fonts.packages = with pkgs; [
     (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" "JetBrainsMono" ]; })
   ];
@@ -124,16 +173,30 @@
   #   enableSSHSupport = true;
   # };
 
-  # List services that you want to enable:
+  # Enable OpenSSH
+  services.openssh = {
+    enable = true;
+    settings = {
+      # Forbid root login through SSH.
+      PermitRootLogin = "no";
+      # Use keys only. Remove if you want to SSH using password (not recommended)
+      PasswordAuthentication = false;
+    };
+  };
 
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
+  # Other services
+  services.flatpak.enable = true;
+  services.fwupd.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
+
+  # For Spotify support
+  networking.firewall.allowedTCPPorts = [ 57621 ];
+  networking.firewall.allowedUDPPorts = [ 5353 ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
