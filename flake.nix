@@ -11,7 +11,7 @@
 
     # Home manager
     home-manager.url = "github:nix-community/home-manager/release-23.11";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
     # Any other flake needed
     hardware.url = "github:nixos/nixos-hardware";
@@ -87,8 +87,7 @@
           pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
           extraSpecialArgs = { inherit inputs outputs; };
           modules = [
-            # > Our main home-manager configuration file <
-            ./home-manager/home.nix
+            ./hosts/x280/home.nix
           ];
         };
 
@@ -96,8 +95,7 @@
           pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
           extraSpecialArgs = { inherit inputs outputs; };
           modules = [
-            # > Our main home-manager configuration file <
-            ./home-manager/home.nix
+            ./hosts/x390/home.nix
           ];
         };
 
