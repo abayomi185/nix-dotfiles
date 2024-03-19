@@ -8,14 +8,20 @@
 , config
 , pkgs
 , ...
+  # } @args: {
 }: {
   imports =
     [
       # Include the results of the hardware scan.
       inputs.hardware.nixosModules.lenovo-thinkpad-x280
       ./hardware-configuration.nix
+      # Plasma6
+      # inputs.nixpkgs-unstable.nixos/modules/services/desktop-managers
+      # pkgs.unstable.nixos.services.desktop-managers
+      # "${args.inputs.nixpkgs-unstable}/nixos/modules/services/desktop-managers/plasma6.nix"
+      # "${args.inputs.nixpkgs-unstable}/nixos/modules/programs/chromium.nix"
+      # "${args.inputs.nixpkgs-unstable}/nixos/modules/programs/gnupg.nix"
     ];
-
 
   nixpkgs = {
     # You can add overlays here
