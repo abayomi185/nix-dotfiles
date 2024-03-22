@@ -127,10 +127,11 @@
   services.desktopManager.plasma6.enable = true;
 
   # Configure keymap in X11
-  services.xserver = {
+  services.xserver.xkb = {
     layout = "us";
-    xkbVariant = "";
+    variant = "";
   };
+
   # services.xserver.videoDrivers = ["intel"];
 
   programs.sway.enable = true;
