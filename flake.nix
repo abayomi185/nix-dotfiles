@@ -77,6 +77,14 @@
           ];
         };
 
+        x1c6 = nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit inputs outputs; };
+          modules = [
+            # > Our main nixos configuration file <
+            ./hosts/x1c6/configuration.nix
+          ];
+        };
+
       };
 
       # Standalone home-manager configuration entrypoint
@@ -96,6 +104,14 @@
           extraSpecialArgs = { inherit inputs outputs; };
           modules = [
             ./hosts/x390/home.nix
+          ];
+        };
+
+        "yomi@x1c6" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
+          extraSpecialArgs = { inherit inputs outputs; };
+          modules = [
+            ./hosts/x1c6/home.nix
           ];
         };
 
