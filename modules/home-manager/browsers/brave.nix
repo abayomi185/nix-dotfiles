@@ -1,3 +1,3 @@
 { pkgs, ... }: {
-  home.packages = with pkgs; [ brave spotify wezterm ];
+  home.packages = with pkgs; [ brave ];
 }
