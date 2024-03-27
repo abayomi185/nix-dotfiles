@@ -55,7 +55,7 @@
   # Add stuff for your user as you see fit:
   programs.neovim.enable = true;
   programs.zsh.enable = true;
-  home.packages = with pkgs; [ spotify wezterm ];
+  home.packages = with pkgs; [ brave spotify wezterm ];
 
   # Enable home-manager and git
   programs.home-manager.enable = true;
