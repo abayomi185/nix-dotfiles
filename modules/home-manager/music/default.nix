@@ -1,0 +1,3 @@
+{
+  spotify = import ./spotify.nix;
+}
