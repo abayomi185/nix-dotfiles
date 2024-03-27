@@ -78,6 +78,10 @@
   # Enable networking
   networking.networkmanager.enable = true;
 
+  # Bluetooth
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = true;
+
   # Set your time zone.
   time.timeZone = "Europe/London";
 
@@ -187,6 +191,7 @@
   # Other services
   services.flatpak.enable = true;
   services.fwupd.enable = true;
+  services.fprintd.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
