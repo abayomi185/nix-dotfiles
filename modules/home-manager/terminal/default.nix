@@ -1,0 +1,3 @@
+{
+  kitty = import ./kitty.nix;
+}

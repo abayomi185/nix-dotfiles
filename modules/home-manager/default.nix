@@ -4,6 +4,15 @@
   # List your module files here
   # my-module = import ./my-module.nix;
 
-  # NOTE: Browsers
+  # Shell
+  shell = import ./shell;
+
+  # Terminal
+  terminal = import ./terminal;
+
+  # Browsers
   browsers = import ./browsers;
+
+  # Music
+  music = import ./music;
 }
