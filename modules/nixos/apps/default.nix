@@ -1,0 +1,3 @@
+{
+  neovim = import ./neovim.nix;
+}
