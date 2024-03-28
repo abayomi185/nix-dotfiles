@@ -1,0 +1,3 @@
+{
+  tailscale = import ./tailscale.nix;
+}
