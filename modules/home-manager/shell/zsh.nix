@@ -16,26 +16,27 @@
       };
 
       # zshrc equivalent
-      initExtra = ''
-      '';
+      # initExtra = ''
+      # '';
 
       # zshenv equivalent
       envExtra = ''
+        export LANG=en_US.UTF-8
         # export PATH=$HOME/bin:$PATH
         # Other environment variables or initialization commands
       '';
 
       # zprofile equivalent
-      profileExtra = ''
-      '';
+      # profileExtra = ''
+      # '';
 
       zplug = {
         enable = true;
         plugins = [
           { name = "plugins/git"; tags = [ "from:oh-my-zsh" ]; }
-          { name = "plugins/fzf"; tags = [ "from:oh-my-zsh" ]; }
-          { name = "plugins/ripgrep"; tags = [ "from:oh-my-zsh" ]; }
           { name = "plugins/vi-mode"; tags = [ "from:oh-my-zsh" ]; }
+          # { name = "plugins/fzf"; tags = [ "from:oh-my-zsh" ]; }
+          # { name = "plugins/ripgrep"; tags = [ "from:oh-my-zsh" ]; }
           # { name = "jeffreytse/zsh-vi-mode"; }
         ];
       };
