@@ -15,8 +15,18 @@
     # Or modules exported from other flakes (such as nix-colors):
     # inputs.nix-colors.homeManagerModules.default
 
-    # You can also split up your configuration and import pieces of it here:
-    # ./nvim.nix
+    # apps, editors, or devtools
+
+    # All Modules: See ../../modules/home-manager/default.nix
+    # Music - See ../../modules/home-manager/music/default.nix
+    outputs.homeManagerModules.music.spotify
+    # Terminal - See ../../modules/home-manager/terminal/default.nix
+    outputs.homeManagerModules.terminal.kitty
+    # Shell - See ../../modules/home-manager/shell/default.nix
+    outputs.homeManagerModules.shell.git
+    outputs.homeManagerModules.shell.zsh
+    # Browsers - See ../../modules/home-manager/browsers/default.nix
+    outputs.homeManagerModules.browsers.brave
   ];
 
   nixpkgs = {
@@ -46,20 +56,13 @@
     };
   };
 
-  # TODO: Set your username
   home = {
     username = "yomi";
     homeDirectory = "/home/yomi";
   };
 
-  # Add stuff for your user as you see fit:
-  programs.neovim.enable = true;
-  programs.zsh.enable = true;
-  home.packages = with pkgs; [ brave spotify wezterm ];
-
-  # Enable home-manager and git
+  # Enable home-manager
   programs.home-manager.enable = true;
-  programs.git.enable = true;
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
