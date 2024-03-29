@@ -21,7 +21,8 @@
     # Music - See ../../modules/home-manager/music/default.nix
     outputs.homeManagerModules.music.spotify
     # Terminal - See ../../modules/home-manager/terminal/default.nix
-    outputs.homeManagerModules.terminal.kitty
+    # outputs.homeManagerModules.terminal.kitty
+    outputs.homeManagerModules.terminal.wezterm
     # Shell - See ../../modules/home-manager/shell/default.nix
     outputs.homeManagerModules.shell.git
     outputs.homeManagerModules.shell.zsh
