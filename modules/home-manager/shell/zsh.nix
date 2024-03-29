@@ -9,6 +9,7 @@
 
       shellAliases = {
         la = "ls -la";
+        check = "nix flake check";
         update = "sudo nixos-rebuild switch";
       };
 
