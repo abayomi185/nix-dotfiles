@@ -147,26 +147,31 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
+  # Zsh here for redundancy
+  programs.zsh.enable = true;
+
   # Define a user account
   users.users = {
     yomi = {
       isNormalUser = true;
       description = "yomi";
+      shell = pkgs.zsh;
+
       openssh.authorizedKeys.keys = [
         # TODO: Add your SSH public key(s) here, if you plan on using SSH to connect
       ];
+
       # TODO: Be sure to add any other groups you need (such as networkmanager, audio, docker, etc)
       extraGroups = [ "networkmanager" "wheel" ];
+
       packages = with pkgs; [
-        firefox
+        # NOTE: Packages installed via home-manager
+        home-manager
+        # firefox
         # thunderbird
       ];
     };
   };
-
-  fonts.packages = with pkgs; [
-    (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" "JetBrainsMono" ]; })
-  ];
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
