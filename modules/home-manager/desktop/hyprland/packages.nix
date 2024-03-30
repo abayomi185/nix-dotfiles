@@ -1,6 +1,5 @@
 { pkgs, ... }: {
-  home.packages = [
-    # Screen Capture
-    pkgs.prtsc
+  home.packages = with pkgs; [
+    # prtsc # check https://github.com/spikespaz/dotfiles
   ];
 }
