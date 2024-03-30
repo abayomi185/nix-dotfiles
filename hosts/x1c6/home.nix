@@ -30,8 +30,6 @@
     outputs.homeManagerModules.shell.starship
     # Browsers - See ../../modules/home-manager/browsers/default.nix
     outputs.homeManagerModules.browsers.brave
-    # Monitoring - See ../../modules/home-manager/browsers/default.nix
-    outputs.homeManagerModules.monitoring.btop
     # Desktop - See ../../modules/home-manager/desktop/default.nix
     outputs.homeManagerModules.desktop.hyprland
   ];

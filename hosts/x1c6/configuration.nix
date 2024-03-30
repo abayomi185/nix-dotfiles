@@ -23,6 +23,8 @@
       outputs.nixosModules.apps.ripgrep
       # Desktop: See ../../modules/nixos/desktop/default.nix
       outputs.nixosModules.desktop.hyprland
+      # Monitoring - See ../../modules/nixos/monitoring/default.nix
+      outputs.nixosModules.monitoring.btop
     ];
 
   nixpkgs = {
