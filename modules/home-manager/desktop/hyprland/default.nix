@@ -1,4 +1,4 @@
-{
+{ inputs, pkgs, ... }: {
   imports = [
     ../rofi
     ../waybar
@@ -15,7 +15,9 @@
     enable = true;
     xwayland.enable = true;
 
-    plugins = [ ];
+    plugins = [
+      inputs.hyprland-plugins.packages.${pkgs.system}.hyprbars
+    ];
 
     settings = {
       "$mod" = "SUPER";
