@@ -17,9 +17,13 @@
     hardware.url = "github:nixos/nixos-hardware";
 
     # Hyprland
-    # hyprland.url = "github:hyprwm/Hyprland"; # Dev
+    hyprland.url = "github:hyprwm/Hyprland";
     hyprlock.url = "github:hyprwm/hyprlock";
     hypridle.url = "github:hyprwm/hypridle";
+    hyprland-plugins = {
+      url = "github:hyprwm/hyprland-plugins";
+      inputs.hyprland.follows = "hyprland";
+    };
 
     # Shameless plug: looking for a way to nixify your themes and make
     # everything match nicely? Try nix-colors!
