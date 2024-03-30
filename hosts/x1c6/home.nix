@@ -18,6 +18,7 @@
     # apps, editors, or devtools
 
     # All Modules: See ../../modules/home-manager/default.nix
+
     # Music - See ../../modules/home-manager/music/default.nix
     outputs.homeManagerModules.music.spotify
     # Terminal - See ../../modules/home-manager/terminal/default.nix
@@ -29,6 +30,10 @@
     outputs.homeManagerModules.shell.starship
     # Browsers - See ../../modules/home-manager/browsers/default.nix
     outputs.homeManagerModules.browsers.brave
+    # Monitoring - See ../../modules/home-manager/browsers/default.nix
+    outputs.homeManagerModules.monitoring.btop
+    # Desktop - See ../../modules/home-manager/desktop/default.nix
+    outputs.homeManagerModules.desktop.hyprland
   ];
 
   nixpkgs = {

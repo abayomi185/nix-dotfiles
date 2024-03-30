@@ -21,6 +21,8 @@
       # Apps: See ../../modules/nixos/apps/default.nix
       outputs.nixosModules.apps.neovim
       outputs.nixosModules.apps.ripgrep
+      # Desktop: See ../../modules/nixos/desktop/default.nix
+      outputs.nixosModules.desktop.hyprland
     ];
 
   nixpkgs = {
@@ -68,6 +70,10 @@
     experimental-features = "nix-command flakes";
     # Deduplicate and optimize nix store
     auto-optimise-store = true;
+
+    # Cache for Hyprland
+    substituters = [ "https://hyprland.cachix.org" ];
+    trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
   };
 
   # Bootloader.
@@ -222,5 +228,4 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.11"; # Did you read the comment?
-
 }
