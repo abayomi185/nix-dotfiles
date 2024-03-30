@@ -9,14 +9,14 @@
 }: {
   # You can import other home-manager modules here
   imports = [
-    # If you want to use modules your own flake exports (from modules/home-manager):
-    # outputs.homeManagerModules.example
-
     # Or modules exported from other flakes (such as nix-colors):
     # inputs.nix-colors.homeManagerModules.default
+    inputs.hyprlock.homeManagerModules.default
+    inputs.hypridle.homeManagerModules.default
 
     # apps, editors, or devtools
 
+    # If you want to use modules your own flake exports (from modules/home-manager):
     # All Modules: See ../../modules/home-manager/default.nix
 
     # Music - See ../../modules/home-manager/music/default.nix
