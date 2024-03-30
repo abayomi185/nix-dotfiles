@@ -15,4 +15,7 @@
 
   # Apps
   apps = import ./apps;
+
+  # Monitoring
+  monitoring = import ./monitoring;
 }
