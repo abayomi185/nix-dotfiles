@@ -25,6 +25,8 @@
       outputs.nixosModules.desktop.hyprland
       # Monitoring - See ../../modules/nixos/monitoring/default.nix
       outputs.nixosModules.monitoring.btop
+      # Networking - See ../../modules/nixos/networking/default.nix
+      outputs.nixosModules.networking.bluetooth
     ];
 
   nixpkgs = {
@@ -92,10 +94,6 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
-
-  # Bluetooth
-  hardware.bluetooth.enable = true;
-  hardware.bluetooth.powerOnBoot = true;
 
   # Set your time zone.
   time.timeZone = "Europe/London";
