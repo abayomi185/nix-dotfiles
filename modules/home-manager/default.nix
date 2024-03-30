@@ -10,6 +10,9 @@
   # Terminal
   terminal = import ./terminal;
 
+  # Desktop
+  desktop = import ./desktop;
+
   # Browsers
   browsers = import ./browsers;
 
