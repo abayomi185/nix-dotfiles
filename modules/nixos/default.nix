@@ -10,6 +10,9 @@
   # Networking
   networking = import ./networking;
 
+  # Desktop
+  desktop = import ./desktop;
+
   # Apps
   apps = import ./apps;
 }
