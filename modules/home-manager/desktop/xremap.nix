@@ -8,7 +8,14 @@
     withHypr = true;
 
     config = {
-      keymap = { };
+      modmap = [
+        # {
+        #   name = "Capslock to Super";
+        #   remap = {
+        #     capslock = "Super_L";
+        #   };
+        # }
+      ];
     };
   };
 }
