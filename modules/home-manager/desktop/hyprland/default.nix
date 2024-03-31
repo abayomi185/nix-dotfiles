@@ -1,6 +1,9 @@
 { inputs, pkgs, ... }: {
   imports = [
-    ../rofi
+    inputs.hyprlock.homeManagerModules.default
+    inputs.hypridle.homeManagerModules.default
+
+    # ../rofi # Not working
     ../waybar
     #
     # ../mako.nix
