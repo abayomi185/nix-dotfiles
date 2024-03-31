@@ -18,4 +18,7 @@
 
   # Music
   music = import ./music;
+
+  # Dev
+  dev = import ./dev;
 }
