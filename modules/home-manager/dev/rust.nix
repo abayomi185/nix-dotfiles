@@ -1,9 +1,9 @@
 { inputs, pkgs, ... }: {
-  imports = [
+  nixpkgs.overlays = [
     inputs.rust-overlay.overlays.default
   ];
 
-  environment.systemPackages = with pkgs; [
+  home.packages = with pkgs; [
     rust-bin.stable.latest.default
     # rust-bin.stable.latest.default.override
     # {
@@ -11,5 +11,4 @@
     #   targets = [ "arm-unknown-linux-gnueabihf" ];
     # }
   ];
-
 }
