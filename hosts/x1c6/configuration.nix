@@ -35,6 +35,7 @@
       # Add overlays your own flake exports (from overlays and pkgs dir):
       outputs.overlays.additions
       outputs.overlays.modifications
+      outputs.overlays.stable-packages
       outputs.overlays.unstable-packages
 
       # You can also add overlays exported from other flakes:
@@ -60,13 +61,21 @@
 
   # This will additionally add your inputs to the system's legacy channels
   # Making legacy nix commands consistent as well, awesome!
-  nix.nixPath = [ "/etc/nix/path" ];
+  # Set the nixPath to include the unstable nixpkgs from the flake inputs
+  nix.nixPath = [
+    "nixpkgs=${inputs.nixpkgs-unstable}/nixpkgs"
+  ];
+  # Use lib.mapAttrs' to create environment.etc entries for the nix path
   environment.etc =
+    let
+      nixpkgsUnstablePath = "${inputs.nixpkgs-unstable}/nixpkgs";
+    in
     lib.mapAttrs'
-      (name: value: {
-        name = "nix/path/${name}";
-        value.source = value.flake;
-      })
+      (name: value:
+        {
+          name = "nix/path/${name}";
+          value.source = if name == "nixpkgs" then nixpkgsUnstablePath else value.flake;
+        })
       config.nix.registry;
 
   nix.settings = {
@@ -144,7 +153,7 @@
     alsa.support32Bit = true;
     pulse.enable = true;
     # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
+    jack.enable = true;
 
     # use the example session manager (no others are packaged yet so this is enabled by default,
     # no need to redefine it in your config for now)
@@ -182,10 +191,10 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    #  wget
-  ];
+  # environment.systemPackages = with pkgs; [
+  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+  #  wget
+  # ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
