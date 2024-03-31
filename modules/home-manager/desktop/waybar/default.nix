@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }:
 let
-  package = pkgs.waybar;
+  package = pkgs.stable.waybar;
 
   # the fonts that will be included with the waybar package
   fontPackages = [ pkgs.ubuntu_font_family pkgs.material-design-icons ];
@@ -25,10 +25,10 @@ let
   # environment (at least with systemd) and therefore GUIs use the default theme
   commands =
     let
-      slight = "${lib.getExe pkgs.slight}";
+      # slight = "${lib.getExe pkgs.slight}";
       hyprctl = "${config.wayland.windowManager.hyprland.package}/bin/hyprctl";
       # TODO this is duplicated from the hyprland config, make it a module
-      kbFns = lib.getExe config.utilities.osd-functions.package;
+      # kbFns = lib.getExe config.utilities.osd-functions.package;
       pavucontrol = lib.getExe pkgs.lxqt.pavucontrol-qt;
       blueman-manager = "${pkgs.blueman}/bin/blueman-manager";
       bluetoothctl = "${pkgs.bluez}/bin/bluetoothctl";
@@ -36,16 +36,16 @@ let
       iwgtk = lib.getExe pkgs.iwgtk;
     in
     {
-      backlightUp = "${slight} inc 5% -t 150ms";
-      backlightDown = "${slight} dec 5% -t 150ms";
+      # backlightUp = "${slight} inc 5% -t 150ms";
+      # backlightDown = "${slight} dec 5% -t 150ms";
       # TODO --tab no longer works, what is the identifier to use?
       outputSoundSettings = "${pavucontrol} --tab 'Output Devices'";
-      outputVolumeMute = "${kbFns} output mute";
-      outputVolumeUp = "${kbFns} output +0.05";
-      outputVolumeDown = "${kbFns} output -0.05";
+      # outputVolumeMute = "${kbFns} output mute";
+      # outputVolumeUp = "${kbFns} output +0.05";
+      # outputVolumeDown = "${kbFns} output -0.05";
       # TODO --tab no longer works, what is the identifier to use?
       inputSoundSettings = "${pavucontrol} --tab 'Input Devices'";
-      inputVolumeMute = "${kbFns} input mute";
+      # inputVolumeMute = "${kbFns} input mute";
       # inputVolumeUp = "${kbFns} input +0.05";
       # inputVolumeDown = "${kbFns} input -0.05";
       bluetoothSettings = (pkgs.writeShellScript "waybar-bluetooth-settings" ''
@@ -179,7 +179,7 @@ in
           stopped = "󰓛";
         };
 
-        tooltip-format = lib.trim ''
+        tooltip-format = ''
           <b>Player:</b> {player} ({status})
           <b>Title:</b> {title}
           <b>Artist:</b> {artist}
@@ -229,9 +229,13 @@ in
         ignored-sinks = [ "Easy Effects Sink" ];
 
         on-click = commands.outputSoundSettings;
-        on-click-right = commands.outputVolumeMute;
-        on-scroll-up = commands.outputVolumeUp;
-        on-scroll-down = commands.outputVolumeDown;
+        # on-click-right = commands.outputVolumeMute;
+        # on-scroll-up = commands.outputVolumeUp;
+        # on-scroll-down = commands.outputVolumeDown;
+        # TEST:
+        on-click-right = "";
+        on-scroll-up = "";
+        on-scroll-down = "";
       };
 
       # TODO volume
@@ -243,20 +247,24 @@ in
         format-source-muted = "󰍭";
 
         on-click = commands.inputSoundSettings;
-        on-click-right = commands.inputVolumeMute;
+        # on-click-right = commands.inputVolumeMute;
         # on-scroll-up = commands.inputVolumeUp;
         # on-scroll-down = commands.inputVolumeDown;
+        # TEST:
+        on-click-right = "";
+        on-scroll-up = "";
+        on-scroll-down = "";
       };
 
-      backlight = {
-        device = "amdgpu_bl0";
-        format = "{icon} {percent}%";
-        # format-icons = ["󰃜" "󰃛" "󰃝" "󰃟" "󰃠"];
-        format-icons = [ "󱩎" "󱩏" "󱩐" "󱩑" "󱩒" "󱩓" "󱩔" "󱩕" "󱩖" "󰛨" ];
-
-        on-scroll-up = commands.backlightUp;
-        on-scroll-down = commands.backlightDown;
-      };
+      # backlight = {
+      #   device = "amdgpu_bl0";
+      #   format = "{icon} {percent}%";
+      #   # format-icons = ["󰃜" "󰃛" "󰃝" "󰃟" "󰃠"];
+      #   format-icons = [ "󱩎" "󱩏" "󱩐" "󱩑" "󱩒" "󱩓" "󱩔" "󱩕" "󱩖" "󰛨" ];
+      #
+      #   on-scroll-up = commands.backlightUp;
+      #   on-scroll-down = commands.backlightDown;
+      # };
 
       memory = {
         interval = 10;
@@ -273,7 +281,7 @@ in
         hwmon-path-abs = "/sys/devices/pci0000:00/0000:00:18.3/hwmon";
         input-filename = "temp1_input";
         critical-threshold =
-          90; # 15C lower than Tjmax <https://www.amd.com/en/product/9686>
+          85; # 15C lower than Tjmax <https://www.intel.com/content/www/us/en/products/sku/124969/intel-core-i58350u-processor-6m-cache-up-to-3-60-ghz/specifications.html>
         format = "{icon} {temperatureC}°C";
         format-critical = "󰈸 {temperatureC}°C";
         # 4x low, 2x mid, 3x high, for 0-90
@@ -296,11 +304,11 @@ in
           format-disconnected = "󰲛";
           format-icons = [ "󰤟" "󰤢" "󰤥" "󰤨" ];
 
-          tooltip-format = lib.trim ''
+          tooltip-format = ''
             <b>Interface</b>: {ifname}
             ${tooltip}
           '';
-          tooltip-format-wifi = lib.trim ''
+          tooltip-format-wifi = ''
             <b>SSID:</b> {essid}
             <b>Strength:</b> {signaldBm} dBmW ({signalStrength}%)
             <b>Frequency:</b> {frequency} GHz
