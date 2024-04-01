@@ -32,8 +32,8 @@
     # outputs.homeManagerModules.desktop.theme
     # outputs.homeManagerModules.desktop.hyprland
     # Dev - See ../../modules/home-manager/dev/default.nix
-    outputs.homeManagerModules.dev.go
     outputs.homeManagerModules.dev.rust
+    outputs.homeManagerModules.dev.podman
   ];
 
   nixpkgs = {
