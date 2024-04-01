@@ -29,6 +29,7 @@
     # Browsers - See ../../modules/home-manager/browsers/default.nix
     outputs.homeManagerModules.browsers.brave
     # Desktop - See ../../modules/home-manager/desktop/default.nix
+    # outputs.homeManagerModules.desktop.theme
     # outputs.homeManagerModules.desktop.hyprland
     # Dev - See ../../modules/home-manager/dev/default.nix
     outputs.homeManagerModules.dev.go
