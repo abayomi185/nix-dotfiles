@@ -33,7 +33,6 @@
     # outputs.homeManagerModules.desktop.hyprland
     # Dev - See ../../modules/home-manager/dev/default.nix
     outputs.homeManagerModules.dev.rust
-    outputs.homeManagerModules.dev.podman
   ];
 
   nixpkgs = {

@@ -28,6 +28,8 @@
       outputs.nixosModules.monitoring.btop
       # Networking - See ../../modules/nixos/networking/default.nix
       outputs.nixosModules.networking.bluetooth
+      # Dev - See ../../modules/nixos/dev/default.nix
+      outputs.nixosModules.dev.podman
     ];
 
   nixpkgs = {
@@ -65,6 +67,7 @@
   # Set the nixPath to include the unstable nixpkgs from the flake inputs
   nix.nixPath = [
     "nixpkgs=${inputs.nixpkgs-unstable}/nixpkgs"
+    # "/etc/nixos/path"
   ];
   # Use lib.mapAttrs' to create environment.etc entries for the nix path
   environment.etc =

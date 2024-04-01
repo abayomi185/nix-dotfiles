@@ -1,0 +1,3 @@
+{
+  podman = import ./podman.nix;
+}
