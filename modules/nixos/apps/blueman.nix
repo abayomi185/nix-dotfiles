@@ -1,0 +1,3 @@
+{
+  services.blueman.enable = true;
+}
