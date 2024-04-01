@@ -1,4 +1,5 @@
 {
   rust = import ./rust.nix;
-  go = import ./go.nix;
+
+  python = import ./python.nix;
 }
