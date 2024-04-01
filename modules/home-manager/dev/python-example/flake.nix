@@ -26,9 +26,9 @@
           # ENV_VAR_NAME = "value";
 
           # Run any shell hook commands
-          # shellHook = ''
-          #   echo "Welcome to the development environment!"
-          # '';
+          shellHook = ''
+            echo "Welcome to the Python development environment!"
+          '';
         };
       }
     );
