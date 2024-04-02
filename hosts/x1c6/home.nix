@@ -14,8 +14,7 @@
 
     # apps, editors, or devtools
 
-    # If you want to use modules your own flake exports (from modules/home-manager):
-    # All Modules: See ../../modules/home-manager/default.nix
+    # All Modules - See ../../modules/home-manager/default.nix
 
     # Music - See ../../modules/home-manager/music/default.nix
     outputs.homeManagerModules.music.spotify
@@ -33,6 +32,7 @@
     # outputs.homeManagerModules.desktop.hyprland
     # Dev - See ../../modules/home-manager/dev/default.nix
     outputs.homeManagerModules.dev.rust
+    outputs.homeManagerModules.dev.nodejs
   ];
 
   nixpkgs = {
