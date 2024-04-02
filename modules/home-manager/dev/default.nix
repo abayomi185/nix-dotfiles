@@ -4,4 +4,6 @@
   python = import ./python.nix;
 
   nodejs = import ./nodejs.nix;
+
+  direnv = import ./direnv.nix;
 }
