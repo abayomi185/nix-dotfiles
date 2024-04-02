@@ -16,6 +16,13 @@
     # Any other flake needed
     hardware.url = "github:nixos/nixos-hardware";
 
+    # Fingerprint
+    nixos-06cb-009a-fingerprint-sensor = {
+      url = "github:ahbnr/nixos-06cb-009a-fingerprint-sensor";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+    };
+
+
     # Hyprland
     hyprland.url = "github:hyprwm/Hyprland";
     hyprlock.url = "github:hyprwm/hyprlock";
