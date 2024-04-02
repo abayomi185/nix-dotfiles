@@ -1,0 +1,3 @@
+{
+  bat = import ./bat.nix;
+}
