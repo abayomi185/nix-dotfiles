@@ -28,11 +28,9 @@
       outputs.nixosModules.monitoring.btop
       # Networking - See ../../modules/nixos/networking/default.nix
       outputs.nixosModules.networking.bluetooth
+      outputs.nixosModules.networking.tailscale
       # Dev - See ../../modules/nixos/dev/default.nix
       outputs.nixosModules.dev.podman
-      # Security
-      inputs.nixos-06cb-009a-fingerprint-sensor.nixosModules.open-fprintd
-      inputs.nixos-06cb-009a-fingerprint-sensor.nixosModules.python-validity
     ];
 
   nixpkgs = {
