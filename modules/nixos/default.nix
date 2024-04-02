@@ -18,4 +18,7 @@
 
   # Monitoring
   monitoring = import ./monitoring;
+
+  # Dev
+  dev = import ./dev;
 }
