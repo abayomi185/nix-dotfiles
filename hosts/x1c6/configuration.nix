@@ -30,6 +30,9 @@
       outputs.nixosModules.networking.bluetooth
       # Dev - See ../../modules/nixos/dev/default.nix
       outputs.nixosModules.dev.podman
+      # Security
+      inputs.nixos-06cb-009a-fingerprint-sensor.nixosModules.open-fprintd
+      inputs.nixos-06cb-009a-fingerprint-sensor.nixosModules.python-validity
     ];
 
   nixpkgs = {
@@ -195,10 +198,10 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  # environment.systemPackages = with pkgs; [
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #  wget
-  # ];
+  environment.systemPackages = with pkgs; [
+    #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    #  wget
+  ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -222,7 +225,18 @@
   # Other services
   services.flatpak.enable = true;
   services.fwupd.enable = true;
-  services.fprintd.enable = true;
+  # services.open-fprintd.enable = true;
+  # services.python-validity.enable = true;
+
+  services.fprintd = {
+    enable = true;
+    tod = {
+      enable = true;
+      driver = inputs.nixos-06cb-009a-fingerprint-sensor.lib.libfprint-2-tod1-vfs0090-bingch {
+        calib-data-file = ./calib-data.bin;
+      };
+    };
+  };
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];

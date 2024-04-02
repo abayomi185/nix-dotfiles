@@ -509,6 +509,26 @@
         "type": "github"
       }
     },
+    "nixos-06cb-009a-fingerprint-sensor": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs-stable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1702831324,
+        "narHash": "sha256-bpDHKBDBcuMO14FFdBCEfsW26hzu2lby6xtfoU0jKW4=",
+        "owner": "ahbnr",
+        "repo": "nixos-06cb-009a-fingerprint-sensor",
+        "rev": "58a01fe62f5a71778bffaeb9929a118b4be0d222",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ahbnr",
+        "repo": "nixos-06cb-009a-fingerprint-sensor",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1708475490,
@@ -695,6 +715,7 @@
         "hyprland": "hyprland",
         "hyprland-plugins": "hyprland-plugins",
         "hyprlock": "hyprlock",
+        "nixos-06cb-009a-fingerprint-sensor": "nixos-06cb-009a-fingerprint-sensor",
         "nixpkgs-stable": "nixpkgs-stable",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "rust-overlay": "rust-overlay",
