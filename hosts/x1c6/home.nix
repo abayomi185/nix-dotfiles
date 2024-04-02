@@ -16,6 +16,8 @@
 
     # All Modules - See ../../modules/home-manager/default.nix
 
+    # Apps - See ../../modules/home-manager/apps/default.nix
+    outputs.homeManagerModules.apps.bat
     # Music - See ../../modules/home-manager/music/default.nix
     outputs.homeManagerModules.music.spotify
     # Terminal - See ../../modules/home-manager/terminal/default.nix
@@ -32,6 +34,7 @@
     # outputs.homeManagerModules.desktop.hyprland
     # Dev - See ../../modules/home-manager/dev/default.nix
     outputs.homeManagerModules.dev.rust
+    outputs.homeManagerModules.dev.zig
     outputs.homeManagerModules.dev.nodejs
   ];
 
