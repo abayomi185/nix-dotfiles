@@ -4,6 +4,9 @@
   # List your module files here
   # my-module = import ./my-module.nix;
 
+  # Apps
+  apps = import ./apps;
+
   # Shell
   shell = import ./shell;
 
