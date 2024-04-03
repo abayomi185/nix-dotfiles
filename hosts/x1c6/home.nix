@@ -18,6 +18,7 @@
 
     # Apps - See ../../modules/home-manager/apps/default.nix
     outputs.homeManagerModules.apps.bat
+    outputs.homeManagerModules.apps.tmux
     # Music - See ../../modules/home-manager/music/default.nix
     outputs.homeManagerModules.music.spotify
     # Terminal - See ../../modules/home-manager/terminal/default.nix
