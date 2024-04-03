@@ -15,6 +15,10 @@
       inputs.hardware.nixosModules.lenovo-thinkpad-x1-6th-gen
       ./hardware-configuration.nix
 
+      # For fingerprint enrollment
+      # inputs.nixos-06cb-009a-fingerprint-sensor.nixosModules.open-fprintd
+      # inputs.nixos-06cb-009a-fingerprint-sensor.nixosModules.python-validity
+
       # All Modules: See ../../modules/nixos/default.nix
       outputs.nixosModules.clipboard
       outputs.nixosModules.fonts
@@ -223,9 +227,11 @@
   # Other services
   services.flatpak.enable = true;
   services.fwupd.enable = true;
+
+  # For enrollment
   # services.open-fprintd.enable = true;
   # services.python-validity.enable = true;
-
+  # For general use
   services.fprintd = {
     enable = true;
     tod = {
