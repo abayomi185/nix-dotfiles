@@ -13,6 +13,7 @@
         la = "ls -la";
         check = "nix flake check";
         update = "sudo nixos-rebuild switch";
+        garbage = "sudo nix-collect-garbage --delete-older-than";
       };
 
       # zshrc equivalent
