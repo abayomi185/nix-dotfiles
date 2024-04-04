@@ -1,3 +1,3 @@
-{ pkgs, ... }: {
-  home.packages = with pkgs; [ obsidian ];
+{pkgs, ...}: {
+  home.packages = with pkgs; [obsidian];
 }

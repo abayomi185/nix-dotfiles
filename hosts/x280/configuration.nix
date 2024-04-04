@@ -1,27 +1,26 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ inputs
-, outputs
-, lib
-, config
-, pkgs
-, ...
+{
+  inputs,
+  outputs,
+  lib,
+  config,
+  pkgs,
+  ...
   # } @args: {
 }: {
-  imports =
-    [
-      # Include the results of the hardware scan.
-      inputs.hardware.nixosModules.lenovo-thinkpad-x280
-      ./hardware-configuration.nix
-      # Plasma6
-      # inputs.nixpkgs-unstable.nixos/modules/services/desktop-managers
-      # pkgs.unstable.nixos.services.desktop-managers
-      # "${args.inputs.nixpkgs-unstable}/nixos/modules/services/desktop-managers/plasma6.nix"
-      # "${args.inputs.nixpkgs-unstable}/nixos/modules/programs/chromium.nix"
-      # "${args.inputs.nixpkgs-unstable}/nixos/modules/programs/gnupg.nix"
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    inputs.hardware.nixosModules.lenovo-thinkpad-x280
+    ./hardware-configuration.nix
+    # Plasma6
+    # inputs.nixpkgs-unstable.nixos/modules/services/desktop-managers
+    # pkgs.unstable.nixos.services.desktop-managers
+    # "${args.inputs.nixpkgs-unstable}/nixos/modules/services/desktop-managers/plasma6.nix"
+    # "${args.inputs.nixpkgs-unstable}/nixos/modules/programs/chromium.nix"
+    # "${args.inputs.nixpkgs-unstable}/nixos/modules/programs/gnupg.nix"
+  ];
 
   nixpkgs = {
     # You can add overlays here
@@ -50,18 +49,18 @@
 
   # This will add each flake input as a registry
   # To make nix3 commands consistent with your flake
-  nix.registry = (lib.mapAttrs (_: flake: { inherit flake; })) ((lib.filterAttrs (_: lib.isType "flake")) inputs);
+  nix.registry = (lib.mapAttrs (_: flake: {inherit flake;})) ((lib.filterAttrs (_: lib.isType "flake")) inputs);
 
   # This will additionally add your inputs to the system's legacy channels
   # Making legacy nix commands consistent as well, awesome!
-  nix.nixPath = [ "/etc/nix/path" ];
+  nix.nixPath = ["/etc/nix/path"];
   environment.etc =
     lib.mapAttrs'
-      (name: value: {
-        name = "nix/path/${name}";
-        value.source = value.flake;
-      })
-      config.nix.registry;
+    (name: value: {
+      name = "nix/path/${name}";
+      value.source = value.flake;
+    })
+    config.nix.registry;
 
   nix.settings = {
     # Enable flakes and new 'nix' command
@@ -169,7 +168,7 @@
         # TODO: Add your SSH public key(s) here, if you plan on using SSH to connect
       ];
       # TODO: Be sure to add any other groups you need (such as networkmanager, audio, docker, etc)
-      extraGroups = [ "networkmanager" "wheel" ];
+      extraGroups = ["networkmanager" "wheel"];
       packages = with pkgs; [
         firefox
         # thunderbird
@@ -178,7 +177,7 @@
   };
 
   fonts.packages = with pkgs; [
-    (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" "JetBrainsMono" ]; })
+    (nerdfonts.override {fonts = ["FiraCode" "DroidSansMono" "JetBrainsMono"];})
   ];
 
   # List packages installed in system profile. To search, run:
@@ -230,8 +229,8 @@
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 
-  networking.firewall.allowedTCPPorts = [ 57621 ];
-  networking.firewall.allowedUDPPorts = [ 5353 ];
+  networking.firewall.allowedTCPPorts = [57621];
+  networking.firewall.allowedUDPPorts = [5353];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
@@ -241,5 +240,4 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "23.11"; # Did you read the comment?
-
 }
