@@ -1,4 +1,4 @@
 {
   kitty = import ./kitty.nix;
-  wezterm = import ./wezterm.nix;
+  wezterm = import ./wezterm;
 }
