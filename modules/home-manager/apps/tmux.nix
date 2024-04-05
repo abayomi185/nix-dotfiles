@@ -27,10 +27,9 @@
     ];
     # terminal = "tmux-256color";
     terminal = "xterm-256color";
-    mouse = "on";
+    mouse = true;
     keyMode = "vi";
     clock24 = true;
-    defaultShell = "${pkgs.zsh}/bin/zsh";
     extraConfig = ''
       bind -T copy-mode-vi v send -X begin-selection
       bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "pbcopy"
