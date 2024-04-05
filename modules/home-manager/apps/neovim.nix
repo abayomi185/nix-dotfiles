@@ -9,6 +9,9 @@
       # Global Nix packages
       nil
       alejandra
+      # Other Global
+      # prettierd
+      # taplo
     ];
   };
 }
