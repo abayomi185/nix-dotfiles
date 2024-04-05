@@ -108,6 +108,13 @@
           ];
         };
 
+        "yomi@A-MacBook-Pro-eth.lan" = home-manager.lib.homeManagerConfiguration {
+          pkgs = inputs.nixpkgs-unstable.legacyPackages.aarch64-darwin; # Home-manager requires 'pkgs' instance
+          extraSpecialArgs = { inherit inputs outputs; };
+          modules = [
+            ./hosts/mbp16/home.nix
+          ];
+        };
       };
     };
 }
