@@ -1,0 +1,3 @@
+{
+  casks = import ./casks;
+}
