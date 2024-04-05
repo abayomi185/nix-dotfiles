@@ -22,7 +22,6 @@
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
-
     # Hyprland
     hyprland.url = "github:hyprwm/Hyprland";
     hyprlock.url = "github:hyprwm/hyprlock";
@@ -115,6 +114,7 @@
             ./hosts/mbp16/home.nix
           ];
         };
+
       };
     };
 }

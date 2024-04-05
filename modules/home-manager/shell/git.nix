@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   programs.git = {
     enable = true;
     userName = "Yomi Ikuru";
@@ -6,5 +6,5 @@
   };
 
   # Add lazygit
-  home.packages = with pkgs; [ lazygit ];
+  home.packages = with pkgs; [lazygit];
 }

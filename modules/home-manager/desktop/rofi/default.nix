@@ -1,4 +1,8 @@
-{ pkgs, config, ... }: {
+{
+  pkgs,
+  config,
+  ...
+}: {
   # See this dotfile: https://github.com/karstenpedersen/dotfiles
   programs.rofi = {
     enable = true;
@@ -12,7 +16,9 @@
       '';
     };
     font = "Noto Sans 12";
-    theme = let inherit (config.lib.formats.rasi) mkLiteral; in {
+    theme = let
+      inherit (config.lib.formats.rasi) mkLiteral;
+    in {
       "*" = {
         background = mkLiteral "#${config.colorScheme.colors.base01}";
         background-alt = mkLiteral "#${config.colorScheme.colors.base00}";

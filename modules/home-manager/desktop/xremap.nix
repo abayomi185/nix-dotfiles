@@ -1,5 +1,4 @@
-{ inputs, ... }: {
-
+{inputs, ...}: {
   imports = [
     inputs.xremap.homeManagerModules.default
   ];

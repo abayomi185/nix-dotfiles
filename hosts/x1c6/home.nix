@@ -1,11 +1,12 @@
 # This is your home-manager configuration file
 # Use this to configure your home environment (it replaces ~/.config/nixpkgs/home.nix)
-{ inputs
-, outputs
-, lib
-, config
-, pkgs
-, ...
+{
+  inputs,
+  outputs,
+  lib,
+  config,
+  pkgs,
+  ...
 }: {
   # You can import other home-manager modules here
   imports = [
@@ -18,6 +19,9 @@
 
     # Apps - See ../../modules/home-manager/apps/default.nix
     outputs.homeManagerModules.apps.bat
+    outputs.homeManagerModules.apps.k9s
+    outputs.homeManagerModules.apps.neovim
+    outputs.homeManagerModules.apps.obsidian
     outputs.homeManagerModules.apps.tmux
     # Music - See ../../modules/home-manager/music/default.nix
     outputs.homeManagerModules.music.spotify

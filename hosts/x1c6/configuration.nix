@@ -1,41 +1,40 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ inputs
-, outputs
-, lib
-, config
-, pkgs
-, ...
+{
+  inputs,
+  outputs,
+  lib,
+  config,
+  pkgs,
+  ...
 }: {
-  imports =
-    [
-      # Include the results of the hardware scan.
-      inputs.hardware.nixosModules.lenovo-thinkpad-x1-6th-gen
-      ./hardware-configuration.nix
+  imports = [
+    # Include the results of the hardware scan.
+    inputs.hardware.nixosModules.lenovo-thinkpad-x1-6th-gen
+    ./hardware-configuration.nix
 
-      # For fingerprint enrollment
-      # inputs.nixos-06cb-009a-fingerprint-sensor.nixosModules.open-fprintd
-      # inputs.nixos-06cb-009a-fingerprint-sensor.nixosModules.python-validity
+    # For fingerprint enrollment
+    # inputs.nixos-06cb-009a-fingerprint-sensor.nixosModules.open-fprintd
+    # inputs.nixos-06cb-009a-fingerprint-sensor.nixosModules.python-validity
 
-      # All Modules: See ../../modules/nixos/default.nix
-      outputs.nixosModules.clipboard
-      outputs.nixosModules.fonts
-      # Apps: See ../../modules/nixos/apps/default.nix
-      outputs.nixosModules.apps.neovim
-      outputs.nixosModules.apps.ripgrep
-      # Desktop: See ../../modules/nixos/desktop/default.nix
-      outputs.nixosModules.desktop.inputs
-      outputs.nixosModules.desktop.hyprland
-      # Monitoring - See ../../modules/nixos/monitoring/default.nix
-      outputs.nixosModules.monitoring.btop
-      # Networking - See ../../modules/nixos/networking/default.nix
-      outputs.nixosModules.networking.bluetooth
-      outputs.nixosModules.networking.tailscale
-      # Dev - See ../../modules/nixos/dev/default.nix
-      outputs.nixosModules.dev.podman
-    ];
+    # All Modules: See ../../modules/nixos/default.nix
+    outputs.nixosModules.clipboard
+    outputs.nixosModules.fonts
+    # Apps: See ../../modules/nixos/apps/default.nix
+    outputs.nixosModules.apps.neovim
+    outputs.nixosModules.apps.ripgrep
+    # Desktop: See ../../modules/nixos/desktop/default.nix
+    outputs.nixosModules.desktop.inputs
+    outputs.nixosModules.desktop.hyprland
+    # Monitoring - See ../../modules/nixos/monitoring/default.nix
+    outputs.nixosModules.monitoring.btop
+    # Networking - See ../../modules/nixos/networking/default.nix
+    outputs.nixosModules.networking.bluetooth
+    outputs.nixosModules.networking.tailscale
+    # Dev - See ../../modules/nixos/dev/default.nix
+    outputs.nixosModules.dev.podman
+  ];
 
   nixpkgs = {
     # You can add overlays here
@@ -65,7 +64,7 @@
 
   # This will add each flake input as a registry
   # To make nix3 commands consistent with your flake
-  nix.registry = (lib.mapAttrs (_: flake: { inherit flake; })) ((lib.filterAttrs (_: lib.isType "flake")) inputs);
+  nix.registry = (lib.mapAttrs (_: flake: {inherit flake;})) ((lib.filterAttrs (_: lib.isType "flake")) inputs);
 
   # This will additionally add your inputs to the system's legacy channels
   # Making legacy nix commands consistent as well, awesome!
@@ -75,17 +74,18 @@
     # "/etc/nixos/path"
   ];
   # Use lib.mapAttrs' to create environment.etc entries for the nix path
-  environment.etc =
-    let
-      nixpkgsUnstablePath = "${inputs.nixpkgs-unstable}/nixpkgs";
-    in
+  environment.etc = let
+    nixpkgsUnstablePath = "${inputs.nixpkgs-unstable}/nixpkgs";
+  in
     lib.mapAttrs'
-      (name: value:
-        {
-          name = "nix/path/${name}";
-          value.source = if name == "nixpkgs" then nixpkgsUnstablePath else value.flake;
-        })
-      config.nix.registry;
+    (name: value: {
+      name = "nix/path/${name}";
+      value.source =
+        if name == "nixpkgs"
+        then nixpkgsUnstablePath
+        else value.flake;
+    })
+    config.nix.registry;
 
   nix.settings = {
     # Enable flakes and new 'nix' command
@@ -94,8 +94,8 @@
     auto-optimise-store = true;
 
     # Cache for Hyprland
-    substituters = [ "https://hyprland.cachix.org" ];
-    trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
+    substituters = ["https://hyprland.cachix.org"];
+    trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
   };
 
   # Bootloader.
@@ -187,7 +187,7 @@
       ];
 
       # TODO: Be sure to add any other groups you need (such as networkmanager, audio, docker, etc)
-      extraGroups = [ "networkmanager" "wheel" ];
+      extraGroups = ["networkmanager" "wheel"];
 
       packages = with pkgs; [
         # NOTE: Packages installed via home-manager
@@ -249,8 +249,8 @@
   # networking.firewall.enable = false;
 
   # For Spotify support
-  networking.firewall.allowedTCPPorts = [ 57621 ];
-  networking.firewall.allowedUDPPorts = [ 5353 ];
+  networking.firewall.allowedTCPPorts = [57621];
+  networking.firewall.allowedUDPPorts = [5353];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

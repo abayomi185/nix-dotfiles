@@ -13,6 +13,7 @@
         la = "ls -la";
         check = "nix flake check";
         update = "sudo nixos-rebuild switch";
+        garbage = "sudo nix-collect-garbage --delete-older-than";
       };
 
       # zshrc equivalent
@@ -33,8 +34,14 @@
       zplug = {
         enable = true;
         plugins = [
-          { name = "plugins/git"; tags = [ "from:oh-my-zsh" ]; }
-          { name = "plugins/vi-mode"; tags = [ "from:oh-my-zsh" ]; }
+          {
+            name = "plugins/git";
+            tags = ["from:oh-my-zsh"];
+          }
+          {
+            name = "plugins/vi-mode";
+            tags = ["from:oh-my-zsh"];
+          }
           # { name = "plugins/fzf"; tags = [ "from:oh-my-zsh" ]; }
           # { name = "plugins/ripgrep"; tags = [ "from:oh-my-zsh" ]; }
           # { name = "jeffreytse/zsh-vi-mode"; }
