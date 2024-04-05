@@ -10,4 +10,4 @@
 - [ ] **lib**: WIP - intended for keeping helpers and utils
 
 ## Core Apps/Packages
-- zsh, neovim (AstroNvim), tmux, starship, wezterm, KDE
+- zsh, neovim (AstroNvim), tmux, starship, wezterm, KDE (Hyprland soon)
