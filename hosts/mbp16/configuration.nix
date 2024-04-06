@@ -1,8 +1,15 @@
 { config
 , pkgs
+, outputs
 , ...
 }:
 {
+  imports = [
+    # Desktop (darwin) - See ../../modules/darwin/desktop/default.nix
+    outputs.darwinModules.desktop.skhd
+    outputs.darwinModules.desktop.yabai
+  ];
+
   # Use a custom configuration.nix location.
   # $ darwin-rebuild switch -I darwin-config=$HOME/.config/nixpkgs/darwin/configuration.nix
   # environment.darwinConfig = "$HOME/.config/nixpkgs/darwin/configuration.nix";
