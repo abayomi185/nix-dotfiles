@@ -9,6 +9,26 @@
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     # Also see the 'unstable-packages' overlay at 'overlays/default.nix'.
 
+    # Darwin
+    nixpkgs-darwin = {
+      url = "github:LnL7/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
+    nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
+    homebrew-bundle = {
+      url = "github:homebrew/homebrew-bundle";
+      flake = false;
+    };
+    homebrew-core = {
+      url = "github:homebrew/homebrew-core";
+      flake = false;
+    };
+    homebrew-cask = {
+      url = "github:homebrew/homebrew-cask";
+      flake = false;
+    };
+
     # Home manager
     home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -44,6 +64,7 @@
   outputs = {
     self,
     home-manager,
+    nix-homebrew,
     ...
   } @ inputs: let
     inherit (self) outputs;
@@ -93,6 +114,33 @@
       };
     };
 
+    darwinConfigurations = {
+      mbp16 = inputs.nixpkgs-darwin.lib.darwinSystem {
+        specialArgs = {
+          inherit inputs outputs;
+        };
+        modules = [
+          # > Our main nixos configuration file <
+          ./hosts/mbp16/configuration.nix
+          home-manager.darwinModules.home-manager
+          nix-homebrew.darwinModules.nix-homebrew
+          {
+            nixpkgs.hostPlatform = "aarch64-darwin";
+
+            # home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.extraSpecialArgs = {inherit inputs outputs;};
+            home-manager.users.yomi = import ./hosts/mbp16/home.nix;
+
+            nix-homebrew.enable = true;
+            nix-homebrew.enableRosetta = true;
+            nix-homebrew.user = "yomi";
+            nix-homebrew.autoMigrate = true;
+          }
+        ];
+      };
+    };
+
     # Standalone home-manager configuration entrypoint
     # Available through 'home-manager --flake .#your-username@your-hostname'
     homeConfigurations = {
@@ -103,6 +151,7 @@
           ./hosts/x1c6/home.nix
         ];
       };
+
       "yomi@A-MacBook-Pro-eth.lan" = home-manager.lib.homeManagerConfiguration {
         pkgs = inputs.nixpkgs-unstable.legacyPackages.aarch64-darwin; # Home-manager requires 'pkgs' instance
         extraSpecialArgs = {inherit inputs outputs;};
