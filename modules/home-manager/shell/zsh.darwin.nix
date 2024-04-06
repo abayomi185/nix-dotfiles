@@ -124,6 +124,7 @@
         # { name = "plugins/ripgrep"; tags = [ "from:oh-my-zsh" ]; }
 
         { name = "plugins/dotenv"; tags = [ "from:oh-my-zsh" ]; }
+        { name = "plugins/direnv"; tags = [ "from:oh-my-zsh" ]; }
         { name = "plugins/macos"; tags = [ "from:oh-my-zsh" ]; }
         { name = "plugins/ruby"; tags = [ "from:oh-my-zsh" ]; }
         { name = "plugins/sudo"; tags = [ "from:oh-my-zsh" ]; }
