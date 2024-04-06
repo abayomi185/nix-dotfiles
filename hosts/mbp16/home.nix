@@ -9,6 +9,8 @@
     # Shell - See ../../modules/home-manager/shell/default.nix
     outputs.homeManagerModules.shell.zsh_darwin
     outputs.homeManagerModules.shell.starship
+    # Dev - See ../../modules/home-manager/dev/default.nix
+    outputs.homeManagerModules.dev.neovim
   ];
 
   nixpkgs = {
