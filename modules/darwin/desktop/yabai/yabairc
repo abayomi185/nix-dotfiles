@@ -15,8 +15,6 @@ yabai -m space 9 --label nine
 
 # float system preferences. Most of these just diable Yabai from resizing them.
 yabai -m rule --add app="^System Settings$" sticky=on layer=above manage=off
-yabai -m rule --add app="^Karabiner-Elements$" sticky=on layer=above manage=off
-yabai -m rule --add app="^Karabiner-EventViewer$" sticky=on layer=above manage=off
 yabai -m rule --add app="^Finder$" sticky=on layer=above manage=off
 yabai -m rule --add app="^Keka$" sticky=on layer=above manage=off
 yabai -m rule --add app="^Alfred Preferences$" sticky=on layer=above manage=off
@@ -28,6 +26,7 @@ yabai -m rule --add app="^TeamViewer$" sticky=off layer=above manage=off
 yabai -m rule --add app="^Hammerspoon Console$" sticky=off layer=above manage=off
 yabai -m rule --add app="^Archive Utility$" manage=off
 yabai -m rule --add app="^App Store$" manage=off
+yabai -m rule --add app="^Sublime Text$" manage=off
 yabai -m rule --add app="^Affinity Designer$" manage=off
 yabai -m rule --add app="^Affinity Photo$" manage=off
 yabai -m rule --add app="^Final Cut Pro$" manage=off
