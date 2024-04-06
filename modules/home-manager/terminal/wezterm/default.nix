@@ -1,4 +1,4 @@
-{...}: {
+{config, ...}: {
   # home.packages = with pkgs; [wezterm];
 
   programs.wezterm = {
@@ -8,5 +8,6 @@
   };
 
   # Set up symlink to wezterm.lua
-  xdg.configFile."wezterm/wezterm.lua".source = ./wezterm.lua;
+  xdg.configFile."wezterm/wezterm.lua".source =
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nix-dotfiles/modules/home-manager/terminal/wezterm/wezterm.lua";
 }

@@ -12,10 +12,29 @@ end
 
 -- This is where you actually apply your config choices
 
--- For example, changing the color scheme:
--- config.color_scheme = "AdventureTime"
-config.color_scheme = "Batman"
--- config.color_scheme = "Andromeda"
+-- wezterm.gui is not available to the mux server, so take care to
+-- do something reasonable when this config is evaluated by the mux
+local color_scheme_light = "Builtin Solarized Light"
+local color_scheme_dark = "Batman"
+-- local color_scheme = "Builtin Solarized Dark"
+-- local color_scheme = "AdventureTime"
+-- local color_scheme = "Andromeda"
+
+local function get_appearance()
+	if wezterm.gui then
+		return wezterm.gui.get_appearance()
+	end
+	return "Dark"
+end
+local function scheme_for_appearance(appearance)
+	if appearance:find("Dark") then
+		return color_scheme_dark
+	else
+		return color_scheme_light
+	end
+end
+
+config.color_scheme = scheme_for_appearance(get_appearance())
 
 -- config.font = wezterm.font('JetBrains Mono', { bold = false, italic = false })
 
