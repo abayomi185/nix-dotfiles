@@ -31,6 +31,7 @@
     # Shell - See ../../modules/home-manager/shell/default.nix
     outputs.homeManagerModules.shell.git
     outputs.homeManagerModules.shell.starship
+    outputs.homeManagerModules.shell.zsh
     # Browsers - See ../../modules/home-manager/browsers/default.nix
     outputs.homeManagerModules.browsers.brave
     # Desktop - See ../../modules/home-manager/desktop/default.nix
