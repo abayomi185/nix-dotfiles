@@ -1,8 +1,6 @@
 {
   # ZSH
-  # zsh = import ./zsh;
-  zsh = import ./zsh.nix;
-  zsh_darwin = import ./zsh.darwin.nix;
+  zsh = import ./zsh;
 
   # Git
   git = import ./git.nix;

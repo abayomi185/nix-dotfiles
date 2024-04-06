@@ -1,3 +1,3 @@
-{hostConfig, ...}: {
-  imports = [import ./common.nix {inherit hostConfig;}];
+{
+  imports = [./common.nix];
 }

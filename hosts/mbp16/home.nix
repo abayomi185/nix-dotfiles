@@ -1,16 +1,19 @@
-{ inputs
-, outputs
-, lib
-, config
-, pkgs
-, ...
+{
+  inputs,
+  outputs,
+  lib,
+  config,
+  pkgs,
+  ...
 }: {
   imports = [
     # Apps - See ../../modules/home-manager/apps/default.nix
     outputs.homeManagerModules.apps.neovim
     # Shell - See ../../modules/home-manager/shell/default.nix
-    outputs.homeManagerModules.shell.zsh_darwin
     outputs.homeManagerModules.shell.starship
+
+    # ZSH - See ./zsh.nix
+    ./zsh.nix
   ];
 
   nixpkgs = {
