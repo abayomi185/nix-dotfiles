@@ -1,5 +1,5 @@
 {
   casks = import ./casks;
 
-  desktop = import ./desktop.nix;
+  desktop = import ./desktop;
 }
