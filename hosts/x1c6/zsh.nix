@@ -1,12 +1,21 @@
 {
+  # Common configuration for Zsh
   programs.zsh = {
-    shellAliases = {
-      # open = "dolphin";
-    };
+    enable = true;
 
-    # zshrc equivalent
-    # initextra = ''
-    # '';
+    enableCompletion = true;
+    autosuggestion.enable = true;
+    syntaxHighlighting.enable = true;
+
+    history.size = 10000;
+
+    shellAliases = {
+      la = "ls -la";
+      check = "nix flake check";
+      update = "sudo nixos-rebuild switch";
+      garbage = "sudo nix-collect-garbage --delete-older-than";
+      develop = "nix develop -c $SHELL";
+    };
 
     # zshenv equivalent
     envExtra = ''
@@ -15,16 +24,28 @@
       # other environment variables or initialization commands
     '';
 
-    # zprofile equivalent
-    # profileextra = ''
-    # '';
-
     zplug = {
+      enable = true;
       plugins = [
-        # { name = "plugins/fzf"; tags = [ "from:oh-my-zsh" ]; }
-        # { name = "plugins/ripgrep"; tags = [ "from:oh-my-zsh" ]; }
-        # { name = "jeffreytse/zsh-vi-mode"; }
+        {
+          name = "plugins/git";
+          tags = ["from:oh-my-zsh"];
+        }
+        {
+          name = "plugins/vi-mode";
+          tags = ["from:oh-my-zsh"];
+        }
+        {
+          name = "plugins/direnv";
+          tags = ["from:oh-my-zsh"];
+        }
       ];
     };
+  };
+
+  programs.direnv = {
+    enable = true;
+    enableZshIntegration = true;
+    nix-direnv.enable = true;
   };
 }

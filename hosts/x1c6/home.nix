@@ -30,7 +30,6 @@
     outputs.homeManagerModules.terminal.wezterm
     # Shell - See ../../modules/home-manager/shell/default.nix
     outputs.homeManagerModules.shell.git
-    outputs.homeManagerModules.shell.zsh
     outputs.homeManagerModules.shell.starship
     # Browsers - See ../../modules/home-manager/browsers/default.nix
     outputs.homeManagerModules.browsers.brave
@@ -41,6 +40,9 @@
     outputs.homeManagerModules.dev.rust
     outputs.homeManagerModules.dev.zig
     outputs.homeManagerModules.dev.nodejs
+
+    # ZSH - See ./zsh.nix
+    ./zsh.nix
   ];
 
   nixpkgs = {
