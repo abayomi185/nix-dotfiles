@@ -1,7 +1,7 @@
 {
   # ZSH
-  zsh = import ./zsh.nix; # With direnv
-  # Direnv
+  # zsh = import ./zsh;
+  zsh = import ./zsh.nix;
   zsh_darwin = import ./zsh.darwin.nix;
 
   # Git
