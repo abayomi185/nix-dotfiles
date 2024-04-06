@@ -190,7 +190,7 @@
       extraGroups = ["networkmanager" "wheel"];
 
       packages = with pkgs; [
-        # NOTE: Packages installed via home-manager
+        # NOTE: Packages are installed via home-manager
         home-manager
         # firefox
         # thunderbird
