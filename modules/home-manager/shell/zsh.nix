@@ -1,60 +1,51 @@
 {
-  programs = {
-    zsh = {
+  # Common configuration for Zsh
+  programs.zsh = {
+    enable = true;
+
+    enableCompletion = true;
+    autosuggestion.enable = true;
+    syntaxHighlighting.enable = true;
+
+    history.size = 10000;
+
+    shellAliases = {
+      la = "ls -la";
+      check = "nix flake check";
+      update = "sudo nixos-rebuild switch";
+      garbage = "sudo nix-collect-garbage --delete-older-than";
+      develop = "nix develop -c $SHELL";
+    };
+
+    # zshenv equivalent
+    envExtra = ''
+      export lang=en_us.utf-8
+      # export path=$home/bin:$path
+      # other environment variables or initialization commands
+    '';
+
+    zplug = {
       enable = true;
-
-      enableCompletion = true;
-      autosuggestion.enable = true;
-      syntaxHighlighting.enable = true;
-
-      history.size = 10000;
-
-      shellAliases = {
-        la = "ls -la";
-        check = "nix flake check";
-        update = "sudo nixos-rebuild switch";
-        garbage = "sudo nix-collect-garbage --delete-older-than";
-      };
-
-      # zshrc equivalent
-      # initExtra = ''
-      # '';
-
-      # zshenv equivalent
-      envExtra = ''
-        export LANG=en_US.UTF-8
-        # export PATH=$HOME/bin:$PATH
-        # Other environment variables or initialization commands
-      '';
-
-      # zprofile equivalent
-      # profileExtra = ''
-      # '';
-
-      zplug = {
-        enable = true;
-        plugins = [
-          {
-            name = "plugins/git";
-            tags = ["from:oh-my-zsh"];
-          }
-          {
-            name = "plugins/vi-mode";
-            tags = ["from:oh-my-zsh"];
-          }
-          # { name = "plugins/fzf"; tags = [ "from:oh-my-zsh" ]; }
-          # { name = "plugins/ripgrep"; tags = [ "from:oh-my-zsh" ]; }
-          # { name = "jeffreytse/zsh-vi-mode"; }
-        ];
-      };
+      plugins = [
+        {
+          name = "plugins/git";
+          tags = ["from:oh-my-zsh"];
+        }
+        {
+          name = "plugins/vi-mode";
+          tags = ["from:oh-my-zsh"];
+        }
+        {
+          name = "plugins/direnv";
+          tags = ["from:oh-my-zsh"];
+        }
+      ];
     };
   };
 
-  programs = {
-    direnv = {
-      enable = true;
-      enableZshIntegration = true;
-      nix-direnv.enable = true;
-    };
+  programs.direnv = {
+    enable = true;
+    enableZshIntegration = true;
+    nix-direnv.enable = true;
   };
 }

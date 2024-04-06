@@ -1,14 +1,27 @@
 {
-  # Create /etc/zshrc that loads the nix-darwin environment
+  # Common configuration for Zsh
   programs.zsh = {
-    enable = true; # Important!
+    enable = true;
 
     enableCompletion = true;
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
 
+    history.size = 10000;
+
+    shellAliases = {
+      la = "ls -la";
+      check = "nix flake check";
+      update = "sudo nixos-rebuild switch";
+      garbage = "sudo nix-collect-garbage --delete-older-than";
+      develop = "nix develop -c $SHELL";
+    };
+
     # zshrc equivalent
     initExtra = ''
+      # zmodload zsh/zprof
+      # test -e "''${HOME}/.iterm2_shell_integration.zsh" && source "''${HOME}/.iterm2_shell_integration.zsh"
+
       # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
       # [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
@@ -62,8 +75,6 @@
       alias vi="nvim"
 
       alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
-
-      alias develop="nix develop -c $SHELL"
     '';
 
     # zprofile equivalent
@@ -113,55 +124,63 @@
     '';
 
     zplug = {
-      enable = true;
       plugins = [
-        { name = "plugins/git"; tags = [ "from:oh-my-zsh" ]; }
-        { name = "plugins/virtualenv"; tags = [ "from:oh-my-zsh" ]; }
-        { name = "plugins/bundler"; tags = [ "from:oh-my-zsh" ]; }
-        { name = "plugins/vi-mode"; tags = [ "from:oh-my-zsh" ]; }
-        { name = "plugins/fzf"; tags = [ "from:oh-my-zsh" ]; }
+        {
+          name = "plugins/git";
+          tags = ["from:oh-my-zsh"];
+        }
+        {
+          name = "plugins/vi-mode";
+          tags = ["from:oh-my-zsh"];
+        }
+        {
+          name = "plugins/direnv";
+          tags = ["from:oh-my-zsh"];
+        }
+        {
+          name = "plugins/virtualenv";
+          tags = ["from:oh-my-zsh"];
+        }
+        {
+          name = "plugins/bundler";
+          tags = ["from:oh-my-zsh"];
+        }
+        {
+          name = "plugins/fzf";
+          tags = ["from:oh-my-zsh"];
+        }
 
         # { name = "plugins/ripgrep"; tags = [ "from:oh-my-zsh" ]; }
 
-        { name = "plugins/dotenv"; tags = [ "from:oh-my-zsh" ]; }
-        { name = "plugins/direnv"; tags = [ "from:oh-my-zsh" ]; }
-        { name = "plugins/macos"; tags = [ "from:oh-my-zsh" ]; }
-        { name = "plugins/ruby"; tags = [ "from:oh-my-zsh" ]; }
-        { name = "plugins/sudo"; tags = [ "from:oh-my-zsh" ]; }
-        { name = "plugins/autoupdate"; tags = [ "from:oh-my-zsh" ]; }
+        {
+          name = "plugins/dotenv";
+          tags = ["from:oh-my-zsh"];
+        }
+        {
+          name = "plugins/macos";
+          tags = ["from:oh-my-zsh"];
+        }
+        {
+          name = "plugins/ruby";
+          tags = ["from:oh-my-zsh"];
+        }
+        {
+          name = "plugins/sudo";
+          tags = ["from:oh-my-zsh"];
+        }
+        {
+          name = "plugins/autoupdate";
+          tags = ["from:oh-my-zsh"];
+        }
 
-        { name = "MichaelAquilina/zsh-autoswitch-virtualenv"; }
+        {name = "MichaelAquilina/zsh-autoswitch-virtualenv";}
       ];
     };
   };
 
-  programs = {
-    direnv = {
-      enable = true;
-      enableZshIntegration = true;
-      nix-direnv.enable = true;
-    };
+  programs.direnv = {
+    enable = true;
+    enableZshIntegration = true;
+    nix-direnv.enable = true;
   };
 }
-
-# zmodload zsh/zprof
-
-# test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
-# plugins=(
-#     #zsh-nvm
-#     virtualenv
-#     git
-#     bundler
-#     dotenv
-#     macos
-#     #rake
-#     #rbenv
-#     ruby
-#     zsh-autosuggestions
-#     zsh-syntax-highlighting
-#     sudo
-#     #zsh-apple-touchbar
-#     autoswitch_virtualenv
-#     autoupdate
-# )
