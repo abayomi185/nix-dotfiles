@@ -11,6 +11,7 @@
     outputs.homeManagerModules.apps.neovim
     # Shell - See ../../modules/home-manager/shell/default.nix
     outputs.homeManagerModules.shell.starship
+    outputs.homeManagerModules.shell.zsh
 
     # ZSH - See ./zsh.nix
     ./zsh.nix
