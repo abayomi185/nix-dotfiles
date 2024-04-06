@@ -14,7 +14,8 @@ end
 
 -- wezterm.gui is not available to the mux server, so take care to
 -- do something reasonable when this config is evaluated by the mux
-local color_scheme_light = "Builtin Solarized Light"
+local color_scheme_light = "Solarized Light (Gogh)"
+-- local color_scheme_light = "Batman"
 local color_scheme_dark = "Batman"
 -- local color_scheme = "Builtin Solarized Dark"
 -- local color_scheme = "AdventureTime"
