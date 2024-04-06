@@ -9,6 +9,8 @@
   imports = [
     # Apps - See ../../modules/home-manager/apps/default.nix
     outputs.homeManagerModules.apps.neovim
+    outputs.homeManagerModules.apps.skhd
+    outputs.homeManagerModules.apps.yabai
     # Shell - See ../../modules/home-manager/shell/default.nix
     outputs.homeManagerModules.shell.starship
     outputs.homeManagerModules.shell.zsh
