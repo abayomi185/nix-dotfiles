@@ -1,33 +1,35 @@
-{
+{lib, ...}: {
   # Common configuration for Zsh
   programs.zsh = {
-    enable = true;
+    enable = lib.mkDefault true;
 
     enableCompletion = true;
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
 
-    history.size = 10000;
+    history.size = lib.mkDefault 10000;
 
-    shellAliases = {
-      la = "ls -la";
-      check = "nix flake check";
-      update = "sudo nixos-rebuild switch";
-      garbage = "sudo nix-collect-garbage --delete-older-than";
-      develop = "nix develop -c $SHELL";
-    };
+    shellAliases = lib.mkMerge [
+      (lib.mkDefault {
+        la = "ls -la";
+        check = "nix flake check";
+        update = "sudo nixos-rebuild switch";
+        garbage = "sudo nix-collect-garbage --delete-older-than";
+        develop = "nix develop -c $SHELL";
+      })
+    ];
 
     # zshrc equivalent
-    initExtra = "";
+    initExtra = lib.mkDefault "";
 
     # zshenv equivalent
-    envExtra = "";
+    envExtra = lib.mkDefault "";
 
     # zprofile equivalent
-    profileExtra = "";
+    profileExtra = lib.mkDefault "";
 
     zplug = {
-      enable = true;
+      enable = lib.mkDefault true;
       plugins = [
         {
           name = "plugins/git";
@@ -46,7 +48,7 @@
   };
 
   programs.direnv = {
-    enable = true;
+    enable = lib.mkDefault true;
     enableZshIntegration = true;
     nix-direnv.enable = true;
   };
