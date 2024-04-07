@@ -51,7 +51,10 @@
       inputs.hyprland.follows = "hyprland";
     };
 
-    xremap.url = "github:xremap/nix-flake";
+    xremap = {
+      url = "github:xremap/nix-flake";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
 
     # Dev
     rust-overlay.url = "github:oxalica/rust-overlay";
@@ -166,7 +169,6 @@
             ./hosts/mbp16/home.nix
           ];
         };
-
       };
     };
 }
