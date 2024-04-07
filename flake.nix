@@ -117,7 +117,8 @@
     };
 
     darwinConfigurations = {
-      mbp16 = inputs.nixpkgs-darwin.lib.darwinSystem {
+      # MacBook Pro 18,2
+      MacBook-Pro = inputs.nixpkgs-darwin.lib.darwinSystem {
         specialArgs = {
           inherit inputs outputs;
         };
