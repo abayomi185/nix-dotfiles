@@ -3,6 +3,10 @@
   # Common configuration for Zsh
   programs.zsh = {
 
+    extendedShellAliases = {
+      txt = "echo 'Hello, world!'";
+    };
+
     # zshrc equivalent
     initExtra = ''
       # zmodload zsh/zprof
