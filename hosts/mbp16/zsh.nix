@@ -4,6 +4,8 @@
   programs.zsh = {
 
     extendedShellAliases = {
+      update = "sudo darwin-rebuild switch";
+      batp = "bat -P";
       txt = "echo 'Hello, world!'";
     };
 
@@ -30,8 +32,6 @@
       # export PATH="$HOME/.rbenv/shims:$PATH"
       # export PATH="/usr/local/opt/ruby/bin:$PATH"
       eval "$(rbenv init - zsh)"
-
-      eval "$(starship init zsh)"
 
       [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
       export FZF_DEFAULT_OPTS="--extended"
