@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+sketchybar --bar height=24
+sketchybar --update
+echo "sketchybar configuration loaded.."
