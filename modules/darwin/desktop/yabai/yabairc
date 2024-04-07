@@ -14,22 +14,20 @@ yabai -m space 6 --label six
 yabai -m space 9 --label nine
 
 # float system preferences. Most of these just diable Yabai from resizing them.
-yabai -m rule --add app="^System Settings$" sticky=on layer=above manage=off
-yabai -m rule --add app="^Finder$" sticky=on layer=above manage=off
-yabai -m rule --add app="^Keka$" sticky=on layer=above manage=off
-yabai -m rule --add app="^Alfred Preferences$" sticky=on layer=above manage=off
-yabai -m rule --add app="^Disk Utility$" sticky=on layer=above manage=off
-yabai -m rule --add app="^System Information$" sticky=on layer=above manage=off
-yabai -m rule --add app="^Activity Monitor$" sticky=on layer=above manage=off
-yabai -m rule --add app="^Path Finder$" manage=off
-yabai -m rule --add app="^TeamViewer$" sticky=off layer=above manage=off
-yabai -m rule --add app="^Hammerspoon Console$" sticky=off layer=above manage=off
+yabai -m rule --add app="^System Settings$" sticky=on manage=off
+yabai -m rule --add app="^Finder$" sticky=on manage=off
+yabai -m rule --add app="^Alfred Preferences$" sticky=on manage=off
+yabai -m rule --add app="^Disk Utility$" sticky=on manage=off
+yabai -m rule --add app="^System Information$" sticky=on manage=off
+yabai -m rule --add app="^Activity Monitor$" sticky=on manage=off
+yabai -m rule --add app="^TeamViewer$" sticky=off manage=off
 yabai -m rule --add app="^Archive Utility$" manage=off
 yabai -m rule --add app="^App Store$" manage=off
 yabai -m rule --add app="^Sublime Text$" manage=off
 yabai -m rule --add app="^Affinity Designer$" manage=off
 yabai -m rule --add app="^Affinity Photo$" manage=off
 yabai -m rule --add app="^Final Cut Pro$" manage=off
+yabai -m rule --add app="^DaVinci Resolve$" manage=off
 yabai -m rule --add app="^Autodek Fusion$" manage=off
 yabai -m rule --add app="^Installer$" manage=off
 yabai -m rule --add app="^Preview$" manage=off
@@ -38,12 +36,11 @@ yabai -m rule --add app="^Simulator$" manage=off
 yabai -m rule --add app="^San Fransymbols$" manage=off
 yabai -m rule --add app="^MATLAB_R2020b$" manage=off
 yabai -m rule --add app="^AirPort Utility$" manage=off
-yabai -m rule --add app="^Webex$" manage=off
 # yabai -m rule --add app="Fantastical" manage=off
 #yabai -m rule --add app="^Mail$" manage=off
 yabai -m rule --add app="^ImageOptim$" manage=off
 yabai -m rule --add app="^GoodNotes$" manage=off
-yabai -m rule --add app="^DaisyDisk$" layer=above manage=off
+yabai -m rule --add app="^DaisyDisk$" manage=off
 yabai -m rule --add app="^Screen Sharing$" manage=off
 yabai -m rule --add app="^Microsoft Remote Desktop$" manage=off
 yabai -m rule --add app="^VNC Viewer$" manage=off
@@ -58,8 +55,6 @@ yabai -m rule --add app="^iTerm2$" manage=off
 yabai -m rule --add app="^kitty$" manage=off
 # yabai -m rule --add app="^Flux$" manage=off
 yabai -m rule --add app="^Stats$" manage=off
-yabai -m rule --add app="^Time Out$" manage=off
-yabai -m rule --add app="^perl_client_app$" manage=off
 yabai -m rule --add app="^console$" manage=off
 #yabai -m rule --add app="^Harvest$" manage=off
 #yabai -m rule --add app="^CiscoSparkHelper$" manage=off
@@ -162,6 +157,9 @@ yabai -m rule --add app="^CHITUBOX$" manage=off
 ## If I close the active window, focus on any other visible window.
 yabai -m signal --add event=window_destroyed action="bash /Users/yomi/.config/custom-scripts/window-focus-on-destroy.sh"
 # yabai -m signal --add event=space_changed action="export CUR_ACTIVE_APP=\"iTerm2\""
+
+# Apply the rules
+yabai -m rule --apply
 
 echo "yabai configuration loaded.."
 
