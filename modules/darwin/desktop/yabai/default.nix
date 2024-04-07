@@ -3,7 +3,6 @@
     enable = true;
     config = {
       window_placement = "second_child";
-      window_topmost = "off";
       window_opacity = "off";
       window_opacity_duration = 0.00;
       active_window_opacity = 1.0;
