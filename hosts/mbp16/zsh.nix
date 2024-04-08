@@ -2,7 +2,6 @@
 {
   # Common configuration for Zsh
   programs.zsh = {
-
     extendedShellAliases = {
       txt = "echo 'Hello, world!'";
     };
