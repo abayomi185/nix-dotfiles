@@ -19,6 +19,7 @@
 
     # Apps - See ../../modules/home-manager/apps/default.nix
     outputs.homeManagerModules.apps.bat
+    outputs.homeManagerModules.apps.discord
     outputs.homeManagerModules.apps.k9s
     outputs.homeManagerModules.apps.neovim
     outputs.homeManagerModules.apps.obsidian

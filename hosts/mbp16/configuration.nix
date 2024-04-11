@@ -1,9 +1,9 @@
-{ config
-, pkgs
-, outputs
-, ...
-}:
 {
+  config,
+  pkgs,
+  outputs,
+  ...
+}: {
   imports = [
     # Desktop (darwin) - See ../../modules/darwin/desktop/default.nix
     outputs.darwinModules.desktop.skhd
@@ -49,7 +49,7 @@
   programs.zsh.enable = true; # Important!
 
   # $ nix-env -qaP | grep wget
-  environment.systemPackages = [ ];
+  environment.systemPackages = [];
 
   # Add ability to used TouchID for sudo authentication
   security.pam.enableSudoTouchIdAuth = true;

@@ -1,8 +1,8 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   services.spacebar = {
     enable = true;
 
-    extraPackages = with pkgs; [ ];
+    extraPackages = with pkgs; [];
 
     config = builtins.readFile ./sketchybarrc;
   };
