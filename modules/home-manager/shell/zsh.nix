@@ -28,6 +28,8 @@
           update = lib.mkDefault "sudo nixos-rebuild switch";
           garbage = "sudo nix-collect-garbage --delete-older-than";
           develop = "nix develop -c $SHELL";
+          dv = "eval $(direnv hook zsh)";
+          batl = "bat --theme=base16";
         }
         config.programs.zsh.extendedShellAliases
       ];
@@ -52,6 +54,10 @@
             name = "plugins/vi-mode";
             tags = ["from:oh-my-zsh"];
           }
+          # {
+          #   name = "plugins/direnv";
+          #   tags = ["from:oh-my-zsh"];
+          # }
         ];
       };
     };
