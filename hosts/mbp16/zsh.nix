@@ -2,7 +2,6 @@
 {
   # Common configuration for Zsh
   programs.zsh = {
-
     extendedShellAliases = {
       update = "sudo darwin-rebuild switch";
       batp = "bat -P";
