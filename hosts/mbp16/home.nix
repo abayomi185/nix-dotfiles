@@ -8,9 +8,11 @@
 }: {
   imports = [
     # Apps - See ../../modules/home-manager/apps/default.nix
+    outputs.homeManagerModules.apps.bat
     outputs.homeManagerModules.apps.jq
     outputs.homeManagerModules.apps.neovim
     # Shell - See ../../modules/home-manager/shell/default.nix
+    outputs.homeManagerModules.shell.git
     outputs.homeManagerModules.shell.starship
     outputs.homeManagerModules.shell.zsh
 
