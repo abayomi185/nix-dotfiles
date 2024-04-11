@@ -12,6 +12,9 @@
     # Shell (darwin) - See ../../modules/darwin/shell/default.nix
     ### Creates global /etc/zshrc that loads the nix-darwin environment
     outputs.darwinModules.shell.zsh # Important!
+
+    # ZSH (custom) - See ./zsh.darwin.nix
+    ./zsh.darwin.nix
   ];
 
   # Use a custom configuration.nix location.
