@@ -16,7 +16,7 @@
     outputs.homeManagerModules.shell.starship
     outputs.homeManagerModules.shell.zsh
 
-    # ZSH - See ./zsh.nix
+    # ZSH (custom) - See ./zsh.nix
     ./zsh.nix
   ];
 
