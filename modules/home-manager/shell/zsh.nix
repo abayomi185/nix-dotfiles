@@ -1,8 +1,11 @@
-{ config, lib, ... }: {
-
+{
+  config,
+  lib,
+  ...
+}: {
   options.programs.zsh.extendedShellAliases = lib.mkOption {
     type = lib.types.attrsOf lib.types.str;
-    default = { };
+    default = {};
     description = "Shell aliases for Zsh.";
   };
 
@@ -43,11 +46,11 @@
         plugins = [
           {
             name = "plugins/git";
-            tags = [ "from:oh-my-zsh" ];
+            tags = ["from:oh-my-zsh"];
           }
           {
             name = "plugins/vi-mode";
-            tags = [ "from:oh-my-zsh" ];
+            tags = ["from:oh-my-zsh"];
           }
         ];
       };
