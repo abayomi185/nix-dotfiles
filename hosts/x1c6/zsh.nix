@@ -2,6 +2,10 @@
 {
   # Common configuration for Zsh
   programs.zsh = {
+    extendedShellAliases = {
+      hello = "echo 'Hello, world!'";
+    };
+
     # zshenv equivalent
     envExtra = ''
       export lang=en_us.utf-8
