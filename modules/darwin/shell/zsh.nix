@@ -13,14 +13,17 @@
     # enableFzfHistory = true;
     # enableSyntaxHighlighting = true;
 
-    # # zshrc equivalent
-    # shellInit = lib.mkDefault "";
-    #
-    # # zshenv equivalent
-    # interactiveShellInit = lib.mkDefault "";
-    #
-    # # zprofile equivalent
-    # loginShellInit = lib.mkDefault "";
+    # zshrc equivalent
+    # shellInit = lib.mkDefault ''
+    # '';
+
+    # zshenv equivalent
+    # interactiveShellInit = lib.mkDefault ''
+    # '';
+
+    # zprofile equivalent
+    # loginShellInit = lib.mkDefault ''
+    # '';
   };
 
   programs.direnv = {
