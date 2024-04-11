@@ -9,20 +9,26 @@
     description = "Shell aliases for Zsh.";
   };
 
+  options.programs.zsh.isDarwin = lib.mkOption {
+    type = lib.types.bool;
+    default = false;
+    description = "Whether the system is Darwin.";
+  };
+
   config = {
     # Common configuration for Zsh
     programs.zsh = {
       enable = lib.mkDefault true;
 
-      enableCompletion = true;
-      autosuggestion.enable = true;
-      syntaxHighlighting.enable = true;
+      enableCompletion = if config.programs.zsh.isDarwin then false else lib.mkDefault true;
+      autosuggestion.enable = if config.programs.zsh.isDarwin then false else lib.mkDefault true;
+      syntaxHighlighting.enable = if config.programs.zsh.isDarwin then false else lib.mkDefault true;
 
       history.size = lib.mkDefault 10000;
 
       # Define default shell aliases
       shellAliases = lib.mkMerge [
-        {
+        (if config.programs.zsh.isDarwin then {} else {
           la = "ls -la";
           check = "nix flake check";
           update = lib.mkDefault "sudo nixos-rebuild switch";
@@ -30,7 +36,7 @@
           develop = "nix develop -c $SHELL";
           dv = "eval $(direnv hook zsh)";
           batl = "bat --theme=base16";
-        }
+        })
         config.programs.zsh.extendedShellAliases
       ];
 
