@@ -42,8 +42,13 @@
           name = "plugins/autoupdate";
           tags = ["from:oh-my-zsh"];
         }
+        {
+          name = "plugins/zsh-autosuggestions";
+          tags = ["from:oh-my-zsh"];
+        }
 
         {name = "MichaelAquilina/zsh-autoswitch-virtualenv";}
+
       ];
     };
   };
