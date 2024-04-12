@@ -1,6 +1,6 @@
-{lib,...}:{
+{...}:{
   programs.zsh = {
-    # enableCompletion = true; # Default
+    enableCompletion = true;
     enableFzfCompletion = true;
     enableFzfGit = true;
     enableFzfHistory = true;
@@ -11,16 +11,13 @@
       # zmodload zsh/zprof
       # test -e "''${HOME}/.iterm2_shell_integration.zsh" && source "''${HOME}/.iterm2_shell_integration.zsh"
 
-      # eval "$(fnm env --use-on-cd)" # moved to loginShellInit
+      export ZSH=~/.oh-my-zsh
+      source $ZSH/oh-my-zsh.sh
 
       export PATH="/usr/local/opt/util-linux/bin:$PATH"
       export PATH="/usr/local/opt/util-linux/sbin:$PATH"
 
       export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-
-      # export PATH="$HOME/.rbenv/shims:$PATH"
-      # export PATH="/usr/local/opt/ruby/bin:$PATH"
-      # eval "$(rbenv init - zsh)" # moved to loginShellInit
 
       # [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh # NOTE: Remember to delete the script
       # export FZF_DEFAULT_OPTS="--extended"
@@ -28,6 +25,11 @@
 
     # zshenv equivalent
     interactiveShellInit = ''
+      # For ls colors
+      # unset LSCOLORS
+      # export CLICOLOR=1
+      # export CLICOLOR_FORCE=1
+
       # Cargo
       . "$HOME/.cargo/env"
 
