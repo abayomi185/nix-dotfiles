@@ -43,4 +43,12 @@
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+
+  # Undervolt
+  services.undervolt = {
+    enable = true;
+
+    coreOffset = -85;
+    gpuOffset = -85;
+  };
 }
