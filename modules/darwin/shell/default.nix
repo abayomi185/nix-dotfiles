@@ -1,3 +1,2 @@
 {
-  zsh = import ./zsh.nix;
 }
