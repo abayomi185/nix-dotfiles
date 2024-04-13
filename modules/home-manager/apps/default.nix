@@ -6,6 +6,7 @@
   neovim = import ./neovim.nix;
   obsidian = import ./obsidian.nix;
   skhd = import ./skhd.nix;
+  spacedrive = import ./spacedrive.nix;
   tmux = import ./tmux.nix;
   tree = import ./tree.nix;
   yabai = import ./yabai.nix;
