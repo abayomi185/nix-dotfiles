@@ -9,12 +9,6 @@
     outputs.darwinModules.desktop.skhd
     # outputs.darwinModules.desktop.spacebar
     outputs.darwinModules.desktop.yabai
-    # Shell (darwin) - See ../../modules/darwin/shell/default.nix
-    ### Creates global /etc/zshrc that loads the nix-darwin environment
-    outputs.darwinModules.shell.zsh # Important!
-
-    # ZSH (custom) - See ./zsh.darwin.nix
-    ./zsh.darwin.nix
   ];
 
   # Use a custom configuration.nix location.
@@ -53,6 +47,9 @@
 
   # $ nix-env -qaP | grep wget
   environment.systemPackages = [];
+
+  # Creates global /etc/zshrc that loads the nix-darwin environment
+  programs.zsh.enable = true; # Important!
 
   # Add ability to used TouchID for sudo authentication
   security.pam.enableSudoTouchIdAuth = true;
