@@ -9,26 +9,20 @@
     description = "Shell aliases for Zsh.";
   };
 
-  options.programs.zsh.isDarwin = lib.mkOption {
-    type = lib.types.bool;
-    default = false;
-    description = "Whether the system is Darwin.";
-  };
-
   config = {
     # Common configuration for Zsh
     programs.zsh = {
       enable = lib.mkDefault true;
 
-      enableCompletion = if config.programs.zsh.isDarwin then false else lib.mkDefault true;
-      autosuggestion.enable = if config.programs.zsh.isDarwin then false else lib.mkDefault true;
-      syntaxHighlighting.enable = if config.programs.zsh.isDarwin then false else lib.mkDefault true;
+      enableCompletion = true;
+      autosuggestion.enable = true;
+      syntaxHighlighting.enable = true;
 
       history.size = lib.mkDefault 10000;
 
       # Define default shell aliases
       shellAliases = lib.mkMerge [
-        (if config.programs.zsh.isDarwin then {} else {
+        ({
           la = "ls -la";
           check = "nix flake check";
           update = lib.mkDefault "sudo nixos-rebuild switch";
@@ -49,27 +43,18 @@
       # zprofile equivalent
       profileExtra = lib.mkDefault "";
 
-      zplug = {
+      oh-my-zsh = {
         enable = lib.mkDefault true;
         plugins = [
-          {
-            name = "plugins/git";
-            tags = ["from:oh-my-zsh"];
-          }
-          {
-            name = "plugins/vi-mode";
-            tags = ["from:oh-my-zsh"];
-          }
-          # {
-          #   name = "plugins/direnv";
-          #   tags = ["from:oh-my-zsh"];
-          # }
+          "git"
+          "vi-mode"
+          # "direnv"
         ];
       };
     };
 
     programs.direnv = {
-      enable = lib.mkDefault true;
+      enable = lib.mkDefault false;
       enableZshIntegration = true;
       nix-direnv.enable = true;
     };
