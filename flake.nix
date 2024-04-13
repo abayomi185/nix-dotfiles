@@ -59,6 +59,9 @@
     # Dev
     rust-overlay.url = "github:oxalica/rust-overlay";
 
+    # Sops
+    sops-nix.url = "github:Mic92/sops-nix";
+
     # Shameless plug: looking for a way to nixify your themes and make
     # everything match nicely? Try nix-colors!
     # nix-colors.url = "github:misterio77/nix-colors";
@@ -114,6 +117,9 @@
             home-manager.useUserPackages = true;
             home-manager.extraSpecialArgs = {inherit inputs outputs;};
             home-manager.users.yomi = import ./hosts/x1c6/home.nix;
+            home-manager.sharedModules = [
+              inputs.sops-nix.homeManagerModules.sops
+            ];
           }
         ];
       };
@@ -137,6 +143,9 @@
             home-manager.useUserPackages = true;
             home-manager.extraSpecialArgs = {inherit inputs outputs;};
             home-manager.users.yomi = import ./hosts/mbp16/home.nix;
+            home-manager.sharedModules = [
+              inputs.sops-nix.homeManagerModules.sops
+            ];
 
             nix-homebrew.enable = true;
             nix-homebrew.enableRosetta = true;
