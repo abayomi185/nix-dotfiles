@@ -26,6 +26,7 @@
           la = "ls -la";
           check = "nix flake check";
           update = lib.mkDefault "sudo nixos-rebuild switch";
+          gc = "nix-collect-garbage";
           garbage = "sudo nix-collect-garbage --delete-older-than";
           develop = "nix develop -c $SHELL";
           dv = "eval $(direnv hook zsh)";
