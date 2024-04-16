@@ -62,6 +62,13 @@
     # Sops
     sops-nix.url = "github:Mic92/sops-nix";
 
+    # KDE Plasma
+    plasma-manager = {
+      url = "github:pjones/plasma-manager";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.home-manager.follows = "home-manager";
+    };
+
     # Shameless plug: looking for a way to nixify your themes and make
     # everything match nicely? Try nix-colors!
     # nix-colors.url = "github:misterio77/nix-colors";
@@ -71,6 +78,7 @@
     self,
     home-manager,
     nix-homebrew,
+    plasma-manager,
     ...
   } @ inputs: let
     inherit (self) outputs;
@@ -121,6 +129,7 @@
               inputs.sops-nix.homeManagerModules.sops
             ];
           }
+          plasma-manager.homeManagerModules.plasma-manager
         ];
       };
     };
