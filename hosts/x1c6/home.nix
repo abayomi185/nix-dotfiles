@@ -11,7 +11,7 @@
   # You can import other home-manager modules here
   imports = [
     # Or modules exported from other flakes (such as nix-colors):
-    # inputs.nix-colors.homeManagerModules.default
+    inputs.nix-colors.homeManagerModules.default
 
     # apps, editors, or devtools
 
@@ -37,7 +37,7 @@
     outputs.homeManagerModules.browsers.brave
     # Desktop - See ../../modules/home-manager/desktop/default.nix
     # outputs.homeManagerModules.desktop.theme
-    # outputs.homeManagerModules.desktop.hyprland
+    outputs.homeManagerModules.desktop.hyprland
     # Dev - See ../../modules/home-manager/dev/default.nix
     outputs.homeManagerModules.dev.rust
     outputs.homeManagerModules.dev.zig
@@ -74,6 +74,8 @@
       allowUnfreePredicate = _: true;
     };
   };
+
+  colorScheme = inputs.nix-colors.colorSchemes."atelier-cave";
 
   home = {
     username = "yomi";
