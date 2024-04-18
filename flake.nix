@@ -69,16 +69,16 @@
       inputs.home-manager.follows = "home-manager";
     };
 
-    # Shameless plug: looking for a way to nixify your themes and make
-    # everything match nicely? Try nix-colors!
-    # nix-colors.url = "github:misterio77/nix-colors";
+    # Nix Colors
+    nix-colors.url = "github:misterio77/nix-colors";
   };
 
   outputs = {
     self,
     home-manager,
     nix-homebrew,
-    plasma-manager,
+    # plasma-manager,
+    nix-colors,
     ...
   } @ inputs: let
     inherit (self) outputs;
@@ -123,13 +123,13 @@
           {
             # home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = {inherit inputs outputs;};
+            home-manager.extraSpecialArgs = {inherit inputs outputs nix-colors;};
             home-manager.users.yomi = import ./hosts/x1c6/home.nix;
             home-manager.sharedModules = [
               inputs.sops-nix.homeManagerModules.sops
             ];
           }
-          plasma-manager.homeManagerModules.plasma-manager
+          # plasma-manager.homeManagerModules.plasma-manager
         ];
       };
     };
@@ -150,7 +150,7 @@
 
             # home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = {inherit inputs outputs;};
+            home-manager.extraSpecialArgs = {inherit inputs outputs nix-colors;};
             home-manager.users.yomi = import ./hosts/mbp16/home.nix;
             home-manager.sharedModules = [
               inputs.sops-nix.homeManagerModules.sops
@@ -170,7 +170,7 @@
     homeConfigurations = {
       "yomi@x1c6" = home-manager.lib.homeManagerConfiguration {
         pkgs = inputs.nixpkgs-unstable.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
-        extraSpecialArgs = {inherit inputs outputs;};
+        extraSpecialArgs = {inherit inputs outputs nix-colors;};
         modules = [
           ./hosts/x1c6/home.nix
         ];
@@ -178,7 +178,7 @@
 
       "yomi@A-MacBook-Pro-eth.lan" = home-manager.lib.homeManagerConfiguration {
         pkgs = inputs.nixpkgs-unstable.legacyPackages.aarch64-darwin; # Home-manager requires 'pkgs' instance
-        extraSpecialArgs = {inherit inputs outputs;};
+        extraSpecialArgs = {inherit inputs outputs nix-colors;};
         modules = [
           ./hosts/mbp16/home.nix
         ];
