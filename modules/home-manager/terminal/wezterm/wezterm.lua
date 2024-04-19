@@ -50,6 +50,8 @@ config.window_padding = {
 	bottom = 0,
 }
 
+config.enable_wayland = false
+
 wezterm.on("update-right-status", function(window, pane)
 	-- "Wed Mar 3 08:14"
 	local date = wezterm.strftime("%a %b %-d %H:%M ")
