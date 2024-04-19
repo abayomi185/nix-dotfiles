@@ -1,7 +1,9 @@
 {
   hyprland = import ./hyprland;
 
-  xremap = import ./xremap.nix;
+  plasma = import ./plasma;
 
   theme = import ./theme;
+
+  xremap = import ./xremap.nix;
 }
