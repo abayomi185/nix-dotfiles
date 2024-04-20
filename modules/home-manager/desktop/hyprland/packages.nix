@@ -5,5 +5,6 @@
     libnotify
     lxqt.pavucontrol-qt
     wireplumber
+    brightnessctl
   ];
 }
