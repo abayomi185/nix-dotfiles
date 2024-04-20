@@ -9,5 +9,6 @@
   spacedrive = import ./spacedrive.nix;
   tmux = import ./tmux.nix;
   tree = import ./tree.nix;
+  vscode = import ./vscode.nix;
   yabai = import ./yabai.nix;
 }
