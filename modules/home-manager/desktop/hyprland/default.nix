@@ -103,6 +103,8 @@
         "$mod, D, exec, discord"
         "$mod, M, exec, spotify"
 
+        "$mod_SHIFT, L, exec, hyprlock"
+
         "$mod_SHIFT, I, togglesplit,"
         "$mod, F, fullscreen,1"
         "$mod_CONTROL, F, fullscreen,0"
@@ -155,6 +157,8 @@
 
         "$mod_CONTROL, right, workspace, e+1"
         "$mod_CONTROL, left, workspace, e-1"
+        "$mod_CONTROL, l, workspace, e+1"
+        "$mod_CONTROL, h, workspace, e-1"
         "$mod, mouse_down, workspace, e+1"
         "$mod, mouse_up, workspace, e-1"
 
@@ -185,6 +189,11 @@
       bindm = [
         "$mod, mouse:272, movewindow"
         "$mod, mouse:273, resizewindow"
+      ];
+
+      # g
+      bindl = [
+        ",switch:Lid,exec,hyprlock"
       ];
     };
   };
