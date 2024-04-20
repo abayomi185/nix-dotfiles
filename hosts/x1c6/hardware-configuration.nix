@@ -44,6 +44,18 @@
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
+  # Power
+  powerManagement.enable = true;
+  # services.thermald.enable = true;
+
+  # Button/Switch behaviours
+  services.logind = {
+    powerKey = "suspend";
+    lidSwitch = "suspend";
+    lidSwitchExternalPower = "suspend";
+    lidSwitchDocked = "ignore";
+  };
+
   # Undervolt
   services.undervolt = {
     enable = true;
