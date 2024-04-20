@@ -3,6 +3,7 @@
   betterTransition = "all 0.3s cubic-bezier(.55,-0.68,.48,1.682)";
   fontSize = "12px";
   topMargin = "5px";
+  bottomMargin = "5px";
 in {
   programs.waybar = {
     enable = true;
@@ -246,7 +247,7 @@ in {
         margin-right: 4px;
 
         margin-top: ${topMargin};
-        margin-bottom: 8.5px;
+        margin-bottom: ${bottomMargin};
       }
       #temperature{
         color: #7a95c9;
@@ -304,7 +305,7 @@ in {
         color: #7a95c9;
 
         margin-top: ${topMargin};
-        margin-bottom: 8.5px;
+        margin-bottom: ${bottomMargin};
       }
       #bluetooth,
       #backlight,
@@ -323,7 +324,7 @@ in {
         padding-bottom: 3px;
 
         margin-top: ${topMargin};
-        margin-bottom: 7px;
+        margin-bottom: ${bottomMargin};
       }
 
       #pulseaudio {
@@ -422,14 +423,14 @@ in {
         padding: 0 15px 0 15px;
         margin-left: 7px;
         margin-top: ${topMargin};
-        margin-bottom: 7px;
+        margin-bottom: ${bottomMargin};
       }
       #clock {
         color: #8a909e;
         font-family: Iosevka Nerd Font;
         font-weight: bold;
         margin-top: ${topMargin};
-        margin-bottom: 7px;
+        margin-bottom: ${bottomMargin};
       }
       #language {
         color: #8a909e;
@@ -437,7 +438,7 @@ in {
         font-weight: bold;
         border-radius : 8px 0 0 8px;
         margin-top: ${topMargin};
-        margin-bottom: 7px;
+        margin-bottom: ${bottomMargin};
       }
 
       #custom-power-menu {
@@ -447,7 +448,7 @@ in {
         padding: 0 6px 0 6.8px;
         border-radius: 0 8px 8px 0;
         margin-top: ${topMargin};
-        margin-bottom: 7px;
+        margin-bottom: ${bottomMargin};
       }
       #custom-wallpaper {
         color: #8a909e;
@@ -469,7 +470,7 @@ in {
         padding-bottom: 3px;
 
         margin-top: ${topMargin};
-        margin-bottom: 7px;
+        margin-bottom: ${bottomMargin};
       }
 
       tooltip {
@@ -491,7 +492,7 @@ in {
       #tray {
         margin-right: 8px;
         margin-top: ${topMargin};
-        margin-bottom: 7px;
+        margin-bottom: ${bottomMargin};
         font-size: ${fontSize};
 
       }
