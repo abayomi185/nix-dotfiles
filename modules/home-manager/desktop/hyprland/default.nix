@@ -14,8 +14,8 @@
     # ../swappy.nix
     # ../wl-common.nix
 
-    # ./hyprlock.nix
-    # ./hypridle.nix
+    ./hyprlock.nix
+    ./hypridle.nix
     ./packages.nix
   ];
 
