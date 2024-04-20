@@ -13,8 +13,8 @@ in {
         height = 10;
         layer = "top";
         modules-left = ["custom/launcher" "cpu" "memory" "custom/weather" "hyprland/workspaces"];
-        modules-center = ["mpris"];
-        modules-right = ["network" "pulseaudio" "backlight" "battery" "clock" "tray" "hyprland/language" "custom/wallpaper" "custom/power-menu"];
+        modules-center = ["mpris" "hyprland/window"];
+        modules-right = ["network" "pulseaudio" "backlight" "battery" "clock"];
 
         "hyprland/workspaces" = {
           format = "{name}";
@@ -30,10 +30,6 @@ in {
             "3" = [];
             "4" = [];
             "5" = [];
-            "6" = [];
-            "7" = [];
-            "8" = [];
-            "9" = [];
           };
         };
         "hyprland/language" = {
@@ -61,8 +57,8 @@ in {
         };
         "memory" = {
           interval = 30;
-          format = " {}%";
-          format-alt = " {used:0.1f}GB";
+          format = " {}%";
+          format-alt = " {used:0.1f}GB";
           max-length = 10;
         };
         "temperature" = {
