@@ -7,18 +7,21 @@
   clipboard = import ./clipboard.nix;
   fonts = import ./fonts.nix;
 
-  # Networking
-  networking = import ./networking;
+  # Apps
+  apps = import ./apps;
+
+  # Dev
+  dev = import ./dev;
 
   # Desktop
   desktop = import ./desktop;
 
-  # Apps
-  apps = import ./apps;
-
   # Monitoring
   monitoring = import ./monitoring;
 
-  # Dev
-  dev = import ./dev;
+  # Networking
+  networking = import ./networking;
+
+  # Power
+  power = import ./power;
 }
