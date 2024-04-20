@@ -24,6 +24,7 @@
     outputs.homeManagerModules.apps.neovim
     outputs.homeManagerModules.apps.obsidian
     outputs.homeManagerModules.apps.tmux
+    outputs.homeManagerModules.apps.vscode
     # Music - See ../../modules/home-manager/music/default.nix
     outputs.homeManagerModules.music.spotify
     # Terminal - See ../../modules/home-manager/terminal/default.nix
