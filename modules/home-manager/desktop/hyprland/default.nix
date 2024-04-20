@@ -37,6 +37,7 @@
 
       exec-once = [
         "waybar"
+        "hypridle"
       ];
 
       general = {
@@ -70,6 +71,10 @@
           scroll_factor = 0.2;
         };
         kb_options = "caps:super,shift:both_capslock_cancel,ctrl:swap_lalt_lctl";
+      };
+
+      decoration = {
+        rounding = 5;
       };
 
       animations = {
