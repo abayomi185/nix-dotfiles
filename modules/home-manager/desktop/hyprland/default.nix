@@ -74,7 +74,7 @@
       };
 
       decoration = {
-        rounding = 5;
+        rounding = 10;
       };
 
       animations = {
@@ -103,7 +103,9 @@
         "$mod, D, exec, discord"
         "$mod, M, exec, spotify"
 
-        "$mod_SHIFT, L, exec, hyprlock"
+        "$mod, O, exec, killall -SIGUSR1 .waybar-wrapped"
+
+        "CONTROL_SHIFT, Q, exec, hyprlock"
 
         "$mod_SHIFT, I, togglesplit,"
         "$mod, F, fullscreen,1"
@@ -193,7 +195,7 @@
 
       # g
       bindl = [
-        ",switch:Lid,exec,hyprlock"
+        ", switch:Lid Switch, exec, hyprlock"
       ];
     };
   };
