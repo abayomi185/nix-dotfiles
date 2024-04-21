@@ -17,6 +17,9 @@
     ./hyprlock.nix
     ./hypridle.nix
     ./packages.nix
+
+    # XDG Desktop Portal
+    ../xdg-desktop-portal.nix
   ];
 
   wayland.windowManager.hyprland = {
