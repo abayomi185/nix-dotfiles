@@ -1,10 +1,11 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
     # prtsc # check https://github.com/spikespaz/dotfiles
-    iwgtk
+    networkmanagerapplet
     libnotify
     lxqt.pavucontrol-qt
     wireplumber
     brightnessctl
+    killall
   ];
 }
