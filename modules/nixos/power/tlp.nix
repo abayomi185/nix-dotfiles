@@ -1,4 +1,5 @@
 {
+  # Included in Gnome
   services.tlp = {
     enable = true;
     settings = {
