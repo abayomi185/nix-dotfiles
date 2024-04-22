@@ -1,5 +1,6 @@
 {
   bat = import ./bat.nix;
+  bitwarden-cli = import ./bitwarden-cli.nix;
   discord = import ./discord.nix;
   jq = import ./jq.nix;
   k9s = import ./k9s.nix;
