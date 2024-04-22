@@ -14,7 +14,7 @@ in {
         layer = "top";
         modules-left = ["custom/launcher" "cpu" "memory" "custom/weather" "hyprland/workspaces"];
         modules-center = ["mpris" "hyprland/window"];
-        modules-right = ["network" "pulseaudio" "backlight" "battery" "clock"];
+        modules-right = ["network" "bluetooth" "pulseaudio" "backlight" "battery" "power-profiles-daemon" "clock"];
 
         "hyprland/workspaces" = {
           format = "{name}";
@@ -51,15 +51,15 @@ in {
 
         "cpu" = {
           interval = 10;
-          format = "  {}%";
+          format = "  {usage:2}%";
           max-length = 10;
           on-click = "";
         };
         "memory" = {
           interval = 30;
-          format = " {}%";
-          format-alt = " {used:0.1f}GB";
+          format = "󰵆 {used:0.1f}GB";
           max-length = 10;
+          tooltip = false;
         };
         "temperature" = {
           interval = 10;
@@ -78,14 +78,14 @@ in {
           tooltip-format = "Brightness {percent}%";
         };
         "network" = {
-          format-wifi = "<small>{bandwidthDownBytes}</small> {icon}";
+          format-wifi = "{icon}";
           min-length = 10;
           fixed-width = 10;
           format-ethernet = "󰈀";
           format-disconnected = "󰤭";
           tooltip-format = "{essid}";
           interval = 1;
-          on-click = "~/.config/waybar/scripts/network/rofi-network-manager.sh";
+          # on-click = "nmtui";
           format-icons = ["󰤯" "󰤟" "󰤢" "󰤥" "󰤨"];
         };
 
@@ -119,7 +119,7 @@ in {
           interval = 60;
           states = {
             warning = 20;
-            critical = 15;
+            critical = 10;
           };
           max-length = 20;
           format = "{icon}";
@@ -132,6 +132,18 @@ in {
 
           format-alt = "<small>{capacity}%</small> ";
           format-icons = ["󱊡" "󱊢" "󱊣"];
+        };
+
+        "power-profiles-daemon" = {
+          format = "{icon}";
+          tooltip-format = "Power profile: {profile}\nDriver: {driver}";
+          tooltip = true;
+          format-icons = {
+            default = "";
+            performance = "";
+            balanced = "";
+            power-saver = "";
+          };
         };
 
         "custom/weather" = {
@@ -186,7 +198,7 @@ in {
     style = ''
       * {
         /* `otf-font-awesome` is required to be installed for icons */
-        font-family: Material Design Icons, JetBrainsMono Nerd Font, Iosevka Nerd Font ;
+        font-family: JetBrainsMono Nerd Font, Iosevka Nerd Font ;
         font-size: ${fontSize};
         border: none;
         border-radius: 0;
@@ -307,6 +319,7 @@ in {
       #backlight,
       #battery,
       #pulseaudio,
+      #power-profiles-daemon
       #network {
         background-color: #252733;
         padding: 0em 2em;
@@ -397,6 +410,15 @@ in {
       #battery.plugged {
         font-size: ${fontSize};
         padding-right: 12px;
+      }
+
+      #power-profiles-daemon {
+        padding-left: 0.2em;
+        color: #5E81AC;
+        border-radius: 8px 0px 0px 8px;
+        padding-left: 14px;
+        padding-right: 14px;
+        font-size: ${fontSize};
       }
 
       @keyframes blink {
