@@ -4,7 +4,7 @@
 
     lockCmd = "pidof hyprlock || hyprlock";
 
-    beforeSleepCmd = "pidof hyprlock || hyprlock";
+    beforeSleepCmd = "loginctl lock-session";
     afterSleepCmd = "hyprctl dispatch dpms on";
 
     listeners = [
