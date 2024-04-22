@@ -9,6 +9,7 @@
 
     ../rofi
     ../waybar
+    ../swayosd.nix
 
     # ../mako.nix
     # ../swappy.nix
