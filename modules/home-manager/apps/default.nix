@@ -6,6 +6,7 @@
   jq = import ./jq.nix;
   k9s = import ./k9s.nix;
   neovim = import ./neovim.nix;
+  obs = import ./obs.nix;
   obsidian = import ./obsidian.nix;
   skhd = import ./skhd.nix;
   spacedrive = import ./spacedrive.nix;
