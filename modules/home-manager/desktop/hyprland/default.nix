@@ -19,6 +19,7 @@
     ./hyprlock.nix
     ./hypridle.nix
     ./hyprpaper.nix
+    ./hyprcursor.nix
     ./packages.nix
 
     # XDG Desktop Portal
