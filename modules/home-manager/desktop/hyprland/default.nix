@@ -102,9 +102,9 @@
       ];
 
       windowrulev2 = [
-        # make Firefox PiP window floating and sticky
-        "float, title:^(Picture-in-Picture)$"
-        "pin, title:^(Picture-in-Picture)$"
+        # make Brave PiP window floating and sticky
+        "float, title:^(Picture-in-picture)$"
+        "pin, title:^(Picture-in-picture)$"
 
         # # idle inhibit while watching videos
         # "idleinhibit focus, class:^(mpv|.+exe|celluloid)$"
