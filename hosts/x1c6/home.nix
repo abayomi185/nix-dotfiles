@@ -23,6 +23,7 @@
     outputs.homeManagerModules.apps.calibre
     outputs.homeManagerModules.apps.k9s
     outputs.homeManagerModules.apps.neovim
+    outputs.homeManagerModules.apps.obs
     outputs.homeManagerModules.apps.obsidian
     outputs.homeManagerModules.apps.tmux
     outputs.homeManagerModules.apps.vscode
