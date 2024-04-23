@@ -6,6 +6,7 @@
   imports = [
     inputs.hyprlock.homeManagerModules.default
     inputs.hypridle.homeManagerModules.default
+    inputs.hyprpaper.homeManagerModules.default
 
     ../rofi
     ../waybar
@@ -17,6 +18,7 @@
 
     ./hyprlock.nix
     ./hypridle.nix
+    ./hyprpaper.nix
     ./packages.nix
 
     # XDG Desktop Portal
@@ -42,6 +44,7 @@
       exec-once = [
         "waybar"
         "hypridle"
+        "hyprpaper"
       ];
 
       general = {
