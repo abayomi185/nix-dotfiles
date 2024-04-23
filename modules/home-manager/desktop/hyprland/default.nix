@@ -10,11 +10,11 @@
 
     ../rofi
     ../waybar
-    ../swayosd.nix
 
     # ../mako.nix
     # ../swappy.nix
     # ../wl-common.nix
+    ../swayosd.nix
 
     ./hyprlock.nix
     ./hypridle.nix
@@ -26,7 +26,7 @@
     ../xdg-desktop-portal.nix
 
     # Services
-    ../services/polkit-gnome-auth.nix
+    # ../services/polkit-gnome-auth.nix
   ];
 
   wayland.windowManager.hyprland = {
