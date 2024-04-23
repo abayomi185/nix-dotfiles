@@ -13,6 +13,8 @@
     # Include the results of the hardware scan.
     inputs.hardware.nixosModules.lenovo-thinkpad-x1-6th-gen
     ./hardware-configuration.nix
+    outputs.nixosModules.power.powertop
+    # outputs.nixosModules.power.tlp # Can't be used with Gnome; it includes power-profiles-daemon
 
     # For fingerprint enrollment
     # inputs.nixos-06cb-009a-fingerprint-sensor.nixosModules.open-fprintd
@@ -31,6 +33,7 @@
     outputs.nixosModules.monitoring.btop
     # Networking - See ../../modules/nixos/networking/default.nix
     outputs.nixosModules.networking.bluetooth
+    outputs.nixosModules.networking.network-manager
     outputs.nixosModules.networking.tailscale
     # Dev - See ../../modules/nixos/dev/default.nix
     outputs.nixosModules.dev.podman
