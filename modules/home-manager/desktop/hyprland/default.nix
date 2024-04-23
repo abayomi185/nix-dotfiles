@@ -24,6 +24,9 @@
 
     # XDG Desktop Portal
     ../xdg-desktop-portal.nix
+
+    # Services
+    ../services/polkit-gnome-auth.nix
   ];
 
   wayland.windowManager.hyprland = {
