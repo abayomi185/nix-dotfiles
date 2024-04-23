@@ -97,6 +97,21 @@
         "float, Rofi"
       ];
 
+      windowrulev2 = [
+        # make Firefox PiP window floating and sticky
+        "float, title:^(Picture-in-Picture)$"
+        "pin, title:^(Picture-in-Picture)$"
+
+        # # idle inhibit while watching videos
+        # "idleinhibit focus, class:^(mpv|.+exe|celluloid)$"
+        # "idleinhibit focus, class:^(firefox)$, title:^(.*YouTube.*)$"
+        # "idleinhibit fullscreen, class:^(firefox)$"
+      ];
+
+      misc = {
+        focus_on_activate = true; # focus on window when it's activated
+      };
+
       bind = [
         "$mod,        Return, exec, wezterm"
         "$mod_SHIFT,  Return, exec, rofi-launcher"
@@ -109,7 +124,7 @@
 
         "$mod, O, exec, killall -SIGUSR1 .waybar-wrapped"
 
-        "CONTROL_SHIFT, Q, exec, hyprlock"
+        "CONTROL_SHIFT, Q, exec, loginctl lock-session"
 
         "$mod_SHIFT, I, togglesplit,"
         "$mod, F, fullscreen,1"
@@ -182,10 +197,12 @@
         "$mod, up,    resizeactive, 0 -40"
         "$mod, down,  resizeactive, 0 40"
 
-        ", XF86AudioRaiseVolume,  exec, wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+"
-        ", XF86AudioLowerVolume,  exec, wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%-"
-        ", XF86AudioMute,         exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-        # ", XF86AudioMicMute, exec, pamixer --default-source -m"
+        # ", XF86AudioRaiseVolume,  exec, wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+"
+        # ", XF86AudioLowerVolume,  exec, wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%-"
+        ", XF86AudioRaiseVolume,  exec, wpctl set-mute @DEFAULT_AUDIO_SINK@   0     ; wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+"
+        ", XF86AudioLowerVolume,  exec, wpctl set-mute @DEFAULT_AUDIO_SINK@   0     ; wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%-"
+        ", XF86AudioMute,         exec, wpctl set-mute @DEFAULT_AUDIO_SINK@   toggle"
+        ", XF86AudioMicMute,      exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
 
         ", XF86MonBrightnessUp,   exec, brightnessctl --min-value=10 s +10%"
         ", XF86MonBrightnessDown, exec, brightnessctl --min-value=10 s 10%-"
@@ -201,6 +218,9 @@
       bindl = [
         ", switch:Lid Switch, exec, hyprlock"
       ];
+
+      # windowrulev2 = float, title:^(Picture-in-Picture)$
+      # windowrulev2 = pin, title:^(Picture-in-Picture)$
     };
   };
 
