@@ -38,6 +38,7 @@
     outputs.homeManagerModules.shell.zsh
     # Browsers - See ../../modules/home-manager/browsers/default.nix
     outputs.homeManagerModules.browsers.brave
+    outputs.homeManagerModules.browsers.firefox
     # Desktop - See ../../modules/home-manager/desktop/default.nix
     # outputs.homeManagerModules.desktop.theme
     outputs.homeManagerModules.desktop.hyprland
