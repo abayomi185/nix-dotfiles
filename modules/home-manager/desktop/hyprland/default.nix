@@ -49,6 +49,9 @@
         "waybar"
         "hypridle"
         "hyprpaper"
+        # "dbus-update-activation-environment --all"
+        # "gnome-keyring-daemon --start --components=secrets"
+        # "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"
       ];
 
       general = {
@@ -211,8 +214,8 @@
         ", XF86AudioMute,         exec, wpctl set-mute @DEFAULT_AUDIO_SINK@   toggle"
         ", XF86AudioMicMute,      exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
 
-        ", XF86MonBrightnessUp,   exec, brightnessctl --min-value=10 s +10%"
-        ", XF86MonBrightnessDown, exec, brightnessctl --min-value=10 s 10%-"
+        ", XF86MonBrightnessUp,   exec, brightnessctl --min-value=10 s +5%"
+        ", XF86MonBrightnessDown, exec, brightnessctl --min-value=10 s 5%-"
       ];
 
       # mouse binds
