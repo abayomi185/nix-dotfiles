@@ -12,7 +12,7 @@ in {
       mainBar = {
         height = 10;
         layer = "top";
-        modules-left = ["custom/launcher" "cpu" "memory" "custom/weather" "hyprland/workspaces"];
+        modules-left = ["custom/launcher" "cpu" "memory" "hyprland/workspaces"];
         modules-center = ["mpris" "hyprland/window"];
         modules-right = ["network" "bluetooth" "pulseaudio" "backlight" "battery" "power-profiles-daemon" "clock"];
 
