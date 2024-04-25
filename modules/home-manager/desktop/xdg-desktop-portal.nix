@@ -4,7 +4,11 @@
     xdgOpenUsePortal = true;
 
     config = {
-      common.default = ["gtk"];
+      common = {
+        default = ["gtk"];
+        "org.freedesktop.impl.portal.Secret" = ["gnome-keyring"];
+        "org.freedesktop.portal.FileChooser" = ["xdg-desktop-portal-gtk"];
+      };
       hyprland.default = ["gtk" "hyprland"];
     };
 
