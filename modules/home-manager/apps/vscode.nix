@@ -1,7 +1,4 @@
 {pkgs, ...}: {
-  # home.packages = with pkgs; [
-  #   vscode-fhs
-  # ];
   programs.vscode = {
     enable = true;
     extensions = with pkgs.vscode-extensions; [
@@ -18,5 +15,7 @@
       kamikillerto.vscode-colorize
       esbenp.prettier-vscode
     ];
+    userSettings = {};
+    keybindings = [];
   };
 }
