@@ -1,8 +1,4 @@
-{
-  inputs,
-  pkgs,
-  ...
-}: {
+{inputs, ...}: {
   imports = [
     inputs.hyprlock.homeManagerModules.default
     inputs.hypridle.homeManagerModules.default
