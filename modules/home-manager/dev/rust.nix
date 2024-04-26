@@ -1,4 +1,8 @@
-{ inputs, pkgs, ... }: {
+{
+  inputs,
+  pkgs,
+  ...
+}: {
   nixpkgs.overlays = [
     inputs.rust-overlay.overlays.default
   ];

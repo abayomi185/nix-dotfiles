@@ -1,58 +1,61 @@
-{ config, lib, pkgs, ... }:
-let
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
   package = pkgs.stable.waybar;
 
   # the fonts that will be included with the waybar package
-  fontPackages = [ pkgs.ubuntu_font_family pkgs.material-design-icons ];
+  fontPackages = [pkgs.ubuntu_font_family pkgs.material-design-icons];
 
   # patch those fonts in
-  package' =
-    let super = package;
-    in pkgs.symlinkJoin {
+  package' = let
+    super = package;
+  in
+    pkgs.symlinkJoin {
       inherit (super) name pname version meta;
-      paths = [ super ] ++ fontPackages;
+      paths = [super] ++ fontPackages;
     };
 
-  compileSCSS = name: source:
-    "${
-      pkgs.runCommandLocal name { } ''
-        mkdir -p $out
-        ${lib.getExe pkgs.sassc} -t expanded '${source}' > $out/${name}.css
-      ''
-    }/${name}.css";
+  compileSCSS = name: source: "${
+    pkgs.runCommandLocal name {} ''
+      mkdir -p $out
+      ${lib.getExe pkgs.sassc} -t expanded '${source}' > $out/${name}.css
+    ''
+  }/${name}.css";
 
   # TODO when using store paths to executables, they do not inherit the user's
   # environment (at least with systemd) and therefore GUIs use the default theme
-  commands =
-    let
-      # slight = "${lib.getExe pkgs.slight}";
-      hyprctl = "${config.wayland.windowManager.hyprland.package}/bin/hyprctl";
-      # TODO this is duplicated from the hyprland config, make it a module
-      # kbFns = lib.getExe config.utilities.osd-functions.package;
-      pavucontrol = lib.getExe pkgs.lxqt.pavucontrol-qt;
-      blueman-manager = "${pkgs.blueman}/bin/blueman-manager";
-      bluetoothctl = "${pkgs.bluez}/bin/bluetoothctl";
-      systemctl = "${pkgs.systemd}/bin/systemctl";
-      iwgtk = lib.getExe pkgs.iwgtk;
-    in
-    {
-      # backlightUp = "${slight} inc 5% -t 150ms";
-      # backlightDown = "${slight} dec 5% -t 150ms";
-      # TODO --tab no longer works, what is the identifier to use?
-      outputSoundSettings = "${pavucontrol} --tab 'Output Devices'";
-      # outputVolumeMute = "${kbFns} output mute";
-      # outputVolumeUp = "${kbFns} output +0.05";
-      # outputVolumeDown = "${kbFns} output -0.05";
-      # TODO --tab no longer works, what is the identifier to use?
-      inputSoundSettings = "${pavucontrol} --tab 'Input Devices'";
-      # inputVolumeMute = "${kbFns} input mute";
-      # inputVolumeUp = "${kbFns} input +0.05";
-      # inputVolumeDown = "${kbFns} input -0.05";
-      bluetoothSettings = (pkgs.writeShellScript "waybar-bluetooth-settings" ''
+  commands = let
+    # slight = "${lib.getExe pkgs.slight}";
+    hyprctl = "${config.wayland.windowManager.hyprland.package}/bin/hyprctl";
+    # TODO this is duplicated from the hyprland config, make it a module
+    # kbFns = lib.getExe config.utilities.osd-functions.package;
+    pavucontrol = lib.getExe pkgs.lxqt.pavucontrol-qt;
+    blueman-manager = "${pkgs.blueman}/bin/blueman-manager";
+    bluetoothctl = "${pkgs.bluez}/bin/bluetoothctl";
+    systemctl = "${pkgs.systemd}/bin/systemctl";
+    iwgtk = lib.getExe pkgs.iwgtk;
+  in {
+    # backlightUp = "${slight} inc 5% -t 150ms";
+    # backlightDown = "${slight} dec 5% -t 150ms";
+    # TODO --tab no longer works, what is the identifier to use?
+    outputSoundSettings = "${pavucontrol} --tab 'Output Devices'";
+    # outputVolumeMute = "${kbFns} output mute";
+    # outputVolumeUp = "${kbFns} output +0.05";
+    # outputVolumeDown = "${kbFns} output -0.05";
+    # TODO --tab no longer works, what is the identifier to use?
+    inputSoundSettings = "${pavucontrol} --tab 'Input Devices'";
+    # inputVolumeMute = "${kbFns} input mute";
+    # inputVolumeUp = "${kbFns} input +0.05";
+    # inputVolumeDown = "${kbFns} input -0.05";
+    bluetoothSettings =
+      (pkgs.writeShellScript "waybar-bluetooth-settings" ''
         set -eux
         export PATH="${
           lib.makeBinPath
-          (with pkgs; [ coreutils gawk util-linux bluez nettools blueman ])
+          (with pkgs; [coreutils gawk util-linux bluez nettools blueman])
         }:$PATH"
         is_powered_on="$(
           bluetoothctl show | \
@@ -66,12 +69,14 @@ let
           sleep 0.5
           blueman-manager
         fi
-      '').outPath;
-      bluetoothToggle = (pkgs.writeShellScript "waybar-bluetooth-toggle" ''
+      '')
+      .outPath;
+    bluetoothToggle =
+      (pkgs.writeShellScript "waybar-bluetooth-toggle" ''
         set -eux
         export PATH="${
           lib.makeBinPath
-          (with pkgs; [ coreutils gawk util-linux bluez nettools ])
+          (with pkgs; [coreutils gawk util-linux bluez nettools])
         }:$PATH"
         is_powered_on="$(
           bluetoothctl show | \
@@ -83,16 +88,15 @@ let
           rfkill unblock bluetooth && sleep 1 || true
           bluetoothctl power on
         fi
-      '').outPath;
-      bluetoothKill =
-        "rfkill block bluetooth && ${systemctl} restart bluetooth.service";
-      bluetoothOff = "${bluetoothctl} power off";
-      wirelessSettings = iwgtk;
-      workspaceSwitchPrev = "${hyprctl} dispatch workspace m-1";
-      workspaceSwitchNext = "${hyprctl} dispatch workspace m+1";
-    };
-in
-{
+      '')
+      .outPath;
+    bluetoothKill = "rfkill block bluetooth && ${systemctl} restart bluetooth.service";
+    bluetoothOff = "${bluetoothctl} power off";
+    wirelessSettings = iwgtk;
+    workspaceSwitchPrev = "${hyprctl} dispatch workspace m-1";
+    workspaceSwitchNext = "${hyprctl} dispatch workspace m+1";
+  };
+in {
   programs.waybar.enable = true;
   programs.waybar.package = package';
 
@@ -171,8 +175,8 @@ in
         format = "{status_icon} {dynamic}";
         dynamic-len = 70;
         dynamic-separator = " — ";
-        dynamic-order = [ "title" "artist" "position" "length" ];
-        dynamic-importance = [ "position" "title" "artist" ];
+        dynamic-order = ["title" "artist" "position" "length"];
+        dynamic-importance = ["position" "title" "artist"];
         status-icons = {
           playing = "󰐊";
           paused = "󰏤";
@@ -193,13 +197,13 @@ in
         tooltip = false;
       };
 
-      "hyprland/window" = { max-length = 50; };
+      "hyprland/window" = {max-length = 50;};
 
       ## MODULES-CENTER ##
 
-      "clock#time" = { format = "{:%I:%M %p}"; };
+      "clock#time" = {format = "{:%I:%M %p}";};
 
-      "clock#date" = { format = "{:%A, %B %d}"; };
+      "clock#date" = {format = "{:%A, %B %d}";};
 
       ## MODULES-RIGHT ##
 
@@ -216,7 +220,7 @@ in
           # car = "󰄋";
           # hifi = "󰓃";
           # phone = "󰏲";
-          default = [ "󰕿" "󰖀" "󰕾" ];
+          default = ["󰕿" "󰖀" "󰕾"];
         };
 
         # anything below 100% is "safe" volume levels,
@@ -224,9 +228,9 @@ in
         # anything higher than this will have no CSS class,
         # that will be considered "warning" state
         # `#pulseaudio.output:not(.safe)`
-        states = { safe = 100; };
+        states = {safe = 100;};
 
-        ignored-sinks = [ "Easy Effects Sink" ];
+        ignored-sinks = ["Easy Effects Sink"];
 
         on-click = commands.outputSoundSettings;
         # on-click-right = commands.outputVolumeMute;
@@ -285,39 +289,37 @@ in
         format = "{icon} {temperatureC}°C";
         format-critical = "󰈸 {temperatureC}°C";
         # 4x low, 2x mid, 3x high, for 0-90
-        format-icons = [ "󱃃" "󱃃" "󱃃" "󱃃" "󰔏" "󰔏" "󱃂" "󱃂" "󱃂" ];
+        format-icons = ["󱃃" "󱃃" "󱃃" "󱃃" "󰔏" "󰔏" "󱃂" "󱃂" "󱃂"];
       };
 
-      network =
-        let
-          tooltip = ''
-            <b>Address:</b> {ipaddr}
-            <b>Netmask:</b> {netmask}
-            <b>Gateway:</b> {gwaddr}
-            <b>Speeds:</b> {bandwidthUpBytes} UL, {bandwidthDownBytes} DL
-          '';
-        in
-        {
-          format-ethernet = "󰈀 {bandwidthDownBytes}";
-          format-wifi = "{icon} {bandwidthDownBytes}";
-          format-linked = "󱫱 {bandwidthDownBytes}";
-          format-disconnected = "󰲛";
-          format-icons = [ "󰤟" "󰤢" "󰤥" "󰤨" ];
+      network = let
+        tooltip = ''
+          <b>Address:</b> {ipaddr}
+          <b>Netmask:</b> {netmask}
+          <b>Gateway:</b> {gwaddr}
+          <b>Speeds:</b> {bandwidthUpBytes} UL, {bandwidthDownBytes} DL
+        '';
+      in {
+        format-ethernet = "󰈀 {bandwidthDownBytes}";
+        format-wifi = "{icon} {bandwidthDownBytes}";
+        format-linked = "󱫱 {bandwidthDownBytes}";
+        format-disconnected = "󰲛";
+        format-icons = ["󰤟" "󰤢" "󰤥" "󰤨"];
 
-          tooltip-format = ''
-            <b>Interface</b>: {ifname}
-            ${tooltip}
-          '';
-          tooltip-format-wifi = ''
-            <b>SSID:</b> {essid}
-            <b>Strength:</b> {signaldBm} dBmW ({signalStrength}%)
-            <b>Frequency:</b> {frequency} GHz
-            ${tooltip}
-          '';
-          tooltip-format-disconnected = "Network disconnected.";
+        tooltip-format = ''
+          <b>Interface</b>: {ifname}
+          ${tooltip}
+        '';
+        tooltip-format-wifi = ''
+          <b>SSID:</b> {essid}
+          <b>Strength:</b> {signaldBm} dBmW ({signalStrength}%)
+          <b>Frequency:</b> {frequency} GHz
+          ${tooltip}
+        '';
+        tooltip-format-disconnected = "Network disconnected.";
 
-          on-click = commands.wirelessSettings;
-        };
+        on-click = commands.wirelessSettings;
+      };
 
       bluetooth = {
         controller = "C0:3C:59:02:25:C3";
@@ -325,8 +327,7 @@ in
         format-off = "󰂲";
         format-disabled = "󰂲";
         format-connected = "󰂱 {num_connections}";
-        format-connected-battery =
-          "󰂱 {device_alias} ({device_battery_percentage}%) ({num_connections})";
+        format-connected-battery = "󰂱 {device_alias} ({device_battery_percentage}%) ({num_connections})";
 
         on-click = commands.bluetoothSettings;
         on-click-middle = commands.bluetoothKill;
@@ -338,7 +339,7 @@ in
         bat = "BAT0";
         # full-at = 94;
         format = "{icon} {capacity}%";
-        format-icons = [ "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹" ];
+        format-icons = ["󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹"];
         states = {
           battery-10 = 10;
           battery-20 = 20;
@@ -373,10 +374,8 @@ in
           activated = "󰈈";
           deactivated = "󱎫";
         };
-        tooltip-format-activated =
-          "Idle timer inhibited, device will not sleep.";
-        tooltip-format-deactivated =
-          "Idle timer enabled, device will sleep when not in use.";
+        tooltip-format-activated = "Idle timer inhibited, device will not sleep.";
+        tooltip-format-deactivated = "Idle timer enabled, device will sleep when not in use.";
       };
     };
   };
