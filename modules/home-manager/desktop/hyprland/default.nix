@@ -49,9 +49,9 @@
         "waybar"
         "hypridle"
         "hyprpaper"
-        # "dbus-update-activation-environment --all"
-        # "gnome-keyring-daemon --start --components=secrets"
-        # "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"
+        "hyprctl setcursor phinger-cursors-dark 24"
+        "[workspace 2 silent] brave"
+        "[workspace 2 silent] wezterm"
       ];
 
       general = {
@@ -89,6 +89,10 @@
 
       decoration = {
         rounding = 10;
+        drop_shadow = false;
+        blur = {
+          enabled = false;
+        };
       };
 
       animations = {
@@ -122,19 +126,24 @@
         focus_on_activate = true; # focus on window when it's activated
       };
 
+      # env = [
+      #   "HYPRCURSOR_THEME,phinger-cursors-dark"
+      #   "HYPRCURSOR_SIZE,24"
+      # ];
+
       bind = [
         "$mod,        Return, exec, wezterm"
         "$mod_SHIFT,  Return, exec, rofi-launcher"
         "$mod,        SPACE,  exec, rofi -show drun -show-icons"
 
         "$mod, T, exec, konsole"
-        "$mod, W, exec, brave"
+        "$mod, B, exec, brave"
         "$mod, D, exec, discord"
         "$mod, M, exec, spotify"
 
         "$mod, O, exec, killall -SIGUSR1 .waybar-wrapped"
 
-        "CONTROL_SHIFT, Q, exec, loginctl lock-session"
+        "CONTROL_ALT, Q, exec, loginctl lock-session"
 
         "$mod_SHIFT, I, togglesplit,"
         "$mod, F, fullscreen,1"
@@ -207,8 +216,6 @@
         "$mod, up,    resizeactive, 0 -40"
         "$mod, down,  resizeactive, 0 40"
 
-        # ", XF86AudioRaiseVolume,  exec, wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+"
-        # ", XF86AudioLowerVolume,  exec, wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%-"
         ", XF86AudioRaiseVolume,  exec, wpctl set-mute @DEFAULT_AUDIO_SINK@   0     ; wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+"
         ", XF86AudioLowerVolume,  exec, wpctl set-mute @DEFAULT_AUDIO_SINK@   0     ; wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%-"
         ", XF86AudioMute,         exec, wpctl set-mute @DEFAULT_AUDIO_SINK@   toggle"
@@ -228,9 +235,6 @@
       bindl = [
         ", switch:Lid Switch, exec, hyprlock"
       ];
-
-      # windowrulev2 = float, title:^(Picture-in-Picture)$
-      # windowrulev2 = pin, title:^(Picture-in-Picture)$
     };
   };
 
