@@ -7,6 +7,7 @@
     libnotify
     pavucontrol
     networkmanagerapplet
+    nwg-look
     wireplumber
   ];
 }
