@@ -192,7 +192,6 @@
         # TODO: Add your SSH public key(s) here, if you plan on using SSH to connect
       ];
 
-      # TODO: Be sure to add any other groups you need (such as networkmanager, audio, docker, etc)
       extraGroups = ["networkmanager" "wheel" "video"];
 
       packages = with pkgs; [
@@ -209,6 +208,10 @@
   environment.systemPackages = with pkgs; [
     #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     #  wget
+  ];
+  environment.pathsToLink = [
+    "/share/xdg-desktop-portal"
+    "/share/applications"
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
