@@ -12,8 +12,16 @@ in {
 
     plugins = with pkgs; [
       rofi-calc
-      rofi-emoji
+      # rofi-emoji
+      wofi-emoji
+      # rofi-bluetooth
+      # rofi-vpn
+      # rofi-rbw-wayland # Frontend for Bitwarden
+      # rofi-pulse-select
+      # rofi-file-browser
     ];
+
+    terminal = "${pkgs.wezterm}/bin/wezterm";
 
     theme = let
       inherit (config.lib.formats.rasi) mkLiteral;
