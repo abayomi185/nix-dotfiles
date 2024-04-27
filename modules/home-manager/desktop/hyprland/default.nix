@@ -10,22 +10,23 @@
     # ../mako.nix
     # ../swappy.nix
     # ../wl-common.nix
-    ../swayosd.nix
 
+    # Hypr
     ./hyprlock.nix
     ./hypridle.nix
     ./hyprpaper.nix
     ./hyprcursor.nix
-    ./packages.nix
-
-    # XDG Desktop Portal
-    ../xdg-desktop-portal.nix
 
     # GTK
     ../gtk.nix
 
     # Services
-    # ../services/polkit-gnome-auth.nix
+    ../swayosd.nix
+    ../playerctl.nix
+    ../xdg-desktop-portal.nix # XDG Desktop Portal
+
+    # Packages
+    ./packages.nix
   ];
 
   wayland.windowManager.hyprland = {
@@ -49,8 +50,10 @@
         "hypridle"
         "hyprpaper"
         "hyprctl setcursor phinger-cursors-dark 24"
-        "[workspace 2 silent] brave"
-        "[workspace 2 silent] wezterm"
+        "[workspace 1 silent] discord"
+        "[workspace 1 silent] spotify"
+        "[workspace 3 silent] brave"
+        "[workspace 4 silent] wezterm"
       ];
 
       general = {
