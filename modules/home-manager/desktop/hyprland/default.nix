@@ -51,7 +51,7 @@
         "hyprpaper"
         "hyprctl setcursor phinger-cursors-dark 24"
         "[workspace 1 silent] discord"
-        "[workspace 1 silent] spotify"
+        "[workspace 2 silent] spotify"
         "[workspace 3 silent] brave"
         "[workspace 4 silent] wezterm"
       ];
@@ -79,7 +79,7 @@
         # follow_mouse = 2;
         repeat_rate = 50;
         repeat_delay = 300;
-        natural_scroll = true;
+        natural_scroll = false; # For the trackpoint
         touchpad = {
           natural_scroll = true;
           tap-to-click = false;
@@ -135,7 +135,7 @@
 
       bind = [
         "$mod,        Return, exec, wezterm"
-        "$mod_SHIFT,  Return, exec, rofi-launcher"
+        "$mod_SHIFT,  SPACE,  exec, rofi"
         "$mod,        SPACE,  exec, rofi -show drun -show-icons"
 
         "$mod, T, exec, konsole"
