@@ -141,9 +141,14 @@
 
         "CONTROL_ALT, Q, exec, loginctl lock-session"
 
+        "$CONTROL_SHIFT, 3, exec, grimblast --notify copysave" # Whole screen
+        "$CONTROL_SHIFT, 4, exec, grimblast --notify copysave active" # Active window
+        "$CONTROL_SHIFT, 5, exec, grimblast --notify copysave area" # Area selection
+        "$mod, Print, exec, GRIMBLAST_EDITOR=drawing grimblast --notify edit" # Open in image editor
+
         "$mod_SHIFT, I, togglesplit,"
-        "$mod, F, fullscreen,1"
-        "$mod_CONTROL, F, fullscreen,0"
+        "$mod, F, fullscreen, 1"
+        "$mod_CONTROL, F, fullscreen, 0"
 
         "$mod_SHIFT, F,     togglefloating,"
         "$mod_SHIFT, C,     exit,"
@@ -236,6 +241,7 @@
 
   home.sessionVariables = {
     NIXOS_OZONE_WL = "1";
+    XDG_SCREENSHOTS_DIR = "$HOME/Pictures/screenshots";
     # MOZ_ENABLE_WAYLAND = "1";
   };
 }
