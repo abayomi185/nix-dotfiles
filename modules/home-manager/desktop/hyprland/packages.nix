@@ -13,6 +13,8 @@
     gnome.gnome-tweaks
     gnome.dconf-editor
 
+    cinnamon.nemo # Better than nautilus
+
     brightnessctl
     killall
     libnotify
