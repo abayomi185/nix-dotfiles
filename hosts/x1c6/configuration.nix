@@ -193,7 +193,7 @@
       ];
 
       # TODO: Be sure to add any other groups you need (such as networkmanager, audio, docker, etc)
-      extraGroups = ["networkmanager" "wheel"];
+      extraGroups = ["networkmanager" "wheel" "video"];
 
       packages = with pkgs; [
         # NOTE: Packages are installed via home-manager
