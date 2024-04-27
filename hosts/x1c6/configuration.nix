@@ -236,6 +236,7 @@
   # Other services
   services.flatpak.enable = true;
   services.fwupd.enable = true;
+  services.udev.packages = [pkgs.swayosd];
 
   # For enrollment
   # services.open-fprintd.enable = true;
