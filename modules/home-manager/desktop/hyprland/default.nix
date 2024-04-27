@@ -23,7 +23,7 @@
     # Services
     ../swayosd.nix
     ../playerctl.nix
-    ../xdg-desktop-portal.nix # XDG Desktop Portal
+    ../xdg.nix # XDG Desktop Portal
 
     # Packages
     ./packages.nix
