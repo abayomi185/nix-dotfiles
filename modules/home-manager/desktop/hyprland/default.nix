@@ -214,6 +214,9 @@
 
         # "ALT, Tab, cyclenext"
         # "ALT, Tab, bringactivetotop"
+
+        "$mod,        backslash, exec, gsettings set org.gnome.desktop.interface gtk-theme 'Catppuccin-Macchiato-Compact-Pink-Dark' && gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark' && gsettings set org.gnome.desktop.interface icon-theme 'Papirus-Dark'"
+        "$mod_SHIFT,  backslash, exec, gsettings set org.gnome.desktop.interface gtk-theme 'Catppuccin-Macchiato-Compact-Pink-Light' && gsettings set org.gnome.desktop.interface color-scheme 'prefer-light' && gsettings set org.gnome.desktop.interface icon-theme 'Papirus-Light'"
       ];
 
       # repeat when held
