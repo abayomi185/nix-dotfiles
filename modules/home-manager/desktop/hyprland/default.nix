@@ -21,6 +21,9 @@
     # XDG Desktop Portal
     ../xdg-desktop-portal.nix
 
+    # GTK
+    ../gtk.nix
+
     # Services
     # ../services/polkit-gnome-auth.nix
   ];
@@ -217,13 +220,20 @@
         "$mod, up,    resizeactive, 0 -40"
         "$mod, down,  resizeactive, 0 40"
 
-        ", XF86AudioRaiseVolume,  exec, wpctl set-mute @DEFAULT_AUDIO_SINK@   0     ; wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+"
-        ", XF86AudioLowerVolume,  exec, wpctl set-mute @DEFAULT_AUDIO_SINK@   0     ; wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%-"
-        ", XF86AudioMute,         exec, wpctl set-mute @DEFAULT_AUDIO_SINK@   toggle"
-        ", XF86AudioMicMute,      exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+        # ", XF86AudioRaiseVolume,  exec, wpctl set-mute @DEFAULT_AUDIO_SINK@   0     ; wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+"
+        # ", XF86AudioLowerVolume,  exec, wpctl set-mute @DEFAULT_AUDIO_SINK@   0     ; wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%-"
+        # ", XF86AudioMute,         exec, wpctl set-mute @DEFAULT_AUDIO_SINK@   toggle"
+        # ", XF86AudioMicMute,      exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+        # ", XF86MonBrightnessUp,   exec, brightnessctl --min-value=10 s +5%"
+        # ", XF86MonBrightnessDown, exec, brightnessctl --min-value=10 s 5%-"
 
-        ", XF86MonBrightnessUp,   exec, brightnessctl --min-value=10 s +5%"
-        ", XF86MonBrightnessDown, exec, brightnessctl --min-value=10 s 5%-"
+        ", XF86AudioRaiseVolume,  exec, wpctl set-mute @DEFAULT_AUDIO_SINK@   0     ; swayosd-client --output-volume raise"
+        ", XF86AudioLowerVolume,  exec, wpctl set-mute @DEFAULT_AUDIO_SINK@   0     ; swayosd-client --output-volume lower"
+        ", XF86AudioMute,         exec, swayosd-client --output-volume mute-toggle"
+        ", XF86AudioMicMute,      exec, swayosd-client --input-volume mute-toggle"
+
+        ", XF86MonBrightnessUp,   exec, swayosd-client --brightness +5"
+        ", XF86MonBrightnessDown, exec, swayosd-client --brightness -5"
       ];
 
       # mouse binds
