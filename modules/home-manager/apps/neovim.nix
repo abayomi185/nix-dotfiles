@@ -10,8 +10,8 @@
       nil
       alejandra
       # Other Global
-      # prettierd
-      # taplo
+      prettierd
+      taplo
     ];
   };
 }
