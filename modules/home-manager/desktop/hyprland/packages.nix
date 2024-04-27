@@ -15,6 +15,8 @@
 
     cinnamon.nemo # Better than nautilus
 
+    qalculate-gtk
+
     brightnessctl
     killall
     libnotify
