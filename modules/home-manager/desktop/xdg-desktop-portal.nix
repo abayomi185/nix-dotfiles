@@ -7,7 +7,7 @@
       common = {
         default = ["gtk"];
         "org.freedesktop.impl.portal.Secret" = ["gnome-keyring"];
-        "org.freedesktop.portal.FileChooser" = ["xdg-desktop-portal-gtk"];
+        "org.freedesktop.impl.portal.FileChooser" = ["nemo"];
       };
       hyprland.default = ["gtk" "hyprland"];
     };
