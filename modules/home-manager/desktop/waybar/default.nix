@@ -13,8 +13,8 @@ in {
         height = 10;
         layer = "top";
         modules-left = ["custom/launcher" "cpu" "memory" "hyprland/workspaces"];
-        modules-center = ["mpris" "hyprland/window"];
-        modules-right = ["network" "bluetooth" "pulseaudio" "backlight" "battery" "power-profiles-daemon" "clock"];
+        modules-center = ["hyprland/window"];
+        modules-right = ["mpris" "network" "bluetooth" "pulseaudio" "backlight" "battery" "power-profiles-daemon" "clock"];
 
         "hyprland/workspaces" = {
           format = "{name}";
