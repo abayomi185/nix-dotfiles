@@ -19,7 +19,9 @@
         "org.freedesktop.impl.portal.Secret" = ["gnome-keyring"];
         "org.freedesktop.impl.portal.FileChooser" = ["nemo"];
       };
-      hyprland.default = ["gtk" "hyprland"];
+      hyprland = {
+        default = ["gtk" "hyprland"];
+      };
     };
 
     extraPortals = with pkgs; [
