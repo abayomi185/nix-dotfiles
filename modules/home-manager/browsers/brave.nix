@@ -3,20 +3,12 @@
 # If it doesn't, you will need to find a different approach to customize the package,
 # such as using wrapProgram in a pkgs.stdenv.mkDerivation
 {pkgs, ...}: {
-  # nixpkgs.overlays = [
-  #   (self: super: {
-  #     brave = super.brave.override {
-  #       commandLineArgs = "--enable-features=TouchpadOverscrollHistoryNavigation";
-  #     };
-  #   })
-  # ];
-  #
-  # home.packages = with pkgs; [brave];
-
   programs.brave = {
     enable = true;
+    # package = pkgs.stable.brave;
     commandLineArgs = [
-      "--enable-features=TouchpadOverscrollHistoryNavigation"
+      "--enable-features=UseOzonePlatform,TouchpadOverscrollHistoryNavigation"
+      "--ozone-platform=wayland"
       # "--password-store=gnome-libsecret"
     ];
     extensions = [
