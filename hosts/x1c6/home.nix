@@ -27,25 +27,34 @@
     outputs.homeManagerModules.apps.obsidian
     outputs.homeManagerModules.apps.tmux
     outputs.homeManagerModules.apps.vscode
-    # Music - See ../../modules/home-manager/music/default.nix
-    outputs.homeManagerModules.music.spotify
-    # Terminal - See ../../modules/home-manager/terminal/default.nix
-    # outputs.homeManagerModules.terminal.kitty
-    outputs.homeManagerModules.terminal.wezterm
-    # Shell - See ../../modules/home-manager/shell/default.nix
-    outputs.homeManagerModules.shell.git
-    outputs.homeManagerModules.shell.starship
-    outputs.homeManagerModules.shell.zsh
+
     # Browsers - See ../../modules/home-manager/browsers/default.nix
     outputs.homeManagerModules.browsers.brave
     outputs.homeManagerModules.browsers.firefox
+
     # Desktop - See ../../modules/home-manager/desktop/default.nix
     # outputs.homeManagerModules.desktop.theme
     outputs.homeManagerModules.desktop.hyprland
+
     # Dev - See ../../modules/home-manager/dev/default.nix
     outputs.homeManagerModules.dev.rust
     outputs.homeManagerModules.dev.zig
     outputs.homeManagerModules.dev.nodejs
+
+    # Music - See ../../modules/home-manager/music/default.nix
+    outputs.homeManagerModules.music.spotify
+
+    # Shell - See ../../modules/home-manager/shell/default.nix
+    outputs.homeManagerModules.shell.git
+    outputs.homeManagerModules.shell.starship
+    outputs.homeManagerModules.shell.zsh
+
+    # Terminal - See ../../modules/home-manager/terminal/default.nix
+    # outputs.homeManagerModules.terminal.kitty
+    outputs.homeManagerModules.terminal.wezterm
+
+    # Utils - See ../../modules/home-manager/utils/default.nix
+    outputs.homeManagerModules.utils.age
 
     # ZSH - See ./zsh.nix
     ./zsh.nix
