@@ -47,13 +47,17 @@
 
       exec-once = [
         "waybar"
+        # Spacer
         "hypridle"
         "hyprpaper"
         "hyprctl setcursor phinger-cursors-dark 24"
+        # Spacer
         "[workspace 1 silent] discord"
         "[workspace 2 silent] spotify"
         "[workspace 3 silent] brave"
         "[workspace 4 silent] wezterm"
+        # Spacer
+        "nm-applet --indicator"
       ];
 
       general = {
