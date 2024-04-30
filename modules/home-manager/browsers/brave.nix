@@ -2,10 +2,9 @@
 # which supports the commandLineArgs attribute.
 # If it doesn't, you will need to find a different approach to customize the package,
 # such as using wrapProgram in a pkgs.stdenv.mkDerivation
-{pkgs, ...}: {
+{
   programs.brave = {
     enable = true;
-    # package = pkgs.stable.brave;
     commandLineArgs = [
       "--enable-features=UseOzonePlatform,TouchpadOverscrollHistoryNavigation"
       "--ozone-platform=wayland"
