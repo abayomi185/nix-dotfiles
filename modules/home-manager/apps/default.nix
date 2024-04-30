@@ -14,4 +14,5 @@
   tree = import ./tree.nix;
   vscode = import ./vscode.nix;
   yabai = import ./yabai.nix;
+  zellij = import ./zellij.nix;
 }
