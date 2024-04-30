@@ -27,6 +27,7 @@
     outputs.homeManagerModules.apps.obsidian
     outputs.homeManagerModules.apps.tmux
     outputs.homeManagerModules.apps.vscode
+    outputs.homeManagerModules.apps.zellij
 
     # Browsers - See ../../modules/home-manager/browsers/default.nix
     outputs.homeManagerModules.browsers.brave
