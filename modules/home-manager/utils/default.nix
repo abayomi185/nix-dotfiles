@@ -1,0 +1,3 @@
+{
+  age = import ./age.nix;
+}

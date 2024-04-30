@@ -7,21 +7,24 @@
   # Apps
   apps = import ./apps;
 
+  # Browsers
+  browsers = import ./browsers;
+
+  # Desktop
+  desktop = import ./desktop;
+
+  # Dev
+  dev = import ./dev;
+
+  # Music
+  music = import ./music;
+
   # Shell
   shell = import ./shell;
 
   # Terminal
   terminal = import ./terminal;
 
-  # Desktop
-  desktop = import ./desktop;
-
-  # Browsers
-  browsers = import ./browsers;
-
-  # Music
-  music = import ./music;
-
-  # Dev
-  dev = import ./dev;
+  # Utils
+  utils = import ./utils;
 }
