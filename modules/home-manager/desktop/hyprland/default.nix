@@ -21,9 +21,9 @@
     ../gtk.nix
 
     # Services
-    ../swayosd.nix
-    ../playerctl.nix
-    ../xdg.nix # XDG Desktop Portal
+    ../services/swayosd.nix
+    ../services/playerctl.nix
+    ../services/xdg.nix # XDG Desktop Portal
 
     # Packages
     ./packages.nix
