@@ -152,9 +152,9 @@
 
         "CONTROL_ALT, Q, exec, loginctl lock-session"
 
-        "$CONTROL_SHIFT, 3, exec, grimblast --notify copysave" # Whole screen
-        "$CONTROL_SHIFT, 4, exec, grimblast --notify copysave active" # Active window
-        "$CONTROL_SHIFT, 5, exec, grimblast --notify copysave area" # Area selection
+        "$mod_SHIFT, 3, exec, grimblast --notify copysave" # Whole screen
+        "$mod_SHIFT, 4, exec, grimblast --notify copysave active" # Active window
+        "$mod_SHIFT, 5, exec, grimblast --notify copysave area" # Area selection
         "$mod, Print, exec, GRIMBLAST_EDITOR=drawing grimblast --notify edit" # Open in image editor
 
         "$mod_SHIFT, I, togglesplit,"
