@@ -10,7 +10,8 @@
   obs = import ./obs.nix;
   obsidian = import ./obsidian.nix;
   skhd = import ./skhd.nix;
-  orcaslicer = import ./orcaslicer.nix;
+  orca-slicer = import ./orca-slicer.nix;
+  prusa-slicer = import ./prusa-slicer.nix;
   spacedrive = import ./spacedrive.nix;
   tmux = import ./tmux.nix;
   tree = import ./tree.nix;
