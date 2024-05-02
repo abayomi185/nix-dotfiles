@@ -22,6 +22,7 @@
 
     # Services
     ../services/swayosd.nix
+    ../services/swaync.nix
     ../services/playerctl.nix
     ../services/xdg.nix # XDG Desktop Portal
 
