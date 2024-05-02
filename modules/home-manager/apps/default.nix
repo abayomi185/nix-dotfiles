@@ -2,6 +2,7 @@
   bat = import ./bat.nix;
   bitwarden-cli = import ./bitwarden-cli.nix;
   calibre = import ./calibre.nix;
+  cura = import ./cura.nix;
   discord = import ./discord.nix;
   jq = import ./jq.nix;
   k9s = import ./k9s.nix;
