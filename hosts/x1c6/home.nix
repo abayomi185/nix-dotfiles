@@ -27,6 +27,7 @@
     outputs.homeManagerModules.apps.obs
     outputs.homeManagerModules.apps.obsidian
     outputs.homeManagerModules.apps.orca-slicer
+    outputs.homeManagerModules.apps.prusa-slicer
     outputs.homeManagerModules.apps.tmux
     outputs.homeManagerModules.apps.vscode
     outputs.homeManagerModules.apps.zellij
