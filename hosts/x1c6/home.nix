@@ -19,6 +19,7 @@
 
     # Apps - See ../../modules/home-manager/apps/default.nix
     outputs.homeManagerModules.apps.bat
+    outputs.homeManagerModules.apps.davinci-resolve-studio
     outputs.homeManagerModules.apps.discord
     outputs.homeManagerModules.apps.calibre
     outputs.homeManagerModules.apps.cura
