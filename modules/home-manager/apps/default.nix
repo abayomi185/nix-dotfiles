@@ -3,6 +3,7 @@
   bitwarden-cli = import ./bitwarden-cli.nix;
   calibre = import ./calibre.nix;
   cura = import ./cura.nix;
+  davinci-resolve-studio = import ./davinci-resolve-studio.nix;
   discord = import ./discord.nix;
   jq = import ./jq.nix;
   k9s = import ./k9s.nix;
