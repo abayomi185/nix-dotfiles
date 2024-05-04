@@ -36,6 +36,7 @@
     outputs.nixosModules.networking.network-manager
     outputs.nixosModules.networking.tailscale
     # Dev - See ../../modules/nixos/dev/default.nix
+    # outputs.nixosModules.dev.docker
     outputs.nixosModules.dev.podman
   ];
 
@@ -193,7 +194,10 @@
         # TODO: Add your SSH public key(s) here, if you plan on using SSH to connect
       ];
 
-      extraGroups = ["networkmanager" "wheel" "video"];
+      # wheel group is needed for sudo
+      # video group is needed for display control (e.g. brightness)
+      # dialout group is needed for serial ports (e.g. Arduino - /dev/tty)
+      extraGroups = ["networkmanager" "wheel" "video" "dialout"];
 
       packages = with pkgs; [
         # NOTE: Packages are installed via home-manager
@@ -265,6 +269,15 @@
 
   # Hyprlock support
   security.pam.services.hyprlock = {};
+
+  # For Davinci Resolve
+  hardware.opengl = {
+    enable = true;
+    driSupport32Bit = true;
+    extraPackages = with pkgs; [
+      intel-compute-runtime
+    ];
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
