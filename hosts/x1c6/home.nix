@@ -29,9 +29,7 @@
     outputs.homeManagerModules.apps.obsidian
     outputs.homeManagerModules.apps.orca-slicer
     outputs.homeManagerModules.apps.prusa-slicer
-    outputs.homeManagerModules.apps.tmux
     outputs.homeManagerModules.apps.vscode
-    outputs.homeManagerModules.apps.zellij
 
     # Browsers - See ../../modules/home-manager/browsers/default.nix
     outputs.homeManagerModules.browsers.brave
@@ -56,7 +54,9 @@
 
     # Terminal - See ../../modules/home-manager/terminal/default.nix
     # outputs.homeManagerModules.terminal.kitty
+    outputs.homeManagerModules.terminal.tmux
     outputs.homeManagerModules.terminal.wezterm
+    outputs.homeManagerModules.terminal.zellij
 
     # Utils - See ../../modules/home-manager/utils/default.nix
     outputs.homeManagerModules.utils.age
