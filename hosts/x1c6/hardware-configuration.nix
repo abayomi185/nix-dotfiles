@@ -14,9 +14,13 @@
 
   boot.initrd.availableKernelModules = ["xhci_pci" "nvme" "usb_storage" "sd_mod"];
   boot.initrd.kernelModules = [];
+
+  boot.kernelPackages = pkgs.linuxPackages_6_8; # or pkgs.linuxPackages_latest
   boot.kernelParams = ["mem_sleep_default=deep"];
   boot.kernelModules = ["kvm-intel"];
   boot.extraModulePackages = [];
+  # boot.extraModprobeConfig = ''
+  # '';
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/f6d7f4c9-8e91-493c-bdc8-365687614175";
