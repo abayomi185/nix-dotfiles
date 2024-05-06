@@ -2,6 +2,7 @@
   palette = config.colorScheme.palette;
   betterTransition = "all 0.3s cubic-bezier(.55,-0.68,.48,1.682)";
   fontSize = "12px";
+  fontSizeLarge = "14px";
   topMargin = "5px";
   bottomMargin = "5px";
 in {
@@ -14,7 +15,7 @@ in {
         layer = "top";
         modules-left = ["custom/launcher" "cpu" "memory" "hyprland/workspaces"];
         modules-center = ["hyprland/window"];
-        modules-right = ["mpris" "network" "bluetooth" "pulseaudio" "backlight" "battery" "power-profiles-daemon" "clock"];
+        modules-right = ["mpris" "tray" "bluetooth" "pulseaudio" "backlight" "battery" "power-profiles-daemon" "clock"];
 
         "hyprland/workspaces" = {
           format = "{name}";
@@ -32,6 +33,7 @@ in {
             "5" = [];
           };
         };
+
         "hyprland/language" = {
           format = "{short}";
         };
@@ -40,13 +42,16 @@ in {
           max-length = 200;
           separate-outputs = true;
         };
+
         "tray" = {
           spacing = 10;
         };
+
         "clock" = {
           format = "{:%H:%M}";
-          format-alt = "{:%b %d %Y}";
-          tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
+          # format-alt = "{:%b %d %Y}";
+          tooltip-format = "<big>{:%Y %B %d}</big>\n<tt><small>{calendar}</small></tt>";
+          on-click = "swaync-client -t";
         };
 
         "cpu" = {
@@ -55,17 +60,20 @@ in {
           max-length = 10;
           on-click = "";
         };
+
         "memory" = {
           interval = 30;
           format = "󰵆 {used:0.1f}GB";
           max-length = 10;
           tooltip = false;
         };
+
         "temperature" = {
           interval = 10;
           format = " {temperatureC}°C";
           max-length = 10;
         };
+
         "backlight" = {
           device = "intel_backlight";
           format = "{icon}";
@@ -77,6 +85,7 @@ in {
           smooth-scrolling-threshold = "2400";
           tooltip-format = "Brightness {percent}%";
         };
+
         "network" = {
           format-wifi = "{icon}";
           min-length = 10;
@@ -85,7 +94,6 @@ in {
           format-disconnected = "󰤭";
           tooltip-format = "{essid}";
           interval = 1;
-          # on-click = "nmtui";
           format-icons = ["󰤯" "󰤟" "󰤢" "󰤥" "󰤨"];
         };
 
@@ -109,7 +117,7 @@ in {
           on-click = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
           on-scroll-up = "wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+";
           on-scroll-down = "wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%-";
-          on-click-right = "exec pavucontrol-qt";
+          on-click-right = "exec pavucontrol";
           tooltip-format = "Volume {volume}%";
         };
 
@@ -155,42 +163,21 @@ in {
         "mpris" = {
           format = "{player_icon} {title}";
           format-paused = " {status_icon} <i>{title}</i>";
-          max-length = 80;
+          max-length = 50;
           player-icons = {
             default = "▶";
             mpv = "🎵";
+            spotify = " ";
+            brave = "";
           };
           status-icons = {
             paused = "⏸";
           };
         };
 
-        "custom/spotify" = {
-          exec = "nix-shell ~/.config/waybar/scripts/mediaplayer.py --player youtube-music";
-          format = " {}";
-          return-type = "json";
-          on-click = "playerctl play-pause";
-          on-double-click-right = "playerctl next";
-          on-scroll-down = "playerctl previous";
-        };
-
-        "custom/power-menu" = {
-          format = "{percentage}Hz";
-          on-click = "~/.config/hypr/scripts/screenHz.sh";
-          return-type = "json";
-          exec = "cat ~/.config/hypr/scripts/hz.json";
-          interval = 1;
-          tooltip = false;
-        };
-
         "custom/launcher" = {
           format = "󱄅";
           on-click = "rofi -show drun &";
-        };
-
-        "custom/wallpaper" = {
-          format = "󰸉";
-          on-click = "bash ~/.config/waybar/scripts/changewallpaper.sh";
         };
       };
     };
@@ -232,7 +219,6 @@ in {
       #workspaces,
       #idle_inhibitor,
       #custom-launcher,
-      #custom-spotify,
       #custom-weather,
       #custom-weather.severe,
       #custom-weather.sunnyDay,
@@ -257,9 +243,11 @@ in {
         margin-top: ${topMargin};
         margin-bottom: ${bottomMargin};
       }
-      #temperature{
+
+      #temperature {
         color: #7a95c9;
       }
+
       #cpu {
         color: #fb958b;
       }
@@ -308,13 +296,14 @@ in {
         padding-right: 18px;
         padding-left: 14px;
 
-        font-size: ${fontSize};
+        font-size: ${fontSizeLarge};
 
         color: #7a95c9;
 
         margin-top: ${topMargin};
         margin-bottom: ${bottomMargin};
       }
+
       #bluetooth,
       #backlight,
       #battery,
@@ -338,13 +327,11 @@ in {
 
       #pulseaudio {
         color: #81A1C1;
-        padding-left: 9px;
         font-size: ${fontSize};
       }
 
       #pulseaudio.muted {
         color: #fb958b;
-        padding-left: 9px;
         font-size: ${fontSize};
       }
 
@@ -359,8 +346,8 @@ in {
         padding-left: 0.2em;
         color: #5E81AC;
         border-radius: 8px 0px 0px 8px;
-        padding-left: 14px;
-        padding-right: 14px;
+        padding-left: 8px;
+        padding-right: 8px;
         font-size: ${fontSize};
       }
 
@@ -373,14 +360,12 @@ in {
         color: #5E81AC;
         border-radius: 8px 0px 0px 8px;
         padding-left: 14px;
-        padding-right: 14px;
         font-size: ${fontSize};
       }
 
       #bluetooth.disconnected {
         color: #fb958b;
       }
-
 
       #battery {
         color: #8fbcbb;
@@ -416,7 +401,7 @@ in {
         padding-left: 0.2em;
         color: #5E81AC;
         border-radius: 8px 0px 0px 8px;
-        padding-left: 14px;
+        padding-left: 10px;
         padding-right: 14px;
         font-size: ${fontSize};
       }
@@ -443,6 +428,7 @@ in {
         margin-top: ${topMargin};
         margin-bottom: ${bottomMargin};
       }
+
       #clock {
         color: #8a909e;
         font-family: Iosevka Nerd Font;
@@ -450,6 +436,7 @@ in {
         margin-top: ${topMargin};
         margin-bottom: ${bottomMargin};
       }
+
       #language {
         color: #8a909e;
         font-family: Iosevka Nerd Font;
@@ -459,23 +446,13 @@ in {
         margin-bottom: ${bottomMargin};
       }
 
-      #custom-power-menu {
-        color: #8a909e;
-        margin-right: 12px;
-        border-radius: 8px;
-        padding: 0 6px 0 6.8px;
-        border-radius: 0 8px 8px 0;
-        margin-top: ${topMargin};
-        margin-bottom: ${bottomMargin};
-      }
       #custom-wallpaper {
         color: #8a909e;
         padding-right: 7;
         padding-left: 7;
       }
       #custom-wallpaper,
-      #language,
-      #custom-power-menu {
+      #language {
         background-color: #252733;
         padding: 0em 2em;
 
@@ -512,7 +489,6 @@ in {
         margin-top: ${topMargin};
         margin-bottom: ${bottomMargin};
         font-size: ${fontSize};
-
       }
 
       #tray > .passive {
@@ -532,8 +508,8 @@ in {
         background-color: #ecf0f1;
         color: #2d3436;
       }
-      #mpris,
-      #custom-spotify {
+
+      #mpris {
         color: #abb2bf;
       }
 
