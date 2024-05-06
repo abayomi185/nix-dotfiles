@@ -114,10 +114,10 @@ in {
           format-icons = {
             default = ["" "" "󰕾"];
           };
-          on-click = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
+          on-click = "exec pavucontrol";
           on-scroll-up = "wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+";
           on-scroll-down = "wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%-";
-          on-click-right = "exec pavucontrol";
+          on-click-right = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
           tooltip-format = "Volume {volume}%";
         };
 
@@ -168,10 +168,10 @@ in {
             default = "▶";
             mpv = "🎵";
             spotify = " ";
-            brave = "";
+            brave = " ";
           };
           status-icons = {
-            paused = "⏸";
+            paused = "⏸ ";
           };
         };
 
