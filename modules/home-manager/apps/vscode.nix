@@ -19,6 +19,7 @@
     userSettings = {
       "workbench.colorTheme" = "One Dark Pro"; # By binaryify
       "workbench.sideBar.location" = "right";
+      "workbench.iconTheme" = "vscode-icons";
 
       # NOTE: VSCode Vim
       "vim.leader" = " ";
