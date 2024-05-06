@@ -21,6 +21,7 @@
     ../gtk.nix
 
     # Services
+    ../services/batsignal.nix
     ../services/swayosd.nix
     ../services/swaync.nix
     ../services/playerctl.nix
