@@ -61,9 +61,6 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
-    # Dev
-    rust-overlay.url = "github:oxalica/rust-overlay";
-
     # Sops
     sops-nix.url = "github:Mic92/sops-nix";
 
