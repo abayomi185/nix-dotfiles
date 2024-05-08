@@ -1,0 +1,5 @@
+[wezterm]
+src.git = "https://github.com/wez/wezterm"
+fetch.github = "wez/wezterm"
+git.fetchSubmodules = true
+cargo_locks = ["Cargo.lock"]
