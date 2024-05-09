@@ -1,7 +1,6 @@
 {inputs, ...}: {
   imports = [
     inputs.hyprlock.homeManagerModules.default
-    inputs.hypridle.homeManagerModules.default
     inputs.hyprpaper.homeManagerModules.default
 
     ../rofi
