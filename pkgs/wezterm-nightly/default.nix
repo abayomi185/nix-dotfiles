@@ -11,6 +11,7 @@
   nixosTests,
   openssl,
   perl,
+  pkgs,
   pkg-config,
   python3,
   runCommand,
@@ -19,21 +20,19 @@
   wayland,
   xorg,
   zlib,
-  # rust overlay
+  # Rust
   makeRustPlatform,
-  fenix,
 }: let
   inherit (darwin.apple_sdk_11_0.frameworks) CoreGraphics Cocoa Foundation Security UserNotifications System;
-  nvfetcher = (callPackage ../../_sources/generated.nix {}).wezterm;
+  nvfetcher = (callPackage ../_sources/generated.nix {}).wezterm;
   rustPlatform = makeRustPlatform {
-    cargo = toolchain;
-    rustc = toolchain;
+    cargo = pkgs.rust-bin.selectLatestNightlyWith (toolchain: toolchain.default);
+    rustc = pkgs.rust-bin.selectLatestNightlyWith (toolchain: toolchain.default);
   };
-  toolchain = fenix.default.toolchain;
 in
   rustPlatform.buildRustPackage rec {
     inherit (nvfetcher) pname src;
-    version = "${builtins.replaceStrings ["-"] [""] nvfetcher.date}-nekowinston-${builtins.substring 0 7 nvfetcher.version}";
+    version = "${builtins.replaceStrings ["-"] [""] nvfetcher.date}-abayomi185-${builtins.substring 0 7 nvfetcher.version}";
 
     cargoLock = nvfetcher.cargoLock."Cargo.lock";
     doCheck = false;
