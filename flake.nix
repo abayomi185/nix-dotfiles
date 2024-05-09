@@ -45,7 +45,7 @@
     # Hyprland
     hyprland.url = "github:hyprwm/Hyprland";
     hyprlock.url = "github:hyprwm/hyprlock";
-    hypridle.url = "github:hyprwm/hypridle";
+    # hypridle.url = "github:hyprwm/hypridle";
     hyprpaper.url = "github:hyprwm/hyprpaper";
     hyprland-plugins = {
       url = "github:hyprwm/hyprland-plugins";
@@ -58,6 +58,12 @@
 
     xremap = {
       url = "github:xremap/nix-flake";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
+    # Dev
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
@@ -81,6 +87,7 @@
     nix-homebrew,
     # plasma-manager,
     nix-colors,
+    rust-overlay,
     ...
   } @ inputs: let
     inherit (self) outputs;
@@ -97,7 +104,15 @@
   in {
     # Your custom packages
     # Accessible through 'nix build', 'nix shell', etc
-    packages = forAllSystems (system: import ./pkgs inputs.nixpkgs-unstable.legacyPackages.${system});
+    packages = forAllSystems (
+      system: let
+        pkgs = import inputs.nixpkgs-unstable {
+          inherit system;
+          overlays = [(import rust-overlay)];
+        };
+      in
+        import ./pkgs {inherit pkgs;}
+    );
     # Formatter for your nix files, available through 'nix fmt'
     # Other options beside 'alejandra' include 'nixpkgs-fmt'
     formatter = forAllSystems (system: inputs.nixpkgs-unstable.legacyPackages.${system}.alejandra);
