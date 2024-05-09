@@ -50,7 +50,7 @@ in {
         "clock" = {
           format = "{:%H:%M}";
           # format-alt = "{:%b %d %Y}";
-          tooltip-format = "<big>{:%Y %B %d}</big>\n<tt><small>{calendar}</small></tt>";
+          tooltip-format = "<big>{:%d %B %Y}</big>\n<tt><small>{calendar}</small></tt>";
           on-click = "swaync-client -t";
         };
 
