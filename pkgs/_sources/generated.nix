@@ -3,21 +3,21 @@
 {
   wezterm = {
     pname = "wezterm";
-    version = "0b50725f67154664292d83681f3f421c6567e3b5";
+    version = "79ce027d3805ed43ff533b19802a4a2e7d9a9623";
     src = fetchFromGitHub {
       owner = "wez";
       repo = "wezterm";
-      rev = "0b50725f67154664292d83681f3f421c6567e3b5";
+      rev = "79ce027d3805ed43ff533b19802a4a2e7d9a9623";
       fetchSubmodules = true;
-      sha256 = "sha256-VR2QxlwwxGKH1glMkJPLlgLDWWGlFLrwrwUcmPKnxsc=";
+      sha256 = "sha256-hws7UpwYFdWE2t1h6iBZx8yONMAoHHPjFASTNqo3GqM=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./wezterm-0b50725f67154664292d83681f3f421c6567e3b5/Cargo.lock;
+      lockFile = ./wezterm-79ce027d3805ed43ff533b19802a4a2e7d9a9623/Cargo.lock;
       outputHashes = {
         "xcb-imdkit-0.3.0" = "sha256-fTpJ6uNhjmCWv7dZqVgYuS2Uic36XNYTbqlaly5QBjI=";
         "sqlite-cache-0.1.3" = "sha256-sBAC8MsQZgH+dcWpoxzq9iw5078vwzCijgyQnMOWIkk=";
       };
     };
-    date = "2024-05-06";
+    date = "2024-05-10";
   };
 }
