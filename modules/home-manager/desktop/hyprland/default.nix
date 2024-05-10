@@ -1,5 +1,6 @@
 {inputs, ...}: {
   imports = [
+    inputs.hyprland.homeManagerModules.default
     inputs.hyprlock.homeManagerModules.default
     inputs.hyprpaper.homeManagerModules.default
 
