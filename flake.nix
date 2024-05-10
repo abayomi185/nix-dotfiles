@@ -43,7 +43,8 @@
     };
 
     # Hyprland
-    hyprland.url = "github:hyprwm/Hyprland";
+    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+    # hyprland.url = "github:hyprwm/Hyprland"; # old
     hyprlock.url = "github:hyprwm/hyprlock";
     # hypridle.url = "github:hyprwm/hypridle";
     hyprpaper.url = "github:hyprwm/hyprpaper";
@@ -85,7 +86,6 @@
     self,
     home-manager,
     nix-homebrew,
-    # plasma-manager,
     nix-colors,
     rust-overlay,
     ...
@@ -146,7 +146,6 @@
               inputs.sops-nix.homeManagerModules.sops
             ];
           }
-          # plasma-manager.homeManagerModules.plasma-manager
         ];
       };
     };
