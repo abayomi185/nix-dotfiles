@@ -36,7 +36,6 @@
     outputs.homeManagerModules.browsers.firefox
 
     # Desktop - See ../../modules/home-manager/desktop/default.nix
-    # outputs.homeManagerModules.desktop.theme
     outputs.homeManagerModules.desktop.ags
     outputs.homeManagerModules.desktop.hyprland
 
