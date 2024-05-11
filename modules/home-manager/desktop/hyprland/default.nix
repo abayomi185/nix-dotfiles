@@ -1,8 +1,6 @@
 {inputs, ...}: {
   imports = [
-    inputs.hyprland.homeManagerModules.default
-    inputs.hyprlock.homeManagerModules.default
-    inputs.hyprpaper.homeManagerModules.default
+    # inputs.hyprland.homeManagerModules.default # To use hyprland flake from the hyprland repo
 
     ../rofi
     ../waybar
@@ -125,6 +123,9 @@
         "float, title:^(Picture-in-picture)$"
         "pin, title:^(Picture-in-picture)$"
 
+        "float, class:^(org.wezfurlong.wezterm)$"
+        "tile, class:^(org.wezfurlong.wezterm)$"
+
         # # idle inhibit while watching videos
         # "idleinhibit focus, class:^(mpv|.+exe|celluloid)$"
         # "idleinhibit focus, class:^(firefox)$, title:^(.*YouTube.*)$"
@@ -142,6 +143,7 @@
 
       bind = [
         "$mod,        Return, exec, wezterm"
+        # "$mod,        Return, exec, [float;tile] wezterm start --always-new-process"
         "$mod_SHIFT,  SPACE,  exec, rofi"
         "$mod,        SPACE,  exec, rofi -show drun -show-icons"
 

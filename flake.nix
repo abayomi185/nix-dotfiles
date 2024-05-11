@@ -45,9 +45,6 @@
     # Hyprland
     hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
     # hyprland.url = "github:hyprwm/Hyprland"; # old
-    hyprlock.url = "github:hyprwm/hyprlock";
-    # hypridle.url = "github:hyprwm/hypridle";
-    hyprpaper.url = "github:hyprwm/hyprpaper";
     hyprland-plugins = {
       url = "github:hyprwm/hyprland-plugins";
       inputs.hyprland.follows = "hyprland";
