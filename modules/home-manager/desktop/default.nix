@@ -1,4 +1,6 @@
 {
+  ags = import ./ags;
+
   hyprland = import ./hyprland;
 
   theme = import ./theme;
