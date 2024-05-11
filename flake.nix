@@ -62,6 +62,9 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
+    # AGS
+    ags.url = "github:Aylur/ags";
+
     # Dev
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
