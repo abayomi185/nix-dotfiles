@@ -1,8 +1,9 @@
 {config, ...}: let
   palette = config.colorScheme.palette;
   betterTransition = "all 0.3s cubic-bezier(.55,-0.68,.48,1.682)";
+  fontSizeSmall = "8px";
   fontSize = "12px";
-  fontSizeLarge = "14px";
+  fontSizeLarge = "16px";
   topMargin = "5px";
   bottomMargin = "5px";
 in {
@@ -258,25 +259,26 @@ in {
 
       #workspaces button {
         color: #7a95c9;
-        box-shadow: inset 0 -3px transparent;
 
-        padding-right: 3px;
-        padding-left: 4px;
+        font-size: ${fontSizeSmall};
 
-        margin-left: 0.1em;
+        padding-left: 2px;
+        padding-right: 2px;
+
+        margin-left: 0em;
         margin-right: 0em;
+
         transition: all 0.5s cubic-bezier(0.55, -0.68, 0.48, 1.68);
       }
 
       #workspaces button.active {
         color: #ecd3a0;
-        padding-left: 1px;
-        padding-right: 5px;
-        font-family: Iosevka Nerd Font;
-        font-weight: bold;
-        font-size: ${fontSize};
+
+        font-size: ${fontSizeSmall};
+
         margin-left: 0em;
         margin-right: 0em;
+
         transition: all 0.5s cubic-bezier(0.55, -0.68, 0.48, 1.68);
       }
 
@@ -421,14 +423,6 @@ in {
         color: #fb958b;
       }
 
-      #custom-lock {
-        color: #ecd3a0;
-        padding: 0 15px 0 15px;
-        margin-left: 7px;
-        margin-top: ${topMargin};
-        margin-bottom: ${bottomMargin};
-      }
-
       #clock {
         color: #8a909e;
         font-family: Iosevka Nerd Font;
@@ -442,28 +436,6 @@ in {
         font-family: Iosevka Nerd Font;
         font-weight: bold;
         border-radius : 8px 0 0 8px;
-        margin-top: ${topMargin};
-        margin-bottom: ${bottomMargin};
-      }
-
-      #custom-wallpaper {
-        color: #8a909e;
-        padding-right: 7;
-        padding-left: 7;
-      }
-      #custom-wallpaper,
-      #language {
-        background-color: #252733;
-        padding: 0em 2em;
-
-        font-size: ${fontSize};
-
-        padding-left: 7.5px;
-        padding-right: 7.5px;
-
-        padding-top: 3px;
-        padding-bottom: 3px;
-
         margin-top: ${topMargin};
         margin-bottom: ${bottomMargin};
       }
