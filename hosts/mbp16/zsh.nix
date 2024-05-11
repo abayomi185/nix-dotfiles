@@ -5,6 +5,10 @@
   programs.zsh = {
     enable = true;
 
+    extendedShellAliases = {
+      update = "darwin-rebuild switch";
+    };
+
     # zshrc equivalent
     initExtra = ''
       # zmodload zsh/zprof
@@ -90,7 +94,7 @@
 
       # Homebrew Apple Silicon
       eval "$(/opt/homebrew/bin/brew shellenv)"
-      
+
       # fnm
       eval "$(fnm env --use-on-cd)"
 
@@ -115,5 +119,5 @@
     };
   };
 
-  programs.direnv.enable = true; 
+  programs.direnv.enable = true;
 }
