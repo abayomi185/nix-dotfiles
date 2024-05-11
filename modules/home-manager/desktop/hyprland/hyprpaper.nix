@@ -2,13 +2,15 @@
   services.hyprpaper = {
     enable = true;
 
-    splash = true;
+    settings = {
+      splash = true;
 
-    preloads = [
-      "~/nix-dotfiles/modules/home-manager/desktop/wallpapers/modern_grey.png"
-    ];
-    wallpapers = [
-      "eDP-1,~/nix-dotfiles/modules/home-manager/desktop/wallpapers/modern_grey.png"
-    ];
+      preload = [
+        "~/nix-dotfiles/modules/home-manager/desktop/wallpapers/modern_grey.png"
+      ];
+      wallpaper = [
+        "eDP-1,~/nix-dotfiles/modules/home-manager/desktop/wallpapers/modern_grey.png"
+      ];
+    };
   };
 }
