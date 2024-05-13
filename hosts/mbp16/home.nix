@@ -15,6 +15,8 @@
     outputs.homeManagerModules.shell.git
     outputs.homeManagerModules.shell.starship
     outputs.homeManagerModules.shell.zsh
+    # Terminal - See ../../modules/home-manager/terminal/default.nix
+    outputs.homeManagerModules.terminal.zellij
 
     # ZSH (custom) - See ./zsh.nix
     ./zsh.nix
