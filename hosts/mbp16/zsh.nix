@@ -24,11 +24,6 @@
 
     # zshenv equivalent
     envExtra = ''
-      # For ls colors
-      # unset LSCOLORS
-      # export CLICOLOR=1
-      # export CLICOLOR_FORCE=1
-
       # Cargo
       . "$HOME/.cargo/env"
 
@@ -90,7 +85,7 @@
 
       # Homebrew Apple Silicon
       eval "$(/opt/homebrew/bin/brew shellenv)"
-      
+
       # fnm
       eval "$(fnm env --use-on-cd)"
 
@@ -115,5 +110,5 @@
     };
   };
 
-  programs.direnv.enable = true; 
+  programs.direnv.enable = true;
 }
