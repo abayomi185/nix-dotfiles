@@ -5,31 +5,14 @@
   programs.zsh = {
     enable = true;
 
-    extendedShellAliases = {
-      update = "darwin-rebuild switch";
-    };
-
     # zshrc equivalent
     initExtra = ''
-      # zmodload zsh/zprof
-      # test -e "''${HOME}/.iterm2_shell_integration.zsh" && source "''${HOME}/.iterm2_shell_integration.zsh"
-
-      # export ZSH=~/.oh-my-zsh
-      # source $ZSH/oh-my-zsh.sh
-
-      export PATH="/usr/local/opt/util-linux/bin:$PATH"
-      export PATH="/usr/local/opt/util-linux/sbin:$PATH"
-
-      export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-
-      # [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh # NOTE: Remember to delete the script
-      # export FZF_DEFAULT_OPTS="--extended"
     '';
 
     # zshenv equivalent
     envExtra = ''
       # Cargo
-      . "$HOME/.cargo/env"
+      # . "$HOME/.cargo/env"
 
       # dotfiles
       alias config='/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
@@ -67,34 +50,16 @@
       # Terminal color config
       export TERM=xterm-256color
 
-      # export THEOS=~/theos # Theos path for iOS tweak development
-
-      # export PATH="/usr/local/opt/python/libexec/bin:/usr/local/sbin:$PATH"
-
       export XDG_CONFIG_HOME="$HOME/.config"
-
-      # Make the terminal safe
-      set -o noclobber
-      #alias cp='cp -i'
-      #alias mv='mv -i'
-
-      #Pico things
-      export PICO_SDK_PATH="$HOME/pico/pico-sdk"
 
       #To allow Multi-threading scripts macOS
       export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 
-      #Disable Homebrew auto update
-      export HOMEBREW_NO_AUTO_UPDATE=1
+      # Disable Homebrew auto update
+      # export HOMEBREW_NO_AUTO_UPDATE=1
 
       # Homebrew Apple Silicon
-      eval "$(/opt/homebrew/bin/brew shellenv)"
-
-      # fnm
-      eval "$(fnm env --use-on-cd)"
-
-      # rbenv
-      eval "$(rbenv init - zsh)"
+      # eval "$(/opt/homebrew/bin/brew shellenv)"
     '';
 
     oh-my-zsh = {
