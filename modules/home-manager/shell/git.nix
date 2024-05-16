@@ -2,7 +2,7 @@
   programs.git = {
     enable = true;
     userName = "Yomi Ikuru";
-    userEmail = "yomi@yomitosh.com";
+    userEmail = "captyomjnr@gmail.com";
   };
 
   # Add lazygit
