@@ -5,7 +5,10 @@
   ...
 }: {
   imports = [
-    # Desktop (darwin) - See ../../modules/darwin/desktop/default.nix
+    # Darwin Apps - See ../../modules/darwin/apps/default.nix
+    outputs.darwinModules.apps.karabiner-elements
+
+    # Darwin Desktop - See ../../modules/darwin/desktop/default.nix
     outputs.darwinModules.desktop.skhd
     # outputs.darwinModules.desktop.spacebar
     outputs.darwinModules.desktop.yabai
