@@ -14,6 +14,7 @@
   skhd = import ./skhd.nix;
   orca-slicer = import ./orca-slicer.nix;
   prusa-slicer = import ./prusa-slicer.nix;
+  ripgrep = import ./ripgrep.nix;
   spacedrive = import ./spacedrive.nix;
   tree = import ./tree.nix;
   vscode = import ./vscode.nix;
