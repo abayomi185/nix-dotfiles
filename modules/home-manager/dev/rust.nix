@@ -11,8 +11,8 @@
     rust-bin.stable.latest.default
     # rust-bin.stable.latest.default.override
     # {
-    #   extensions = [ "rust-src" ];
-    #   targets = [ "arm-unknown-linux-gnueabihf" ];
+    #   extensions = ["rust-src" "rust-analyzer"];
+    #   targets = ["arm-unknown-linux-gnueabihf"];
     # }
   ];
 }
