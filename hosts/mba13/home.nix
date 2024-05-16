@@ -51,11 +51,6 @@
     };
   };
 
-  # homebrew = {
-  #   enable = true;
-  #   casks =
-  # };
-
   home = {
     username = "yomi";
     homeDirectory = "/Users/yomi";
