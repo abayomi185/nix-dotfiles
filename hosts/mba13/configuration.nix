@@ -12,6 +12,9 @@
     outputs.darwinModules.desktop.skhd
     # outputs.darwinModules.desktop.spacebar
     outputs.darwinModules.desktop.yabai
+
+    # Homebrew - See ./brew.nix
+    ./brew.nix
   ];
 
   # Use a custom configuration.nix location.
