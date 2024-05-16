@@ -9,12 +9,29 @@
   imports = [
     # Apps - See ../../modules/home-manager/apps/default.nix
     outputs.homeManagerModules.apps.bat
+    outputs.homeManagerModules.apps.btop
     outputs.homeManagerModules.apps.jq
+    outputs.homeManagerModules.apps.k9s
     outputs.homeManagerModules.apps.neovim
+    outputs.homeManagerModules.apps.ripgrep
+    outputs.homeManagerModules.apps.vscode
+
+    # Dev - See ../../modules/home-manager/dev/default.nix
+    outputs.homeManagerModules.dev.rust
+    outputs.homeManagerModules.dev.zig
+    outputs.homeManagerModules.dev.nodejs
+
     # Shell - See ../../modules/home-manager/shell/default.nix
     outputs.homeManagerModules.shell.git
     outputs.homeManagerModules.shell.starship
     outputs.homeManagerModules.shell.zsh
+
+    # Terminal - See ../../modules/home-manager/terminal/default.nix
+    outputs.homeManagerModules.terminal.wezterm
+    outputs.homeManagerModules.terminal.zellij
+
+    # Utils - See ../../modules/home-manager/utils/default.nix
+    outputs.homeManagerModules.utils.age
 
     # ZSH (custom) - See ./zsh.nix
     ./zsh.nix
