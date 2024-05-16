@@ -5,6 +5,10 @@
   programs.zsh = {
     enable = true;
 
+    extendedShellAliases = {
+      update = "darwin-rebuild switch";
+    };
+
     # zshrc equivalent
     initExtra = ''
     '';
