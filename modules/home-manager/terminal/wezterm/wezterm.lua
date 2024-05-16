@@ -1,6 +1,5 @@
 -- Pull in the wezterm API
 local wezterm = require("wezterm")
-local session_manager = require("wezterm-session-manager/session-manager")
 
 -- This table will hold the configuration.
 local config = {}
@@ -10,46 +9,6 @@ local config = {}
 if wezterm.config_builder then
 	config = wezterm.config_builder()
 end
-
--- Session Manager
-wezterm.on("save_session", function(window)
-	session_manager.save_state(window)
-end)
-wezterm.on("augment-command-palette", function(window, pane)
-	return {
-		{
-			brief = "Save Session",
-			icon = "md_content_save",
-			action = wezterm.action({ EmitEvent = "save_session" }),
-		},
-	}
-end)
-
-wezterm.on("load_session", function(window)
-	session_manager.load_state(window)
-end)
-wezterm.on("augment-command-palette", function(window, pane)
-	return {
-		{
-			brief = "Load Session",
-			icon = "md_download_circle_outline",
-			action = wezterm.action({ EmitEvent = "load_session" }),
-		},
-	}
-end)
-
-wezterm.on("restore_session", function(window)
-	session_manager.restore_state(window)
-end)
-wezterm.on("augment-command-palette", function(window, pane)
-	return {
-		{
-			brief = "Restore Session",
-			icon = "md_restore",
-			action = wezterm.action({ EmitEvent = "restore_session" }),
-		},
-	}
-end)
 
 -- This is where you actually apply your config choices
 
