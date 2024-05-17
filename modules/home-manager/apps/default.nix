@@ -7,6 +7,7 @@
   discord = import ./discord.nix;
   jq = import ./jq.nix;
   k9s = import ./k9s.nix;
+  karabiner-elements = import ./karabiner-elements;
   neovim = import ./neovim.nix;
   obs = import ./obs.nix;
   obsidian = import ./obsidian.nix;
