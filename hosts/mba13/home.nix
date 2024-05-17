@@ -9,7 +9,6 @@
   imports = [
     # Apps - See ../../modules/home-manager/apps/default.nix
     outputs.homeManagerModules.apps.bat
-    outputs.homeManagerModules.apps.btop
     outputs.homeManagerModules.apps.jq
     outputs.homeManagerModules.apps.k9s
     outputs.homeManagerModules.apps.neovim
@@ -20,6 +19,9 @@
     outputs.homeManagerModules.dev.rust
     outputs.homeManagerModules.dev.zig
     outputs.homeManagerModules.dev.nodejs
+
+    # Apps - See ../../modules/home-manager/monitoring/default.nix
+    outputs.homeManagerModules.monitoring.btop
 
     # Shell - See ../../modules/home-manager/shell/default.nix
     outputs.homeManagerModules.shell.fzf
