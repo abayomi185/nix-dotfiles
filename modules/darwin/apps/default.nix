@@ -1,3 +1,3 @@
 {
-  karabiner-elements = import ./karabiner-elements.nix;
+  karabiner-elements = import ./karabiner-elements;
 }
