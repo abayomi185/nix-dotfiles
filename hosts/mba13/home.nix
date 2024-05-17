@@ -20,8 +20,9 @@
     outputs.homeManagerModules.dev.zig
     outputs.homeManagerModules.dev.nodejs
 
-    # Apps - See ../../modules/home-manager/monitoring/default.nix
+    # Monitoring - See ../../modules/home-manager/monitoring/default.nix
     outputs.homeManagerModules.monitoring.btop
+    outputs.homeManagerModules.monitoring.ncdu
 
     # Shell - See ../../modules/home-manager/shell/default.nix
     outputs.homeManagerModules.shell.fzf
