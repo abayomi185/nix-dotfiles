@@ -16,6 +16,9 @@
   # Dev
   dev = import ./dev;
 
+  # Monitoring
+  monitoring = import ./monitoring;
+
   # Music
   music = import ./music;
 
