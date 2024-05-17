@@ -19,6 +19,7 @@
       "brave-browser"
       "discord"
       "obsidian"
+      "raycast"
     ];
 
     masApps = {
