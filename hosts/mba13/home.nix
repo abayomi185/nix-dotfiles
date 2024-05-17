@@ -22,6 +22,7 @@
     outputs.homeManagerModules.dev.nodejs
 
     # Shell - See ../../modules/home-manager/shell/default.nix
+    outputs.homeManagerModules.shell.fzf
     outputs.homeManagerModules.shell.git
     outputs.homeManagerModules.shell.starship
     outputs.homeManagerModules.shell.zsh
