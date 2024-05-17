@@ -11,6 +11,7 @@
     outputs.homeManagerModules.apps.bat
     outputs.homeManagerModules.apps.jq
     outputs.homeManagerModules.apps.k9s
+    outputs.homeManagerModules.apps.karabiner-elements
     outputs.homeManagerModules.apps.neovim
     outputs.homeManagerModules.apps.ripgrep
     outputs.homeManagerModules.apps.vscode
