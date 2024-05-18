@@ -51,19 +51,10 @@
       # LANG config - fixes issues with SSH and tmux
       export LANG="en_US.UTF-8"
 
-      # Terminal color config
-      export TERM=xterm-256color
-
       export XDG_CONFIG_HOME="$HOME/.config"
 
       #To allow Multi-threading scripts macOS
       export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
-
-      # Disable Homebrew auto update
-      # export HOMEBREW_NO_AUTO_UPDATE=1
-
-      # Homebrew Apple Silicon
-      # eval "$(/opt/homebrew/bin/brew shellenv)"
     '';
 
     oh-my-zsh = {
