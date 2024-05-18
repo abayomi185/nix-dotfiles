@@ -1,4 +1,5 @@
 {
+  autodesk-fusion = import ./autodesk-fusion.nix;
   brave = import ./brave.nix;
   obsidian = import ./obsidian.nix;
   orca-slicer = import ./orca-slicer.nix;
