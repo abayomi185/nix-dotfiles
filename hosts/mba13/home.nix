@@ -26,6 +26,9 @@
     outputs.homeManagerModules.monitoring.btop
     outputs.homeManagerModules.monitoring.ncdu
 
+    # Music - See ../../modules/home-manager/music/default.nix
+    outputs.homeManagerModules.music.spotify
+
     # Shell - See ../../modules/home-manager/shell/default.nix
     outputs.homeManagerModules.shell.fzf
     outputs.homeManagerModules.shell.git
