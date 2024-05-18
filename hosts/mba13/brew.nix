@@ -7,7 +7,6 @@
 
     # Casks - See ../../modules/darwin/casks/default.nix
     outputs.darwinModules.casks.brave
-    outputs.darwinModules.casks.discord
     outputs.darwinModules.casks.obsidian
     outputs.darwinModules.casks.raycast
     outputs.darwinModules.casks.serif-apps
