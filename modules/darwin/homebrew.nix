@@ -1,7 +1,15 @@
 {
-  # WARN: Experimental
-  nix-homebrew.enable = true;
-  nix-homebrew.enableRosetta = true;
-  nix-homebrew.user = "yomi";
-  nix-homebrew.autoMigrate = true;
+  homebrew = {
+    enable = true;
+
+    onActivation = {
+      # cleanup = "uninstall";
+    };
+
+    # global = {};
+    # taps = [];
+    # brews = [];
+    # casks = [];
+    # masApps = {};
+  };
 }
