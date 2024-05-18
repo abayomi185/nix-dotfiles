@@ -24,8 +24,7 @@
                 "from": {
                   "key_code": "h",
                   "modifiers": {
-                    "mandatory": ["left_command", "left_control"],
-                    "optional": ["any"]
+                    "mandatory": ["right_command"]
                   }
                 },
                 "to": [
@@ -40,14 +39,34 @@
                 "from": {
                   "key_code": "l",
                   "modifiers": {
-                    "mandatory": ["left_command", "left_control"],
-                    "optional": ["any"]
+                    "mandatory": ["right_command"]
                   }
                 },
                 "to": [
                   {
                     "key_code": "right_arrow",
                     "modifiers": ["left_control"]
+                  }
+                ],
+                "type": "basic"
+              }
+            ]
+          },
+          {
+            "manipulators": [
+              {
+                "description": "Change command+control to command+control+option+shift.",
+                "from": {
+                  "key_code": "left_control",
+                  "modifiers": {
+                    "mandatory": ["left_command"],
+                    "optional": ["any"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "left_shift",
+                    "modifiers": ["left_command", "left_control", "left_option"]
                   }
                 ],
                 "type": "basic"
