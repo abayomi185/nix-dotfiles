@@ -20,6 +20,7 @@
       "workbench.colorTheme" = "One Dark Pro"; # By binaryify
       "workbench.sideBar.location" = "right";
       "workbench.iconTheme" = "vscode-icons";
+      "editor.formatOnSave" = true;
 
       # NOTE: VSCode Vim
       "vim.leader" = " ";
@@ -266,7 +267,7 @@
       }
       {
         "key" = "ctrl+l";
-        "command" = "workbench.action.focusActiveEditorGroup";
+        "command" = "workbench.action.previousEditor";
         "when" = "terminalFocus";
       }
     ];
