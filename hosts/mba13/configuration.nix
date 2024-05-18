@@ -15,6 +15,9 @@
 
     # Homebrew - See ./brew.nix
     ./brew.nix
+
+    # Defaults - See ./system.nix
+    ./system.nix
   ];
 
   # Use a custom configuration.nix location.
