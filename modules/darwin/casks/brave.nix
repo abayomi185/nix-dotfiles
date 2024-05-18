@@ -1,5 +1,3 @@
 {
-  homebrew.casks = [
-    "brave-browser"
-  ];
+  homebrew.casks = ["brave-browser"];
 }
