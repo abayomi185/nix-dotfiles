@@ -1,30 +1,18 @@
-{
-  homebrew = {
-    enable = true;
+{outputs, ...}: {
+  imports = [
+    # Add main homebrew module
+    outputs.darwinModules.homebrew
 
-    onActivation = {
-      cleanup = "uninstall";
-    };
+    # Brews - See ../../modules/darwin/brews/default.nix
 
-    # global = {};
+    # Casks - See ../../modules/darwin/casks/default.nix
+    outputs.darwinModules.casks.brave
+    outputs.darwinModules.casks.discord
+    outputs.darwinModules.casks.obsidian
+    outputs.darwinModules.casks.raycast
+    outputs.darwinModules.casks.serif-apps
 
-    taps = [];
-
-    brews = [];
-
-    casks = [
-      "affinity-designer"
-      "affinity-photo"
-      "affinity-publisher"
-      "brave-browser"
-      "discord"
-      "obsidian"
-      "raycast"
-    ];
-
-    masApps = {
-      # Xcode = 497799835;
-      Wipr = 1320666476;
-    };
-  };
+    # Mas - See ../../modules/darwin/mas/default.nix
+    outputs.darwinModules.mas
+  ];
 }
