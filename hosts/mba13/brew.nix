@@ -9,6 +9,7 @@
     # Casks - See ../../modules/darwin/casks/default.nix
     outputs.darwinModules.casks.autodesk-fusion
     outputs.darwinModules.casks.brave
+    outputs.darwinModules.casks.notion
     outputs.darwinModules.casks.obsidian
     outputs.darwinModules.casks.orca-slicer
     outputs.darwinModules.casks.raycast
