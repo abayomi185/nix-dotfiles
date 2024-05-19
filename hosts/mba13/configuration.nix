@@ -28,6 +28,8 @@
   services.nix-daemon.enable = true;
   # nix.package = pkgs.nix;
 
+  nix.gc.automatic = true;
+
   nix.settings = {
     # Enable flakes and new 'nix' command
     experimental-features = "nix-command flakes";
