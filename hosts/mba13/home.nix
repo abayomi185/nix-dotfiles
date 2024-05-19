@@ -14,13 +14,15 @@
     outputs.homeManagerModules.apps.k9s
     outputs.homeManagerModules.apps.karabiner-elements
     outputs.homeManagerModules.apps.neovim
+    # outputs.homeManagerModules.apps.openscad
     outputs.homeManagerModules.apps.ripgrep
     outputs.homeManagerModules.apps.vscode
 
     # Dev - See ../../modules/home-manager/dev/default.nix
-    outputs.homeManagerModules.dev.rust
-    outputs.homeManagerModules.dev.zig
     outputs.homeManagerModules.dev.nodejs
+    outputs.homeManagerModules.dev.rust
+    outputs.homeManagerModules.dev.xcodes
+    outputs.homeManagerModules.dev.zig
 
     # Monitoring - See ../../modules/home-manager/monitoring/default.nix
     outputs.homeManagerModules.monitoring.btop
