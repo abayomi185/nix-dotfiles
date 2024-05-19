@@ -1,0 +1,3 @@
+{
+  homebrew.brews = ["sdl2"];
+}
