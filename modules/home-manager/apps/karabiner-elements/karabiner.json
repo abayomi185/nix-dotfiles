@@ -18,6 +18,25 @@
         },
         "rules": [
           {
+            "description": "Disable command+h for hiding windows",
+            "manipulators": [
+              {
+                "from": {
+                  "key_code": "h",
+                  "modifiers": {
+                    "mandatory": ["command"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "vk_none"
+                  }
+                ],
+                "type": "basic"
+              }
+            ]
+          },
+          {
             "description": "Switch Desktops",
             "manipulators": [
               {
