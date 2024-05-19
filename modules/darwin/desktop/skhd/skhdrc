@@ -6,7 +6,7 @@
 ## HYPER == SHIFT + CMD + ALT + OPTION
 
 ## Quickly restart the yabai launch agent
-ctrl + alt + cmd - r : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"
+# ctrl + alt + cmd - r : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"
 
 ## Close active application
 hyper - backspace : $(yabai -m window $(yabai -m query --windows --window | jq -re ".id") --close)
@@ -32,8 +32,8 @@ hyper - e : yabai -m window --swap north
 hyper - 0x21 : yabai -m window --swap east # 0x21 is the "[" key
 
 ## send window to monitor and follow focus
-hyper - u : /Users/yomi/.config/custom-scripts/moveWindowLeftAndFollowFocus.sh
-hyper - p : /Users/yomi/.config/custom-scripts/moveWindowRightAndFollowFocus.sh
+# hyper - u : /Users/yomi/.config/custom-scripts/moveWindowLeftAndFollowFocus.sh
+# hyper - p : /Users/yomi/.config/custom-scripts/moveWindowRightAndFollowFocus.sh
 
 ## focus display
 ctrl + cmd - 1 : yabai -m window --display 1 yabai -m display --focus 1
