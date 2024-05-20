@@ -4,9 +4,11 @@
     userName = "Yomi Ikuru";
     userEmail = "captyomjnr@gmail.com";
 
-    config = {
+    extraConfig = {
       init.defaultBranch = "main";
     };
+
+    ignores = [".DS_Store" ".direnv/"];
   };
 
   # Add lazygit
