@@ -3,6 +3,10 @@
     enable = true;
     userName = "Yomi Ikuru";
     userEmail = "captyomjnr@gmail.com";
+
+    config = {
+      init.defaultBranch = "main";
+    };
   };
 
   # Add lazygit
