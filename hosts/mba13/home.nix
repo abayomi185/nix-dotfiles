@@ -1,11 +1,4 @@
-{
-  inputs,
-  outputs,
-  lib,
-  config,
-  pkgs,
-  ...
-}: {
+{outputs, ...}: {
   imports = [
     # Apps - See ../../modules/home-manager/apps/default.nix
     outputs.homeManagerModules.apps.bat
