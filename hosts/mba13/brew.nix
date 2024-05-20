@@ -14,6 +14,7 @@
     outputs.darwinModules.casks.orca-slicer
     outputs.darwinModules.casks.raycast
     outputs.darwinModules.casks.serif-apps
+    outputs.darwinModules.casks.xcodes
 
     # Mas - See ../../modules/darwin/mas/default.nix
     outputs.darwinModules.mas
