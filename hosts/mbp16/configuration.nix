@@ -9,6 +9,12 @@
     outputs.darwinModules.desktop.skhd
     # outputs.darwinModules.desktop.spacebar
     outputs.darwinModules.desktop.yabai
+
+    # Homebrew - See ./brew.nix
+    ./brew.nix
+
+    # Defaults - See ./system.nix
+    ./system.nix
   ];
 
   # Use a custom configuration.nix location.
@@ -18,6 +24,8 @@
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;
   # nix.package = pkgs.nix;
+
+  nix.gc.automatic = true;
 
   nix.settings = {
     # Enable flakes and new 'nix' command
