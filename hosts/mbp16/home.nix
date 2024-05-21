@@ -1,22 +1,21 @@
-{
-  inputs,
-  outputs,
-  lib,
-  config,
-  pkgs,
-  ...
-}: {
+{outputs, ...}: {
   imports = [
     # Apps - See ../../modules/home-manager/apps/default.nix
     outputs.homeManagerModules.apps.bat
     outputs.homeManagerModules.apps.jq
     outputs.homeManagerModules.apps.neovim
+
     # Shell - See ../../modules/home-manager/shell/default.nix
+    outputs.homeManagerModules.shell.fzf
     outputs.homeManagerModules.shell.git
     outputs.homeManagerModules.shell.starship
     outputs.homeManagerModules.shell.zsh
+
     # Terminal - See ../../modules/home-manager/terminal/default.nix
     outputs.homeManagerModules.terminal.zellij
+
+    # Utils - See ../../modules/home-manager/utils/default.nix
+    outputs.homeManagerModules.utils.age
 
     # ZSH (custom) - See ./zsh.nix
     ./zsh.nix
