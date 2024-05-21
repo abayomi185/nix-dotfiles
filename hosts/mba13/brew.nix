@@ -10,6 +10,7 @@
     outputs.darwinModules.casks.autodesk-fusion
     outputs.darwinModules.casks.brave
     outputs.darwinModules.casks.notion
+    outputs.darwinModules.casks.obs
     outputs.darwinModules.casks.obsidian
     outputs.darwinModules.casks.orca-slicer
     outputs.darwinModules.casks.raycast
