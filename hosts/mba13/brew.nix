@@ -18,5 +18,9 @@
 
     # Mas - See ../../modules/darwin/mas/default.nix
     outputs.darwinModules.mas
+    {
+      includeDevApps = true;
+      includeNetworkingApps = true;
+    }
   ];
 }
