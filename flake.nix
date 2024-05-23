@@ -82,160 +82,163 @@
     nix-colors.url = "github:misterio77/nix-colors";
   };
 
-  outputs = {
-    self,
-    home-manager,
-    nix-homebrew,
-    nix-colors,
-    rust-overlay,
-    ...
-  } @ inputs: let
-    inherit (self) outputs;
-    # Supported systems for your flake packages, shell, etc.
-    systems = [
-      "aarch64-linux"
-      "x86_64-linux"
-      "aarch64-darwin"
-      "x86_64-darwin"
-    ];
-    # This is a function that generates an attribute by calling a function you
-    # pass to it, with each system as an argument
-    forAllSystems = inputs.nixpkgs-unstable.lib.genAttrs systems;
-  in {
-    # Your custom packages
-    # Accessible through 'nix build', 'nix shell', etc
-    packages = forAllSystems (
-      system: let
-        pkgs = import inputs.nixpkgs-unstable {
-          inherit system;
-          overlays = [(import rust-overlay)];
+  outputs =
+    { self
+    , home-manager
+    , nix-homebrew
+    , nix-colors
+    , rust-overlay
+    , ...
+    } @ inputs:
+    let
+      inherit (self) outputs;
+      # Supported systems for your flake packages, shell, etc.
+      systems = [
+        "aarch64-linux"
+        "x86_64-linux"
+        "aarch64-darwin"
+        "x86_64-darwin"
+      ];
+      # This is a function that generates an attribute by calling a function you
+      # pass to it, with each system as an argument
+      forAllSystems = inputs.nixpkgs-unstable.lib.genAttrs systems;
+    in
+    {
+      # Your custom packages
+      # Accessible through 'nix build', 'nix shell', etc
+      packages = forAllSystems (
+        system:
+        let
+          pkgs = import inputs.nixpkgs-unstable {
+            inherit system;
+            overlays = [ (import rust-overlay) ];
+          };
+        in
+        import ./pkgs { inherit pkgs; }
+      );
+      # Formatter for your nix files, available through 'nix fmt'
+      # Other options beside 'alejandra' include 'nixpkgs-fmt'
+      formatter = forAllSystems (system: inputs.nixpkgs-unstable.legacyPackages.${system}.alejandra);
+
+      # Your custom packages and modifications, exported as overlays
+      overlays = import ./overlays { inherit inputs; };
+      # Reusable nixos modules you might want to export
+      # These are usually stuff you would upstream into nixpkgs
+      nixosModules = import ./modules/nixos;
+      # Reusable home-manager modules you might want to export
+      # These are usually stuff you would upstream into home-manager
+      homeManagerModules = import ./modules/home-manager;
+      # For darwin-specific modules
+      darwinModules = import ./modules/darwin;
+
+      # NixOS configuration entrypoint
+      # Available through 'nixos-rebuild --flake .#your-hostname'
+      nixosConfigurations = {
+        # x1c6 = inputs.nixpkgs-unstable.lib.nixosSystem {
+        #   specialArgs = {inherit inputs outputs;};
+        #   modules = [
+        #     # > Our main nixos configuration file <
+        #     ./hosts/x1c6/configuration.nix
+        #     home-manager.nixosModules.home-manager
+        #     {
+        #       # home-manager.useGlobalPkgs = true;
+        #       home-manager.useUserPackages = true;
+        #       home-manager.extraSpecialArgs = {inherit inputs outputs nix-colors;};
+        #       home-manager.users.yomi = import ./hosts/x1c6/home.nix;
+        #       home-manager.sharedModules = [
+        #         inputs.sops-nix.homeManagerModules.sops
+        #       ];
+        #     }
+        #   ];
+        # };
+      };
+
+      darwinConfigurations = {
+        # MacBook Pro 18,2
+        MacBook-Pro = inputs.nixpkgs-darwin.lib.darwinSystem {
+          specialArgs = {
+            inherit inputs outputs;
+          };
+          modules = [
+            # > Our main nixos configuration file <
+            ./hosts/mbp16/configuration.nix
+            home-manager.darwinModules.home-manager
+            nix-homebrew.darwinModules.nix-homebrew
+            {
+              nixpkgs.hostPlatform = "aarch64-darwin";
+
+              # home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.extraSpecialArgs = { inherit inputs outputs nix-colors; };
+              home-manager.users.yomi = import ./hosts/mbp16/home.nix;
+              home-manager.sharedModules = [
+                inputs.sops-nix.homeManagerModules.sops
+              ];
+
+              nix-homebrew.enable = true;
+              nix-homebrew.enableRosetta = true;
+              nix-homebrew.user = "yomi";
+              nix-homebrew.autoMigrate = true;
+            }
+          ];
         };
-      in
-        import ./pkgs {inherit pkgs;}
-    );
-    # Formatter for your nix files, available through 'nix fmt'
-    # Other options beside 'alejandra' include 'nixpkgs-fmt'
-    formatter = forAllSystems (system: inputs.nixpkgs-unstable.legacyPackages.${system}.alejandra);
 
-    # Your custom packages and modifications, exported as overlays
-    overlays = import ./overlays {inherit inputs;};
-    # Reusable nixos modules you might want to export
-    # These are usually stuff you would upstream into nixpkgs
-    nixosModules = import ./modules/nixos;
-    # Reusable home-manager modules you might want to export
-    # These are usually stuff you would upstream into home-manager
-    homeManagerModules = import ./modules/home-manager;
-    # For darwin-specific modules
-    darwinModules = import ./modules/darwin;
+        # MacBook Air 10,1
+        MacBook-Air = inputs.nixpkgs-darwin.lib.darwinSystem {
+          specialArgs = {
+            inherit inputs outputs;
+          };
+          modules = [
+            # > Our main nixos configuration file <
+            ./hosts/mba13/configuration.nix
+            home-manager.darwinModules.home-manager
+            nix-homebrew.darwinModules.nix-homebrew
+            {
+              nixpkgs.hostPlatform = "aarch64-darwin";
 
-    # NixOS configuration entrypoint
-    # Available through 'nixos-rebuild --flake .#your-hostname'
-    nixosConfigurations = {
-      # x1c6 = inputs.nixpkgs-unstable.lib.nixosSystem {
-      #   specialArgs = {inherit inputs outputs;};
-      #   modules = [
-      #     # > Our main nixos configuration file <
-      #     ./hosts/x1c6/configuration.nix
-      #     home-manager.nixosModules.home-manager
-      #     {
-      #       # home-manager.useGlobalPkgs = true;
-      #       home-manager.useUserPackages = true;
-      #       home-manager.extraSpecialArgs = {inherit inputs outputs nix-colors;};
-      #       home-manager.users.yomi = import ./hosts/x1c6/home.nix;
-      #       home-manager.sharedModules = [
-      #         inputs.sops-nix.homeManagerModules.sops
-      #       ];
-      #     }
-      #   ];
-      # };
-    };
+              # home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.extraSpecialArgs = { inherit inputs outputs nix-colors; };
+              home-manager.users.yomi = import ./hosts/mba13/home.nix;
+              home-manager.sharedModules = [
+                inputs.sops-nix.homeManagerModules.sops
+              ];
 
-    darwinConfigurations = {
-      # MacBook Pro 18,2
-      MacBook-Pro = inputs.nixpkgs-darwin.lib.darwinSystem {
-        specialArgs = {
-          inherit inputs outputs;
+              nix-homebrew.enable = true;
+              nix-homebrew.enableRosetta = true;
+              nix-homebrew.user = "yomi";
+              nix-homebrew.autoMigrate = true;
+            }
+          ];
         };
-        modules = [
-          # > Our main nixos configuration file <
-          ./hosts/mbp16/configuration.nix
-          home-manager.darwinModules.home-manager
-          nix-homebrew.darwinModules.nix-homebrew
-          {
-            nixpkgs.hostPlatform = "aarch64-darwin";
-
-            # home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = {inherit inputs outputs nix-colors;};
-            home-manager.users.yomi = import ./hosts/mbp16/home.nix;
-            home-manager.sharedModules = [
-              inputs.sops-nix.homeManagerModules.sops
-            ];
-
-            nix-homebrew.enable = true;
-            nix-homebrew.enableRosetta = true;
-            nix-homebrew.user = "yomi";
-            nix-homebrew.autoMigrate = true;
-          }
-        ];
       };
 
-      # MacBook Air 10,1
-      MacBook-Air = inputs.nixpkgs-darwin.lib.darwinSystem {
-        specialArgs = {
-          inherit inputs outputs;
+      # Standalone home-manager configuration entrypoint
+      # Available through 'home-manager --flake .#your-username@your-hostname'
+      homeConfigurations = {
+        # "yomi@x1c6" = home-manager.lib.homeManagerConfiguration {
+        #   pkgs = inputs.nixpkgs-unstable.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
+        #   extraSpecialArgs = {inherit inputs outputs nix-colors;};
+        #   modules = [
+        #     ./hosts/x1c6/home.nix
+        #   ];
+        # };
+
+        "yomi@A-MacBook-Pro-eth.lan" = home-manager.lib.homeManagerConfiguration {
+          pkgs = inputs.nixpkgs-unstable.legacyPackages.aarch64-darwin; # Home-manager requires 'pkgs' instance
+          extraSpecialArgs = { inherit inputs outputs nix-colors; };
+          modules = [
+            ./hosts/mbp16/home.nix
+          ];
         };
-        modules = [
-          # > Our main nixos configuration file <
-          ./hosts/mba13/configuration.nix
-          home-manager.darwinModules.home-manager
-          nix-homebrew.darwinModules.nix-homebrew
-          {
-            nixpkgs.hostPlatform = "aarch64-darwin";
 
-            # home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = {inherit inputs outputs nix-colors;};
-            home-manager.users.yomi = import ./hosts/mba13/home.nix;
-            home-manager.sharedModules = [
-              inputs.sops-nix.homeManagerModules.sops
-            ];
-
-            nix-homebrew.enable = true;
-            nix-homebrew.enableRosetta = true;
-            nix-homebrew.user = "yomi";
-            nix-homebrew.autoMigrate = true;
-          }
-        ];
+        "yomi@A-MacBook-Air.lan" = home-manager.lib.homeManagerConfiguration {
+          pkgs = inputs.nixpkgs-unstable.legacyPackages.aarch64-darwin; # Home-manager requires 'pkgs' instance
+          extraSpecialArgs = { inherit inputs outputs nix-colors; };
+          modules = [
+            ./hosts/mba13/home.nix
+          ];
+        };
       };
     };
-
-    # Standalone home-manager configuration entrypoint
-    # Available through 'home-manager --flake .#your-username@your-hostname'
-    homeConfigurations = {
-      # "yomi@x1c6" = home-manager.lib.homeManagerConfiguration {
-      #   pkgs = inputs.nixpkgs-unstable.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
-      #   extraSpecialArgs = {inherit inputs outputs nix-colors;};
-      #   modules = [
-      #     ./hosts/x1c6/home.nix
-      #   ];
-      # };
-
-      "yomi@A-MacBook-Pro-eth.lan" = home-manager.lib.homeManagerConfiguration {
-        pkgs = inputs.nixpkgs-unstable.legacyPackages.aarch64-darwin; # Home-manager requires 'pkgs' instance
-        extraSpecialArgs = {inherit inputs outputs nix-colors;};
-        modules = [
-          ./hosts/mbp16/home.nix
-        ];
-      };
-
-      "yomi@A-MacBook-Air.lan" = home-manager.lib.homeManagerConfiguration {
-        pkgs = inputs.nixpkgs-unstable.legacyPackages.aarch64-darwin; # Home-manager requires 'pkgs' instance
-        extraSpecialArgs = {inherit inputs outputs nix-colors;};
-        modules = [
-          ./hosts/mba13/home.nix
-        ];
-      };
-    };
-  };
 }
