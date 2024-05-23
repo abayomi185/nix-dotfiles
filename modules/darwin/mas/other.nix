@@ -1,10 +1,8 @@
-_:
-let
+_: let
   otherApps = {
     MacTracker = 311421597;
     PoolsuiteFM = 1514817810;
   };
-in
-{
+in {
   homebrew.masApps = otherApps;
 }

@@ -1,9 +1,7 @@
-_:
-let
+_: let
   socialApps = {
     Twitter = 1482454543;
   };
-in
-{
+in {
   homebrew.masApps = socialApps;
 }
