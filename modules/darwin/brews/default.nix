@@ -1,4 +1,5 @@
 {
-  fastlane = import ./fastlane.nix;
+  group_mobileDev = import ./groups/mobile-dev.nix;
+
   sdl2 = import ./sdl2.nix;
 }

@@ -1,3 +1,0 @@
-{
-  homebrew.brews = ["fastlane"];
-}
