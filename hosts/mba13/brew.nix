@@ -1,4 +1,4 @@
-{outputs, ...}: {
+{ outputs, ... }: {
   imports = [
     # Add main homebrew module
     outputs.darwinModules.homebrew
@@ -18,10 +18,7 @@
     outputs.darwinModules.casks.xcodes
 
     # Mas - See ../../modules/darwin/mas/default.nix
-    outputs.darwinModules.mas
-    {
-      includeDevApps = true;
-      includeNetworkingApps = true;
-    }
+    outputs.darwinModules.mas.coreApps
+    outputs.darwinModules.mas.networkingApps
   ];
 }
