@@ -4,7 +4,7 @@
     outputs.darwinModules.homebrew
 
     # Brews - See ../../modules/darwin/brews/default.nix
-    outputs.darwinModules.brews.fastlane
+    outputs.darwinModules.brews.group_mobileDev
     outputs.darwinModules.brews.sdl2
 
     # Casks - See ../../modules/darwin/casks/default.nix
