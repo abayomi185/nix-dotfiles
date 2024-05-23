@@ -8,15 +8,13 @@
     # Casks - See ../../modules/darwin/casks/default.nix
 
     # Mas - See ../../modules/darwin/mas/default.nix
-    outputs.darwinModules.mas
-    {
-      includeDevApps = true;
-      includeNetworkingApps = true;
-      includeOtherApps = true;
-      includeProductivityApps = true;
-      includeSocialApps = true;
-      includeUtilitiesApps = true;
-    }
+    outputs.darwinModules.mas.coreApps
+    outputs.darwinModules.mas.devApps
+    outputs.darwinModules.mas.networkingApps
+    outputs.darwinModules.mas.otherApps
+    outputs.darwinModules.mas.productivityApps
+    outputs.darwinModules.mas.socialApps
+    outputs.darwinModules.mas.utilitiesApps
   ];
 
   homebrew.onActivation.cleanup = "none"; # Don't break things on MBP16!
