@@ -13,7 +13,7 @@
     outputs.darwinModules.desktop.yabai
 
     # Homebrew - See ./brew.nix
-    ./brew.nix
+    ./homebrew.nix
 
     # Defaults - See ./system.nix
     ./system.nix

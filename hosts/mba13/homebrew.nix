@@ -1,4 +1,4 @@
-{ outputs, ... }: {
+{outputs, ...}: {
   imports = [
     # Add main homebrew module
     outputs.darwinModules.homebrew
@@ -9,6 +9,7 @@
     # Casks - See ../../modules/darwin/casks/default.nix
     outputs.darwinModules.casks.autodesk-fusion
     outputs.darwinModules.casks.brave
+    outputs.darwinModules.casks.coconutbattery
     outputs.darwinModules.casks.notion
     outputs.darwinModules.casks.obs
     outputs.darwinModules.casks.obsidian
