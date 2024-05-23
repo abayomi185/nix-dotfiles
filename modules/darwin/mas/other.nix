@@ -1,6 +1,6 @@
 _: let
   otherApps = {
-    MacTracker = 311421597;
+    MacTracker = 430255202;
     PoolsuiteFM = 1514817810;
   };
 in {
