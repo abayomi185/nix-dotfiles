@@ -11,5 +11,6 @@
   orca-slicer = import ./orca-slicer.nix;
   raycast = import ./raycast.nix;
   serif-apps = import ./serif-apps.nix;
+  sublime-text = import ./sublime-text.nix;
   xcodes = import ./xcodes.nix;
 }
