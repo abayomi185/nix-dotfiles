@@ -148,6 +148,23 @@
       #     }
       #   ];
       # };
+
+      vps-arm64 = inputs.nixpkgs-unstable.lib.nixosSystem {
+        system = "aarch64-linux";
+        specialArgs = {inherit inputs outputs;};
+        modules = [
+          # > Our main nixos configuration file <
+          ./hosts/vps/configuration.nix
+          home-manager.nixosModules.home-manager
+          {
+            # home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.extraSpecialArgs = {inherit inputs outputs;};
+            home-manager.users.cloud = import ./hosts/vps/home.nix;
+            home-manager.sharedModules = [];
+          }
+        ];
+      };
     };
 
     darwinConfigurations = {
