@@ -7,7 +7,11 @@
     };
 
     # global = {};
-    # taps = [];
+
+    taps = [
+      "homebrew/bundle"
+    ];
+
     # brews = [];
     # casks = [];
     # masApps = {};
