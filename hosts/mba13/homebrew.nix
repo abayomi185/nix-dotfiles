@@ -5,6 +5,7 @@
 
     # Brews - See ../../modules/darwin/brews/default.nix
     outputs.darwinModules.brews.group_mobileDev
+    outputs.darwinModules.brews.group_awsDev
     outputs.darwinModules.brews.docker
     outputs.darwinModules.brews.sdl2
 
