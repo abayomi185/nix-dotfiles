@@ -12,5 +12,6 @@
   raycast = import ./raycast.nix;
   serif-apps = import ./serif-apps.nix;
   sublime-text = import ./sublime-text.nix;
+  whisky = import ./whisky.nix;
   xcodes = import ./xcodes.nix;
 }
