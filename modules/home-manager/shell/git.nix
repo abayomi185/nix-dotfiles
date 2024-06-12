@@ -6,6 +6,7 @@
 
     extraConfig = {
       init.defaultBranch = "main";
+      push.autoSetupRemote = true;
     };
 
     ignores = [".DS_Store" ".direnv/"];
