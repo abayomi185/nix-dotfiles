@@ -4,6 +4,7 @@
   calibre = import ./calibre.nix;
   coconutbattery = import ./coconutbattery.nix;
   figma = import ./figma.nix;
+  kicad = import ./kicad.nix;
   notion = import ./notion.nix;
   obs = import ./obs.nix;
   obsidian = import ./obsidian.nix;
