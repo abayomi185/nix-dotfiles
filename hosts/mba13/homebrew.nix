@@ -15,6 +15,7 @@
     outputs.darwinModules.casks.calibre
     outputs.darwinModules.casks.coconutbattery
     outputs.darwinModules.casks.figma
+    outputs.darwinModules.casks.kicad
     outputs.darwinModules.casks.notion
     outputs.darwinModules.casks.obs
     outputs.darwinModules.casks.obsidian
