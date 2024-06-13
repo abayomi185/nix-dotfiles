@@ -1,6 +1,7 @@
 {
   bat = import ./bat.nix;
   bitwarden-cli = import ./bitwarden-cli.nix;
+  blender = import ./blender.nix;
   calibre = import ./calibre.nix;
   cura = import ./cura.nix;
   davinci-resolve-studio = import ./davinci-resolve-studio.nix;
