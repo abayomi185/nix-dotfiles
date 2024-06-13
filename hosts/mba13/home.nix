@@ -14,6 +14,7 @@
     # Dev - See ../../modules/home-manager/dev/default.nix
     outputs.homeManagerModules.dev.nodejs
     outputs.homeManagerModules.dev.rust
+    outputs.homeManagerModules.dev.turso
     outputs.homeManagerModules.dev.xcodes
     outputs.homeManagerModules.dev.zig
 
