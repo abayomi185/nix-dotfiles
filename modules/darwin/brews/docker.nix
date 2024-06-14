@@ -1,3 +1,3 @@
 {
-  homebrew.brews = ["docker"];
+  homebrew.brews = ["docker" "colima"];
 }
