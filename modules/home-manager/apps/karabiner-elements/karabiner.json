@@ -18,6 +18,28 @@
         },
         "rules": [
           {
+            "description": "Quit application by holding command-q",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "q",
+                  "modifiers": {
+                    "mandatory": ["command"],
+                    "optional": ["caps_lock"]
+                  }
+                },
+                "to_if_held_down": [
+                  {
+                    "key_code": "q",
+                    "modifiers": ["left_command"],
+                    "repeat": false
+                  }
+                ]
+              }
+            ]
+          },
+          {
             "description": "Ergonomic arrow keys",
             "manipulators": [
               {
