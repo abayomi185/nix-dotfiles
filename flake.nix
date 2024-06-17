@@ -15,7 +15,7 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
-    nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
+    nix-homebrew.url = "github:abayomi185/nix-homebrew/83d5093567dcacfd88d36728c1e23591a07a675d";
     homebrew-bundle = {
       url = "github:homebrew/homebrew-bundle";
       flake = false;
@@ -40,18 +40,6 @@
     nixos-06cb-009a-fingerprint-sensor = {
       url = "github:ahbnr/nixos-06cb-009a-fingerprint-sensor";
       inputs.nixpkgs.follows = "nixpkgs-stable";
-    };
-
-    # Hyprland
-    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
-    # hyprland.url = "github:hyprwm/Hyprland"; # old
-    hyprland-plugins = {
-      url = "github:hyprwm/hyprland-plugins";
-      inputs.hyprland.follows = "hyprland";
-    };
-    hyprland-contrib = {
-      url = "github:hyprwm/contrib";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
     xremap = {
