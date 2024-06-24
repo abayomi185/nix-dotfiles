@@ -1,11 +1,11 @@
 {
 	"name": "Vimium C",
-	"@time": "21/04/2024, 21:19:17",
-	"time": 1713730757069,
+	"@time": "24/06/2024, 18:33:38",
+	"time": 1719250418243,
 	"environment": {
 		"extension": "1.99.994",
-		"platform": "linux",
-		"chromium": 123
+		"platform": "mac",
+		"chromium": 126
 	},
 	"exclusionRules": [
 		{
@@ -19,6 +19,10 @@
 		{
 			"passKeys": "",
 			"pattern": ":https://proxmox.local.yomitosh.media/"
+		},
+		{
+			"passKeys": "",
+			"pattern": ":https://console.hetzner.cloud/console"
 		}
 	],
 	"keyLayout": 2,
@@ -28,6 +32,7 @@
 		"map C removeTab",
 		"map J nextTab",
 		"map K previousTab",
+		"unmap <a-f>",
 		""
 	],
 	"vimSync": true
