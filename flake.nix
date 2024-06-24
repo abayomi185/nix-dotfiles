@@ -80,6 +80,11 @@
 
     # Nix Colors
     nix-colors.url = "github:misterio77/nix-colors";
+
+    compose2nix = {
+      url = "github:aksiksi/compose2nix";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
 
   outputs = {
