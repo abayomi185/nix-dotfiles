@@ -1,0 +1,12 @@
+services:
+  uptime-kuma:
+    image: louislam/uptime-kuma:latest
+    container_name: uptime-kuma
+    volumes:
+      - /home/cloud/nix-dotfiles/containers/uptime-kuma/data:/app/data
+    ports:
+      - 127.0.0.1:3001:3001
+      - 10.13.13.1:3001:3001
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
