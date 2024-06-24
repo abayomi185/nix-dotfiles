@@ -23,7 +23,7 @@
     outputs.homeManagerModules.monitoring.ncdu
 
     # Music - See ../../modules/home-manager/music/default.nix
-    outputs.homeManagerModules.music.spotify
+    # outputs.homeManagerModules.music.spotify
 
     # Shell - See ../../modules/home-manager/shell/default.nix
     outputs.homeManagerModules.shell.fzf
