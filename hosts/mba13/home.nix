@@ -14,6 +14,7 @@
     # Dev - See ../../modules/home-manager/dev/default.nix
     outputs.homeManagerModules.dev.nodejs
     outputs.homeManagerModules.dev.rust
+    outputs.homeManagerModules.dev.turso
     outputs.homeManagerModules.dev.xcodes
     outputs.homeManagerModules.dev.zig
 
@@ -36,6 +37,7 @@
 
     # Utils - See ../../modules/home-manager/utils/default.nix
     outputs.homeManagerModules.utils.age
+    outputs.homeManagerModules.utils.ranger
 
     # ZSH (custom) - See ./zsh.nix
     ./zsh.nix
