@@ -1,10 +1,14 @@
 {
-  coreApps = import ./core.nix;
+  coreApps = import ./groups/core.nix;
 
-  devApps = import ./dev.nix;
-  networkingApps = import ./networking.nix;
-  otherApps = import ./other.nix;
-  productivityApps = import ./productivity.nix;
-  socialApps = import ./social.nix;
-  utilitiesApps = import ./utilities.nix;
+  # Grouped by category
+  devApps = import ./groups/dev.nix;
+  networkingApps = import ./groups/networking.nix;
+  otherApps = import ./groups/other.nix;
+  productivityApps = import ./groups/productivity.nix;
+  socialApps = import ./groups/social.nix;
+  utilitiesApps = import ./groups/utilities.nix;
+
+  # Individual apps
+  overcast = import ./overcast.nix;
 }

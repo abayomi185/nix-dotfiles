@@ -1,10 +1,12 @@
 {
-  config,
   pkgs,
   outputs,
   ...
 }: {
   imports = [
+    # Darwin Apps - See ../../modules/darwin/apps/default.nix
+    outputs.darwinModules.apps.karabiner-elements
+
     # Desktop (darwin) - See ../../modules/darwin/desktop/default.nix
     outputs.darwinModules.desktop.skhd
     # outputs.darwinModules.desktop.spacebar

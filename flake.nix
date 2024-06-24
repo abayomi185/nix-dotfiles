@@ -3,7 +3,7 @@
 
   inputs = {
     # Nixpkgs
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-23.11";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
     # You can access packages and modules from different nixpkgs revs
     # at the same time. Here's an working example:
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -12,10 +12,10 @@
     # Darwin
     nixpkgs-darwin = {
       url = "github:LnL7/nix-darwin";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
-    nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
+    nix-homebrew.url = "github:abayomi185/nix-homebrew/83d5093567dcacfd88d36728c1e23591a07a675d";
     homebrew-bundle = {
       url = "github:homebrew/homebrew-bundle";
       flake = false;
@@ -30,53 +30,26 @@
     };
 
     # Home manager
-    home-manager.url = "github:nix-community/home-manager/master";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs-unstable";
+    home-manager.url = "github:nix-community/home-manager/release-24.05";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs-stable";
 
     # Any other flake needed
     hardware.url = "github:nixos/nixos-hardware";
 
-    # Fingerprint
-    nixos-06cb-009a-fingerprint-sensor = {
-      url = "github:ahbnr/nixos-06cb-009a-fingerprint-sensor";
+    # AGS
+    ags = {
+      url = "github:Aylur/ags";
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
-
-    # Hyprland
-    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
-    # hyprland.url = "github:hyprwm/Hyprland"; # old
-    hyprland-plugins = {
-      url = "github:hyprwm/hyprland-plugins";
-      inputs.hyprland.follows = "hyprland";
-    };
-    hyprland-contrib = {
-      url = "github:hyprwm/contrib";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
-
-    xremap = {
-      url = "github:xremap/nix-flake";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
-
-    # AGS
-    ags.url = "github:Aylur/ags";
 
     # Dev
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
     # Sops
     sops-nix.url = "github:Mic92/sops-nix";
-
-    # KDE Plasma
-    plasma-manager = {
-      url = "github:pjones/plasma-manager";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-      inputs.home-manager.follows = "home-manager";
-    };
 
     # Nix Colors
     nix-colors.url = "github:misterio77/nix-colors";
@@ -105,13 +78,13 @@
     ];
     # This is a function that generates an attribute by calling a function you
     # pass to it, with each system as an argument
-    forAllSystems = inputs.nixpkgs-unstable.lib.genAttrs systems;
+    forAllSystems = inputs.nixpkgs-stable.lib.genAttrs systems;
   in {
     # Your custom packages
     # Accessible through 'nix build', 'nix shell', etc
     packages = forAllSystems (
       system: let
-        pkgs = import inputs.nixpkgs-unstable {
+        pkgs = import inputs.nixpkgs-stable {
           inherit system;
           overlays = [(import rust-overlay)];
         };
@@ -120,7 +93,7 @@
     );
     # Formatter for your nix files, available through 'nix fmt'
     # Other options beside 'alejandra' include 'nixpkgs-fmt'
-    formatter = forAllSystems (system: inputs.nixpkgs-unstable.legacyPackages.${system}.alejandra);
+    formatter = forAllSystems (system: inputs.nixpkgs-stable.legacyPackages.${system}.alejandra);
 
     # Your custom packages and modifications, exported as overlays
     overlays = import ./overlays {inherit inputs;};
@@ -136,7 +109,7 @@
     # NixOS configuration entrypoint
     # Available through 'nixos-rebuild --flake .#your-hostname'
     nixosConfigurations = {
-      # x1c6 = inputs.nixpkgs-unstable.lib.nixosSystem {
+      # x1c6 = inputs.nixpkgs-stable.lib.nixosSystem {
       #   specialArgs = {inherit inputs outputs;};
       #   modules = [
       #     # > Our main nixos configuration file <
@@ -236,7 +209,7 @@
     # Available through 'home-manager --flake .#your-username@your-hostname'
     homeConfigurations = {
       # "yomi@x1c6" = home-manager.lib.homeManagerConfiguration {
-      #   pkgs = inputs.nixpkgs-unstable.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
+      #   pkgs = inputs.nixpkgs-stable.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
       #   extraSpecialArgs = {inherit inputs outputs nix-colors;};
       #   modules = [
       #     ./hosts/x1c6/home.nix
@@ -244,7 +217,7 @@
       # };
 
       "yomi@A-MacBook-Pro-eth.lan" = home-manager.lib.homeManagerConfiguration {
-        pkgs = inputs.nixpkgs-unstable.legacyPackages.aarch64-darwin; # Home-manager requires 'pkgs' instance
+        pkgs = inputs.nixpkgs-stable.legacyPackages.aarch64-darwin; # Home-manager requires 'pkgs' instance
         extraSpecialArgs = {inherit inputs outputs nix-colors;};
         modules = [
           ./hosts/mbp16/home.nix
@@ -252,7 +225,7 @@
       };
 
       "yomi@A-MacBook-Air.lan" = home-manager.lib.homeManagerConfiguration {
-        pkgs = inputs.nixpkgs-unstable.legacyPackages.aarch64-darwin; # Home-manager requires 'pkgs' instance
+        pkgs = inputs.nixpkgs-stable.legacyPackages.aarch64-darwin; # Home-manager requires 'pkgs' instance
         extraSpecialArgs = {inherit inputs outputs nix-colors;};
         modules = [
           ./hosts/mba13/home.nix

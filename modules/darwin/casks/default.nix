@@ -4,6 +4,7 @@
   calibre = import ./calibre.nix;
   coconutbattery = import ./coconutbattery.nix;
   figma = import ./figma.nix;
+  kicad = import ./kicad.nix;
   notion = import ./notion.nix;
   obs = import ./obs.nix;
   obsidian = import ./obsidian.nix;
@@ -12,5 +13,6 @@
   raycast = import ./raycast.nix;
   serif-apps = import ./serif-apps.nix;
   sublime-text = import ./sublime-text.nix;
+  whisky = import ./whisky.nix;
   xcodes = import ./xcodes.nix;
 }

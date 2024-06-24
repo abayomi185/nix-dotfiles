@@ -3,7 +3,17 @@
     # Apps - See ../../modules/home-manager/apps/default.nix
     outputs.homeManagerModules.apps.bat
     outputs.homeManagerModules.apps.jq
+    outputs.homeManagerModules.apps.k9s
+    outputs.homeManagerModules.apps.karabiner-elements
     outputs.homeManagerModules.apps.neovim
+    outputs.homeManagerModules.apps.ripgrep
+
+    # Dev - See ../../modules/home-manager/dev/default.nix
+    outputs.homeManagerModules.dev.turso
+
+    # Monitoring - See ../../modules/home-manager/monitoring/default.nix
+    outputs.homeManagerModules.monitoring.btop
+    outputs.homeManagerModules.monitoring.ncdu
 
     # Shell - See ../../modules/home-manager/shell/default.nix
     outputs.homeManagerModules.shell.fzf
@@ -16,6 +26,7 @@
 
     # Utils - See ../../modules/home-manager/utils/default.nix
     outputs.homeManagerModules.utils.age
+    outputs.homeManagerModules.utils.ranger
 
     # ZSH (custom) - See ./zsh.nix
     ./zsh.nix
