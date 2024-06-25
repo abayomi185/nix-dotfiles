@@ -11,7 +11,6 @@
     outputs.darwinModules.brews.sdl2
 
     # Casks - See ../../modules/darwin/casks/default.nix
-    outputs.darwinModules.casks.autodesk-fusion
     outputs.darwinModules.casks.brave
     outputs.darwinModules.casks.calibre
     outputs.darwinModules.casks.coconutbattery
@@ -23,6 +22,7 @@
     outputs.darwinModules.casks.orca-slicer
     outputs.darwinModules.casks.raycast
     outputs.darwinModules.casks.serif-apps
+    outputs.darwinModules.casks.spotify
     outputs.darwinModules.casks.sublime-text
     outputs.darwinModules.casks.whisky
     outputs.darwinModules.casks.xcodes
