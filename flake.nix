@@ -49,7 +49,10 @@
     };
 
     # Sops
-    sops-nix.url = "github:Mic92/sops-nix";
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+    };
 
     # Nix Colors
     nix-colors.url = "github:misterio77/nix-colors";
@@ -66,6 +69,7 @@
     nix-homebrew,
     nix-colors,
     rust-overlay,
+    sops-nix,
     ...
   } @ inputs: let
     inherit (self) outputs;
@@ -139,8 +143,11 @@
             home-manager.useUserPackages = true;
             home-manager.extraSpecialArgs = {inherit inputs outputs;};
             home-manager.users.cloud = import ./hosts/vps/home.nix;
-            home-manager.sharedModules = [];
+            home-manager.sharedModules = [
+              inputs.sops-nix.homeManagerModules.sops
+            ];
           }
+          sops-nix.nixosModules.sops
         ];
       };
     };
@@ -201,6 +208,7 @@
             nix-homebrew.user = "yomi";
             nix-homebrew.autoMigrate = true;
           }
+          # sops-nix.darwinModules.sops
         ];
       };
     };
