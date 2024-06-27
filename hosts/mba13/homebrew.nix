@@ -11,10 +11,12 @@
     outputs.darwinModules.brews.sdl2
 
     # Casks - See ../../modules/darwin/casks/default.nix
+    outputs.darwinModules.casks.autodesk-fusion
     outputs.darwinModules.casks.brave
     outputs.darwinModules.casks.calibre
     outputs.darwinModules.casks.coconutbattery
     outputs.darwinModules.casks.figma
+    outputs.darwinModules.casks.iina
     outputs.darwinModules.casks.kicad
     outputs.darwinModules.casks.notion
     outputs.darwinModules.casks.obs
