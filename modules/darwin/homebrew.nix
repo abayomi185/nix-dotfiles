@@ -10,6 +10,9 @@
 
     taps = [
       "homebrew/bundle"
+
+      # Azure
+      "azure/functions"
     ];
 
     # brews = [];
