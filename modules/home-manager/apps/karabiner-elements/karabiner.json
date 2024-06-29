@@ -18,6 +18,26 @@
         },
         "rules": [
           {
+            "description": "LShift + RShift to Caps Lock",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "right_shift",
+                  "modifiers": {
+                    "mandatory": ["left_shift"],
+                    "optional": ["caps_lock"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "caps_lock"
+                  }
+                ]
+              }
+            ]
+          },
+          {
             "description": "Quit application by holding command-q",
             "manipulators": [
               {
