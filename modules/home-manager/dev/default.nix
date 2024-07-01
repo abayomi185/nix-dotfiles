@@ -1,4 +1,5 @@
 {
+  kubectl = import ./kubectl.nix;
   lua = import ./lua.nix;
   nodejs = import ./nodejs.nix;
   python = import ./python.nix;
