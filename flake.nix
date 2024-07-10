@@ -15,7 +15,7 @@
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
-    nix-homebrew.url = "github:abayomi185/nix-homebrew/83d5093567dcacfd88d36728c1e23591a07a675d";
+    nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
     homebrew-bundle = {
       url = "github:homebrew/homebrew-bundle";
       flake = false;
