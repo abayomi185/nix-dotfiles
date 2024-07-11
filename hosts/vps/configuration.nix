@@ -1,10 +1,13 @@
 {
   inputs,
-  config,
   pkgs,
   ...
 }: let
-  secretsPath = builtins.toString inputs.mysecrets;
+  secretsPath = builtins.toString inputs.nix-secrets;
+  secretsJson = builtins.fromTOML (builtins.readFile "${secretsPath}/hosts/vps/secrets.toml");
+
+  secret_initialPassword = secretsJson.user.initial_password;
+  secret_authorizedKeys = secretsJson.ssh.authorized_keys;
 in {
   imports = [
     ./hardware-configuration.nix
@@ -19,15 +22,6 @@ in {
   sops = {
     age.sshKeyPaths = ["/home/cloud/.ssh/id_ed25519"];
     defaultSopsFile = "${secretsPath}/hosts/vps/secrets.enc.yaml";
-  };
-
-  sops.secrets = {
-    "user/initial_password" = {
-      neededForUsers = true;
-    };
-    "ssh/authorized_keys/a" = {};
-    "ssh/authorized_keys/b" = {};
-    "ssh/authorized_keys/c" = {};
   };
 
   # Hetzner
@@ -52,7 +46,7 @@ in {
       description = "cloud";
       shell = pkgs.zsh;
       extraGroups = ["wheel" "docker"];
-      initialPassword = config.sops.secrets."user/initial_password".path;
+      initialPassword = secret_initialPassword;
     };
   };
 
@@ -84,11 +78,7 @@ in {
     # };
   };
   users.users.root.openssh.authorizedKeys.keys = [];
-  users.users.cloud.openssh.authorizedKeys.keys = [
-    config.sops.secrets."ssh/authorized_keys/a".path
-    config.sops.secrets."ssh/authorized_keys/b".path
-    config.sops.secrets."ssh/authorized_keys/c".path
-  ];
+  users.users.cloud.openssh.authorizedKeys.keys = secret_authorizedKeys;
 
   # Fail2ban
   # services.fail2ban.enable = true;
