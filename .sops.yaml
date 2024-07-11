@@ -3,7 +3,7 @@ keys:
   - &mba13 age1sx0dh82apfxxdv9z0l77dmu00e9vz5rn3pfwwnxhwumdxmwy7gsshaxxlc
   - &vps_arm age1wpz4fg9wcakl5vj92gcfj8pnsjg9l3el79le3fw0lh0tt2h3m9aqp6zz26
 creation_rules:
-  - path_regex: .*secret?s\.(ya?ml|json|env|ini|sops)$
+  - path_regex: .*secret?s\.(ya?ml|enc\.yaml|json|env|ini|sops)$
     key_groups:
       - age:
           - *mbp16
