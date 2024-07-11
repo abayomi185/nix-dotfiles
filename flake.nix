@@ -61,6 +61,12 @@
       url = "github:aksiksi/compose2nix";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+
+    # Secrets
+    mysecrets = {
+      url = "git+ssh://git@github.com/abayomi185/nix-secrets.git?ref=main&shallow=1";
+      flake = false;
+    };
   };
 
   outputs = {
