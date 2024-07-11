@@ -131,12 +131,13 @@
       #   ];
       # };
 
-      vps-arm64 = inputs.nixpkgs-unstable.lib.nixosSystem {
+      vps-arm64 = inputs.nixpkgs-stable.lib.nixosSystem {
         system = "aarch64-linux";
         specialArgs = {inherit inputs outputs;};
         modules = [
           # > Our main nixos configuration file <
           ./hosts/vps/configuration.nix
+          sops-nix.nixosModules.sops
           home-manager.nixosModules.home-manager
           {
             # home-manager.useGlobalPkgs = true;
@@ -147,7 +148,6 @@
               inputs.sops-nix.homeManagerModules.sops
             ];
           }
-          sops-nix.nixosModules.sops
         ];
       };
     };
@@ -208,7 +208,6 @@
             nix-homebrew.user = "yomi";
             nix-homebrew.autoMigrate = true;
           }
-          # sops-nix.darwinModules.sops
         ];
       };
     };
