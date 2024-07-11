@@ -3,7 +3,9 @@
   config,
   pkgs,
   ...
-}: {
+}: let
+  secretsPath = builtins.toString inputs.mysecrets;
+in {
   imports = [
     ./hardware-configuration.nix
     ./networking.nix
@@ -16,7 +18,7 @@
   # Secrets
   sops = {
     age.sshKeyPaths = ["/home/cloud/.ssh/id_ed25519"];
-    defaultSopsFile = ./secrets.enc.yaml;
+    defaultSopsFile = "${secretsPath}/hosts/vps/secrets.enc.yaml";
   };
 
   sops.secrets = {
