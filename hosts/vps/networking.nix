@@ -1,25 +1,24 @@
 {
-  config,
+  inputs,
   lib,
   ...
-}: {
-  sops.secrets = {
-    "network/nameservers/a" = {};
-    "network/default_gateway" = {};
-    "network/ipv4_address" = {};
-    "network/ipv6_address" = {};
-    "network/mac_address" = {};
-    "network/enp7s0_mac_address" = {};
-    "network/enp7s0_ipv4_address" = {};
-  };
+}: let
+  secretsPath = builtins.toString inputs.nix-secrets;
+  secretsJson = builtins.fromTOML (builtins.readFile "${secretsPath}/hosts/vps/secrets.toml");
 
+  secret_nameservers = secretsJson.network.nameservers;
+  secret_defaultGateway = secretsJson.network.default_gateway;
+  secret_macAddress = secretsJson.network.mac_address;
+  secret_ipv4Address = secretsJson.network.ipv4_address;
+  secret_ipv6Address = secretsJson.network.ipv6_address;
+  secret_enp7s0MacAddress = secretsJson.network.enp7s0_mac_address;
+  secret_enp7s0Ipv4Address = secretsJson.network.enp7s0_ipv4_address;
+in {
   # This file was populated at runtime with the networking
   # details gathered from the active system.
   networking = {
-    nameservers = [
-      config.sops.secrets."network/nameservers/a".path
-    ];
-    defaultGateway = config.sops.secrets."network/default_gateway".path;
+    nameservers = secret_nameservers;
+    defaultGateway = secret_defaultGateway;
     defaultGateway6 = {
       address = "fe80::1";
       interface = "eth0";
@@ -30,13 +29,13 @@
       eth0 = {
         ipv4.addresses = [
           {
-            address = config.sops.secrets."network/ipv4_address".path;
+            address = secret_ipv4Address;
             prefixLength = 32;
           }
         ];
         ipv6.addresses = [
           {
-            address = config.sops.secrets."network/ipv6_address".path;
+            address = secret_ipv6Address;
             prefixLength = 64;
           }
           {
@@ -46,7 +45,7 @@
         ];
         ipv4.routes = [
           {
-            address = config.sops.secrets."network/default_gateway".path;
+            address = secret_defaultGateway;
             prefixLength = 32;
           }
         ];
@@ -60,7 +59,7 @@
       enp7s0 = {
         ipv4.addresses = [
           {
-            address = config.sops.secrets."network/enp7s0_ipv4_address".path;
+            address = secret_enp7s0Ipv4Address;
             prefixLength = 32;
           }
         ];
@@ -74,7 +73,7 @@
     };
   };
   services.udev.extraRules = ''
-    ATTR{address}=="${config.sops.secrets."network/mac_address".path}", NAME="eth0"
-    ATTR{address}=="${config.sops.secrets."network/enp7s0_mac_address".path}", NAME="enp7s0"
+    ATTR{address}=="${secret_macAddress}", NAME="eth0"
+    ATTR{address}=="${secret_enp7s0MacAddress}", NAME="enp7s0"
   '';
 }
