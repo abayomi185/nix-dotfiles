@@ -1,16 +1,16 @@
 {
-  config,
+  inputs,
   pkgs,
   ...
-}: {
-  sops.secrets = {
-    "wireguard/allowed_tcp_ports" = {};
-    "wireguard/allowed_udp_ports" = {};
-    "wireguard/addresses" = {};
-    "wireguard/listen_port" = {};
-    "wireguard/peers" = {};
-  };
+}: let
+  secretsPath = builtins.toString inputs.nix-secrets;
+  secretsJson = builtins.fromTOML (builtins.readFile "${secretsPath}/hosts/vps/secrets.toml");
 
+  secret_allowedTcpPorts = secretsJson.wireguard.allowed_tcp_ports;
+  secret_allowedUdpPorts = secretsJson.wireguard.allowed_udp_ports;
+  secret_addresses = secretsJson.wireguard.addresses;
+  secret_peers = secretsJson.wireguard.peers;
+in {
   networking.nat = {
     enable = true;
     enableIPv6 = true;
@@ -19,8 +19,8 @@
   };
 
   networking.firewall = {
-    allowedTCPPorts = builtins.fromJSON (builtins.readFile config.sops.secrets."wireguard/allowed_tcp_ports".path);
-    allowedUDPPorts = builtins.fromJSON (builtins.readFile config.sops.secrets."wireguard/allowed_udp_ports".path);
+    allowedTCPPorts = secret_allowedTcpPorts;
+    allowedUDPPorts = secret_allowedUdpPorts;
   };
 
   services = {
@@ -34,7 +34,7 @@
 
   networking.wg-quick.interfaces = {
     wg0 = {
-      address = builtins.fromJSON (config.sops.secrets."wireguard/addresses".path);
+      address = secret_addresses;
 
       privateKeyFile = "~/nix-dotfiles/hosts/vps/.wireguard-privatekey";
 
@@ -49,7 +49,7 @@
         ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE
       '';
 
-      peers = builtins.fromJSON (builtins.trimString config.sops.secrets."wireguard/peers".path);
+      peers = secret_peers;
     };
   };
 }
