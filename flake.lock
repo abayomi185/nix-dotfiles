@@ -272,6 +272,24 @@
         "type": "github"
       }
     },
+    "nix-secrets": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1720735693,
+        "narHash": "sha256-RHGEfi+xI51SHGN9Yjje2iIsLVg+0KY+MOSORB8K2xQ=",
+        "ref": "main",
+        "rev": "26ec5d4abb2ad6fb50f80d3bfd8a8870ebb9cd2f",
+        "shallow": true,
+        "type": "git",
+        "url": "ssh://git@github.com/abayomi185/nix-secrets.git"
+      },
+      "original": {
+        "ref": "main",
+        "shallow": true,
+        "type": "git",
+        "url": "ssh://git@github.com/abayomi185/nix-secrets.git"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1687274257,
@@ -417,6 +435,7 @@
         "homebrew-core": "homebrew-core",
         "nix-colors": "nix-colors",
         "nix-homebrew": "nix-homebrew",
+        "nix-secrets": "nix-secrets",
         "nixpkgs-darwin": "nixpkgs-darwin",
         "nixpkgs-stable": "nixpkgs-stable",
         "nixpkgs-unstable": "nixpkgs-unstable",
