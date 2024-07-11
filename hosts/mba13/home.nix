@@ -65,6 +65,11 @@
     homeDirectory = "/Users/yomi";
   };
 
+  sops = {
+    age.sshKeyPaths = ["/home/yomi/.ssh/id_ed25519"];
+    defaultSopsFile = ./secrets.enc.yaml;
+  };
+
   # Enable home-manager
   programs.home-manager.enable = true;
 
