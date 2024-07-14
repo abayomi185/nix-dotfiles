@@ -54,6 +54,12 @@
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
+    # Agenix
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+    };
+
     # Nix Colors
     nix-colors.url = "github:misterio77/nix-colors";
 
@@ -76,6 +82,7 @@
     nix-colors,
     rust-overlay,
     sops-nix,
+    agenix,
     ...
   } @ inputs: let
     inherit (self) outputs;
@@ -144,6 +151,7 @@
           # > Our main nixos configuration file <
           ./hosts/vps/configuration.nix
           sops-nix.nixosModules.sops
+          agenix.nixosModules.default
           home-manager.nixosModules.home-manager
           {
             # home-manager.useGlobalPkgs = true;
@@ -167,6 +175,7 @@
         modules = [
           # > Our main nixos configuration file <
           ./hosts/mbp16/configuration.nix
+          agenix.darwinModules.default
           home-manager.darwinModules.home-manager
           nix-homebrew.darwinModules.nix-homebrew
           {
@@ -196,6 +205,7 @@
         modules = [
           # > Our main nixos configuration file <
           ./hosts/mba13/configuration.nix
+          agenix.darwinModules.default
           home-manager.darwinModules.home-manager
           nix-homebrew.darwinModules.nix-homebrew
           {
