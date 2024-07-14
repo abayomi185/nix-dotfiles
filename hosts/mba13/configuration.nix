@@ -1,6 +1,7 @@
 {
-  pkgs,
+  inputs,
   outputs,
+  pkgs,
   ...
 }: {
   imports = [
@@ -67,7 +68,9 @@
   };
 
   # $ nix-env -qaP | grep wget
-  environment.systemPackages = [];
+  environment.systemPackages = [
+    inputs.agenix.packages.aarch64-darwin.default
+  ];
 
   # Creates global /etc/zshrc that loads the nix-darwin environment
   programs.zsh.enable = true; # Important!
