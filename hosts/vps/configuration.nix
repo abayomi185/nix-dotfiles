@@ -15,7 +15,8 @@ in {
     ./wireguard.nix
 
     # Containers
-    ../../containers/uptime-kuma/docker-compose.nix
+    # ../../containers/traefik/docker-compose.nix # Traefik
+    ../../containers/uptime-kuma/docker-compose.nix # Uptime-Kuma
   ];
 
   # Secrets
@@ -90,6 +91,7 @@ in {
     podman-tui
     podman-compose
     inputs.compose2nix.packages.aarch64-linux.default
+    inputs.agenix.packages.aarch64-linux.default
   ];
 
   system.stateVersion = "23.11";
