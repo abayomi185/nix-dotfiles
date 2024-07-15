@@ -11,6 +11,7 @@
     nodejs_18
     stylua
     selene
+    ssh-to-age
   ];
 
   # NOTE: Shells
