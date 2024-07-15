@@ -5,7 +5,9 @@
   lib,
   pkgs,
   ...
-}: {
+}: let
+  basePath = "/home/cloud/nix-dotfiles/hosts/vps/containers/traefik";
+in {
   # Secrets
   age.secrets.vps_containers_traefik.file = "${inputs.nix-secrets}/hosts/vps/containers/traefik/env.age";
 
@@ -16,10 +18,10 @@
       config.age.secrets.vps_containers_traefik.path
     ];
     volumes = [
-      "./acme:/etc/traefik/acme:rw"
-      "./file-provider:/etc/traefik/file-provider:ro"
-      "./logs:/logs:rw"
-      "./traefik.yml:/etc/traefik/traefik.yml:ro"
+      "${basePath}/acme:/etc/traefik/acme:rw"
+      "${basePath}/file-provider:/etc/traefik/file-provider:ro"
+      "${basePath}/logs:/logs:rw"
+      "${basePath}/traefik.yml:/etc/traefik/traefik.yml:ro"
       "/var/run/docker.sock:/var/run/docker.sock:ro"
     ];
     ports = [
