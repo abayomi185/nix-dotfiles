@@ -8,6 +8,8 @@
 
   secret_initialPassword = secretsJson.user.initial_password;
   secret_authorizedKeys = secretsJson.ssh.authorized_keys;
+
+  homeDir = "/home/cloud";
 in {
   imports = [
     ./hardware-configuration.nix
@@ -15,15 +17,16 @@ in {
     ./wireguard.nix
 
     # Containers
-    # ../../containers/traefik/docker-compose.nix # Traefik
+    ../../containers/traefik/docker-compose.nix # Traefik
     ../../containers/uptime-kuma/docker-compose.nix # Uptime-Kuma
   ];
 
   # Secrets
   sops = {
     age.sshKeyPaths = ["/home/cloud/.ssh/id_ed25519"];
-    defaultSopsFile = "${secretsPath}/hosts/vps/secrets.enc.yaml";
+    defaultSopsFile = "${homeDir}/hosts/vps/secrets.enc.yaml";
   };
+  age.identityPaths = ["${homeDir}/.ssh/id_ed25519"];
 
   # Hetzner
   boot.tmp.cleanOnBoot = true;
