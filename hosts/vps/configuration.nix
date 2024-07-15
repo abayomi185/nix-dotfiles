@@ -90,8 +90,8 @@ in {
     zig
     podman-tui
     podman-compose
-    inputs.compose2nix.packages.aarch64-linux.default
-    inputs.agenix.packages.aarch64-linux.default
+    inputs.compose2nix.packages.${system}.default
+    inputs.agenix.packages.${system}.default
   ];
 
   system.stateVersion = "23.11";
