@@ -68,7 +68,7 @@
   };
 
   # $ nix-env -qaP | grep wget
-  environment.systemPackages = [
+  environment.systemPackages = with pkgs; [
     inputs.agenix.packages.${system}.default
   ];
 
