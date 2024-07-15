@@ -2,6 +2,7 @@
   home.username = "cloud";
   home.homeDirectory = "/home/cloud";
   home.packages = with pkgs; [
+    age
     alejandra
     nil
     nixpkgs-fmt
