@@ -7,7 +7,7 @@
       minimize-to-application = true;
       mru-spaces = false;
       orientation = "bottom";
-      tilesize = 45;
+      tilesize = 52;
     };
 
     NSGlobalDomain = {
