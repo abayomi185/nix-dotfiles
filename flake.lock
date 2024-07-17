@@ -286,17 +286,16 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1718147019,
+        "lastModified": 1719720211,
         "narHash": "sha256-FNK5ZxmNC+V/wOuioc5HqkUy0ld4eW3NqcsZHLYg9HI=",
-        "owner": "abayomi185",
+        "owner": "zhaofengli-wip",
         "repo": "nix-homebrew",
-        "rev": "83d5093567dcacfd88d36728c1e23591a07a675d",
+        "rev": "0afc51fd86693c73e4b60be8ed8c782c4c09b4cc",
         "type": "github"
       },
       "original": {
-        "owner": "abayomi185",
+        "owner": "zhaofengli-wip",
         "repo": "nix-homebrew",
-        "rev": "83d5093567dcacfd88d36728c1e23591a07a675d",
         "type": "github"
       }
     },
