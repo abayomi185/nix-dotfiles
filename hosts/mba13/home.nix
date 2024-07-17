@@ -1,4 +1,10 @@
-{outputs, ...}: {
+{
+  inputs,
+  outputs,
+  ...
+}: let
+  secretsPath = builtins.toString inputs.mysecrets;
+in {
   imports = [
     # Apps - See ../../modules/home-manager/apps/default.nix
     outputs.homeManagerModules.apps.bat
@@ -12,6 +18,7 @@
     outputs.homeManagerModules.apps.vscode
 
     # Dev - See ../../modules/home-manager/dev/default.nix
+    outputs.homeManagerModules.dev.kubectl
     outputs.homeManagerModules.dev.nodejs
     outputs.homeManagerModules.dev.rust
     outputs.homeManagerModules.dev.turso
@@ -62,6 +69,11 @@
   home = {
     username = "yomi";
     homeDirectory = "/Users/yomi";
+  };
+
+  sops = {
+    age.sshKeyPaths = ["/home/yomi/.ssh/id_ed25519"];
+    defaultSopsFile = "${secretsPath}/hosts/mba13/secrets.enc.yaml";
   };
 
   # Enable home-manager

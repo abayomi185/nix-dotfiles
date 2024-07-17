@@ -1,6 +1,6 @@
 # See common config here: ../../modules/home-manager/shell/zsh.nix
 # WARN: Ensure that a `.zshrc.zwc` does not exist or this config won't work - this is a compiled zshrc file
-{
+{pkgs, ...}: {
   # Common configuration for Zsh
   programs.zsh = {
     enable = true;
@@ -112,6 +112,18 @@
         # "zsh-autosuggestions"
       ];
     };
+
+    plugins = [
+      {
+        name = "autoswitch_virtualenv";
+        src = pkgs.fetchFromGitHub {
+          owner = "MichaelAquilina";
+          repo = "zsh-autoswitch-virtualenv";
+          rev = "3.7.1";
+          sha256 = "0bj4qnvq8mbznhv8yd3w2vxjfgbbap2w012lwj4pmn8l6g03s247";
+        };
+      }
+    ];
   };
 
   programs.direnv.enable = true;

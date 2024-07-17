@@ -2,6 +2,7 @@
   home.username = "cloud";
   home.homeDirectory = "/home/cloud";
   home.packages = with pkgs; [
+    age
     alejandra
     nil
     nixpkgs-fmt
@@ -11,6 +12,7 @@
     nodejs_18
     stylua
     selene
+    ssh-to-age
   ];
 
   # NOTE: Shells

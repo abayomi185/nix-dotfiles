@@ -54,12 +54,24 @@
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
+    # Agenix
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+    };
+
     # Nix Colors
     nix-colors.url = "github:misterio77/nix-colors";
 
     compose2nix = {
       url = "github:aksiksi/compose2nix";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
+    # Secrets
+    nix-secrets = {
+      url = "git+ssh://git@github.com/abayomi185/nix-secrets.git?ref=main&shallow=1";
+      flake = false;
     };
   };
 
@@ -70,6 +82,7 @@
     nix-colors,
     rust-overlay,
     sops-nix,
+    agenix,
     ...
   } @ inputs: let
     inherit (self) outputs;
@@ -131,12 +144,14 @@
       #   ];
       # };
 
-      vps-arm64 = inputs.nixpkgs-unstable.lib.nixosSystem {
+      vps-arm64 = inputs.nixpkgs-stable.lib.nixosSystem {
         system = "aarch64-linux";
         specialArgs = {inherit inputs outputs;};
         modules = [
           # > Our main nixos configuration file <
           ./hosts/vps/configuration.nix
+          sops-nix.nixosModules.sops
+          agenix.nixosModules.default
           home-manager.nixosModules.home-manager
           {
             # home-manager.useGlobalPkgs = true;
@@ -147,7 +162,6 @@
               inputs.sops-nix.homeManagerModules.sops
             ];
           }
-          sops-nix.nixosModules.sops
         ];
       };
     };
@@ -161,6 +175,7 @@
         modules = [
           # > Our main nixos configuration file <
           ./hosts/mbp16/configuration.nix
+          agenix.darwinModules.default
           home-manager.darwinModules.home-manager
           nix-homebrew.darwinModules.nix-homebrew
           {
@@ -190,6 +205,7 @@
         modules = [
           # > Our main nixos configuration file <
           ./hosts/mba13/configuration.nix
+          agenix.darwinModules.default
           home-manager.darwinModules.home-manager
           nix-homebrew.darwinModules.nix-homebrew
           {
@@ -208,7 +224,6 @@
             nix-homebrew.user = "yomi";
             nix-homebrew.autoMigrate = true;
           }
-          # sops-nix.darwinModules.sops
         ];
       };
     };
