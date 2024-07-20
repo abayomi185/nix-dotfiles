@@ -22,6 +22,10 @@
       "workbench.iconTheme" = "vscode-icons";
       "editor.formatOnSave" = true;
 
+      "[typescript]" = {
+        "editor.defaultFormatter" = "esbenp.prettier-vscode";
+      };
+
       # NOTE: VSCode Vim
       "vim.leader" = " ";
       "vim.useSystemClipboard" = false;
