@@ -18,6 +18,7 @@ in {
     outputs.homeManagerModules.apps.vscode
 
     # Dev - See ../../modules/home-manager/dev/default.nix
+    outputs.homeManagerModules.dev.github
     outputs.homeManagerModules.dev.kubectl
     outputs.homeManagerModules.dev.nodejs
     outputs.homeManagerModules.dev.rust
