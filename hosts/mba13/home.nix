@@ -45,6 +45,7 @@ in {
 
     # Utils - See ../../modules/home-manager/utils/default.nix
     outputs.homeManagerModules.utils.age
+    outputs.homeManagerModules.utils.pulseview
     outputs.homeManagerModules.utils.ranger
     outputs.homeManagerModules.utils.sops
     outputs.homeManagerModules.utils.ssh-to-age
