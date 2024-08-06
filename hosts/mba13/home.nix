@@ -1,6 +1,7 @@
 {
   inputs,
   outputs,
+  pkgs,
   ...
 }: let
   secretsPath = builtins.toString inputs.mysecrets;
@@ -17,6 +18,9 @@ in {
     outputs.homeManagerModules.apps.ripgrep
     outputs.homeManagerModules.apps.vscode
 
+    # Casks - See ../../modules/home-manager/casks/default.nix
+    outputs.homeManagerModules.casks.ncdu
+
     # Dev - See ../../modules/home-manager/dev/default.nix
     outputs.homeManagerModules.dev.github
     outputs.homeManagerModules.dev.kubectl
@@ -28,7 +32,7 @@ in {
 
     # Monitoring - See ../../modules/home-manager/monitoring/default.nix
     outputs.homeManagerModules.monitoring.btop
-    outputs.homeManagerModules.monitoring.ncdu
+    # outputs.homeManagerModules.monitoring.ncdu
 
     # Music - See ../../modules/home-manager/music/default.nix
     # outputs.homeManagerModules.music.spotify
@@ -58,6 +62,7 @@ in {
     overlays = [
       outputs.overlays.additions
       outputs.overlays.modifications
+      inputs.brew-nix.overlays.default
     ];
 
     config = {
@@ -67,6 +72,10 @@ in {
       allowUnfreePredicate = _: true;
     };
   };
+
+  home.packages = [
+    pkgs.nixVersions.nix_2_23 # brew-nix input requires nix version > 2.19
+  ];
 
   home = {
     username = "yomi";
