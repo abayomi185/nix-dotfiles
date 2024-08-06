@@ -10,6 +10,9 @@
   # Browsers
   browsers = import ./browsers;
 
+  # Casks - For macOS only using brew-nix
+  casks = import ./casks;
+
   # Desktop
   desktop = import ./desktop;
 
