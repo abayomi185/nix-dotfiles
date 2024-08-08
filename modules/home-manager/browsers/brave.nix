@@ -16,9 +16,10 @@
       {id = "hfjbmagddngcpeloejdejnfgbamkjaeg";} # Vimium C
       {id = "nffaoalbilbmmfgbnbgppjihopabppdk";} # Video speed controller
       {id = "mnjggcdmjocbbbhaepdhchncahnbgone";} # SponsorBlock
-      {id = "nngceckbapebfimnlniiiahkandclblb";} # Bitwarden
+      # {id = "nngceckbapebfimnlniiiahkandclblb";} # Bitwarden
       {id = "jhnleheckmknfcgijgkadoemagpecfol";} # Auto Tab Discard
       {id = "niloccemoadcdkdjlinkgdfekeahmflj";} # Pocket
+      # {id = "bmnlcjabgnpnenekpadlanbbkooimhnj";} # Honey
     ];
   };
 }
