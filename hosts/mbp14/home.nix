@@ -19,7 +19,7 @@ in {
     outputs.homeManagerModules.apps.vscode
 
     # Casks - See ../../modules/home-manager/casks/default.nix
-    outputs.homeManagerModules.casks.ncdu
+    # outputs.homeManagerModules.casks.ncdu
 
     # Dev - See ../../modules/home-manager/dev/default.nix
     outputs.homeManagerModules.dev.github
@@ -74,7 +74,7 @@ in {
   };
 
   home.packages = [
-    pkgs.nixVersions.nix_2_23 # brew-nix input requires nix version > 2.19
+    pkgs.nixVersions.nix_2_22 # brew-nix input requires nix version > 2.19
   ];
 
   home = {
