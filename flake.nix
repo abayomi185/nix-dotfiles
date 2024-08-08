@@ -207,14 +207,14 @@
         ];
       };
 
-      # MacBook Air 10,1
-      MacBook-Air = inputs.nixpkgs-darwin.lib.darwinSystem {
+      # MacBook Pro 18,3
+      MacBook-Pro-14 = inputs.nixpkgs-darwin.lib.darwinSystem {
         specialArgs = {
           inherit inputs outputs;
         };
         modules = [
           # > Our main nixos configuration file <
-          ./hosts/mba13/configuration.nix
+          ./hosts/mbp14/configuration.nix
           agenix.darwinModules.default
           home-manager.darwinModules.home-manager
           nix-homebrew.darwinModules.nix-homebrew
@@ -224,7 +224,7 @@
             # home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.extraSpecialArgs = {inherit inputs outputs nix-colors;};
-            home-manager.users.yomi = import ./hosts/mba13/home.nix;
+            home-manager.users.yomi = import ./hosts/mbp14/home.nix;
             home-manager.sharedModules = [
               inputs.sops-nix.homeManagerModules.sops
             ];
@@ -257,11 +257,11 @@
         ];
       };
 
-      "yomi@A-MacBook-Air.lan" = home-manager.lib.homeManagerConfiguration {
+      "yomi@MacBook-Pro-14.lan" = home-manager.lib.homeManagerConfiguration {
         pkgs = inputs.nixpkgs-stable.legacyPackages.aarch64-darwin; # Home-manager requires 'pkgs' instance
         extraSpecialArgs = {inherit inputs outputs nix-colors;};
         modules = [
-          ./hosts/mba13/home.nix
+          ./hosts/mbp14/home.nix
         ];
       };
     };
