@@ -1,0 +1,25 @@
+http:
+  routers:
+    heimdall:
+      entryPoints:
+        - web
+      rule: Host(`heimdall.{{env "MEDIA_DOMAIN_NAME"}}`)
+      middlewares:
+        - https_redirect
+      service: heimdall
+    heimdall-secure:
+      entryPoints:
+        - websecure
+      rule: Host(`heimdall.{{env "MEDIA_DOMAIN_NAME"}}`)
+      middlewares:
+        - authelia
+      tls:
+        certResolver: letsencrypt
+      service: heimdall
+
+  services:
+    heimdall:
+      loadBalancer:
+        servers:
+          # Heimdall backend
+          - url: https://heimdall.local.{{env "MEDIA_DOMAIN_NAME"}}

@@ -1,0 +1,25 @@
+http:
+  routers:
+    photoprism:
+      entryPoints:
+        - web
+      rule: Host(`photoprism.{{env "MEDIA_DOMAIN_NAME"}}`)
+      middlewares:
+        - https_redirect
+      service: photoprism
+    photoprism-secure:
+      entryPoints:
+        - websecure
+      rule: Host(`photoprism.{{env "MEDIA_DOMAIN_NAME"}}`)
+      middlewares:
+        - authelia
+      tls:
+        certResolver: letsencrypt
+      service: photoprism
+
+  services:
+    photoprism:
+      loadBalancer:
+        servers:
+          # Photoprism backend
+          - url: https://photoprism.local.{{env "MEDIA_DOMAIN_NAME"}}

@@ -1,0 +1,25 @@
+http:
+  routers:
+    s3:
+      entryPoints:
+        - web
+      rule: Host(`s3.{{env "MEDIA_DOMAIN_NAME"}}`)
+      middlewares:
+        - https_redirect
+      service: s3
+    s3-secure:
+      entryPoints:
+        - websecure
+      rule: Host(`s3.{{env "MEDIA_DOMAIN_NAME"}}`)
+      middlewares:
+        - authelia
+      tls:
+        certResolver: letsencrypt
+      service: s3
+
+  services:
+    s3:
+      loadBalancer:
+        servers:
+          # S3 backend
+          - url: https://s3.local.{{env "MEDIA_DOMAIN_NAME"}}

@@ -1,0 +1,29 @@
+http:
+  routers:
+    blog:
+      entryPoints:
+        - web
+      rule: Host(`{{env "BLOG_DOMAIN_NAME"}}`)
+      middlewares:
+        - https_redirect
+      service: blog
+    blog-secure:
+      entryPoints:
+        - websecure
+      rule: Host(`{{env "BLOG_DOMAIN_NAME"}}`)
+      tls:
+        certResolver: letsencrypt
+        domains:
+          - main: "{{env "BLOG_DOMAIN_NAME"}}"
+            sans:
+              - "*.{{env "BLOG_DOMAIN_NAME"}}"
+      service: blog
+
+  services:
+    blog:
+      loadBalancer:
+        servers:
+          # Blog backend
+          - url: "http://localhost:2368"
+          # - url: "http://host.docker.internal:2368"
+          # - url: "http://172.17.0.1:2368"

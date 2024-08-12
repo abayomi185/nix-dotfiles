@@ -1,0 +1,24 @@
+http:
+  routers:
+    actualbudget:
+      entryPoints:
+        - web
+      rule: Host(`actualbudget.{{env "MEDIA_DOMAIN_NAME"}}`)
+      middlewares:
+        - https_redirect
+      service: actualbudget
+    actualbudget-secure:
+      entryPoints:
+        - websecure
+      rule: Host(`actualbudget.{{env "MEDIA_DOMAIN_NAME"}}`)
+      tls:
+        certResolver: letsencrypt
+      service: actualbudget
+
+  services:
+    actualbudget:
+      loadBalancer:
+        servers:
+          # actual_budget backend
+          # - url: "http://host.docker.internal:5006"
+          - url: "http://localhost:5006"

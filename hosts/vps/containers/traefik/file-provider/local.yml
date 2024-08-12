@@ -1,0 +1,27 @@
+http:
+  routers:
+    local:
+      entryPoints:
+        - web
+      rule: Host(`local.{{env "MEDIA_DOMAIN_NAME"}}`)
+      middlewares:
+        - https_redirect
+      service: local
+    local-secure:
+      entryPoints:
+        - websecure
+      rule: Host(`local.{{env "MEDIA_DOMAIN_NAME"}}`)
+      tls:
+        certResolver: letsencrypt
+        domains:
+          - main: "local.{{env "MEDIA_DOMAIN_NAME"}}"
+            sans:
+              - "*.local.{{env "MEDIA_DOMAIN_NAME"}}"
+      service: local
+
+  services:
+    local:
+      loadBalancer:
+        servers:
+          # Local backend for certs DNS challenge
+          - url: https://local.{{env "MEDIA_DOMAIN_NAME"}}
