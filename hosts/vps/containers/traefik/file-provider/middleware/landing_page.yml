@@ -1,0 +1,16 @@
+http:
+  middlewares:
+    landing_page_redirect:
+      headers:
+        # hostsProxyHeaders: "X-Forwarded-Host"
+        customRequestHeaders:
+          # X-Forwarded-For: ""
+          # X-Proxy-Hostname: ""
+          Host: "{{env "MEDIA_DOMAIN_NAME"}}"
+          # X-Custom-Request-Header: ""
+        # customResponseHeaders:
+        # sslProxyHeaders:
+        #   X-Forwarded-Proto: https
+      # redirectRegex:
+        # replacement: "https://{{env "MEDIA_DOMAIN_NAME"}}/${1}"
+        # regex: "^https://{{env "MEDIA_DOMAIN_NAME"}}/(.*)"

@@ -1,0 +1,23 @@
+http:
+  routers:
+    audiobookshelf:
+      entryPoints:
+        - web
+      rule: Host(`audiobookshelf.{{env "MEDIA_DOMAIN_NAME"}}`)
+      middlewares:
+        - https_redirect
+      service: audiobookshelf
+    audiobookshelf-secure:
+      entryPoints:
+        - websecure
+      rule: Host(`audiobookshelf.{{env "MEDIA_DOMAIN_NAME"}}`)
+      tls:
+        certResolver: letsencrypt
+      service: audiobookshelf
+
+  services:
+    audiobookshelf:
+      loadBalancer:
+        servers:
+          # AudioBookShelf backend
+          - url: https://audiobookshelf.local.{{env "MEDIA_DOMAIN_NAME"}}

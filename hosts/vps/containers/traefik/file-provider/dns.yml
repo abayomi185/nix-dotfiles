@@ -1,0 +1,24 @@
+http:
+  routers:
+    dns:
+      entryPoints:
+        - web
+      rule: Host(`dns.{{env "MEDIA_DOMAIN_NAME"}}`)
+      middlewares:
+        - https_redirect
+      service: dns
+    dns-secure:
+      entryPoints:
+        - websecure
+      rule: Host(`dns.{{env "MEDIA_DOMAIN_NAME"}}`)
+      tls:
+        certResolver: letsencrypt
+      service: dns
+
+  services:
+    dns:
+      loadBalancer:
+        servers:
+          # Firefly backend
+          - url: "http://localhost:53"
+          # - url: "http://localhost:8077"

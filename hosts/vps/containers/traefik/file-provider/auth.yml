@@ -1,0 +1,23 @@
+http:
+  routers:
+    authelia:
+      entryPoints:
+        - web
+      rule: Host(`auth.{{env "MEDIA_DOMAIN_NAME"}}`)
+      middlewares:
+        - https_redirect
+      service: authelia
+    authelia-secure:
+      entryPoints:
+        - websecure
+      rule: Host(`auth.{{env "MEDIA_DOMAIN_NAME"}}`)
+      tls:
+        certResolver: letsencrypt
+      service: authelia
+
+  services:
+    authelia:
+      loadBalancer:
+        servers:
+          # Authelia Backend
+          - url: https://auth.local.{{env "MEDIA_DOMAIN_NAME"}}

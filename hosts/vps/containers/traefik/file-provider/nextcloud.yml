@@ -1,0 +1,25 @@
+http:
+  routers:
+    nextcloud:
+      entryPoints:
+        - web
+      rule: Host(`nextcloud.{{env "MEDIA_DOMAIN_NAME"}}`)
+      middlewares:
+        - https_redirect
+      service: nextcloud
+    nextcloud-secure:
+      entryPoints:
+        - websecure
+      rule: Host(`nextcloud.{{env "MEDIA_DOMAIN_NAME"}}`)
+      middlewares:
+        - authelia
+      tls:
+        certResolver: letsencrypt
+      service: nextcloud
+
+  services:
+    nextcloud:
+      loadBalancer:
+        servers:
+          # Nextcloud backend
+          - url: https://nextcloud.local.{{env "MEDIA_DOMAIN_NAME"}}

@@ -1,0 +1,25 @@
+http:
+  routers:
+    ollama:
+      entryPoints:
+        - web
+      rule: Host(`ollama.{{env "MEDIA_DOMAIN_NAME"}}`) || Host(`chat.{{env "MEDIA_DOMAIN_NAME"}}`)
+      middlewares:
+        - https_redirect
+      service: ollama
+    ollama-secure:
+      entryPoints:
+        - websecure
+      rule: Host(`ollama.{{env "MEDIA_DOMAIN_NAME"}}`) || Host(`chat.{{env "MEDIA_DOMAIN_NAME"}}`)
+      #middlewares:
+      #- authelia
+      tls:
+        certResolver: letsencrypt
+      service: ollama
+
+  services:
+    ollama:
+      loadBalancer:
+        servers:
+          # Ollama backend
+          - url: https://ollama.local.{{env "MEDIA_DOMAIN_NAME"}}

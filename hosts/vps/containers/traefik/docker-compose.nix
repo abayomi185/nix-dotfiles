@@ -22,17 +22,17 @@ in {
       "${basePath}/file-provider:/etc/traefik/file-provider:ro"
       "${basePath}/logs:/logs:rw"
       "${basePath}/traefik.yml:/etc/traefik/traefik.yml:ro"
-      "/var/run/docker.sock:/var/run/docker.sock:ro"
+      "/run/podman/podman.sock:/var/run/docker.sock:ro"
     ];
     ports = [
       "80:80/tcp"
       "443:443/tcp"
     ];
     log-driver = "journald";
-    extraOptions = [
-      "--add-host=host.docker.internal:host-gateway"
-      "--network=host"
-    ];
+    # extraOptions = [
+    #   "--add-host=host.docker.internal:host-gateway"
+    #   "--network=host"
+    # ];
   };
   systemd.services."podman-traefik" = {
     serviceConfig = {

@@ -1,0 +1,11 @@
+http:
+  middlewares:
+    authelia:
+      forwardauth:
+        address: "https://auth.local.{{env "MEDIA_DOMAIN_NAME"}}/api/verify?rd=https%3A%2F%2Fauth.{{env "MEDIA_DOMAIN_NAME"}}%2F"
+        # trustForwardHeader: false
+        authResponseHeaders:
+          - "Remote-User"
+          - "Remote-Groups"
+          - "Remote-Name"
+          - "Remote-Email"

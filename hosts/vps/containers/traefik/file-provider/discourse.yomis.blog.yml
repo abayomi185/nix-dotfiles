@@ -1,0 +1,23 @@
+http:
+  routers:
+    discourse:
+      entryPoints:
+        - web
+      rule: Host(`discourse.{{env "BLOG_DOMAIN_NAME"}}`)
+      middlewares:
+        - https_redirect
+      service: discourse
+    discourse-secure:
+      entryPoints:
+        - websecure
+      rule: Host(`discourse.{{env "BLOG_DOMAIN_NAME"}}`)
+      tls:
+        certResolver: letsencrypt
+      service: discourse
+
+  services:
+    discourse:
+      loadBalancer:
+        servers:
+          # discourse backend
+          - url: "http://host.docker.internal:3000"

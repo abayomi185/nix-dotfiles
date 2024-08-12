@@ -1,0 +1,29 @@
+http:
+  routers:
+    landing_page:
+      entryPoints:
+        - web
+      rule: Host(`{{env "MEDIA_DOMAIN_NAME"}}`)
+      middlewares:
+        - https_redirect
+      service: landing_page
+    landing_page-secure:
+      entryPoints:
+        - websecure
+      rule: Host(`{{env "MEDIA_DOMAIN_NAME"}}`)
+      middlewares:
+      - landing_page_redirect
+      tls:
+        certResolver: letsencrypt
+        domains:
+          - main: "{{env "MEDIA_DOMAIN_NAME"}}"
+            sans:
+              - "*.{{env "MEDIA_DOMAIN_NAME"}}"
+      service: landing_page
+
+  services:
+    landing_page:
+      loadBalancer:
+        servers:
+          # Landing page on Vercel
+          - url: "https://media-club-hub.vercel.app"
