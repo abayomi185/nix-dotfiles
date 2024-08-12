@@ -3,12 +3,14 @@
   pkgs,
   lib,
   ...
-}: {
+}: let
+  basePath = "/home/cloud/nix-dotfiles/hosts/vps/containers/uptime-kuma";
+in {
   # Containers
   virtualisation.oci-containers.containers."uptime-kuma" = {
     image = "louislam/uptime-kuma:latest";
     volumes = [
-      "/home/cloud/nix-dotfiles/containers/uptime-kuma/data:/app/data:rw"
+      "${basePath}/data:/app/data:rw"
     ];
     ports = [
       "127.0.0.1:3001:3001/tcp"
