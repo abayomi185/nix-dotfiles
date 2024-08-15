@@ -3,7 +3,7 @@
     enable = true;
 
     onActivation = {
-      # cleanup = "uninstall";
+      # cleanup = "uninstall"; # Default is none
     };
 
     # global = {};
