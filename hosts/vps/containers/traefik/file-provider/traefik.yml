@@ -1,0 +1,20 @@
+http:
+  routers:
+    traefik:
+      entryPoints:
+        - web
+      rule: Host(`traefik.{{env "MEDIA_DOMAIN_NAME"}}`)
+      middlewares:
+        - https_redirect
+      service: api@internal
+    traefik-secure:
+      entryPoints:
+        - websecure
+      middlewares:
+        - authelia
+      rule: Host(`traefik.{{env "MEDIA_DOMAIN_NAME"}}`)
+      # middlewares:
+      #   - authelia
+      tls:
+        certResolver: letsencrypt
+      service: api@internal

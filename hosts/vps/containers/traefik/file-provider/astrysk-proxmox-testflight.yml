@@ -1,0 +1,23 @@
+http:
+  routers:
+    astrysk-proxmox-testflight:
+      entryPoints:
+        - web
+      rule: Host(`astrysk-proxmox-testflight.duckdns.org`)
+      middlewares:
+        - https_redirect
+      service: astrysk-proxmox-testflight
+    astrysk-proxmox-testflight-secure:
+      entryPoints:
+        - websecure
+      rule: Host(`astrysk-proxmox-testflight.duckdns.org`)
+      tls:
+        certResolver: letsencrypt-duckdns
+      service: astrysk-proxmox-testflight
+
+  services:
+    astrysk-proxmox-testflight:
+      loadBalancer:
+        servers:
+          # Backend
+          - url: http://nop

@@ -1,0 +1,25 @@
+http:
+  routers:
+    myst:
+      entryPoints:
+        - web
+      rule: Host(`myst.{{env "MEDIA_DOMAIN_NAME"}}`)
+      middlewares:
+        - https_redirect
+      service: myst
+    myst-secure:
+      entryPoints:
+        - websecure
+      rule: Host(`myst.{{env "MEDIA_DOMAIN_NAME"}}`)
+      middlewares:
+        - authelia
+      tls:
+        certResolver: letsencrypt
+      service: myst
+
+  services:
+    myst:
+      loadBalancer:
+        servers:
+          # Mysterium backend
+          - url: http://localhost:4449

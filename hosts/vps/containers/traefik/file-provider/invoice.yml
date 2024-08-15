@@ -1,0 +1,24 @@
+http:
+  routers:
+    invoice:
+      entryPoints:
+        - web
+      rule: Host(`invoice.{{env "MEDIA_DOMAIN_NAME"}}`)
+      middlewares:
+        - https_redirect
+      service: invoice
+    invoice-secure:
+      entryPoints:
+        - websecure
+      rule: Host(`invoice.{{env "MEDIA_DOMAIN_NAME"}}`)
+      tls:
+        certResolver: letsencrypt
+      service: invoice
+
+  services:
+    invoice:
+      loadBalancer:
+        servers:
+          # Invoice backend
+          - url: http://localhost:8181
+          # - url: http://localhost:8282
