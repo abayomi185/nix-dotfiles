@@ -7,7 +7,7 @@
     outputs.darwinModules.brews.group_mobileDev
     outputs.darwinModules.brews.group_awsDev
     outputs.darwinModules.brews.group_azureDev
-    outputs.darwinModules.brews.docker
+    # outputs.darwinModules.brews.docker # Using OrbStack
     outputs.darwinModules.brews.sdl2
 
     # Casks - See ../../modules/darwin/casks/default.nix
@@ -22,6 +22,7 @@
     outputs.darwinModules.casks.obs
     outputs.darwinModules.casks.obsidian
     outputs.darwinModules.casks.orca-slicer
+    outputs.darwinModules.casks.orbstack
     outputs.darwinModules.casks.raycast
     outputs.darwinModules.casks.serif-apps
     outputs.darwinModules.casks.spotify
