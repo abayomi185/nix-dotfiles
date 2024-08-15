@@ -1,0 +1,12 @@
+http:
+  middlewares:
+    rancherHeader:
+      headers:
+        accessControlAllowOriginList: "*"
+        customRequestHeaders:
+          # X-Forwarded-For: ""
+          # X-Proxy-Hostname: ""
+          # X-Forwarded-Host: "media-club-hub.vercel.app"
+          Host: "rancher.{{env "MEDIA_DOMAIN_NAME"}}"
+          # X-Vercel-Forwarded-For: "media-club-hub.vercel.app"
+          # X-Custom-Request-Header: ""

@@ -1,0 +1,25 @@
+http:
+  routers:
+    radarr:
+      entryPoints:
+        - web
+      rule: Host(`radarr.{{env "MEDIA_DOMAIN_NAME"}}`)
+      middlewares:
+        - https_redirect
+      service: radarr
+    radarr-secure:
+      entryPoints:
+        - websecure
+      rule: Host(`radarr.{{env "MEDIA_DOMAIN_NAME"}}`)
+      middlewares:
+        - authelia
+      tls:
+        certResolver: letsencrypt
+      service: radarr
+
+  services:
+    radarr:
+      loadBalancer:
+        servers:
+          # Radarr backend
+          - url: https://radarr.local.{{env "MEDIA_DOMAIN_NAME"}}

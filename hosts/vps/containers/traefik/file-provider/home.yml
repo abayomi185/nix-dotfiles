@@ -1,0 +1,25 @@
+http:
+  routers:
+    homeassistant:
+      entryPoints:
+        - web
+      rule: Host(`home.{{env "MEDIA_DOMAIN_NAME"}}`)
+      middlewares:
+        - https_redirect
+      service: homeassistant
+    homeassistant-secure:
+      entryPoints:
+        - websecure
+      rule: Host(`home.{{env "MEDIA_DOMAIN_NAME"}}`)
+      middlewares:
+        - authelia
+      tls:
+        certResolver: letsencrypt
+      service: homeassistant
+
+  services:
+    homeassistant:
+      loadBalancer:
+        servers:
+          # Home Assistant backend
+          - url: https://home.local.{{env "MEDIA_DOMAIN_NAME"}}

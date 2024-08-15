@@ -1,0 +1,24 @@
+http:
+  routers:
+    firefly:
+      entryPoints:
+        - web
+      rule: Host(`firefly.{{env "MEDIA_DOMAIN_NAME"}}`)
+      middlewares:
+        - https_redirect
+      service: firefly
+    firefly-secure:
+      entryPoints:
+        - websecure
+      rule: Host(`firefly.{{env "MEDIA_DOMAIN_NAME"}}`)
+      tls:
+        certResolver: letsencrypt
+      service: firefly
+
+  services:
+    firefly:
+      loadBalancer:
+        servers:
+          # Firefly backend
+          # - url: "http://host.docker.internal:8077"
+          - url: "http://localhost:8077"

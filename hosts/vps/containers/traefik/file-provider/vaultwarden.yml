@@ -1,0 +1,25 @@
+http:
+  routers:
+    vaultwarden:
+      entryPoints:
+        - web
+      rule: Host(`vaultwarden.{{env "MEDIA_DOMAIN_NAME"}}`)
+      middlewares:
+        - https_redirect
+      service: vaultwarden
+    vaultwarden-secure:
+      entryPoints:
+        - websecure
+      rule: Host(`vaultwarden.{{env "MEDIA_DOMAIN_NAME"}}`)
+      middlewares:
+        - authelia
+      tls:
+        certResolver: letsencrypt
+      service: vaultwarden
+
+  services:
+    vaultwarden:
+      loadBalancer:
+        servers:
+          # Vaultwarden backend
+          - url: http://localhost:8088

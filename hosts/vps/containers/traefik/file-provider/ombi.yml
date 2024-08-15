@@ -1,0 +1,25 @@
+http:
+  routers:
+    ombi:
+      entryPoints:
+        - web
+      rule: Host(`ombi.{{env "MEDIA_DOMAIN_NAME"}}`)
+      middlewares:
+        - https_redirect
+      service: ombi
+    ombi-secure:
+      entryPoints:
+        - websecure
+      rule: Host(`ombi.{{env "MEDIA_DOMAIN_NAME"}}`)
+      middlewares:
+        - authelia
+      tls:
+        certResolver: letsencrypt
+      service: ombi
+
+  services:
+    ombi:
+      loadBalancer:
+        servers:
+          # Ombi backend
+          - url: https://ombi.local.{{env "MEDIA_DOMAIN_NAME"}}

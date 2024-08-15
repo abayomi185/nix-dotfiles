@@ -1,0 +1,25 @@
+http:
+  routers:
+    sonarr:
+      entryPoints:
+        - web
+      rule: Host(`sonarr.{{env "MEDIA_DOMAIN_NAME"}}`)
+      middlewares:
+        - https_redirect
+      service: sonarr
+    sonarr-secure:
+      entryPoints:
+        - websecure
+      rule: Host(`sonarr.{{env "MEDIA_DOMAIN_NAME"}}`)
+      middlewares:
+        - authelia
+      tls:
+        certResolver: letsencrypt
+      service: sonarr
+
+  services:
+    sonarr:
+      loadBalancer:
+        servers:
+          # Sonarr backend
+          - url: https://sonarr.local.{{env "MEDIA_DOMAIN_NAME"}}

@@ -17,8 +17,8 @@ in {
     ./wireguard.nix
 
     # Containers
-    ../../containers/traefik/docker-compose.nix # Traefik
-    ../../containers/uptime-kuma/docker-compose.nix # Uptime-Kuma
+    ./containers/traefik/docker-compose.nix # Traefik
+    ./containers/uptime-kuma/docker-compose.nix # Uptime-Kuma
   ];
 
   # Secrets

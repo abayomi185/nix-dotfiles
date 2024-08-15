@@ -1,0 +1,26 @@
+http:
+  routers:
+    jellyfin:
+      entryPoints:
+        - web
+      rule: Host(`jellyfin.{{env "MEDIA_DOMAIN_NAME"}}`)
+      middlewares:
+        - https_redirect
+      service: jellyfin
+    jellyfin-secure:
+      entryPoints:
+        - websecure
+      rule: Host(`jellyfin.{{env "MEDIA_DOMAIN_NAME"}}`)
+      # middlewares:
+      #   - authelia
+      tls:
+        certResolver: letsencrypt
+      service: jellyfin
+
+  services:
+    jellyfin:
+      loadBalancer:
+        servers:
+          # Jellyfin backend
+          # - url: http://jellyfin.local.${MEDIA_DOMAIN_NAME}
+          - url: https://jellyfin.local.{{env "MEDIA_DOMAIN_NAME"}}

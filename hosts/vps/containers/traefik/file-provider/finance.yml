@@ -1,0 +1,25 @@
+http:
+  routers:
+    firefly:
+      entryPoints:
+        - web
+      rule: Host(`finance.{{env "MEDIA_DOMAIN_NAME"}}`)
+      middlewares:
+        - https_redirect
+      service: firefly
+    firefly-secure:
+      entryPoints:
+        - websecure
+      rule: Host(`finance.{{env "MEDIA_DOMAIN_NAME"}}`)
+      tls:
+        certResolver: letsencrypt
+      service: firefly
+
+  services:
+    firefly:
+      loadBalancer:
+        servers:
+          # Firefly backend
+          # - url: "http://localhost:8077"
+          # - url: "http://localhost:3001"
+          - url: "http://127.0.0.1:3001"

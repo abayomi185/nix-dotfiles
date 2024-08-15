@@ -1,0 +1,26 @@
+http:
+  routers:
+    fidi:
+      entryPoints:
+        - web
+      rule: Host(`fidi.{{env "MEDIA_DOMAIN_NAME"}}`)
+      middlewares:
+        - https_redirect
+      service: fidi
+    fidi-secure:
+      entryPoints:
+        - websecure
+      rule: Host(`fidi.{{env "MEDIA_DOMAIN_NAME"}}`)
+      # middlewares:
+      #   - authelia
+      tls:
+        certResolver: letsencrypt
+      service: fidi
+
+  services:
+    fidi:
+      loadBalancer:
+        servers:
+          # Firefly Data Importer backend
+          # - url: "http://localhost:8078"
+          - url: "http://nop"
