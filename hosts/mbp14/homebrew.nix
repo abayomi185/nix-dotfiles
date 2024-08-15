@@ -13,14 +13,17 @@
     # Casks - See ../../modules/darwin/casks/default.nix
     outputs.darwinModules.casks.autodesk-fusion
     outputs.darwinModules.casks.brave
+    outputs.darwinModules.casks.bruno
     outputs.darwinModules.casks.calibre
     outputs.darwinModules.casks.coconutbattery
     outputs.darwinModules.casks.figma
+    outputs.darwinModules.casks.firefox
     outputs.darwinModules.casks.iina
     outputs.darwinModules.casks.kicad
     outputs.darwinModules.casks.notion
     outputs.darwinModules.casks.obs
     outputs.darwinModules.casks.obsidian
+    outputs.darwinModules.casks.ollama
     outputs.darwinModules.casks.orca-slicer
     outputs.darwinModules.casks.orbstack
     outputs.darwinModules.casks.raycast
