@@ -37,4 +37,6 @@
     outputs.darwinModules.mas.coreApps
     outputs.darwinModules.mas.networkingApps
   ];
+
+  homebrew.onActivation.cleanup = "uninstall";
 }
