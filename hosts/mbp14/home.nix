@@ -16,6 +16,7 @@ in {
     outputs.homeManagerModules.apps.neovim
     # outputs.homeManagerModules.apps.openscad
     outputs.homeManagerModules.apps.ripgrep
+    outputs.homeManagerModules.apps.tree
     outputs.homeManagerModules.apps.vscode
 
     # Casks - See ../../modules/home-manager/casks/default.nix
