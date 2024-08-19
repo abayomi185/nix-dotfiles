@@ -118,6 +118,7 @@
       in
         import ./pkgs {inherit pkgs;}
     );
+
     # Formatter for your nix files, available through 'nix fmt'
     # Other options beside 'alejandra' include 'nixpkgs-fmt'
     formatter = forAllSystems (system: inputs.nixpkgs-stable.legacyPackages.${system}.alejandra);
@@ -241,14 +242,6 @@
     # Standalone home-manager configuration entrypoint
     # Available through 'home-manager --flake .#your-username@your-hostname'
     homeConfigurations = {
-      # "yomi@x1c6" = home-manager.lib.homeManagerConfiguration {
-      #   pkgs = inputs.nixpkgs-stable.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
-      #   extraSpecialArgs = {inherit inputs outputs nix-colors;};
-      #   modules = [
-      #     ./hosts/x1c6/home.nix
-      #   ];
-      # };
-
       "yomi@A-MacBook-Pro-eth.lan" = home-manager.lib.homeManagerConfiguration {
         pkgs = inputs.nixpkgs-stable.legacyPackages.aarch64-darwin; # Home-manager requires 'pkgs' instance
         extraSpecialArgs = {inherit inputs outputs nix-colors;};
