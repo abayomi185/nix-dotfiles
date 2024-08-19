@@ -13,7 +13,7 @@ in {
     outputs.homeManagerModules.apps.jq
     outputs.homeManagerModules.apps.k9s
     outputs.homeManagerModules.apps.karabiner-elements
-    outputs.homeManagerModules.apps.neovim
+    outputs.homeManagerModules.apps.neovim-unstable
     # outputs.homeManagerModules.apps.openscad
     outputs.homeManagerModules.apps.ripgrep
     outputs.homeManagerModules.apps.tree
@@ -63,6 +63,7 @@ in {
     overlays = [
       outputs.overlays.additions
       outputs.overlays.modifications
+      outputs.overlays.unstable-packages
       inputs.brew-nix.overlays.default
     ];
 
