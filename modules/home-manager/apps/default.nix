@@ -10,6 +10,7 @@
   k9s = import ./k9s.nix;
   karabiner-elements = import ./karabiner-elements;
   neovim = import ./neovim.nix;
+  neovim-unstable = import ./neovim-unstable.nix;
   obs = import ./obs.nix;
   obsidian = import ./obsidian.nix;
   openscad = import ./openscad.nix;
