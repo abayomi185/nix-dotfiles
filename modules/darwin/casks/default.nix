@@ -8,6 +8,7 @@
   figma = import ./figma.nix;
   firefox = import ./firefox.nix;
   freecad = import ./freecad.nix;
+  heroic = import ./heroic.nix;
   iina = import ./iina.nix;
   kicad = import ./kicad.nix;
   notion = import ./notion.nix;
@@ -24,4 +25,5 @@
   sublime-text = import ./sublime-text.nix;
   whisky = import ./whisky.nix;
   xcodes = import ./xcodes.nix;
+  zed = import ./zed.nix;
 }
