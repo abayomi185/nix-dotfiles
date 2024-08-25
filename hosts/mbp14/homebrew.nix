@@ -20,6 +20,7 @@
     outputs.darwinModules.casks.figma
     outputs.darwinModules.casks.firefox
     outputs.darwinModules.casks.freecad
+    outputs.darwinModules.casks.heroic
     outputs.darwinModules.casks.iina
     outputs.darwinModules.casks.kicad
     outputs.darwinModules.casks.notion
@@ -35,6 +36,7 @@
     outputs.darwinModules.casks.sublime-text
     outputs.darwinModules.casks.whisky
     outputs.darwinModules.casks.xcodes
+    outputs.darwinModules.casks.zed
 
     # Mas - See ../../modules/darwin/mas/default.nix
     outputs.darwinModules.mas.coreApps
