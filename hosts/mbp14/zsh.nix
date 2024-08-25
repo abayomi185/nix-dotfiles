@@ -17,7 +17,7 @@
     # zshenv equivalent
     envExtra = ''
       # Cargo
-      # . "$HOME/.cargo/env"
+      . "$HOME/.cargo/env"
 
       # dotfiles
       alias config='/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
