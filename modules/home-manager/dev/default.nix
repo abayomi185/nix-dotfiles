@@ -1,4 +1,5 @@
 {
+  cargo-binstall = import ./cargo-binstall.nix;
   github = import ./github.nix;
   kubectl = import ./kubectl.nix;
   lua = import ./lua.nix;
