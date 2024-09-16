@@ -15,6 +15,7 @@
     outputs.darwinModules.casks.brave
     outputs.darwinModules.casks.bruno
     outputs.darwinModules.casks.calibre
+    outputs.darwinModules.casks.chatgpt
     outputs.darwinModules.casks.coconutbattery
     outputs.darwinModules.casks.devtoys
     outputs.darwinModules.casks.figma
@@ -33,6 +34,7 @@
     outputs.darwinModules.casks.raycast
     outputs.darwinModules.casks.serif-apps
     outputs.darwinModules.casks.spotify
+    outputs.darwinModules.casks.steam
     outputs.darwinModules.casks.sublime-text
     outputs.darwinModules.casks.whisky
     outputs.darwinModules.casks.xcodes
