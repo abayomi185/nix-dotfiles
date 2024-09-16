@@ -3,6 +3,7 @@
   brave = import ./brave.nix;
   bruno = import ./bruno.nix;
   calibre = import ./calibre.nix;
+  chatgpt = import ./chatgpt.nix;
   coconutbattery = import ./coconutbattery.nix;
   devtoys = import ./devtoys.nix;
   figma = import ./figma.nix;
@@ -10,7 +11,9 @@
   freecad = import ./freecad.nix;
   heroic = import ./heroic.nix;
   iina = import ./iina.nix;
+  insta360-studio = import ./insta360-studio.nix;
   kicad = import ./kicad.nix;
+  logi-options-plus = import ./logi-options-plus.nix;
   notion = import ./notion.nix;
   obs = import ./obs.nix;
   obsidian = import ./obsidian.nix;
@@ -22,6 +25,7 @@
   raycast = import ./raycast.nix;
   serif-apps = import ./serif-apps.nix;
   spotify = import ./spotify.nix;
+  steam = import ./steam.nix;
   sublime-text = import ./sublime-text.nix;
   whisky = import ./whisky.nix;
   xcodes = import ./xcodes.nix;
