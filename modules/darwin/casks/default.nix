@@ -27,6 +27,7 @@
   spotify = import ./spotify.nix;
   steam = import ./steam.nix;
   sublime-text = import ./sublime-text.nix;
+  virtualhere = import ./virtualhere.nix;
   whisky = import ./whisky.nix;
   xcodes = import ./xcodes.nix;
   zed = import ./zed.nix;
