@@ -14,6 +14,7 @@
   insta360-studio = import ./insta360-studio.nix;
   kicad = import ./kicad.nix;
   logi-options-plus = import ./logi-options-plus.nix;
+  moonlight = import ./moonlight.nix;
   notion = import ./notion.nix;
   obs = import ./obs.nix;
   obsidian = import ./obsidian.nix;
