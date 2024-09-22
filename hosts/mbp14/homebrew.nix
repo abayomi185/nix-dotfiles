@@ -23,6 +23,7 @@
     outputs.darwinModules.casks.freecad
     outputs.darwinModules.casks.heroic
     outputs.darwinModules.casks.iina
+    outputs.darwinModules.casks.insta360-studio
     outputs.darwinModules.casks.kicad
     outputs.darwinModules.casks.notion
     outputs.darwinModules.casks.obs
@@ -36,6 +37,7 @@
     outputs.darwinModules.casks.spotify
     outputs.darwinModules.casks.steam
     outputs.darwinModules.casks.sublime-text
+    outputs.darwinModules.casks.virtualhere
     outputs.darwinModules.casks.whisky
     outputs.darwinModules.casks.xcodes
     outputs.darwinModules.casks.zed
