@@ -175,6 +175,26 @@
           }
         ];
       };
+
+      vm-game = inputs.nixpkgs-stable.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = {inherit inputs outputs;};
+        modules = [
+          # > Our main nixos configuration file <
+          ./hosts/game/configuration.nix
+          sops-nix.nixosModules.sops
+          agenix.nixosModules.default
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useUserPackages = true;
+            home-manager.extraSpecialArgs = {inherit inputs outputs;};
+            home-manager.users.cloud = import ./hosts/game/home.nix;
+            home-manager.sharedModules = [
+              inputs.sops-nix.homeManagerModules.sops
+            ];
+          }
+        ];
+      };
     };
 
     darwinConfigurations = {
