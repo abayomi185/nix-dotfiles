@@ -25,6 +25,7 @@
     outputs.darwinModules.casks.iina
     outputs.darwinModules.casks.insta360-studio
     outputs.darwinModules.casks.kicad
+    outputs.darwinModules.casks.moonlight
     outputs.darwinModules.casks.notion
     outputs.darwinModules.casks.obs
     outputs.darwinModules.casks.obsidian
