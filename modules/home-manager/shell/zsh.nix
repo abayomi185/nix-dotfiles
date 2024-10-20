@@ -31,6 +31,7 @@
           develop = "nix develop -c $SHELL";
           dv = "eval $(direnv hook zsh)";
           batl = "bat --theme=OneHalfLight";
+          lg = "lazygit";
         }
         config.programs.zsh.extendedShellAliases
       ];
