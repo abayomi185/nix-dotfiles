@@ -25,6 +25,7 @@ in {
     # Dev - See ../../modules/home-manager/dev/default.nix
     outputs.homeManagerModules.dev.cargo-binstall
     outputs.homeManagerModules.dev.github
+    outputs.homeManagerModules.dev.go
     outputs.homeManagerModules.dev.kubectl
     outputs.homeManagerModules.dev.nodejs
     outputs.homeManagerModules.dev.rust
