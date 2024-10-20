@@ -5,6 +5,7 @@
   calibre = import ./calibre.nix;
   chatgpt = import ./chatgpt.nix;
   coconutbattery = import ./coconutbattery.nix;
+  cursor = import ./cursor.nix;
   devtoys = import ./devtoys.nix;
   figma = import ./figma.nix;
   firefox = import ./firefox.nix;
