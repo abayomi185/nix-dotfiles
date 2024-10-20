@@ -1,6 +1,7 @@
 {
   cargo-binstall = import ./cargo-binstall.nix;
   github = import ./github.nix;
+  go = import ./go.nix;
   kubectl = import ./kubectl.nix;
   lua = import ./lua.nix;
   nodejs = import ./nodejs.nix;
