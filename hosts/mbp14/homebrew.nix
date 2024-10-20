@@ -17,6 +17,7 @@
     outputs.darwinModules.casks.calibre
     outputs.darwinModules.casks.chatgpt
     outputs.darwinModules.casks.coconutbattery
+    outputs.darwinModules.casks.cursor
     outputs.darwinModules.casks.devtoys
     outputs.darwinModules.casks.figma
     outputs.darwinModules.casks.firefox
