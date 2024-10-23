@@ -8,7 +8,7 @@
     config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nix-dotfiles/modules/home-manager/terminal/zellij/config.kdl";
 
   xdg.configFile."zellij/layouts/primary.kdl".source =
-    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nix-dotfiles/modules/home-manager/terminal/zellij/main-layout.kdl";
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nix-dotfiles/modules/home-manager/terminal/zellij/primary-layout.kdl";
   xdg.configFile."zellij/layouts/primary.swap.kdl".source =
     config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nix-dotfiles/modules/home-manager/terminal/zellij/layout.swap.kdl";
 
