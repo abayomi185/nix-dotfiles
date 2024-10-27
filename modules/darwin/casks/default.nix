@@ -11,6 +11,7 @@
   firefox = import ./firefox.nix;
   freecad = import ./freecad.nix;
   heroic = import ./heroic.nix;
+  ice = import ./ice.nix;
   iina = import ./iina.nix;
   insta360-studio = import ./insta360-studio.nix;
   kicad = import ./kicad.nix;

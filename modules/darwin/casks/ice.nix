@@ -1,0 +1,3 @@
+{
+  homebrew.casks = ["jordanbaird-ice"];
+}
