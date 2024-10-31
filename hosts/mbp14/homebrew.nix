@@ -23,6 +23,7 @@
     outputs.darwinModules.casks.firefox
     outputs.darwinModules.casks.freecad
     outputs.darwinModules.casks.heroic
+    outputs.darwinModules.casks.ice
     outputs.darwinModules.casks.iina
     outputs.darwinModules.casks.insta360-studio
     outputs.darwinModules.casks.kicad

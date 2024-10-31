@@ -1,0 +1,51 @@
+layout {
+    cwd "/Users/yomi"
+    default_tab_template {
+        children
+        pane size=1 borderless=true {
+            plugin location="zellij:compact-bar"
+        }
+    }
+    new_tab_template {
+        pane cwd="/Users/yomi"
+        pane size=1 borderless=true {
+            plugin location="compact-bar"
+        }
+    }
+    tab name="nix-dotfiles" focus=true {
+        pane cwd="nix-dotfiles" focus=true
+    }
+    tab name="dev-templates" {
+        pane cwd="s-projek/nix-dev-templates"
+    }
+    tab name="bike-computer" {
+        pane cwd="h-projek/bike_computer"
+    }
+    tab name="velo" {
+        pane cwd="h-projek/velo-genesis"
+    }
+    tab name="yomitosh" {
+        pane cwd="s-projek/yomitosh-dev"
+    }
+    tab name="astrysk" {
+        pane cwd="s-projek/astrysk"
+    }
+    tab name="astrysk-dev" {
+        pane cwd="s-projek/astrysk/apps/astrysk"
+    }
+    tab name="leetcode" {
+        pane cwd="s-projek/leetcode-grind"
+    }
+    tab name="home-ops" {
+        pane cwd="s-projek/home-ops"
+    }
+    tab name="nvim" {
+        pane cwd=".config/nvim"
+    }
+    tab name="blog" {
+        pane cwd="s-projek/yomis-blog"
+    }
+    tab name="wayom" {
+        pane cwd="s-projek/wayom-ts"
+    }
+}
