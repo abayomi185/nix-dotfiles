@@ -1,5 +1,6 @@
 {
   inputs,
+  outputs,
   pkgs,
   ...
 }: let
@@ -17,14 +18,20 @@ in {
     ./wireguard.nix
 
     # Containers
-    ./containers/traefik/docker-compose.nix # Traefik
-    ./containers/uptime-kuma/docker-compose.nix # Uptime-Kuma
+    # ./containers/traefik/docker-compose.nix # Traefik
+    # ./containers/firefly/docker-compose.nix # Firefly
+
+    # Services
+    ./apps/authelia
+    ./apps/firefly-iii
+    ./apps/traefik
+    ./apps/uptime-kuma
   ];
 
   # Secrets
   sops = {
     age.sshKeyPaths = ["/home/cloud/.ssh/id_ed25519"];
-    defaultSopsFile = "${homeDir}/hosts/vps/secrets.enc.yaml";
+    defaultSopsFile = "${inputs.nix-secrets}/hosts/vps/default.enc.yaml";
   };
   age.identityPaths = ["${homeDir}/.ssh/id_ed25519"];
 
@@ -41,6 +48,14 @@ in {
     auto-optimise-store = true;
   };
 
+  nixpkgs = {
+    overlays = [
+      outputs.overlays.additions
+      outputs.overlays.modifications
+      outputs.overlays.unstable-packages
+    ];
+  };
+
   # Shell
   programs.zsh = {enable = true;};
   # Define a user account
@@ -49,7 +64,7 @@ in {
       isNormalUser = true;
       description = "cloud";
       shell = pkgs.zsh;
-      extraGroups = ["wheel" "docker"];
+      extraGroups = ["wheel" "docker" "oci" "podman"];
       initialPassword = secret_initialPassword;
     };
   };
@@ -60,12 +75,14 @@ in {
     enable = true;
     autoPrune.enable = true;
     dockerCompat = true;
+    dockerSocket.enable = true;
     defaultNetwork.settings = {
       # Required for container networking to be able to use names.
       dns_enabled = true;
     };
   };
   virtualisation.oci-containers.backend = "podman";
+  networking.firewall.interfaces."podman+".allowedUDPPorts = [53 5353];
 
   # Programs
   programs.neovim = {
