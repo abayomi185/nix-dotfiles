@@ -1,4 +1,5 @@
 {
+  config,
   inputs,
   pkgs,
   ...
@@ -10,7 +11,13 @@
   secret_allowedUdpPorts = secretsJson.wireguard.allowed_udp_ports;
   secret_addresses = secretsJson.wireguard.addresses;
   secret_peers = secretsJson.wireguard.peers;
+  secret_listenPort = secretsJson.wireguard.listen_port;
+  # wireguardSecrets.sopsFile = "${inputs.nix-secrets}/hosts/vps/wireguard.enc.yaml";
 in {
+  # sops.secrets."wireguard" = wireguardSecrets;
+
+  age.secrets.vps_wireguard.file = "${inputs.nix-secrets}/hosts/vps/wireguard.age";
+
   networking.nat = {
     enable = true;
     enableIPv6 = true;
@@ -36,7 +43,9 @@ in {
     wg0 = {
       address = secret_addresses;
 
-      privateKeyFile = "~/nix-dotfiles/hosts/vps/.wireguard-privatekey";
+      privateKeyFile = config.age.secrets.vps_wireguard.path;
+
+      listenPort = secret_listenPort;
 
       postUp = ''
         ${pkgs.iptables}/bin/iptables -A FORWARD -i wg0 -j ACCEPT
