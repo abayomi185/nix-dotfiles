@@ -87,12 +87,12 @@
 
   outputs = {
     self,
+    agenix,
     home-manager,
-    nix-homebrew,
     nix-colors,
+    nix-homebrew,
     rust-overlay,
     sops-nix,
-    agenix,
     ...
   } @ inputs: let
     inherit (self) outputs;

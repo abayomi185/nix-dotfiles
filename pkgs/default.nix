@@ -10,4 +10,6 @@
       else pkgs.callPackage;
   in
     callPackage ./wezterm-nightly {};
+
+  firefly-iii-data-importer = pkgs.callPackage ./firefly-iii-data-importer {};
 }

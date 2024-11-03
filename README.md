@@ -11,3 +11,6 @@
 
 ## Core Apps/Packages
 - zsh, neovim (AstroNvim), tmux, starship, wezterm, KDE (Hyprland soon)
+
+## Tips
+- Update a single flake input with `nix flake update nix-secrets`
