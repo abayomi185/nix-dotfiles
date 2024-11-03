@@ -2,6 +2,8 @@
   inputs,
   pHostname,
   pK3sRole,
+  pK3sServerAddr,
+  pK3sClusterInit,
   modulesPath,
   pkgs,
   ...
@@ -58,6 +60,12 @@ in {
     neovim
   ];
 
+  networking.hosts = {
+    "10.0.7.41" = ["knode1"];
+    "10.0.7.42" = ["knode2"];
+    "10.0.7.43" = ["knode3"];
+  };
+
   networking.firewall.allowedTCPPorts = [
     6443 # k3s: required so that pods can reach the API server (running on port 6443 by default)
     2379 # k3s, etcd clients: required if using a "High Availability Embedded etcd" configuration
@@ -71,13 +79,13 @@ in {
     enable = true;
     role = pK3sRole; # "server" or "agent"
     token = k3sToken;
-    clusterInit = true;
+    clusterInit = pK3sClusterInit;
     extraFlags = toString [
       "--disable=traefik,servicelb"
     ];
     serverAddr =
-      if pK3sRole == "agent"
-      then "10.0.7.41:6443"
+      if pK3sServerAddr
+      then "${pK3sServerAddr}:6443"
       else null;
   };
 

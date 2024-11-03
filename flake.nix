@@ -203,16 +203,19 @@
         inherit inputs outputs;
         pHostname = "knode1";
         pK3sRole = "server";
+        pK3sClusterInit = true;
       };
       knode2 = import ./hosts/knode/default.nix {
         inherit inputs outputs;
         pHostname = "knode2";
         pK3sRole = "server";
+        pK3sServerAddr = "knode1";
       };
       knode3 = import ./hosts/knode/default.nix {
         inherit inputs outputs;
         pHostname = "knode3";
-        pK3sRole = "agent";
+        pK3sRole = "server";
+        pK3sServerAddr = "knode1";
       };
     };
 
