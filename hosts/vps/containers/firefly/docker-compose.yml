@@ -1,0 +1,47 @@
+services:
+  app:
+    image: fireflyiii/core:latest
+    hostname: firefly-app
+    restart: unless-stopped
+    volumes:
+      - firefly_iii_upload:/var/www/html/storage/upload
+    env_file: .env
+    ports:
+      - 127.0.0.1:8077:8080
+    depends_on:
+      - db
+
+  db:
+    image: mariadb:lts
+    hostname: firefly-db
+    restart: unless-stopped
+    env_file: .db.env
+    volumes:
+      - firefly_iii_db:/var/lib/mysql
+
+  fidi:
+    image: fireflyiii/data-importer:latest
+    restart: always
+    env_file: .fidi.env
+    ports:
+      - 127.0.0.1:8078:8080
+    depends_on:
+      - app
+
+  cron:
+    image: alpine
+    restart: unless-stopped
+    container_name: firefly_iii_cron
+    env_file: .cron.env
+    command: sh -c "echo \"0 3 * * * wget -qO- $CRON_URL\" | crontab - && crond -f -L /dev/stdout"
+    networks:
+      - firefly_iii
+
+volumes:
+  firefly_iii_upload:
+  firefly_iii_db:
+
+
+networks:
+  firefly_iii:
+    driver: bridge
