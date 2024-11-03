@@ -197,6 +197,25 @@
       };
     };
 
+    # Kubernetes cluster definition
+    nixosConfigurations = {
+      knode1 = import ./hosts/knode/default.nix {
+        inherit inputs outputs;
+        pHostname = "knode1";
+        pK3sRole = "server";
+      };
+      knode2 = import ./hosts/knode/default.nix {
+        inherit inputs outputs;
+        pHostname = "knode2";
+        pK3sRole = "server";
+      };
+      knode3 = import ./hosts/knode/default.nix {
+        inherit inputs outputs;
+        pHostname = "knode3";
+        pK3sRole = "agent";
+      };
+    };
+
     darwinConfigurations = {
       # MacBook Pro 18,2
       MacBook-Pro = inputs.nixpkgs-darwin.lib.darwinSystem {
