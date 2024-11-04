@@ -44,6 +44,14 @@ source /etc/set-environment # Source default linux binaries
 passwd # Change root password
 ```
 
+The container is unmanaged so Proxmox won't be able to set up the network and this will need to be done manually once before the nix config comes into effect:
+
+```sh
+ip addr add 10.0.1.41/24 dev eth0
+ip link set eth0 up
+ip route add default via 10.0.1.1
+```
+
 ```sh
 nix-channel --update && \
   nixos-rebuild switch --upgrade && \
