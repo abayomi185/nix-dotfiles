@@ -9,7 +9,6 @@ cmode: console
 features: nesting=1
 hostname: knode
 memory: 2048
-nameserver: 10.0.1.53
 net0: name=eth0,bridge=vmbr0,firewall=1,hwaddr=BC:24:11:F1:08:3B,ip=dhcp,type=veth
 # NOTE: Change these
 # net0: name=eth0,bridge=vmbr0,firewall=1,gw=10.0.1.1,hwaddr=BC:24:11:F1:08:3B,ip=10.0.1.41/24,type=veth
