@@ -1,8 +1,8 @@
 {
   inputs,
-  pHostname,
+  pNodeId,
   pK3sRole,
-  pK3sServerAddr,
+  pK3sServerId,
   pK3sClusterInit,
   outputs,
   ...
@@ -21,7 +21,7 @@
     {
       system = "x86_64-linux";
       specialArgs = {
-        inherit inputs outputs pHostname pK3sRole pK3sServerAddr pK3sClusterInit;
+        inherit inputs outputs pNodeId pK3sRole pK3sServerId pK3sClusterInit;
       };
       modules = [
         ./configuration.nix

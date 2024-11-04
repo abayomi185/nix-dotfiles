@@ -1,8 +1,8 @@
 {
   inputs,
-  pHostname,
+  pNodeId,
   pK3sRole,
-  pK3sServerAddr,
+  pK3sServerId,
   pK3sClusterInit,
   modulesPath,
   pkgs,
@@ -24,7 +24,7 @@ in {
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
   boot.isContainer = true;
-  networking.hostName = pHostname;
+  networking.hostName = "knode${pNodeId}";
 
   boot.supportedFilesystems = ["nfs"];
   services.rpcbind.enable = true;
@@ -66,6 +66,26 @@ in {
     "10.0.7.43" = ["knode3"];
   };
 
+  networking.interfaces = {
+    eth0 = {
+      ipv4.addresses = [
+        {
+          address = "10.0.1.4${pNodeId}";
+          prefixLength = 24;
+        }
+      ];
+    };
+    eth1 = {
+      ipv4.addresses = [
+        {
+          address = "10.0.7.4${pNodeId}";
+          prefixLength = 24;
+        }
+      ];
+    };
+  };
+  networking.defaultGateway = "10.0.1.1";
+
   networking.firewall.allowedTCPPorts = [
     6443 # k3s: required so that pods can reach the API server (running on port 6443 by default)
     2379 # k3s, etcd clients: required if using a "High Availability Embedded etcd" configuration
@@ -84,8 +104,8 @@ in {
       "--disable=traefik,servicelb"
     ];
     serverAddr =
-      if pK3sServerAddr
-      then "${pK3sServerAddr}:6443"
+      if pK3sServerId
+      then "knode${pK3sServerId}:6443"
       else null;
   };
 
