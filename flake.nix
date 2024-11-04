@@ -204,6 +204,7 @@
         pNodeId = 1;
         pK3sRole = "server";
         pK3sClusterInit = true;
+        pK3sServerId = 1;
       };
       knode2 = import ./hosts/knode/default.nix {
         inherit inputs outputs;
