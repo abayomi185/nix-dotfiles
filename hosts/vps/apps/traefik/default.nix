@@ -18,6 +18,7 @@ in {
     # File Providers
     ./file-provider/auth.nix
     ./file-provider/chat.nix
+    ./file-provider/jellyfin.nix
     # ./file-provider/home.nix
     ./file-provider/yomitosh.nix
   ];
