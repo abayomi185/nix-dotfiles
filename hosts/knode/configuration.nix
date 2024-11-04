@@ -1,4 +1,5 @@
 {
+  config,
   inputs,
   pNodeId,
   pK3sRole,
@@ -10,11 +11,6 @@
 }: let
   timeZone = "Europe/London";
   defaultLocale = "en_GB.UTF-8";
-
-  secretsPath = builtins.toString inputs.nix-secrets;
-  secretsConfig = builtins.fromTOML (builtins.readFile "${secretsPath}/hosts/vps/secrets.toml");
-
-  k3sToken = secretsConfig.k3s.token;
 in {
   imports = [
     # Include the default lxc/lxd configuration.
@@ -28,6 +24,14 @@ in {
 
   boot.supportedFilesystems = ["nfs"];
   services.rpcbind.enable = true;
+
+  sops = {
+    age.sshKeyPaths = ["/root/.ssh/id_ed25519"];
+    defaultSopsFile = "${inputs.nix-secrets}/hosts/knode/default.enc.yaml";
+    secrets = {
+      k3s_token.key = "k3s_token";
+    };
+  };
 
   services.openssh.enable = true;
 
@@ -98,7 +102,7 @@ in {
   services.k3s = {
     enable = true;
     role = pK3sRole; # "server" or "agent"
-    token = k3sToken;
+    tokenFile = config.sops.secrets.k3s_token.path;
     clusterInit = pK3sClusterInit;
     extraFlags = toString [
       "--disable=traefik,servicelb"
