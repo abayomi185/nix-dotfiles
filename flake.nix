@@ -201,22 +201,19 @@
     nixosConfigurations = {
       knode1 = import ./hosts/knode/default.nix {
         inherit inputs outputs;
-        pNodeId = 1;
+        pNodeId = "1";
         pK3sRole = "server";
         pK3sClusterInit = true;
-        pK3sServerId = 1;
       };
       knode2 = import ./hosts/knode/default.nix {
         inherit inputs outputs;
-        pNodeId = 2;
+        pNodeId = "2";
         pK3sRole = "server";
-        pK3sServerId = 1;
       };
       knode3 = import ./hosts/knode/default.nix {
         inherit inputs outputs;
-        pNodeId = 3;
+        pNodeId = "3";
         pK3sRole = "server";
-        pK3sServerId = 1;
       };
     };
 

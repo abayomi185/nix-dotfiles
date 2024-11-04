@@ -104,7 +104,7 @@ in {
       "--disable=traefik,servicelb"
     ];
     serverAddr =
-      if pK3sServerId
+      if pK3sServerId != ""
       then "knode${pK3sServerId}:6443"
       else null;
   };
