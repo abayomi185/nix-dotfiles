@@ -29,7 +29,7 @@ in {
     age.sshKeyPaths = ["/root/.ssh/id_ed25519"];
     defaultSopsFile = "${inputs.nix-secrets}/hosts/knode/default.enc.yaml";
     secrets = {
-      k3s_token.key = "k3s_token";
+      k3s_token = {};
     };
   };
 
