@@ -53,8 +53,14 @@ ip route add default via 10.0.1.1
 ```
 
 ```sh
-nix-channel --update && \
-  nixos-rebuild switch --upgrade && \
-  echo "install complete, rebooting..." && \
-  poweroff --reboot
+nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs
+nix-channel --update
+nixos-rebuild switch --upgrade
+```
+
+```sh
+nix-shell -p git
+git clone https://github.com/abayomi185/nix-dotfiles.git
+cd nix-dotfiles
+nixos-rebuild switch --flake .#knode<id> # not needed if hostname is knode<id>
 ```
