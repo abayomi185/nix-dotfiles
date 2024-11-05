@@ -27,9 +27,6 @@
 
       export SAM_CLI_TELEMETRY=0
 
-      alias python=python3
-      alias pip=pip3
-
       alias k=kubectl
 
       alias vi="nvim"
