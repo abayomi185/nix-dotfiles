@@ -89,6 +89,7 @@ in {
     };
   };
   networking.defaultGateway = "10.0.1.1";
+  networking.nameservers = ["1.0.1.53"];
 
   networking.firewall.allowedTCPPorts = [
     6443 # k3s: required so that pods can reach the API server (running on port 6443 by default)
@@ -109,8 +110,8 @@ in {
     ];
     serverAddr =
       if pK3sServerId != ""
-      then "knode${pK3sServerId}:6443"
-      else null;
+      then "https://knode${pK3sServerId}:6443"
+      else "";
   };
 
   system.stateVersion = "24.05";
