@@ -114,9 +114,16 @@ in {
       else "";
   };
 
-  systemd.tmpfiles.rules = [
-    "L /dev/kmsg - - - - /dev/console" # Create /dev/kmsg symlink to /dev/console for kubernetes
-  ];
+  systemd.services.createDevKmsgSymlink = {
+    description = "Create /dev/kmsg symlink to /dev/console for kubelet";
+    after = ["sysinit.target"];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = ["${pkgs.coreutils}/bin/ln -sf /dev/console /dev/kmsg"];
+      RemainAfterExit = true;
+    };
+    wantedBy = ["multi-user.target"];
+  };
 
   system.stateVersion = "24.05";
 }
