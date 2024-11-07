@@ -118,15 +118,5 @@ in {
     "L /dev/kmsg - - - - /dev/console" # Create /dev/kmsg symlink to /dev/console for kubernetes
   ];
 
-  # systemd.services.kmsgLinkingService = {
-  #   description = "Create /dev/kmsg symlink to /dev/console for kubernetes";
-  #   wantedBy = ["multi-user.target"];
-  #   serviceConfig = {
-  #     ExecStart = "${pkgs.coreutils}/bin/ln -sf /dev/console /dev/kmsg";
-  #     Type = "oneshot";
-  #     RemainAfterExit = true;
-  #   };
-  # };
-
   system.stateVersion = "24.05";
 }
