@@ -89,7 +89,7 @@ in {
     };
   };
   networking.defaultGateway = "10.0.1.1";
-  networking.nameservers = ["1.0.1.53"];
+  networking.nameservers = ["10.0.1.53"];
 
   networking.firewall.allowedTCPPorts = [
     6443 # k3s: required so that pods can reach the API server (running on port 6443 by default)
