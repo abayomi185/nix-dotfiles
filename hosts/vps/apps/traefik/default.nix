@@ -19,6 +19,7 @@ in {
     ./file-provider/auth.nix
     ./file-provider/chat.nix
     ./file-provider/jellyfin.nix
+    ./file-provider/nextcloud.nix
     # ./file-provider/home.nix
     ./file-provider/yomitosh.nix
   ];
