@@ -13,6 +13,8 @@
     NSGlobalDomain = {
       ApplePressAndHoldEnabled = false;
       "com.apple.trackpad.scaling" = 1.0;
+      NSStatusItemSpacing = 12;
+      NSStatusItemSelectionPadding = 8;
     };
 
     screencapture = {
