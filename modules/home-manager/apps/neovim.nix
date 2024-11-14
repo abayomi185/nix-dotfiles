@@ -8,8 +8,10 @@
       stylua
       selene
       # Global Nix packages
-      nil
       alejandra
+      deadnix
+      nil
+      statix
       # Other Global
       prettierd
       taplo
