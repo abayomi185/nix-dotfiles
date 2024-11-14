@@ -50,6 +50,18 @@ The container is unmanaged so Proxmox won't be able to set up the network and th
 ip addr add 10.0.1.41/24 dev eth0
 ip link set eth0 up
 ip route add default via 10.0.1.1
+# If DNS is not resolving, add the following
+# echo "nameserver 8.8.8.8" >> /etc/resolv.conf
+# echo "nameserver 8.8.4.4" >> /etc/resolv.conf
+```
+
+```sh
+curl \
+  --show-error \
+  --fail \
+  https://raw.githubusercontent.com/abayomi185/nix-dotfiles/refs/heads/main/hosts/knode/minimal-configuration.nix \
+  > /etc/nixos/configuration.nix
+nixos-rebuild switch
 ```
 
 ```sh
@@ -59,8 +71,20 @@ nixos-rebuild switch --upgrade
 ```
 
 ```sh
-nix-shell -p git
+nix-shell -p git ssh-to-age
 git clone https://github.com/abayomi185/nix-dotfiles.git
 cd nix-dotfiles
 nixos-rebuild switch --flake .#knode<id> # not needed if hostname is knode<id>
+```
+
+```sh
+pct push 40<nodeId> /boot/config-$(uname -r) /boot/config-$(uname -r)
+```
+
+```sh
+#!/bin/sh -e
+if [ ! -e /dev/kmsg ]; then
+	ln -s /dev/console /dev/kmsg
+fi
+mount --make-rshared /
 ```
