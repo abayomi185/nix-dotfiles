@@ -1,4 +1,5 @@
 {
+  config,
   inputs,
   pNodeId,
   pK3sRole,
@@ -10,11 +11,6 @@
 }: let
   timeZone = "Europe/London";
   defaultLocale = "en_GB.UTF-8";
-
-  secretsPath = builtins.toString inputs.nix-secrets;
-  secretsConfig = builtins.fromTOML (builtins.readFile "${secretsPath}/hosts/vps/secrets.toml");
-
-  k3sToken = secretsConfig.k3s.token;
 in {
   imports = [
     # Include the default lxc/lxd configuration.
@@ -28,6 +24,14 @@ in {
 
   boot.supportedFilesystems = ["nfs"];
   services.rpcbind.enable = true;
+
+  sops = {
+    age.sshKeyPaths = ["/root/.ssh/id_ed25519"];
+    defaultSopsFile = "${inputs.nix-secrets}/hosts/knode/default.enc.yaml";
+    secrets = {
+      k3s_token = {};
+    };
+  };
 
   services.openssh.enable = true;
 
@@ -57,7 +61,7 @@ in {
   ];
 
   environment.systemPackages = with pkgs; [
-    neovim
+    git
   ];
 
   networking.hosts = {
@@ -85,6 +89,7 @@ in {
     };
   };
   networking.defaultGateway = "10.0.1.1";
+  networking.nameservers = ["10.0.1.53"];
 
   networking.firewall.allowedTCPPorts = [
     6443 # k3s: required so that pods can reach the API server (running on port 6443 by default)
@@ -98,15 +103,26 @@ in {
   services.k3s = {
     enable = true;
     role = pK3sRole; # "server" or "agent"
-    token = k3sToken;
+    tokenFile = config.sops.secrets.k3s_token.path;
     clusterInit = pK3sClusterInit;
     extraFlags = toString [
       "--disable=traefik,servicelb"
     ];
     serverAddr =
       if pK3sServerId != ""
-      then "knode${pK3sServerId}:6443"
-      else null;
+      then "https://knode${pK3sServerId}:6443"
+      else "";
+  };
+
+  systemd.services.createDevKmsgSymlink = {
+    description = "Create /dev/kmsg symlink to /dev/console for kubelet";
+    after = ["sysinit.target"];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = ["${pkgs.coreutils}/bin/ln -sf /dev/console /dev/kmsg"];
+      RemainAfterExit = true;
+    };
+    wantedBy = ["multi-user.target"];
   };
 
   system.stateVersion = "24.05";
