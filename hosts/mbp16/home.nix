@@ -1,19 +1,28 @@
-{outputs, ...}: {
+{
+  inputs,
+  outputs,
+  ...
+}: {
   imports = [
     # Apps - See ../../modules/home-manager/apps/default.nix
     outputs.homeManagerModules.apps.bat
+    outputs.homeManagerModules.apps.discord
     outputs.homeManagerModules.apps.jq
     outputs.homeManagerModules.apps.k9s
     outputs.homeManagerModules.apps.karabiner-elements
-    outputs.homeManagerModules.apps.neovim
+    outputs.homeManagerModules.apps.neovim-unstable
     outputs.homeManagerModules.apps.ripgrep
+    outputs.homeManagerModules.apps.tree
 
     # Dev - See ../../modules/home-manager/dev/default.nix
+    outputs.homeManagerModules.dev.github
+    outputs.homeManagerModules.dev.kubectl
     outputs.homeManagerModules.dev.turso
+    outputs.homeManagerModules.dev.xcodes
 
     # Monitoring - See ../../modules/home-manager/monitoring/default.nix
     outputs.homeManagerModules.monitoring.btop
-    outputs.homeManagerModules.monitoring.ncdu
+    # outputs.homeManagerModules.monitoring.ncdu
 
     # Shell - See ../../modules/home-manager/shell/default.nix
     outputs.homeManagerModules.shell.fzf
@@ -23,10 +32,13 @@
 
     # Terminal - See ../../modules/home-manager/terminal/default.nix
     outputs.homeManagerModules.terminal.zellij
+    outputs.homeManagerModules.terminal.wezterm
 
     # Utils - See ../../modules/home-manager/utils/default.nix
     outputs.homeManagerModules.utils.age
     outputs.homeManagerModules.utils.ranger
+    outputs.homeManagerModules.utils.sops
+    outputs.homeManagerModules.utils.ssh-to-age
 
     # ZSH (custom) - See ./zsh.nix
     ./zsh.nix
@@ -36,6 +48,8 @@
     overlays = [
       outputs.overlays.additions
       outputs.overlays.modifications
+      outputs.overlays.unstable-packages
+      inputs.brew-nix.overlays.default
     ];
 
     config = {
