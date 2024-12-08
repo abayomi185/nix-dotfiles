@@ -17,7 +17,10 @@ in {
     "${modulesPath}/virtualisation/lxc-container.nix"
   ];
 
-  nix.settings.experimental-features = ["nix-command" "flakes"];
+  nix.settings = {
+    experimental-features = "nix-command flakes";
+    auto-optimise-store = true;
+  };
 
   boot.isContainer = true;
   networking.hostName = "knode${pNodeId}";
