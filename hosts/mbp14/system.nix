@@ -11,10 +11,14 @@
     };
 
     NSGlobalDomain = {
+      AppleInterfaceStyleSwitchesAutomatically = true;
       ApplePressAndHoldEnabled = false;
+      AppleShowAllExtensions = true;
       "com.apple.trackpad.scaling" = 1.0;
-      NSStatusItemSpacing = 12;
-      NSStatusItemSelectionPadding = 8;
+      InitialKeyRepeat = 15;
+      KeyRepeat = 2;
+      # NSStatusItemSpacing = 12;
+      # NSStatusItemSelectionPadding = 8;
     };
 
     screencapture = {

@@ -6,7 +6,7 @@
 }: {
   imports = [
     # Darwin Apps - See ../../modules/darwin/apps/default.nix
-    outputs.darwinModules.apps.karabiner-elements
+    # outputs.darwinModules.apps.karabiner-elements
 
     # Darwin Desktop - See ../../modules/darwin/desktop/default.nix
     outputs.darwinModules.desktop.skhd
@@ -30,11 +30,12 @@
 
   nix.gc.automatic = true;
 
+  # Deduplicate and optimize nix store
+  nix.optimise.automatic = true;
+
   nix.settings = {
     # Enable flakes and new 'nix' command
     experimental-features = "nix-command flakes";
-    # Deduplicate and optimize nix store
-    auto-optimise-store = true;
   };
 
   # nixpkgs = {
@@ -70,6 +71,7 @@
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
     inputs.agenix.packages.${system}.default
+    # inputs.wezterm.packages.${system}.default
   ];
 
   # Creates global /etc/zshrc that loads the nix-darwin environment
