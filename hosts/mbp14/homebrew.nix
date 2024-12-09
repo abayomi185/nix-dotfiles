@@ -26,6 +26,7 @@
     outputs.darwinModules.casks.ice
     outputs.darwinModules.casks.iina
     outputs.darwinModules.casks.insta360-studio
+    outputs.darwinModules.casks.karabiner-elements
     outputs.darwinModules.casks.kicad
     outputs.darwinModules.casks.moonlight
     outputs.darwinModules.casks.notion
