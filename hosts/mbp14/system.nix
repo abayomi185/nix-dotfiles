@@ -13,7 +13,7 @@
     NSGlobalDomain = {
       AppleInterfaceStyleSwitchesAutomatically = true;
       ApplePressAndHoldEnabled = false;
-      AppleShowAllExtensions = true;
+      AppleShowAllExtensions = false;
       "com.apple.trackpad.scaling" = 1.0;
       InitialKeyRepeat = 15;
       KeyRepeat = 2;
