@@ -5,7 +5,7 @@
 }: {
   imports = [
     # Darwin Apps - See ../../modules/darwin/apps/default.nix
-    outputs.darwinModules.apps.karabiner-elements
+    # outputs.darwinModules.apps.karabiner-elements
 
     # Desktop (darwin) - See ../../modules/darwin/desktop/default.nix
     outputs.darwinModules.desktop.skhd
