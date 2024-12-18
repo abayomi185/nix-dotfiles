@@ -226,7 +226,7 @@
 
     darwinConfigurations = {
       # MacBook Pro 18,2
-      MacBook-Pro = inputs.nixpkgs-darwin.lib.darwinSystem {
+      Mac-Studio = inputs.nixpkgs-darwin.lib.darwinSystem {
         specialArgs = {
           inherit inputs outputs;
         };
