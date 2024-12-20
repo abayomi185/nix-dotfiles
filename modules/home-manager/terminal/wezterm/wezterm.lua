@@ -51,6 +51,8 @@ config.window_padding = {
 	bottom = 0,
 }
 
+config.front_end = "WebGpu"
+
 config.enable_wayland = false
 -- config.front_end = "Software"
 -- config.front_end = "WebGpu"
