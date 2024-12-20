@@ -232,7 +232,7 @@
         };
         modules = [
           # > Our main nixos configuration file <
-          ./hosts/mbp16/configuration.nix
+          ./hosts/mstdo/configuration.nix
           agenix.darwinModules.default
           home-manager.darwinModules.home-manager
           nix-homebrew.darwinModules.nix-homebrew
@@ -242,7 +242,7 @@
             # home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.extraSpecialArgs = {inherit inputs outputs nix-colors;};
-            home-manager.users.yomi = import ./hosts/mbp16/home.nix;
+            home-manager.users.yomi = import ./hosts/mstdo/home.nix;
             home-manager.sharedModules = [
               inputs.sops-nix.homeManagerModules.sops
             ];
@@ -293,7 +293,7 @@
         pkgs = inputs.nixpkgs-stable.legacyPackages.aarch64-darwin; # Home-manager requires 'pkgs' instance
         extraSpecialArgs = {inherit inputs outputs nix-colors;};
         modules = [
-          ./hosts/mbp16/home.nix
+          ./hosts/mstdo/home.nix
         ];
       };
 
