@@ -26,6 +26,7 @@
   # ocenaudio = import ./ocenaudio.nix;
   orbstack = import ./orbstack.nix;
   orca-slicer = import ./orca-slicer.nix;
+  orion = import ./orion.nix;
   raycast = import ./raycast.nix;
   serif-apps = import ./serif-apps.nix;
   spotify = import ./spotify.nix;
