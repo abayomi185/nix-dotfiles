@@ -36,4 +36,5 @@
   whisky = import ./whisky.nix;
   xcodes = import ./xcodes.nix;
   zed = import ./zed.nix;
+  zen-browser = import ./zen-browser.nix;
 }
