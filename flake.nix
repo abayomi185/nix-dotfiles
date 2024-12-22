@@ -246,11 +246,6 @@
             home-manager.sharedModules = [
               inputs.sops-nix.homeManagerModules.sops
             ];
-
-            nix-homebrew.enable = true;
-            nix-homebrew.enableRosetta = true;
-            nix-homebrew.user = "yomi";
-            nix-homebrew.autoMigrate = true;
           }
         ];
       };
@@ -276,11 +271,6 @@
             home-manager.sharedModules = [
               inputs.sops-nix.homeManagerModules.sops
             ];
-
-            nix-homebrew.enable = true;
-            nix-homebrew.enableRosetta = true;
-            nix-homebrew.user = "yomi";
-            nix-homebrew.autoMigrate = true;
           }
         ];
       };

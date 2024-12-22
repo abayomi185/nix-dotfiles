@@ -51,5 +51,15 @@
     outputs.darwinModules.mas.networkingApps
   ];
 
+  nix-homebrew = {
+    enable = true;
+    enableRosetta = true;
+    user = "yomi";
+    autoMigrate = true;
+    extraEnv = {
+      HOMEBREW_NO_ANALYTICS = "1";
+    };
+  };
+
   homebrew.onActivation.cleanup = "uninstall";
 }
