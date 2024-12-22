@@ -11,7 +11,6 @@
 
     # zshrc equivalent
     initExtra = ''
-      eval $(brew shellenv)
     '';
 
     # zshenv equivalent
