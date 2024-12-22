@@ -85,10 +85,10 @@
       export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 
       #Disable Homebrew auto update
-      export HOMEBREW_NO_AUTO_UPDATE=1
+      # export HOMEBREW_NO_AUTO_UPDATE=1 # Handled by nix-homebrew
 
       # Homebrew Apple Silicon
-      eval "$(/opt/homebrew/bin/brew shellenv)"
+      # eval "$(/opt/homebrew/bin/brew shellenv)" # Handled by nix-homebrew
 
       # fnm
       eval "$(fnm env --use-on-cd)"
