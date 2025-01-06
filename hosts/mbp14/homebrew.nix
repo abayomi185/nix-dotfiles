@@ -34,8 +34,9 @@
     outputs.darwinModules.casks.obsidian
     outputs.darwinModules.casks.ollama
     outputs.darwinModules.casks.openscad
-    outputs.darwinModules.casks.orca-slicer
     outputs.darwinModules.casks.orbstack
+    outputs.darwinModules.casks.orca-slicer
+    outputs.darwinModules.casks.orion
     outputs.darwinModules.casks.raycast
     outputs.darwinModules.casks.serif-apps
     outputs.darwinModules.casks.spotify
@@ -45,6 +46,8 @@
     outputs.darwinModules.casks.whisky
     outputs.darwinModules.casks.xcodes
     outputs.darwinModules.casks.zed
+    outputs.darwinModules.casks.zen-browser
+    outputs.darwinModules.casks.zen-browser-twilight
 
     # Mas - See ../../modules/darwin/mas/default.nix
     outputs.darwinModules.mas.coreApps
