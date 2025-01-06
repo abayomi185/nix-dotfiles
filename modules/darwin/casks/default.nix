@@ -32,6 +32,7 @@
   spotify = import ./spotify.nix;
   steam = import ./steam.nix;
   sublime-text = import ./sublime-text.nix;
+  thinkorswim = import ./thinkorswim.nix;
   virtualhere = import ./virtualhere.nix;
   whisky = import ./whisky.nix;
   xcodes = import ./xcodes.nix;
