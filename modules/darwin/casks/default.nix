@@ -37,4 +37,5 @@
   xcodes = import ./xcodes.nix;
   zed = import ./zed.nix;
   zen-browser = import ./zen-browser.nix;
+  zen-browser-twilight = import ./zen-browser-twilight.nix;
 }
