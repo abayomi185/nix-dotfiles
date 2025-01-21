@@ -44,7 +44,7 @@ yabai -m rule --add app="^DaisyDisk$" manage=off
 yabai -m rule --add app="^Screen Sharing$" manage=off
 yabai -m rule --add app="^Microsoft Remote Desktop$" manage=off
 yabai -m rule --add app="^VNC Viewer$" manage=off
-yabai -m rule --add app="^Spotify$" manage=off
+# yabai -m rule --add app="^Spotify$" manage=off
 yabai -m rule --add app="^Notes$" manage=off
 yabai -m rule --add app="^Microsoft Word$" manage=off
 # yabai -m rule --add app="^Notion$" manage=off
@@ -64,6 +64,10 @@ yabai -m rule --add app="^Private Internet Access$" manage=off
 yabai -m rule --add app="^CHITUBOX$" manage=off
 yabai -m rule --add app="^Brave Browser$" title="^Picture in Picture$" manage=off
 
+# FIX: macOS Tiling Window Managers
+# Ghostty tabs may render as separate windows in macOS tiling window managers
+yabai -m signal --add app='^Ghostty$' event=window_created action='yabai -m space --layout bsp'
+yabai -m signal --add app='^Ghostty$' event=window_destroyed action='yabai -m space --layout bsp'
 
 #find ~/Library/Parallels/Applications\ Menus/ -maxdepth 3 -type f | awk -F'/' '{ print $NF; }' | awk '{$1=$1};1' | sort | uniq | tr "\n" "\0" | xargs -0 -I{} yabai -m rule --add app="^{}\$" title=".*" manage=on
 
