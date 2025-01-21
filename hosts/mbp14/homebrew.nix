@@ -22,6 +22,7 @@
     outputs.darwinModules.casks.figma
     outputs.darwinModules.casks.firefox
     outputs.darwinModules.casks.freecad
+    outputs.darwinModules.casks.ghostty
     outputs.darwinModules.casks.heroic
     outputs.darwinModules.casks.ice
     outputs.darwinModules.casks.iina
