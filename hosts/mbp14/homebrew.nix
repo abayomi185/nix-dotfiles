@@ -25,7 +25,6 @@
     outputs.darwinModules.casks.heroic
     outputs.darwinModules.casks.ice
     outputs.darwinModules.casks.iina
-    outputs.darwinModules.casks.insta360-studio
     outputs.darwinModules.casks.karabiner-elements
     outputs.darwinModules.casks.kicad
     outputs.darwinModules.casks.moonlight
@@ -42,12 +41,12 @@
     outputs.darwinModules.casks.spotify
     outputs.darwinModules.casks.steam
     outputs.darwinModules.casks.sublime-text
+    outputs.darwinModules.casks.thinkorswim
     outputs.darwinModules.casks.virtualhere
     outputs.darwinModules.casks.whisky
     outputs.darwinModules.casks.xcodes
     outputs.darwinModules.casks.zed
     outputs.darwinModules.casks.zen-browser
-    outputs.darwinModules.casks.zen-browser-twilight
 
     # Mas - See ../../modules/darwin/mas/default.nix
     outputs.darwinModules.mas.coreApps
