@@ -10,6 +10,7 @@
   figma = import ./figma.nix;
   firefox = import ./firefox.nix;
   freecad = import ./freecad.nix;
+  ghostty = import ./ghostty.nix;
   heroic = import ./heroic.nix;
   ice = import ./ice.nix;
   iina = import ./iina.nix;
