@@ -1,8 +1,10 @@
-theme = dark:tokyonight,light:zenwritten_light
+font-size = 18
+theme = dark:tokyonight,light:Builtin Solarized Light
 macos-titlebar-style = hidden
 macos-non-native-fullscreen = true
 macos-option-as-alt = true
 window-save-state = always
+scrollback-limit = 10485760
 
 keybind = alt+left=unbind
 keybind = alt+right=unbind
