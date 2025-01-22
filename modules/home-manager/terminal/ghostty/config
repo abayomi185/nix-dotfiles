@@ -1,0 +1,10 @@
+theme = dark:tokyonight,light:zenwritten_light
+macos-titlebar-style = hidden
+macos-non-native-fullscreen = true
+macos-option-as-alt = true
+window-save-state = always
+
+keybind = alt+left=unbind
+keybind = alt+right=unbind
+keybind = alt+up=unbind
+keybind = alt+down=unbind
