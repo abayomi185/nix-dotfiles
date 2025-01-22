@@ -28,6 +28,7 @@
     outputs.darwinModules.casks.iina
     outputs.darwinModules.casks.karabiner-elements
     outputs.darwinModules.casks.kicad
+    outputs.darwinModules.casks.middleclick
     outputs.darwinModules.casks.moonlight
     outputs.darwinModules.casks.notion
     outputs.darwinModules.casks.obs
