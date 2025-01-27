@@ -23,7 +23,7 @@ in {
 
     # Services
     ./apps/authelia
-    ./apps/firefly-iii
+    # ./apps/firefly-iii
     ./apps/traefik
     ./apps/uptime-kuma
   ];
