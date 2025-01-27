@@ -8,7 +8,7 @@
       rule = ''Host("openchat.{{env `MEDIA_DOMAIN_NAME`}}")'';
       service = "openchat";
       tls.certResolver = "letsencrypt";
-      middlewares = ["global_rate_limit@file" "authelia@file"];
+      middlewares = ["global_rate_limit@file"];
     };
 
     http.services.openchat.loadBalancer.servers = [
