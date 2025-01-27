@@ -20,6 +20,7 @@ in {
     ./file-provider/chat.nix
     ./file-provider/jellyfin.nix
     ./file-provider/nextcloud.nix
+    ./file-provider/openchat.nix
     # ./file-provider/home.nix
     ./file-provider/yomitosh.nix
   ];
