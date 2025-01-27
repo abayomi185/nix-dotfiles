@@ -56,10 +56,6 @@ in {
       authentication_backend = {
         file.path = "${defaultInstanceDataPath}/users_database.yml";
       };
-      server = {
-        host = "127.0.0.1";
-        port = 9091;
-      };
       totp.issuer = "authelia.com";
       duo_api = {
         enable_self_enrollment = true;
