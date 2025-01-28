@@ -1,5 +1,6 @@
 {
   autodesk-fusion = import ./autodesk-fusion.nix;
+  balenaetcher = import ./balenaetcher.nix;
   brave = import ./brave.nix;
   bruno = import ./bruno.nix;
   calibre = import ./calibre.nix;
@@ -11,6 +12,7 @@
   firefox = import ./firefox.nix;
   freecad = import ./freecad.nix;
   ghostty = import ./ghostty.nix;
+  google-chrome = import ./google-chrome.nix;
   heroic = import ./heroic.nix;
   ice = import ./ice.nix;
   iina = import ./iina.nix;
@@ -29,6 +31,7 @@
   orbstack = import ./orbstack.nix;
   orca-slicer = import ./orca-slicer.nix;
   orion = import ./orion.nix;
+  raspberry-pi-imager = import ./raspberry-pi-imager.nix;
   raycast = import ./raycast.nix;
   serif-apps = import ./serif-apps.nix;
   spotify = import ./spotify.nix;
