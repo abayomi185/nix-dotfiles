@@ -12,6 +12,7 @@
 
     # Casks - See ../../modules/darwin/casks/default.nix
     outputs.darwinModules.casks.autodesk-fusion
+    outputs.darwinModules.casks.balenaetcher
     outputs.darwinModules.casks.brave
     outputs.darwinModules.casks.bruno
     outputs.darwinModules.casks.calibre
@@ -23,6 +24,7 @@
     outputs.darwinModules.casks.firefox
     outputs.darwinModules.casks.freecad
     outputs.darwinModules.casks.ghostty
+    outputs.darwinModules.casks.google-chrome
     outputs.darwinModules.casks.heroic
     outputs.darwinModules.casks.ice
     outputs.darwinModules.casks.iina
