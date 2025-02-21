@@ -31,6 +31,7 @@
   orbstack = import ./orbstack.nix;
   orca-slicer = import ./orca-slicer.nix;
   orion = import ./orion.nix;
+  private-internet-access = import ./private-internet-access.nix;
   raspberry-pi-imager = import ./raspberry-pi-imager.nix;
   raycast = import ./raycast.nix;
   serif-apps = import ./serif-apps.nix;
