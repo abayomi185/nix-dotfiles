@@ -4,6 +4,7 @@
     outputs.darwinModules.homebrew
 
     # Brews - See ../../modules/darwin/brews/default.nix
+    outputs.darwinModules.brews.group_armDev
     outputs.darwinModules.brews.group_mobileDev
     outputs.darwinModules.brews.group_awsDev
     outputs.darwinModules.brews.group_azureDev
@@ -40,6 +41,8 @@
     outputs.darwinModules.casks.orbstack
     outputs.darwinModules.casks.orca-slicer
     outputs.darwinModules.casks.orion
+    outputs.darwinModules.casks.private-internet-access
+    outputs.darwinModules.casks.raspberry-pi-imager
     outputs.darwinModules.casks.raycast
     outputs.darwinModules.casks.serif-apps
     outputs.darwinModules.casks.spotify
