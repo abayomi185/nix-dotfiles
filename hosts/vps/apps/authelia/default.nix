@@ -25,9 +25,26 @@ in {
     owner = config.systemd.services.authelia-default.serviceConfig.User;
     content = ''
       session:
-        domain: "${config.sops.placeholder."authelia_domain"}"
+        cookies:
+          - domain: "${config.sops.placeholder."authelia_domain"}"
+            authelia_url: "${config.sops.placeholder."authelia_defaultRedirectionUrl"}"
 
-      default_redirection_url: "${config.sops.placeholder."authelia_defaultRedirectionUrl"}"
+      # identity_providers:
+      #   oidc:
+      #     clients:
+      #       - client_id: "open-webui-internal"
+      #         client_name: "Open WebUI Internal"
+      #         client_secret: ""
+      #         public: false
+      #         authorization_policy: "two_factor"
+      #         redirect_uris:
+      #           - 'https://chat.example.com/oauth/oidc/callback'
+      #         scopes:
+      #           - 'openid'
+      #           - 'profile'
+      #           - 'groups'
+      #           - 'email'
+      #         userinfo_signed_response_alg: 'RS256'
 
       notifier:
         smtp:
@@ -55,6 +72,15 @@ in {
       log.level = "info"; # debug, trace
       authentication_backend = {
         file.path = "${defaultInstanceDataPath}/users_database.yml";
+      };
+      server = {
+        endpoints = {
+          authz = {
+            forward-auth = {
+              implementation = "ForwardAuth";
+            };
+          };
+        };
       };
       totp.issuer = "authelia.com";
       duo_api = {
