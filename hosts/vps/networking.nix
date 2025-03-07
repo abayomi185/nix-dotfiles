@@ -1,4 +1,5 @@
 {
+  config,
   inputs,
   lib,
   ...
@@ -13,6 +14,9 @@
   secret_ipv6Address = secretsJson.network.ipv6_address;
   secret_enp7s0MacAddress = secretsJson.network.enp7s0_mac_address;
   secret_enp7s0Ipv4Address = secretsJson.network.enp7s0_ipv4_address;
+
+  secret__dnsmasq_address = secretsJson.dnsmasq.address;
+  secret__dnsmasq_server = secretsJson.dnsmasq.server;
 in {
   # This file was populated at runtime with the networking
   # details gathered from the active system.
@@ -76,4 +80,13 @@ in {
     ATTR{address}=="${secret_macAddress}", NAME="eth0"
     ATTR{address}=="${secret_enp7s0MacAddress}", NAME="enp7s0"
   '';
+
+  # DNS
+  services.dnsmasq = {
+    enable = true;
+    settings = {
+      address = secret__dnsmasq_address;
+      server = secret__dnsmasq_server;
+    };
+  };
 }

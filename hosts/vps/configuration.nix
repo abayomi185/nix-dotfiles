@@ -43,9 +43,11 @@ in {
 
   programs.nix-ld.enable = true; # Enable nix-ld - it just works
 
-  nix.settings = {
-    experimental-features = "nix-command flakes";
-    auto-optimise-store = true;
+  nix = {
+    settings = {
+      experimental-features = "nix-command flakes";
+      auto-optimise-store = true;
+    };
   };
 
   nixpkgs = {
@@ -107,11 +109,12 @@ in {
 
   # System Packages
   environment.systemPackages = with pkgs; [
-    zig
-    podman-tui
-    podman-compose
     inputs.compose2nix.packages.${system}.default
     inputs.agenix.packages.${system}.default
+    podman-tui
+    podman-compose
+    sops
+    zig
   ];
 
   system.stateVersion = "23.11";

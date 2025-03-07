@@ -12,11 +12,20 @@
   secret_addresses = secretsJson.wireguard.addresses;
   secret_peers = secretsJson.wireguard.peers;
   secret_listenPort = secretsJson.wireguard.listen_port;
-  # wireguardSecrets.sopsFile = "${inputs.nix-secrets}/hosts/vps/wireguard.enc.yaml";
+
+  secret_wireguardRoute_address = secretsJson.wireguard.route.address;
+  secret_wireguardRoute_via = secretsJson.wireguard.route.via;
+
+  wireguardSecrets.sopsFile = "${inputs.nix-secrets}/hosts/vps/wireguard.enc.yaml";
 in {
-  # sops.secrets."wireguard" = wireguardSecrets;
+  sops.secrets = {
+    "privateKey" = wireguardSecrets;
+  };
 
   age.secrets.vps_wireguard.file = "${inputs.nix-secrets}/hosts/vps/wireguard.age";
+
+  boot.kernel.sysctl."net.ipv4.ip_forward" = "1";
+  boot.kernel.sysctl."net.ipv6.conf.all.forwarding" = "1";
 
   networking.nat = {
     enable = true;
@@ -43,7 +52,7 @@ in {
     wg0 = {
       address = secret_addresses;
 
-      privateKeyFile = config.age.secrets.vps_wireguard.path;
+      privateKeyFile = config.sops.secrets."privateKey".path;
 
       listenPort = secret_listenPort;
 
@@ -61,4 +70,12 @@ in {
       peers = secret_peers;
     };
   };
+
+  networking.interfaces.wg0.ipv4.routes = [
+    {
+      address = secret_wireguardRoute_address;
+      prefixLength = 24;
+      via = secret_wireguardRoute_via;
+    }
+  ];
 }
