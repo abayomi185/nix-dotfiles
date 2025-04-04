@@ -34,6 +34,7 @@
   private-internet-access = import ./private-internet-access.nix;
   raspberry-pi-imager = import ./raspberry-pi-imager.nix;
   raycast = import ./raycast.nix;
+  scroll-reverser = import ./scroll-reverser.nix;
   serif-apps = import ./serif-apps.nix;
   spotify = import ./spotify.nix;
   steam = import ./steam.nix;
