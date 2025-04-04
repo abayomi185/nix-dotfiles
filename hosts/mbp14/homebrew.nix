@@ -14,7 +14,6 @@
     # Casks - See ../../modules/darwin/casks/default.nix
     outputs.darwinModules.casks.autodesk-fusion
     outputs.darwinModules.casks.balenaetcher
-    outputs.darwinModules.casks.brave
     outputs.darwinModules.casks.bruno
     outputs.darwinModules.casks.calibre
     outputs.darwinModules.casks.chatgpt
@@ -40,7 +39,6 @@
     outputs.darwinModules.casks.openscad
     outputs.darwinModules.casks.orbstack
     outputs.darwinModules.casks.orca-slicer
-    outputs.darwinModules.casks.orion
     outputs.darwinModules.casks.private-internet-access
     outputs.darwinModules.casks.raspberry-pi-imager
     outputs.darwinModules.casks.raycast
