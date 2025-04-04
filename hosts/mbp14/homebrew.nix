@@ -42,6 +42,7 @@
     outputs.darwinModules.casks.private-internet-access
     outputs.darwinModules.casks.raspberry-pi-imager
     outputs.darwinModules.casks.raycast
+    outputs.darwinModules.casks.scroll-reverser
     outputs.darwinModules.casks.serif-apps
     outputs.darwinModules.casks.spotify
     outputs.darwinModules.casks.steam
