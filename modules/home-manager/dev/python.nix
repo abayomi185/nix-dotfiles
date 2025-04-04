@@ -1,6 +1,8 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
-    python3
+    python312
+    python311
+    python310
     virtualenv
   ];
 }
