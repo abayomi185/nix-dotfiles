@@ -225,7 +225,7 @@
     };
 
     darwinConfigurations = {
-      # MacBook Pro 18,2
+      # Mac 13,1
       Mac-Studio = inputs.nixpkgs-darwin.lib.darwinSystem {
         specialArgs = {
           inherit inputs outputs;
@@ -279,7 +279,7 @@
     # Standalone home-manager configuration entrypoint
     # Available through 'home-manager --flake .#your-username@your-hostname'
     homeConfigurations = {
-      "yomi@A-MacBook-Pro-eth.lan" = home-manager.lib.homeManagerConfiguration {
+      "yomi@A-MacBook-Pro-eth" = home-manager.lib.homeManagerConfiguration {
         pkgs = inputs.nixpkgs-stable.legacyPackages.aarch64-darwin; # Home-manager requires 'pkgs' instance
         extraSpecialArgs = {inherit inputs outputs nix-colors;};
         modules = [
@@ -287,11 +287,12 @@
         ];
       };
 
-      "yomi@MacBook-Pro-14.lan" = home-manager.lib.homeManagerConfiguration {
+      "yomi@MacBook-Pro-14" = home-manager.lib.homeManagerConfiguration {
         pkgs = inputs.nixpkgs-stable.legacyPackages.aarch64-darwin; # Home-manager requires 'pkgs' instance
         extraSpecialArgs = {inherit inputs outputs nix-colors;};
         modules = [
           ./hosts/mbp14/home.nix
+          inputs.sops-nix.homeManagerModules.sops
         ];
       };
     };
