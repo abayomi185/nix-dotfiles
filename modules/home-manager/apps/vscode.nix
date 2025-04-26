@@ -5,7 +5,6 @@
       ms-vscode-remote.remote-ssh
       vscodevim.vim
       github.copilot
-      github.copilot-chat
       eamodio.gitlens
       donjayamanne.githistory
       emroussel.atomize-atom-one-dark-theme
@@ -25,6 +24,9 @@
       "[typescript]" = {
         "editor.defaultFormatter" = "esbenp.prettier-vscode";
       };
+
+      # NOTE:  More options
+      "chat.agent.enabled" = true;
 
       # NOTE: VSCode Vim
       "vim.leader" = " ";
