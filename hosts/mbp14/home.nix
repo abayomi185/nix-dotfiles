@@ -28,7 +28,7 @@ in {
     outputs.homeManagerModules.dev.go
     outputs.homeManagerModules.dev.kubectl
     outputs.homeManagerModules.dev.nodejs
-    outputs.homeManagerModules.dev.python
+    # outputs.homeManagerModules.dev.python
     outputs.homeManagerModules.dev.rust
     outputs.homeManagerModules.dev.turso
     outputs.homeManagerModules.dev.zig
