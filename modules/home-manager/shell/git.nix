@@ -13,5 +13,5 @@
   };
 
   # Add lazygit
-  home.packages = with pkgs; [lazygit bfg-repo-cleaner];
+  home.packages = with pkgs; [unstable.lazygit bfg-repo-cleaner];
 }
