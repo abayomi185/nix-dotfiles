@@ -1,16 +1,23 @@
 # Yomi's NixOS Config
 
 ## Structure
+
 - [x] **hosts**: host devices and their configurations
 - [x] **modules/home-manager**: home-manager modules
 - [x] **modules/nixos**: system modules
-- [ ] **modules/casks**: WIP for macOS packages
+- [x] **modules/darwin**: macOS packages
 - [x] **overlays**: overlay definitions and setup
-- [ ] **pkg**: WIP - figuring out what to do in this
-- [ ] **lib**: WIP - intended for keeping helpers and utils
+- [ ] **pkgs**: WIP - custom builds and packages
 
 ## Core Apps/Packages
-- zsh, neovim (AstroNvim), tmux, starship, wezterm, KDE (Hyprland soon)
+
+- ZSH
+- Neovim (AstroNvim)
+- Zellij
+- Starship
+- Wezterm/Ghostty
+- Hyprland (Old)
 
 ## Tips
+
 - Update a single flake input with `nix flake update nix-secrets`
