@@ -224,6 +224,16 @@
       };
     };
 
+    # LXC node definitions
+    nixosConfigurations = {
+      network-share = import ./hosts/lxc/network-share/default.nix {
+        inherit inputs outputs;
+      };
+      # audio-share = import ./hosts/lxc/audio-share/default.nix {
+      #   inherit inputs outputs;
+      # };
+    };
+
     darwinConfigurations = {
       # Mac 13,1
       Mac-Studio = inputs.nixpkgs-darwin.lib.darwinSystem {
