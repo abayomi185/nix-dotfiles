@@ -55,18 +55,25 @@ ip route add default via 10.0.1.1
 # echo "nameserver 8.8.4.4" >> /etc/resolv.conf
 ```
 
+Get minimal configuration from the repo and set up nix channels
+
 ```sh
 curl \
   --show-error \
   --fail \
   https://raw.githubusercontent.com/abayomi185/nix-dotfiles/refs/heads/main/hosts/knode/minimal-configuration.nix \
   > /etc/nixos/configuration.nix
-nixos-rebuild switch
 ```
 
 ```sh
+nix-channel --add https://nixos.org/channels/nixos-unstable nixos
 nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs
 nix-channel --update
+```
+
+After Nix channels are set up, the system can be switched.
+
+```sh
 nixos-rebuild switch --upgrade
 ```
 
