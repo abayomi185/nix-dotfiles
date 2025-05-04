@@ -108,10 +108,6 @@ in {
 
   services.nfs.server = {
     enable = true;
-    # fixed rpc.statd port; for firewall
-    lockdPort = 4001;
-    mountdPort = 4002;
-    statdPort = 4000;
     exports = ''
       ${swarm_config_directory}           ${cluster_subnet}(${nfs_export_permissions})
       ${swarm_data_directory}             ${cluster_subnet}(${nfs_export_permissions})
@@ -122,14 +118,15 @@ in {
   };
 
   services.samba = {
-    enable = false;
-    securityType = "user";
+    enable = true;
     openFirewall = true;
+    winbindd.enable = false;
     settings = {
       global = {
         "workgroup" = "WORKGROUP";
         "server string" = "%h server";
         "dns proxy" = "no";
+        "security" = "user";
         "logging" = "syslog";
         "panic action" = "/usr/share/samba/panic-action %d";
         "unix password sync" = "yes";
@@ -164,6 +161,7 @@ in {
         "server min protocol" = "SMB3_02"; # For iOS
         "acl allow execute always" = "yes";
       };
+
       "TimeMachine" = {
         "comment" = "TimeMachine backups";
         "path" = time_machine_mount;
@@ -185,6 +183,7 @@ in {
         # "follow symlinks" = "yes";
         # "hide dot files" = "yes";
       };
+
       "Jellyfin" = {
         "comment" = "Plex is not viable";
         "path" = jellyfin_mount;
@@ -210,6 +209,7 @@ in {
         "hide special files" = "yes";
         "force group" = "users";
       };
+
       "Games" = {
         "comment" = "Games & Windows";
         "path" = windows_games_mount;
@@ -233,9 +233,9 @@ in {
         "directory mask" = "0775";
         "force directory mode" = "0775";
         "hide special files" = "yes";
-        "allow insecure wide links" = "yes";
         "force group" = "users";
       };
+
       "SharedData" = {
         "comment" = "Main";
         "path" = shared_data_mount;
