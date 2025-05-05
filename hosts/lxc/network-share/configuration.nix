@@ -100,6 +100,18 @@ in {
   networking.defaultGateway = default_gateway;
   networking.nameservers = nameservers;
 
+  users.groups = {
+    users = {
+      gid = 100;
+    };
+  };
+
+  users.users.sambayom = {
+    uid = 1001;
+    group = "users";
+    isSystemUser = true;
+  };
+
   networking.firewall = {
     # for NFSv3; view with `rpcinfo -p`
     allowedTCPPorts = [111 2049 4000 4001 4002 20048];
