@@ -21,7 +21,8 @@
 
   swarm_config_directory = "/mnt/mospeed/swarm-config";
   swarm_data_directory = "/mnt/mopower/swarm-data";
-  nas_yom_directory = "/mnt/mospeed/NAS-YOM";
+  nas_yom_old_directory = "/mnt/mospeed/NAS-YOM";
+  nas_yom_directory = "/mnt/mofp0/data/NAS-YOM";
   nas_yom_ftp_directory = "/mnt/mospeed/NAS-YOM/FTP";
   kubernetes_home_cluster_configs = "/mnt/mofp0/kubernetes/home-cluster/configs";
   kubernetes_home_cluster_data = "/mnt/mofp0/kubernetes/home-cluster/data";
@@ -123,6 +124,7 @@ in {
     exports = ''
       ${swarm_config_directory}           ${cluster_subnet}(${nfs_export_permissions})
       ${swarm_data_directory}             ${cluster_subnet}(${nfs_export_permissions})
+      ${nas_yom_old_directory}            ${cluster_subnet}(${nfs_export_permissions})
       ${nas_yom_directory}                ${cluster_subnet}(${nfs_export_permissions})
       ${kubernetes_home_cluster_configs}  ${cluster_subnet}(${nfs_export_permissions})
       ${kubernetes_home_cluster_data}     ${cluster_subnet}(${nfs_export_permissions})
