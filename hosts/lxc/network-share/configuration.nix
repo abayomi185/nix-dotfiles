@@ -20,7 +20,7 @@
   shared_data_mount = "/mnt/mofp0/data";
 
   swarm_config_directory = "/mnt/mospeed/swarm-config";
-  swarm_data_directory = "/mnt/mospeed/swarm-data";
+  swarm_data_directory = "/mnt/mopower/swarm-data";
   nas_yom_directory = "/mnt/mospeed/NAS-YOM";
   nas_yom_ftp_directory = "/mnt/mospeed/NAS-YOM/FTP";
   kubernetes_home_cluster_configs = "/mnt/mofp0/kubernetes/home-cluster/configs";
