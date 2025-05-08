@@ -165,7 +165,7 @@ in {
         # Apple specific config options
         "vfs objects" = "catia fruit streams_xattr";
         "fruit:aapl" = "yes";
-        "fruit:model" = "MacSamba";
+        "fruit:model" = "RackMac"; # https://askubuntu.com/a/1379614
         "fruit:encoding" = "native";
         "fruit:metadata" = "stream";
         "spotlight backend" = "elasticsearch";
