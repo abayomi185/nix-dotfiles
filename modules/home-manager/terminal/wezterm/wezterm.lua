@@ -40,22 +40,36 @@ config.color_scheme = scheme_for_appearance(get_appearance())
 
 -- config.font = wezterm.font('JetBrains Mono', { bold = false, italic = false })
 
-config.use_fancy_tab_bar = false
-
-config.adjust_window_size_when_changing_font_size = false
-
+config.use_fancy_tab_bar = true
+config.window_decorations = "RESIZE"
+config.enable_tab_bar = false
+config.window_frame = {
+	font_size = 10,
+}
 config.window_padding = {
 	left = 0,
 	right = 0,
 	top = 0,
 	bottom = 0,
 }
+config.adjust_window_size_when_changing_font_size = false
 
+-- config.enable_wayland = false
+-- config.front_end = "Software"
 config.front_end = "WebGpu"
 
-config.enable_wayland = false
--- config.front_end = "Software"
--- config.front_end = "WebGpu"
+config.keys = {
+	{
+		key = "p",
+		mods = "SUPER",
+		action = wezterm.action.ShowTabNavigator,
+	},
+	{
+		key = "o",
+		mods = "SUPER",
+		action = wezterm.action.ActivateLastTab,
+	},
+}
 
 wezterm.on("update-right-status", function(window, pane)
 	-- "Wed Mar 3 08:14"
