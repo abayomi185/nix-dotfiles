@@ -1,6 +1,11 @@
-{config, ...}: {
+{
+  config,
+  pkgs,
+  ...
+}: {
   programs.zellij = {
     enable = true;
+    package = pkgs.unstable.zellij;
   };
 
   # Set up symlink to config file
