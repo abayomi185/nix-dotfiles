@@ -57,6 +57,7 @@ config.adjust_window_size_when_changing_font_size = false
 -- config.enable_wayland = false
 -- config.front_end = "Software"
 config.front_end = "WebGpu"
+config.max_fps = 120
 
 config.keys = {
 	{
