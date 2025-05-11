@@ -1,6 +1,7 @@
 {
   autodesk-fusion = import ./autodesk-fusion.nix;
   balenaetcher = import ./balenaetcher.nix;
+  blender = import ./blender.nix;
   brave = import ./brave.nix;
   bruno = import ./bruno.nix;
   calibre = import ./calibre.nix;
@@ -8,6 +9,7 @@
   coconutbattery = import ./coconutbattery.nix;
   cursor = import ./cursor.nix;
   devtoys = import ./devtoys.nix;
+  expo-orbit = import ./expo-orbit.nix;
   figma = import ./figma.nix;
   firefox = import ./firefox.nix;
   freecad = import ./freecad.nix;
@@ -42,6 +44,7 @@
   thinkorswim = import ./thinkorswim.nix;
   virtualhere = import ./virtualhere.nix;
   whisky = import ./whisky.nix;
+  windsurf = import ./windsurf.nix;
   xcodes = import ./xcodes.nix;
   zed = import ./zed.nix;
   zen-browser = import ./zen-browser.nix;
