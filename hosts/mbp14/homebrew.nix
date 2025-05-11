@@ -14,12 +14,14 @@
     # Casks - See ../../modules/darwin/casks/default.nix
     outputs.darwinModules.casks.autodesk-fusion
     outputs.darwinModules.casks.balenaetcher
+    outputs.darwinModules.casks.blender
     outputs.darwinModules.casks.bruno
     outputs.darwinModules.casks.calibre
     outputs.darwinModules.casks.chatgpt
     outputs.darwinModules.casks.coconutbattery
     outputs.darwinModules.casks.cursor
     outputs.darwinModules.casks.devtoys
+    outputs.darwinModules.casks.expo-orbit
     outputs.darwinModules.casks.figma
     outputs.darwinModules.casks.firefox
     outputs.darwinModules.casks.freecad
@@ -51,6 +53,7 @@
     outputs.darwinModules.casks.thinkorswim
     outputs.darwinModules.casks.virtualhere
     outputs.darwinModules.casks.whisky
+    outputs.darwinModules.casks.windsurf
     outputs.darwinModules.casks.xcodes
     outputs.darwinModules.casks.zed
     outputs.darwinModules.casks.zen-browser
