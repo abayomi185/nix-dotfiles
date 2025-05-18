@@ -87,5 +87,30 @@ wezterm.on("update-right-status", function(window, pane)
 	}))
 end)
 
+-- NOTE: consider using resurrect plugin for saving/restoring sessions
+-- local resurrect = wezterm.plugin.require("https://github.com/MLFlexer/resurrect.wezterm")
+--
+-- resurrect.state_manager.periodic_save({
+-- 	interval_seconds = 15,
+-- 	save_workspaces = false,
+-- 	save_windows = true,
+-- 	save_tabs = true,
+-- })
+--
+-- resurrect.state_manager.set_max_nlines(5000)
+
+-- resurrect.state_manager.set_encryption({
+-- 	enable = false,
+-- 	private_key = wezterm.home_dir .. "/.age/resurrect.txt",
+-- 	public_key = "age1ddyj7qftw3z5ty84gyns25m0yc92e2amm3xur3udwh2262pa5afqe3elg7",
+-- })
+
+-- wezterm.on("gui-startup", resurrect.state_manager.resurrect_on_gui_startup)
+--
+-- wezterm.on("resurrect.error", function(err)
+-- 	wezterm.log_error("ERROR!")
+-- 	wezterm.gui.gui_windows()[1]:toast_notification("resurrect", err, nil, 3000)
+-- end)
+
 -- and finally, return the configuration to wezterm
 return config
