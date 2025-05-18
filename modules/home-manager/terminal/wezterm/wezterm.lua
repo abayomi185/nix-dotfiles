@@ -59,6 +59,7 @@ config.adjust_window_size_when_changing_font_size = false
 config.front_end = "WebGpu"
 config.max_fps = 120
 
+config.enable_kitty_keyboard = true
 config.keys = {
 	{
 		key = "p",
