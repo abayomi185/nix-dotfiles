@@ -28,7 +28,10 @@
   services.nix-daemon.enable = true;
   # nix.package = pkgs.nix;
 
-  nix.gc.automatic = true;
+  nix.gc = {
+    automatic = true;
+    options = "--delete-older-than 30d";
+  };
 
   # Deduplicate and optimize nix store
   nix.optimise.automatic = true;
