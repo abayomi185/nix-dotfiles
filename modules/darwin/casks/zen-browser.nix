@@ -1,3 +1,3 @@
 {
-  homebrew.casks = ["zen-browser"];
+  homebrew.casks = ["zen"];
 }
