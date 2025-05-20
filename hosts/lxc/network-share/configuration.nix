@@ -131,10 +131,20 @@ in {
     '';
   };
 
-  services.avahi.enable = true;
+  services.avahi = {
+    enable = true;
+    openFirewall = true;
+    nssmdns4 = true;
+    nssmdns6 = true;
+    publish = {
+      enable = true;
+      userServices = true;
+    };
+  };
 
   services.samba = {
     enable = true;
+    package = pkgs.samba4Full;
     openFirewall = true;
     winbindd.enable = false;
     settings = {
@@ -278,6 +288,11 @@ in {
         "force group" = "users";
       };
     };
+  };
+  # For Windows
+  services.samba-wsdd = {
+    enable = true;
+    openFirewall = true;
   };
 
   services.vsftpd = {
