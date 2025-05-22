@@ -140,11 +140,31 @@ in {
       enable = true;
       userServices = true;
     };
+    extraServiceFiles = {
+      smb = ''
+        <?xml version="1.0" standalone='no'?><!--*-nxml-*-->
+        <!DOCTYPE service-group SYSTEM "avahi-service.dtd">
+        <service-group>
+          <name replace-wildcards="yes">%h</name>
+
+          <service>
+            <type>_adisk._tcp</type>
+            <port>445</port>
+            <txt-record>sys=adVF=0x100</txt-record>
+            <txt-record>dk0=adVN=TimeMachine,adVF=0x82</txt-record>
+          </service>
+
+          <service>
+            <type>_smb._tcp</type>
+            <port>445</port>
+          </service>
+        </service-group>
+      '';
+    };
   };
 
   services.samba = {
     enable = true;
-    package = pkgs.samba4Full;
     openFirewall = true;
     winbindd.enable = false;
     settings = {
@@ -206,8 +226,6 @@ in {
         "directory mask" = "0775";
         "force directory mode" = "0775";
         "hide special files" = "yes";
-        # "follow symlinks" = "yes";
-        # "hide dot files" = "yes";
       };
 
       "Jellyfin" = {
