@@ -23,15 +23,16 @@
       # Define default shell aliases
       shellAliases = lib.mkMerge [
         {
-          la = "ls -la";
+          batl = "bat --theme=OneHalfLight";
           check = "nix flake check";
-          update = lib.mkDefault "sudo nixos-rebuild switch";
-          gc = "nix-collect-garbage";
-          garbage = "sudo nix-collect-garbage --delete-older-than";
           develop = "nix develop -c $SHELL";
           dv = "eval $(direnv hook zsh)";
-          batl = "bat --theme=OneHalfLight";
+          garbage = "sudo nix-collect-garbage --delete-older-than";
+          gc = "nix-collect-garbage";
+          la = "ls -la";
           lg = "lazygit";
+          update = lib.mkDefault "sudo nixos-rebuild switch";
+          vim = "nvim";
         }
         config.programs.zsh.extendedShellAliases
       ];
