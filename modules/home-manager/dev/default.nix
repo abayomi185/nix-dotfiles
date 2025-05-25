@@ -1,5 +1,6 @@
 {
   cargo-bins = import ./cargo-bins.nix;
+  devenv = import ./devenv.nix;
   github = import ./github.nix;
   go = import ./go.nix;
   kubectl = import ./kubectl.nix;
