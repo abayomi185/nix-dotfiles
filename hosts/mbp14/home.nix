@@ -24,6 +24,7 @@ in {
 
     # Dev - See ../../modules/home-manager/dev/default.nix
     outputs.homeManagerModules.dev.cargo-bins
+    outputs.homeManagerModules.dev.devenv
     outputs.homeManagerModules.dev.github
     outputs.homeManagerModules.dev.go
     outputs.homeManagerModules.dev.kubectl
