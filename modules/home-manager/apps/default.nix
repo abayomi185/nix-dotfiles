@@ -20,6 +20,6 @@
   ripgrep = import ./ripgrep.nix;
   spacedrive = import ./spacedrive.nix;
   tree = import ./tree.nix;
-  vscode = import ./vscode.nix;
+  vscode = import ./vscode;
   yabai = import ./yabai.nix;
 }

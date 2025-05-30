@@ -1,0 +1,83 @@
+[
+  {
+    "key": "ctrl+`",
+    "command": "workbench.action.terminal.focus"
+  },
+  {
+    "key": "ctrl+`",
+    "command": "workbench.action.focusActiveEditorGroup",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "h",
+    "command": "editor.action.scrollLeftHover",
+    "when": "editorHoverFocused"
+  },
+  {
+    "key": "j",
+    "command": "editor.action.scrollDownHover",
+    "when": "editorHoverFocused"
+  },
+  {
+    "key": "k",
+    "command": "editor.action.scrollUpHover",
+    "when": "editorHoverFocused"
+  },
+  {
+    "key": "l",
+    "command": "editor.action.scrollRightHover",
+    "when": "editorHoverFocused"
+  },
+  {
+    "key": "alt+j",
+    "command": "vim.remap",
+    "when": "inputFocus && vim.mode == 'Normal' || vim.mode == 'Visual'",
+    "args": {
+      "after": ["alt+j"]
+    }
+  },
+  {
+    "key": "alt+k",
+    "command": "vim.remap",
+    "when": "inputFocus && vim.mode == 'Normal' || vim.mode == 'Visual'",
+    "args": {
+      "after": ["alt+k"]
+    }
+  },
+  {
+    "key": "tab",
+    "command": "selectNextSuggestion",
+    "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
+  },
+  {
+    "key": "shift+tab",
+    "command": "selectPrevSuggestion",
+    "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
+  },
+  {
+    "key": "ctrl+enter",
+    "command": "mdb.runAllPlaygroundBlocks",
+    "when": "mdb.isPlayground"
+  },
+  {
+    "key": "ctrl+alt+r",
+    "command": "-mdb.runAllPlaygroundBlocks",
+    "when": "mdb.isPlayground"
+  },
+  {
+    "key": "ctrl+j",
+    "command": "workbench.action.togglePanel",
+    "when": "terminalFocus"
+  },
+  // TERMINAL
+  {
+    "key": "ctrl+t",
+    "command": "workbench.action.terminal.focus",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "ctrl+l",
+    "command": "workbench.action.previousEditor",
+    "when": "terminalFocus"
+  }
+]
