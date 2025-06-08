@@ -22,6 +22,7 @@
   karabiner-elements = import ./karabiner-elements.nix;
   kicad = import ./kicad.nix;
   logi-options-plus = import ./logi-options-plus.nix;
+  macs-fan-control = import ./macs-fan-control.nix;
   middleclick = import ./middleclick.nix;
   moonlight = import ./moonlight.nix;
   notion = import ./notion.nix;
