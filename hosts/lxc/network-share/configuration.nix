@@ -121,8 +121,14 @@ in {
 
   networking.firewall = {
     # for NFSv3; view with `rpcinfo -p`
-    allowedTCPPorts = [111 2049 4000 4001 4002 20048];
+    allowedTCPPorts = [111 2020 2121 2049 4000 4001 4002 20048];
     allowedUDPPorts = [111 2049 4000 4001 4002 20048];
+    allowedTCPPortRanges = [
+      {
+        from = 10000;
+        to = 10100;
+      }
+    ];
   };
 
   services.nfs.server = {
