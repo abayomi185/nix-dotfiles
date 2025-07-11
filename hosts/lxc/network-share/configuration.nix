@@ -113,6 +113,12 @@ in {
     isSystemUser = true;
   };
 
+  users.users.ftpyom = {
+    uid = 1002;
+    group = "users";
+    isSystemUser = true; # Do not create a home directory
+  };
+
   networking.firewall = {
     # for NFSv3; view with `rpcinfo -p`
     allowedTCPPorts = [111 2049 4000 4001 4002 20048];
