@@ -23,7 +23,7 @@
   swarm_data_directory = "/mnt/mopower/swarm-data";
   nas_yom_old_directory = "/mnt/mospeed/NAS-YOM";
   nas_yom_directory = "/mnt/mofp0/data/NAS-YOM";
-  nas_yom_ftp_directory = "/mnt/mospeed/NAS-YOM/FTP";
+  nas_yom_ftp_directory = "/mnt/mofp0/data/NAS-YOM/FTP";
   kubernetes_home_cluster_configs = "/mnt/mofp0/kubernetes/home-cluster/configs";
   kubernetes_home_cluster_data = "/mnt/mofp0/kubernetes/home-cluster/data";
 
