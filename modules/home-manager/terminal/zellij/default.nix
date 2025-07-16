@@ -31,4 +31,17 @@
     config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nix-dotfiles/modules/home-manager/terminal/zellij/quaternary-layout.kdl";
   xdg.configFile."zellij/layouts/quaternary.swap.kdl".source =
     config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nix-dotfiles/modules/home-manager/terminal/zellij/base-layout.swap.kdl";
+
+  xdg.configFile."zellij/layouts/default.kdl".text = ''
+    layout {
+        floating_panes {
+              pane {
+                  x 1
+                  y "10%"
+                  width "50%"
+                  height "50%"
+              }
+        }
+    }
+  '';
 }

@@ -3,6 +3,7 @@ keybinds clear-defaults=true {
     normal {
         // uncomment this and adjust key if using copy_on_select=false
         // bind "Alt c" { Copy; }
+        bind "Ctrl m" { ToggleFloatingPanes; SwitchToMode "Normal"; }
     }
     locked {
         bind "Ctrl g" { SwitchToMode "Normal"; }
