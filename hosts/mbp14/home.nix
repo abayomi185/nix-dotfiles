@@ -80,7 +80,7 @@ in {
   };
 
   home.packages = [
-    pkgs.nixVersions.nix_2_22 # brew-nix input requires nix version > 2.19
+    pkgs.nixVersions.nix_2_29 # brew-nix input requires nix version > 2.19
   ];
 
   home = {

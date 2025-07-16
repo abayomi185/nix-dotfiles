@@ -23,8 +23,6 @@
   # $ darwin-rebuild switch -I darwin-config=$HOME/.config/nixpkgs/darwin/configuration.nix
   # environment.darwinConfig = "$HOME/.config/nixpkgs/darwin/configuration.nix";
 
-  # Auto upgrade nix package and the daemon service.
-  services.nix-daemon.enable = true;
   # nix.package = pkgs.nix;
 
   nix.gc.automatic = true;
@@ -38,6 +36,7 @@
   };
 
   # Define a user account
+  system.primaryUser = "yomi"; # Required for darwin
   users.users = {
     yomi = {
       home = "/Users/yomi";
@@ -63,9 +62,9 @@
   programs.zsh.enable = true; # Important!
 
   # Add ability to used TouchID for sudo authentication
-  security.pam.enableSudoTouchIdAuth = true;
+  security.pam.services.sudo_local.touchIdAuth = true;
 
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog
-  system.stateVersion = 4;
+  system.stateVersion = 5;
 }

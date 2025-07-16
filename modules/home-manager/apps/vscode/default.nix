@@ -10,19 +10,21 @@
 in {
   programs.vscode = {
     enable = true;
-    extensions = with pkgs.vscode-extensions; [
-      ms-vscode-remote.remote-ssh
-      vscodevim.vim
-      github.copilot
-      eamodio.gitlens
-      donjayamanne.githistory
-      emroussel.atomize-atom-one-dark-theme
-      vscode-icons-team.vscode-icons
-      oderwat.indent-rainbow
-      alefragnani.bookmarks
-      kamikillerto.vscode-colorize
-      esbenp.prettier-vscode
-    ];
+    profiles.default = {
+      extensions = with pkgs.vscode-extensions; [
+        ms-vscode-remote.remote-ssh
+        vscodevim.vim
+        github.copilot
+        eamodio.gitlens
+        donjayamanne.githistory
+        emroussel.atomize-atom-one-dark-theme
+        vscode-icons-team.vscode-icons
+        oderwat.indent-rainbow
+        alefragnani.bookmarks
+        kamikillerto.vscode-colorize
+        esbenp.prettier-vscode
+      ];
+    };
   };
 
   # Symlinks for VSCode settings and keybindings
