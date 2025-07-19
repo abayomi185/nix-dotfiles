@@ -6,6 +6,7 @@
   kubectl = import ./kubectl.nix;
   lua = import ./lua.nix;
   nodejs = import ./nodejs.nix;
+  ollama = import ./ollama.nix;
   python = import ./python.nix;
   rust = import ./rust.nix;
   turso = import ./turso.nix;
