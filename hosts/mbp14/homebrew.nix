@@ -39,7 +39,6 @@
     outputs.darwinModules.casks.obs
     outputs.darwinModules.casks.obsidian
     outputs.darwinModules.casks.ocenaudio
-    outputs.darwinModules.casks.ollama
     outputs.darwinModules.casks.openscad
     outputs.darwinModules.casks.orbstack
     outputs.darwinModules.casks.orca-slicer
