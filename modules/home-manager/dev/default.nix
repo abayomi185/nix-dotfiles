@@ -4,6 +4,7 @@
   github = import ./github.nix;
   go = import ./go.nix;
   kubectl = import ./kubectl.nix;
+  llama-cpp = import ./llama-cpp.nix;
   lua = import ./lua.nix;
   nodejs = import ./nodejs.nix;
   ollama = import ./ollama.nix;
