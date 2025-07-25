@@ -28,6 +28,7 @@ in {
     outputs.homeManagerModules.dev.github
     outputs.homeManagerModules.dev.go
     outputs.homeManagerModules.dev.kubectl
+    outputs.homeManagerModules.dev.llama-cpp
     outputs.homeManagerModules.dev.nodejs
     outputs.homeManagerModules.dev.ollama
     # outputs.homeManagerModules.dev.python
