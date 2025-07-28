@@ -3,11 +3,16 @@
     CustomUserPreferences = {};
 
     dock = {
+      autohide = true;
       mineffect = "scale";
       minimize-to-application = true;
       mru-spaces = false;
       orientation = "bottom";
       tilesize = 45;
+    };
+
+    finder = {
+      ShowPathbar = true;
     };
 
     NSGlobalDomain = {
