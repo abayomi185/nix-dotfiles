@@ -260,7 +260,7 @@
         ];
       };
 
-      # MacBook Pro 18,3
+      # MacBook Pro 18,4
       MacBook-Pro-14 = inputs.nixpkgs-darwin.lib.darwinSystem {
         specialArgs = {
           inherit inputs outputs;
