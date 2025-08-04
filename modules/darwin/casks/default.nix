@@ -1,4 +1,5 @@
 {
+  alt-tab = import ./alt-tab.nix;
   autodesk-fusion = import ./autodesk-fusion.nix;
   balenaetcher = import ./balenaetcher.nix;
   blender = import ./blender.nix;
