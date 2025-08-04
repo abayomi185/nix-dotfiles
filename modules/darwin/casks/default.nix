@@ -47,7 +47,7 @@
   virtualhere = import ./virtualhere.nix;
   whisky = import ./whisky.nix;
   windsurf = import ./windsurf.nix;
-  xcodes = import ./xcodes.nix;
+  xcodes-app = import ./xcodes-app.nix;
   zed = import ./zed.nix;
   zen-browser = import ./zen-browser.nix;
   zen-browser-twilight = import ./zen-browser-twilight.nix;

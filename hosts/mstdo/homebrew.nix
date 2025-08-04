@@ -26,7 +26,7 @@
     outputs.darwinModules.casks.serif-apps
     outputs.darwinModules.casks.spotify
     outputs.darwinModules.casks.sublime-text
-    outputs.darwinModules.casks.xcodes
+    outputs.darwinModules.casks.xcodes-app
 
     # Mas - See ../../modules/darwin/mas/default.nix
     outputs.darwinModules.mas.coreApps
