@@ -9,7 +9,7 @@
     btop
     lazygit
     lua-language-server
-    nodejs_18
+    nodejs_22
     stylua
     selene
     ssh-to-age
