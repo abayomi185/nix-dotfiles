@@ -1,8 +1,4 @@
-{
-  config,
-  lib,
-  ...
-}: let
+{...}: let
   basePath = "/home/cloud/nix-dotfiles/hosts/vps/apps/traefik";
   dataPath = "/var/lib/traefik";
 in {
@@ -18,6 +14,7 @@ in {
     # File Providers
     ./file-provider/auth.nix
     ./file-provider/chat.nix
+    ./file-provider/comfyui.nix
     ./file-provider/jellyfin.nix
     ./file-provider/nextcloud.nix
     ./file-provider/openchat.nix
