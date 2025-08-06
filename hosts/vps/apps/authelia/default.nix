@@ -92,7 +92,7 @@ in {
       session = {
         expiration = 5400;
         inactivity = 1800;
-        remember_me_duration = 864000;
+        remember_me = 864000;
       };
       regulation = {
         max_retries = 3;
@@ -101,8 +101,7 @@ in {
       };
       notifier = {
         smtp = {
-          host = "smtp.gmail.com";
-          port = 587;
+          address = "smtp.gmail.com";
         };
       };
       storage = {
