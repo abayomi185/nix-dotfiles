@@ -29,7 +29,7 @@
   notion = import ./notion.nix;
   obs = import ./obs.nix;
   obsidian = import ./obsidian.nix;
-  ollama = import ./ollama.nix;
+  ollama-app = import ./ollama-app.nix;
   openscad = import ./openscad.nix;
   ocenaudio = import ./ocenaudio.nix;
   orbstack = import ./orbstack.nix;
