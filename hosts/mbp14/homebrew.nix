@@ -57,7 +57,7 @@
     outputs.darwinModules.casks.windsurf
     outputs.darwinModules.casks.xcodes-app
     outputs.darwinModules.casks.zed
-    outputs.darwinModules.casks.zen-browser
+    outputs.darwinModules.casks.zen
 
     # Mas - See ../../modules/darwin/mas/default.nix
     outputs.darwinModules.mas.coreApps
