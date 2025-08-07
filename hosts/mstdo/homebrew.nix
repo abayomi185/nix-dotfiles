@@ -27,6 +27,7 @@
     outputs.darwinModules.casks.spotify
     outputs.darwinModules.casks.sublime-text
     outputs.darwinModules.casks.xcodes-app
+    outputs.darwinModules.casks.zen-browser
 
     # Mas - See ../../modules/darwin/mas/default.nix
     outputs.darwinModules.mas.coreApps
