@@ -232,6 +232,9 @@
       # audio-share = import ./hosts/lxc/audio-share/default.nix {
       #   inherit inputs outputs;
       # };
+      load-balancer = import ./hosts/lxc/load-balancer/default.nix {
+        inherit inputs outputs;
+      };
     };
 
     darwinConfigurations = {
