@@ -6,7 +6,7 @@
     enable = true;
 
     extendedShellAliases = {
-      update = "darwin-rebuild switch";
+      update = "sudo darwin-rebuild switch";
     };
 
     # zshrc equivalent
