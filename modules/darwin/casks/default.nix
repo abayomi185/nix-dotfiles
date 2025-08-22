@@ -49,6 +49,6 @@
   windsurf = import ./windsurf.nix;
   xcodes-app = import ./xcodes-app.nix;
   zed = import ./zed.nix;
-  zen = import ./zen-browser.nix;
+  zen = import ./zen.nix;
   zen-twilight = import ./zen-twilight.nix;
 }
