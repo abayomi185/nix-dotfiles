@@ -17,6 +17,7 @@
     outputs.darwinModules.casks.iina
     outputs.darwinModules.casks.karabiner-elements
     outputs.darwinModules.casks.kicad
+    outputs.darwinModules.casks.llama-swap
     outputs.darwinModules.casks.notion
     outputs.darwinModules.casks.obs
     outputs.darwinModules.casks.obsidian
