@@ -16,6 +16,7 @@
 
     # Dev - See ../../modules/home-manager/dev/default.nix
     outputs.homeManagerModules.dev.github
+    outputs.homeManagerModules.dev.llama-cpp
     outputs.homeManagerModules.dev.kubectl
     outputs.homeManagerModules.dev.turso
     outputs.homeManagerModules.dev.xcodes
