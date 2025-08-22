@@ -22,6 +22,7 @@
   insta360-studio = import ./insta360-studio.nix;
   karabiner-elements = import ./karabiner-elements.nix;
   kicad = import ./kicad.nix;
+  llama-swap = import ./llama-swap.nix;
   logi-options-plus = import ./logi-options-plus.nix;
   macs-fan-control = import ./macs-fan-control.nix;
   middleclick = import ./middleclick.nix;
