@@ -5,5 +5,6 @@
   group_azureDev = import ./groups/azure-dev.nix;
 
   docker = import ./docker.nix;
+  llama-swap = import ./llama-swap.nix;
   sdl2 = import ./sdl2.nix;
 }

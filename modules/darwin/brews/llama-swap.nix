@@ -2,7 +2,7 @@
   homebrew.taps = [
     "mostlygeek/llama-swap"
   ];
-  homebrew.casks = [
+  homebrew.brews = [
     "llama-swap"
   ];
 }

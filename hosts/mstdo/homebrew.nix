@@ -4,6 +4,7 @@
     outputs.darwinModules.homebrew
 
     # Brews - See ../../modules/darwin/brews/default.nix
+    outputs.darwinModules.brews.llama-swap
     outputs.darwinModules.brews.group_mobileDev
 
     # Casks - See ../../modules/darwin/casks/default.nix
@@ -17,7 +18,6 @@
     outputs.darwinModules.casks.iina
     outputs.darwinModules.casks.karabiner-elements
     outputs.darwinModules.casks.kicad
-    outputs.darwinModules.casks.llama-swap
     outputs.darwinModules.casks.notion
     outputs.darwinModules.casks.obs
     outputs.darwinModules.casks.obsidian
