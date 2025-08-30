@@ -1,5 +1,6 @@
 {
   config,
+  inputs,
   modulesPath,
   pkgs,
   ...
@@ -12,11 +13,22 @@
   ipv4_cluster_address = "10.0.7.40";
   default_gateway = "10.0.1.1";
   nameservers = ["10.0.1.53"];
+
+  traefikEnvSecretsSopsFile = "${inputs.nix-secrets}/hosts/lxc/load-balancer/traefik.enc.env";
+
+  traefik_staticConfig = import ./traefik/static_config.nix {inherit config inputs;};
+
+  traefik_dynamicConfig = import ./traefik/dynamic_config.nix {inherit inputs;};
 in {
   imports = [
     # Include the default lxc/lxd configuration.
     "${modulesPath}/virtualisation/lxc-container.nix"
   ];
+
+  sops.secrets.traefikEnv = {
+    format = "dotenv";
+    sopsFile = traefikEnvSecretsSopsFile;
+  };
 
   nix.settings = {
     experimental-features = "nix-command flakes";
@@ -54,7 +66,7 @@ in {
     "sys-fs-fuse-connections.mount"
   ];
 
-  environment.systemPackages = with pkgs; [git];
+  environment.systemPackages = with pkgs; [git neovim];
 
   networking.interfaces = {
     eth0 = {
@@ -84,16 +96,13 @@ in {
   };
 
   services.traefik = {
-    enable = false;
-
-    staticConfigFile = ./traefik/static_config.yml;
+    enable = true;
+    dynamicConfigOptions = traefik_dynamicConfig;
+    staticConfigOptions = traefik_staticConfig;
+    environmentFiles = [
+      config.sops.secrets.traefikEnv.path
+    ];
   };
-  # environment.etc."traefik/dynamic_config.yml" = {
-  #   user = config.systemd.services.traefik.serviceConfig.User;
-  #   group = config.systemd.services.traefik.serviceConfig.Group;
-  #   mode = "400";
-  #   source = ./traefik/dynamic_config.yml;
-  # };
 
   system.stateVersion = "24.11";
 }

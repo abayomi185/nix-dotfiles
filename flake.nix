@@ -233,7 +233,7 @@
       #   inherit inputs outputs;
       # };
       load-balancer = import ./hosts/lxc/load-balancer/default.nix {
-        inherit inputs outputs;
+        inherit inputs outputs sops-nix;
       };
     };
 

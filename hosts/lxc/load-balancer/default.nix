@@ -1,6 +1,7 @@
 {
   inputs,
   outputs,
+  sops-nix,
 }:
 inputs.nixpkgs-stable.lib.nixosSystem {
   system = "x86_64-linux";
@@ -9,5 +10,6 @@ inputs.nixpkgs-stable.lib.nixosSystem {
   };
   modules = [
     ./configuration.nix
+    sops-nix.nixosModules.sops
   ];
 }
