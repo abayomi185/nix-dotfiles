@@ -64,6 +64,15 @@
     outputs.darwinModules.mas.networkingApps
   ];
 
+  # Temporary Cask installs until moved to modules
+  homebrew.casks = [
+    "audacity"
+    "diffusionbee"
+    "lm-studio"
+    "propresenter"
+    "sidequest"
+  ];
+
   nix-homebrew = {
     enable = true;
     enableRosetta = true;
