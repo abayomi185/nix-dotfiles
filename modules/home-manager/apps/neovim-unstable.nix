@@ -9,7 +9,7 @@
       stylua
       selene
       # Global Nix packages
-      nil
+      unstable.nil
       alejandra
       # Other Global
       prettierd
