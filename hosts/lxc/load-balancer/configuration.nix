@@ -87,6 +87,7 @@ in {
     };
   };
   networking.defaultGateway = default_gateway;
+  networking.firewall.allowedTCPPorts = [80 443];
   networking.nameservers = nameservers;
 
   users.groups = {
