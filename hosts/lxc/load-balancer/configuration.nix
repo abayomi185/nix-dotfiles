@@ -38,9 +38,6 @@ in {
   boot.isContainer = true;
   networking.hostName = hostname;
 
-  boot.supportedFilesystems = ["nfs"];
-  services.rpcbind.enable = true;
-
   time.timeZone = timeZone;
 
   i18n = {
