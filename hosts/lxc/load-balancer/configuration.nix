@@ -17,12 +17,14 @@
   traefikEnvSecretsSopsFile = "${inputs.nix-secrets}/hosts/lxc/load-balancer/traefik.enc.env";
 
   traefik_staticConfig = import ./traefik/static_config.nix {inherit config inputs;};
-
   traefik_dynamicConfig = import ./traefik/dynamic_config.nix {inherit inputs;};
 in {
   imports = [
     # Include the default lxc/lxd configuration.
     "${modulesPath}/virtualisation/lxc-container.nix"
+
+    # For common settings across all LXC containers.
+    ../common.nix
   ];
 
   sops.secrets.traefikEnv = {
@@ -36,10 +38,8 @@ in {
   };
 
   boot.isContainer = true;
-  networking.hostName = hostname;
 
   time.timeZone = timeZone;
-
   i18n = {
     defaultLocale = defaultLocale;
     extraLocaleSettings = {
@@ -84,6 +84,7 @@ in {
     };
   };
   networking.defaultGateway = default_gateway;
+  networking.hostName = hostname;
   networking.firewall.allowedTCPPorts = [80 443];
   networking.nameservers = nameservers;
 
@@ -92,10 +93,6 @@ in {
       gid = 100;
     };
   };
-
-  programs.bash.interactiveShellInit = ''
-    alias fetch_pull_rebuild="git fetch --all && git reset --hard origin/main && nixos-rebuild switch --flake .#load-balancer"
-  '';
 
   services.traefik = {
     enable = true;
