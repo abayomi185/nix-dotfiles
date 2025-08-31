@@ -226,14 +226,14 @@
 
     # LXC node definitions
     nixosConfigurations = {
-      network-share = import ./hosts/lxc/network-share/default.nix {
+      audio-share = import ./hosts/lxc/audio-share/default.nix {
         inherit inputs outputs;
       };
-      # audio-share = import ./hosts/lxc/audio-share/default.nix {
-      #   inherit inputs outputs;
-      # };
       load-balancer = import ./hosts/lxc/load-balancer/default.nix {
         inherit inputs outputs sops-nix;
+      };
+      network-share = import ./hosts/lxc/network-share/default.nix {
+        inherit inputs outputs;
       };
     };
 
