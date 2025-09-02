@@ -1,7 +1,15 @@
-{...}: let
-  basePath = "/home/cloud/nix-dotfiles/hosts/vps/apps/traefik";
-  dataPath = "/var/lib/traefik";
+{
+  config,
+  inputs,
+  ...
+}: let
+  traefikEnvSecretsSopsFile = "${inputs.nix-secrets}/hosts/vps/traefik.enc.env";
 in {
+  sops.secrets.traefikEnv = {
+    format = "dotenv";
+    sopsFile = traefikEnvSecretsSopsFile;
+  };
+
   networking.firewall.allowedTCPPorts = [80 443];
 
   imports = [
@@ -25,7 +33,7 @@ in {
   services.traefik = {
     enable = true;
     environmentFiles = [
-      "${basePath}/.env"
+      config.sops.secrets.traefikEnv.path
     ];
 
     # Traefik Static Config
@@ -107,7 +115,7 @@ in {
         # Optional
         # Default: os.Stdout
         #
-        filePath = "${dataPath}/log/traefik.log";
+        filePath = "${config.services.traefik.dataDir}/log/traefik.log";
 
         # Format is either "json" or "common".
         #
@@ -134,7 +142,7 @@ in {
         # Optional
         # Default: os.Stdout
         #
-        filePath = "${dataPath}/log/access.log";
+        filePath = "${config.services.traefik.dataDir}/log/access.log";
         bufferingSize = 10;
 
         # Format is either "json" or "common".
@@ -184,21 +192,12 @@ in {
       certificatesResolvers = {
         letsencrypt = {
           acme = {
-            storage = "${dataPath}/acme/acme.json";
-            # storage = "${config.services.traefik.dataDir}/acme.json";
+            storage = "${config.services.traefik.dataDir}/acme/acme.json";
 
             dnsChallenge = {
               provider = "cloudflare";
               delayBeforeCheck = 60;
               resolvers = ["1.1.1.1:53" "8.8.8.8:53"];
-            };
-          };
-        };
-        letsencrypt-duckdns = {
-          acme = {
-            storage = "${dataPath}/acme/acme_duckdns.json";
-            httpChallenge = {
-              entryPoint = "web";
             };
           };
         };
