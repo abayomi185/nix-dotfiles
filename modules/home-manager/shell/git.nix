@@ -6,12 +6,27 @@
 
     extraConfig = {
       init.defaultBranch = "main";
+      core.pager = "bat --paging=always";
       push.autoSetupRemote = true;
+
+      merge = {
+        tool = "diffview";
+      };
+      mergetool = {
+        diffview.cmd = ''nvim -n +DiffviewOpen "$MERGE"'';
+        keepBackup = false;
+        prompt = false;
+      };
     };
 
     ignores = [".DS_Store" ".direnv/"];
   };
 
-  # Add lazygit
-  home.packages = with pkgs; [unstable.lazygit bfg-repo-cleaner];
+  programs.lazygit = {
+    enable = true;
+    package = pkgs.unstable.lazygit;
+  };
+
+  # Other git related tools
+  home.packages = with pkgs; [bfg-repo-cleaner];
 }
