@@ -259,6 +259,20 @@ in {
     };
 
     ###############################################################
+    # Middlewares
+    ###############################################################
+    middlewares = {
+      # Nextcloud redirect regex for .well-known URLs
+      nextcloud-redirectregex = {
+        redirectRegex = {
+          regex = "^/.well-known/(card|cal)dav";
+          replacement = "/remote.php/dav/";
+          permanent = true;
+        };
+      };
+    };
+
+    ###############################################################
     # Services
     ###############################################################
     services = {
