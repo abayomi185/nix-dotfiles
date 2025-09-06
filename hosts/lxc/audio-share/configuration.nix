@@ -90,6 +90,15 @@ in {
     };
   };
 
+  users.users = {
+    audio = {
+      isSystemUser = true;
+      description = "Audio user";
+      group = "audio";
+      createHome = false;
+    };
+  };
+
   services.avahi.enable = true;
 
   services.spotifyd = {
