@@ -19,6 +19,7 @@
       AppleInterfaceStyleSwitchesAutomatically = true;
       ApplePressAndHoldEnabled = false;
       AppleShowAllExtensions = false;
+      "com.apple.sound.beep.feedback" = 0;
       "com.apple.trackpad.scaling" = 2.5;
       InitialKeyRepeat = 15;
       KeyRepeat = 2;
