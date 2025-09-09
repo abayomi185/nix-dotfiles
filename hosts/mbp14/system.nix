@@ -19,7 +19,7 @@
       AppleInterfaceStyleSwitchesAutomatically = true;
       ApplePressAndHoldEnabled = false;
       AppleShowAllExtensions = false;
-      "com.apple.trackpad.scaling" = 1.0;
+      "com.apple.trackpad.scaling" = 2.5;
       InitialKeyRepeat = 15;
       KeyRepeat = 2;
       # NSStatusItemSpacing = 12;
