@@ -12,7 +12,8 @@
 
     NSGlobalDomain = {
       ApplePressAndHoldEnabled = false;
-      "com.apple.trackpad.scaling" = 1.0;
+      "com.apple.sound.beep.feedback" = 0;
+      "com.apple.trackpad.scaling" = 2.5;
     };
 
     screencapture = {
