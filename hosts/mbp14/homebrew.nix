@@ -71,6 +71,9 @@
     "lm-studio"
     "propresenter"
     "sidequest"
+    "handbrake-app"
+    "mu-editor"
+    "stremio"
   ];
 
   nix-homebrew = {
