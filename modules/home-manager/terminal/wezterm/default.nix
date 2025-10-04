@@ -1,13 +1,7 @@
-{
-  config,
-  pkgs,
-  ...
-}: {
+{config, ...}: {
   programs.wezterm = {
     enable = true;
     enableZshIntegration = true;
-    # package = pkgs.wezterm-nightly;
-    # extraConfig = builtins.readFile ./wezterm.lua; # symlink preferred
   };
 
   # Set up symlink to wezterm.lua
