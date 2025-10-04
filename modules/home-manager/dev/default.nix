@@ -8,6 +8,7 @@
   lua = import ./lua.nix;
   nodejs = import ./nodejs.nix;
   ollama = import ./ollama.nix;
+  opencode = import ./opencode.nix;
   python = import ./python.nix;
   rust = import ./rust.nix;
   turso = import ./turso.nix;
