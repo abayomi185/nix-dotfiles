@@ -31,6 +31,7 @@ in {
     outputs.homeManagerModules.dev.llama-cpp
     outputs.homeManagerModules.dev.nodejs
     outputs.homeManagerModules.dev.ollama
+    outputs.homeManagerModules.dev.opencode
     # outputs.homeManagerModules.dev.python
     outputs.homeManagerModules.dev.rust
     outputs.homeManagerModules.dev.turso
