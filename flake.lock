@@ -452,10 +452,10 @@
     "nix-secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1756861876,
-        "narHash": "sha256-Jh4d98YruXYlbcbGc8t5xNi9EzUEer1K5M0BNAA0oNk=",
+        "lastModified": 1760055035,
+        "narHash": "sha256-8iW5jk+AF5dGgXrLtp5u5JCkqGFw0MixF80TXvu3fYs=",
         "ref": "main",
-        "rev": "142033290417a67fb9577f4c1a3e01c412880fe7",
+        "rev": "484d2fc68d6b120498b3804f77382db899b5cd34",
         "shallow": true,
         "type": "git",
         "url": "ssh://git@github.com/abayomi185/nix-secrets.git"
