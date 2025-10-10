@@ -106,6 +106,11 @@ in {
   users.users.root.openssh.authorizedKeys.keys = [];
   users.users.cloud.openssh.authorizedKeys.keys = secret_ssh_authorizedKeys;
 
+  services.flaresolverr = {
+    enable = true;
+    openFirewall = true;
+  };
+
   services.tinyproxy = {
     enable = true;
     settings = {
