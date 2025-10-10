@@ -14,15 +14,6 @@
   secret_network_ipv4Address = secretsJson.network.ipv4_address;
 
   homeDir = "/home/cloud";
-
-  squidWithAuth = pkgs.squid.overrideAttrs (oldAttrs: {
-    configureFlags =
-      (oldAttrs.configureFlags or [])
-      ++ [
-        "--enable-auth"
-        "--enable-basic-auth-helpers=NCSA"
-      ];
-  });
 in {
   imports = [
     ./hardware-configuration.nix
@@ -44,13 +35,6 @@ in {
   sops = {
     age.sshKeyPaths = ["/home/cloud/.ssh/id_ed25519"];
     defaultSopsFile = "${inputs.nix-secrets}/hosts/vps/default.enc.yaml";
-
-    secrets.squidPasswd = {
-      sopsFile = "${inputs.nix-secrets}/hosts/vps/squid.enc.yaml";
-      owner = "squid";
-      group = "squid";
-      mode = "0400";
-    };
   };
   age.identityPaths = ["${homeDir}/.ssh/id_ed25519"];
 
@@ -122,20 +106,14 @@ in {
   users.users.root.openssh.authorizedKeys.keys = [];
   users.users.cloud.openssh.authorizedKeys.keys = secret_ssh_authorizedKeys;
 
-  services.squid = {
+  services.tinyproxy = {
     enable = true;
-    package = squidWithAuth;
-    proxyAddress = secret_network_ipv4Address;
-    extraConfig = ''
-      auth_param basic program ${pkgs.squid}/libexec/basic_ncsa_auth ${config.sops.secrets.squidPasswd.path}
-      auth_param basic realm Squid Proxy
-      auth_param basic credentials_ttl 2 hours
-
-      acl authenticated proxy_auth REQUIRED
-      http_access allow authenticated
-    '';
+    settings = {
+      Listen = secret_network_ipv4Address;
+      BasicAuth = "tinyproxy ${secret_user_initialPassword}";
+    };
   };
-  networking.firewall.allowedTCPPorts = [config.services.squid.proxyPort];
+  networking.firewall.allowedTCPPorts = [config.services.tinyproxy.settings.Port];
 
   # Fail2ban
   # services.fail2ban.enable = true;
