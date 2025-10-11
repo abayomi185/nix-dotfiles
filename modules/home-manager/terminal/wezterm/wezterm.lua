@@ -15,6 +15,10 @@ if wezterm.config_builder then
 	config = wezterm.config_builder()
 end
 
+local function get_age_path(user)
+	return string.format("/etc/profiles/per-user/%s/bin/age", user)
+end
+
 -- wezterm.gui is not available to the mux server, so take care to
 -- do something reasonable when this config is evaluated by the mux
 local color_scheme_light = "Solarized Light (Gogh)"
@@ -71,9 +75,10 @@ config.keys = {
 		key = "w",
 		mods = "ALT",
 		action = wezterm.action_callback(function(win, pane)
-			-- Resurrect state is stored in resurrect plugin directory
-			resurrect.state_manager.save_state(resurrect.workspace_state.get_workspace_state())
-			resurrect.window_state.save_window_action()
+			-- NOTE: Resurrect state is stored in resurrect plugin directory
+			local workspace_state = resurrect.workspace_state.get_workspace_state()
+			resurrect.state_manager.save_state(workspace_state)
+			print("Saved workspace state:", workspace_state.workspace)
 		end),
 	},
 	{
@@ -103,6 +108,9 @@ config.keys = {
 					local state = resurrect.state_manager.load_state(id, "tab")
 					resurrect.tab_state.restore_tab(pane:tab(), state, opts)
 				end
+
+				-- Set the state to be restored on gui-startup
+				resurrect.state_manager.write_current_state(id, "workspace")
 			end, {
 				ignore_tabs = true,
 				ignore_windows = true,
@@ -115,7 +123,7 @@ config.keys = {
 		mods = "ALT|SHIFT",
 		action = wezterm.action_callback(function(win, pane)
 			resurrect.fuzzy_loader.fuzzy_load(win, pane, function(id)
-				resurrect.delete_state(id)
+				resurrect.state_manager.delete_state(id)
 			end, {
 				title = "Delete State",
 				description = "Select session to delete and press Enter = accept, Esc = cancel, / = filter",
@@ -126,20 +134,30 @@ config.keys = {
 			})
 		end),
 	},
+
+	-- Workspace Switcher
+	{
+		key = "s",
+		mods = "ALT",
+		action = workspace_switcher.switch_workspace(),
+	},
+	{
+		key = "S",
+		mods = "ALT",
+		action = workspace_switcher.switch_to_prev_workspace(),
+	},
 }
 
 resurrect.state_manager.periodic_save({
 	interval_seconds = 300,
 	save_workspaces = true,
-	save_windows = true,
-	save_tabs = true,
 })
 resurrect.state_manager.set_max_nlines(50000)
 
 resurrect.state_manager.set_encryption({
 	enable = true,
-	method = "age",
-	private_key = wezterm.home_dir .. ".config/wezterm/resurrect_secret.txt",
+	method = get_age_path(wezterm.home_dir:match("([^/]+)$")),
+	private_key = wezterm.home_dir .. "/.config/wezterm/resurrect_secret.txt",
 	public_key = "age1yzgt8vkltmfuf3cfj0ywt6t27clj80c4k5kktg437x0vuxryvp5qnkrq08",
 })
 
@@ -185,7 +203,7 @@ toggle_terminal.apply_to_config(config, {
 -- To update the plugins, run
 -- wezterm.plugin.update_all()
 
--- To check plugins, run
+-- To check plugins, run (can be run in repl)
 -- wezterm.plugin.list()
 
 -- and finally, return the configuration to wezterm
