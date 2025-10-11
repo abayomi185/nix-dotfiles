@@ -49,6 +49,7 @@ in {
     outputs.homeManagerModules.shell.git
     outputs.homeManagerModules.shell.starship
     outputs.homeManagerModules.shell.zsh
+    outputs.homeManagerModules.shell.zoxide
 
     # Terminal - See ../../modules/home-manager/terminal/default.nix
     outputs.homeManagerModules.terminal.ghostty
@@ -85,6 +86,10 @@ in {
   home.packages = [
     pkgs.nixVersions.nix_2_29 # brew-nix input requires nix version > 2.19
   ];
+
+  # Override wezterm package to use the latest from the flake input
+  # Using lib.mkForce to ensure this override takes precedence
+  # programs.wezterm.package = lib.mkForce inputs.wezterm.packages.${pkgs.system}.default;
 
   home = {
     username = "yomi";
