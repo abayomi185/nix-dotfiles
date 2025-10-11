@@ -1,13 +1,7 @@
 {
-  # Fzf
   fzf = import ./fzf.nix;
-
-  # Git
   git = import ./git.nix;
-
-  # Starship
   starship = import ./starship.nix;
-
-  # ZSH
+  zoxide = import ./zoxide.nix;
   zsh = import ./zsh.nix;
 }
