@@ -5,6 +5,8 @@ local wezterm = require("wezterm")
 local resurrect = wezterm.plugin.require("https://github.com/MLFlexer/resurrect.wezterm")
 local workspace_switcher = wezterm.plugin.require("https://github.com/MLFlexer/smart_workspace_switcher.wezterm")
 local toggle_terminal = wezterm.plugin.require("https://github.com/zsh-sage/toggle_terminal.wez")
+local modal = wezterm.plugin.require("https://github.com/MLFlexer/modal.wezterm")
+local smart_splits = wezterm.plugin.require("https://github.com/mrjones2014/smart-splits.nvim")
 
 -- This table will hold the configuration.
 local config = {}
@@ -62,7 +64,7 @@ config.keys = {
 	{
 		key = "p",
 		mods = "SUPER",
-		action = wezterm.action.ShowTabNavigator,
+		action = wezterm.action.ShowLauncherArgs({ flags = "FUZZY|TABS" }),
 	},
 	{
 		key = "o",
@@ -70,9 +72,52 @@ config.keys = {
 		action = wezterm.action.ActivateLastTab,
 	},
 
+	{
+		-- Raname tabs
+		key = "r",
+		mods = "CTRL|SHIFT",
+		action = wezterm.action.PromptInputLine({
+			description = "Enter new name for tab",
+			action = wezterm.action_callback(function(window, pane, line)
+				if line then
+					window:active_tab():set_title(line)
+				end
+			end),
+		}),
+	},
+
+	{
+		key = "f",
+		mods = "ALT",
+		action = wezterm.action_callback(function(win, pane)
+			print("Opening dotfiles workspace")
+
+			print(pane)
+			print(win)
+
+			win:perform_action(
+				wezterm.action.SwitchToWorkspace({
+					name = "test",
+				}),
+				pane
+			)
+
+			print(pane)
+			print(win)
+
+			-- window:perform_action(
+			-- 	wezterm.action.SwitchToWorkspace({
+			-- 		name = "dotfiles",
+			-- 	}),
+			-- 	pane
+			-- )
+			print("Switched to dotfiles workspace")
+		end),
+	},
+
 	-- Resurrect
 	{
-		key = "w",
+		key = "s",
 		mods = "ALT",
 		action = wezterm.action_callback(function(win, pane)
 			-- NOTE: Resurrect state is stored in resurrect plugin directory
@@ -90,23 +135,28 @@ config.keys = {
 				id = string.match(id, "([^/]+)$") -- match after '/'
 				id = string.match(id, "(.+)%..+$") -- remove file extention
 
-				local opts = {
-					window = win:mux_window(),
-					relative = true,
-					restore_text = true,
-					on_pane_restore = resurrect.tab_state.default_on_pane_restore,
-					close_open_tabs = true,
-				}
-
 				if type == "workspace" then
 					local state = resurrect.state_manager.load_state(id, "workspace")
-					resurrect.workspace_state.restore_workspace(state, opts)
-				elseif type == "window" then
-					local state = resurrect.state_manager.load_state(id, "window")
-					resurrect.window_state.restore_window(pane:window(), state, opts)
-				elseif type == "tab" then
-					local state = resurrect.state_manager.load_state(id, "tab")
-					resurrect.tab_state.restore_tab(pane:tab(), state, opts)
+
+					win:perform_action(
+						wezterm.action.SwitchToWorkspace({
+							name = state.workspace,
+						}),
+						pane
+					)
+
+					-- Small delay to ensure workspace switch completes
+					wezterm.time.call_after(0.2, function()
+						local opts = {
+							window = win:mux_window(), -- Use the window that just switched
+							relative = true,
+							restore_text = true,
+							on_pane_restore = resurrect.tab_state.default_on_pane_restore,
+							close_open_tabs = true,
+							close_open_panes = true,
+						}
+						resurrect.workspace_state.restore_workspace(state, opts)
+					end)
 				end
 
 				-- Set the state to be restored on gui-startup
@@ -137,13 +187,13 @@ config.keys = {
 
 	-- Workspace Switcher
 	{
-		key = "s",
+		key = "w",
 		mods = "ALT",
 		action = workspace_switcher.switch_workspace(),
 	},
 	{
-		key = "S",
-		mods = "ALT",
+		key = "w",
+		mods = "ALT|SHIFT",
 		action = workspace_switcher.switch_to_prev_workspace(),
 	},
 }
@@ -163,13 +213,37 @@ resurrect.state_manager.set_encryption({
 
 wezterm.on("gui-startup", resurrect.state_manager.resurrect_on_gui_startup)
 
+wezterm.on("smart_workspace_switcher.workspace_switcher.selected", function(window, path, label)
+	wezterm.log_info(window)
+	local workspace_state = resurrect.workspace_state
+	resurrect.state_manager.save_state(workspace_state.get_workspace_state())
+	resurrect.state_manager.write_current_state(label, "workspace")
+end)
+
 wezterm.on("augment-command-palette", function(window, pane)
 	local workspace_state = resurrect.workspace_state
 	return {
 		{
 			brief = "Window | Workspace: Switch Workspace",
 			icon = "md_briefcase_arrow_up_down",
-			action = workspace_switcher.switch_workspace(),
+			-- action = workspace_switcher.switch_workspace(),
+			action = wezterm.action.PromptInputLine({
+				description = wezterm.format({
+					{ Attribute = { Intensity = "Bold" } },
+					{ Foreground = { AnsiColor = "Fuchsia" } },
+					{ Text = "Enter name for new workspace" },
+				}),
+				action = wezterm.action_callback(function(window, pane, line)
+					if line then
+						window:perform_action(
+							wezterm.action.SwitchToWorkspace({
+								name = line,
+							}),
+							pane
+						)
+					end
+				end),
+			}),
 		},
 		{
 			brief = "Window | Workspace: Rename Workspace",
@@ -180,6 +254,18 @@ wezterm.on("augment-command-palette", function(window, pane)
 					if line then
 						wezterm.mux.rename_workspace(wezterm.mux.get_active_workspace(), line)
 						resurrect.state_manager.save_state(workspace_state.get_workspace_state())
+					end
+				end),
+			}),
+		},
+		{
+			brief = "Tab | Rename Tab",
+			icon = "md_rename_box",
+			action = wezterm.action.PromptInputLine({
+				description = "Enter new name for tab",
+				action = wezterm.action_callback(function(window, pane, line)
+					if line then
+						window:active_tab():set_title(line)
 					end
 				end),
 			}),
@@ -197,6 +283,24 @@ toggle_terminal.apply_to_config(config, {
 		auto_zoom_toggle_terminal = false, -- Automatically zoom toggle terminal pane
 		auto_zoom_invoker_pane = true, -- Automatically zoom invoker pane
 		remember_zoomed = true, -- Automatically re-zoom the toggle pane if it was zoomed before switching away
+	},
+})
+
+-- ALT-u to enter UI mode from normal mode
+-- ALT-c to enter Copy mode from normal mode
+-- v to enter visual mode from Copy mode
+-- / to enter search mode from Copy mode
+-- ALT-n to enter Scroll mode from normal mode
+-- esc or CTRL-c to leave current non-normal mode
+modal.apply_to_config(config)
+modal.set_default_keys(config)
+
+-- Smart Splits
+smart_splits.apply_to_config(config, {
+	direction_keys = { "h", "j", "k", "l" },
+	modifiers = {
+		move = "CTRL",
+		resize = "ALT",
 	},
 })
 
