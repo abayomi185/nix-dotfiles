@@ -37,6 +37,7 @@
   nix.settings = {
     # Enable flakes and new 'nix' command
     experimental-features = "nix-command flakes";
+    trusted-users = ["yomi"]; # For devenv/cachix
   };
 
   # nixpkgs = {
