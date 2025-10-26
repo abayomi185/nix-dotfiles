@@ -232,6 +232,9 @@
       load-balancer = import ./hosts/lxc/load-balancer/default.nix {
         inherit inputs outputs sops-nix;
       };
+      machine-learning = import ./hosts/lxc/machine-learning/default.nix {
+        inherit inputs outputs;
+      };
       network-share = import ./hosts/lxc/network-share/default.nix {
         inherit inputs outputs;
       };
