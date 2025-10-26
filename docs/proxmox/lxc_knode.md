@@ -68,6 +68,8 @@ curl \
 ```sh
 nix-channel --add https://nixos.org/channels/nixos-unstable nixos
 nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs
+# This may be needed if sandboxing causes issues
+# export NIX_CONFIG="sandbox = false"
 nix-channel --update
 ```
 
