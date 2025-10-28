@@ -79,6 +79,7 @@ in {
   networking.defaultGateway = default_gateway;
   networking.nameservers = nameservers;
 
+  hardware.graphics.enable = true;
   hardware.nvidia = {
     modesetting.enable = false;
     open = true;
