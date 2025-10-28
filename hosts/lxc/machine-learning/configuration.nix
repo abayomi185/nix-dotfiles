@@ -1,6 +1,5 @@
 {
   config,
-  lib,
   modulesPath,
   pkgs,
   ...
@@ -79,9 +78,10 @@ in {
   networking.defaultGateway = default_gateway;
   networking.nameservers = nameservers;
 
+  services.xserver.videoDrivers = ["nvidia"];
   hardware.graphics.enable = true;
   hardware.nvidia = {
-    modesetting.enable = false;
+    modesetting.enable = true;
     open = true;
     nvidiaSettings = true;
     package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
@@ -108,7 +108,7 @@ in {
   };
 
   programs.bash.interactiveShellInit = ''
-    alias fetch_pull_rebuild="git fetch --all && git reset --hard origin/main && nixos-rebuild switch --flake .#load-balancer"
+    alias fetch_pull_rebuild="git fetch --all && git reset --hard origin/main && nixos-rebuild switch --flake .#machine-learning"
   '';
 
   programs.git = {
