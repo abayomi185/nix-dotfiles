@@ -107,6 +107,8 @@ in {
 
   programs.nix-ld.enable = true;
 
+  programs.zsh.enable = true;
+
   services.llama-swap = {
     enable = true;
     port = 11343;
