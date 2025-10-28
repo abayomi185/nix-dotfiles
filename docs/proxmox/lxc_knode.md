@@ -84,6 +84,8 @@ nix-shell -p git ssh-to-age
 git clone https://github.com/abayomi185/nix-dotfiles.git
 cd nix-dotfiles
 nixos-rebuild switch --flake .#knode<id> # not needed if hostname is knode<id>
+# Sandbox flags may be needed if there are issues
+# nixos-rebuild switch --upgrade --flake .#knode<id> --option sandbox false
 ```
 
 ```sh
