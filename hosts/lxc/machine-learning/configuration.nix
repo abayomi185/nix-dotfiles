@@ -51,7 +51,7 @@ in {
   ];
 
   environment.systemPackages = with pkgs; [
-    unstable.llama-cpp
+    llama-cpp
     neovim
     uv
   ];
