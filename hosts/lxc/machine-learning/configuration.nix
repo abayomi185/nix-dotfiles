@@ -151,11 +151,5 @@ in {
     };
   };
 
-  virtualisation.docker = {
-    enable = false;
-    enableOnBoot = true;
-    storageDriver = "btrfs";
-  };
-
   system.stateVersion = "24.11";
 }
