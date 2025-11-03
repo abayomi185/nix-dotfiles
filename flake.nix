@@ -4,10 +4,12 @@
   inputs = {
     # Nixpkgs
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
-    # You can access packages and modules from different nixpkgs revs
-    # at the same time. Here's an working example:
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+
     # Also see the 'unstable-packages' overlay at 'overlays/default.nix'.
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+
+    # For bleeding edge packages
+    # nixpkgs-master.url = "github:nixos/nixpkgs/master";
 
     # Darwin
     nixpkgs-darwin = {
@@ -95,7 +97,6 @@
     self,
     agenix,
     home-manager,
-    nix-colors,
     nix-homebrew,
     rust-overlay,
     sops-nix,
@@ -152,7 +153,7 @@
       #     {
       #       # home-manager.useGlobalPkgs = true;
       #       home-manager.useUserPackages = true;
-      #       home-manager.extraSpecialArgs = {inherit inputs outputs nix-colors;};
+      #       home-manager.extraSpecialArgs = {inherit inputs outputs inputs.nix-colors;};
       #       home-manager.users.yomi = import ./hosts/x1c6/home.nix;
       #       home-manager.sharedModules = [
       #         inputs.sops-nix.homeManagerModules.sops
@@ -257,7 +258,7 @@
 
             # home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = {inherit inputs outputs nix-colors;};
+            home-manager.extraSpecialArgs = {inherit inputs outputs;};
             home-manager.users.yomi = import ./hosts/mstdo/home.nix;
             home-manager.sharedModules = [
               inputs.sops-nix.homeManagerModules.sops
@@ -282,7 +283,7 @@
 
             # home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = {inherit inputs outputs nix-colors;};
+            home-manager.extraSpecialArgs = {inherit inputs outputs;};
             home-manager.users.yomi = import ./hosts/mbp14/home.nix;
             home-manager.sharedModules = [
               inputs.sops-nix.homeManagerModules.sops
@@ -297,15 +298,16 @@
     homeConfigurations = {
       "yomi@A-MacBook-Pro-eth" = home-manager.lib.homeManagerConfiguration {
         pkgs = inputs.nixpkgs-stable.legacyPackages.aarch64-darwin; # Home-manager requires 'pkgs' instance
-        extraSpecialArgs = {inherit inputs outputs nix-colors;};
+        extraSpecialArgs = {inherit inputs outputs;};
         modules = [
           ./hosts/mstdo/home.nix
+          inputs.sops-nix.homeManagerModules.sops
         ];
       };
 
       "yomi@MacBook-Pro-14" = home-manager.lib.homeManagerConfiguration {
-        pkgs = inputs.nixpkgs-stable.legacyPackages.aarch64-darwin; # Home-manager requires 'pkgs' instance
-        extraSpecialArgs = {inherit inputs outputs nix-colors;};
+        pkgs = inputs.nixpkgs-stable.legacyPackages.aarch64-darwin;
+        extraSpecialArgs = {inherit inputs outputs;};
         modules = [
           ./hosts/mbp14/home.nix
           inputs.sops-nix.homeManagerModules.sops
