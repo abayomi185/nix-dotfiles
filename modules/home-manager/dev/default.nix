@@ -5,6 +5,7 @@
   go = import ./go.nix;
   kubectl = import ./kubectl.nix;
   llama-cpp = import ./llama-cpp.nix;
+  llama-swap = import ./llama-swap.nix;
   lua = import ./lua.nix;
   nodejs = import ./nodejs.nix;
   ollama = import ./ollama.nix;
