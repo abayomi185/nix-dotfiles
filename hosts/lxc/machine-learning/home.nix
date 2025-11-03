@@ -1,4 +1,13 @@
-{pkgs, ...}: {
+{
+  config,
+  outputs,
+  pkgs,
+  ...
+}: {
+  imports = [
+    outputs.homeManagerModules.terminal.zellij
+  ];
+
   home.username = "ml";
   home.homeDirectory = "/home/ml";
   home.packages = with pkgs; [
@@ -8,14 +17,16 @@
     nixpkgs-fmt
     btop
     lazygit
+    llama-cpp
+    unstable.llama-swap
     lua-language-server
     nodejs_22
     stylua
     selene
     ssh-to-age
+    uv
   ];
 
-  # NOTE: Shells
   programs.zsh = {
     enable = true;
     autosuggestion.enable = true;
@@ -42,19 +53,23 @@
       theme = "robbyrussell";
     };
   };
+
   programs.direnv = {
     enable = true;
     enableZshIntegration = true;
     nix-direnv.enable = true;
   };
+
   programs.bat = {
     enable = true;
   };
+
   programs.git = {
     enable = true;
     userName = "Yomi Ikuru";
-    userEmail = "yomi+git_homelab_lxc_ml@yomitosh.com";
+    userEmail = "yomi+git_homelab_lxc_ml_ml@yomitosh.com";
   };
+
   programs.starship = {
     enable = true;
 
@@ -71,6 +86,9 @@
       };
     };
   };
+
+  xdg.configFile."llama-swap/config.yaml".source =
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nix-dotfiles/hosts/lxc/machine-learning/configs/llama-swap.yaml";
 
   programs.home-manager.enable = true;
   systemd.user.startServices = "sd-switch";

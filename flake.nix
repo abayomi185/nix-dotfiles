@@ -233,9 +233,10 @@
       load-balancer = import ./hosts/lxc/load-balancer/default.nix {
         inherit inputs outputs sops-nix;
       };
-      machine-learning = import ./hosts/lxc/machine-learning/default.nix {
-        inherit inputs outputs;
-      };
+      # TODO: Unable to get this working in LXC due to Nix driver installation
+      # machine-learning = import ./hosts/lxc/machine-learning/default.nix {
+      #   inherit inputs outputs;
+      # };
       network-share = import ./hosts/lxc/network-share/default.nix {
         inherit inputs outputs;
       };
@@ -311,6 +312,17 @@
         modules = [
           ./hosts/mbp14/home.nix
           inputs.sops-nix.homeManagerModules.sops
+        ];
+      };
+
+      "ml@machine-learning" = home-manager.lib.homeManagerConfiguration {
+        pkgs = import inputs.nixpkgs-stable {
+          system = "x86_64-linux";
+          overlays = [outputs.overlays.unstable-packages];
+        };
+        extraSpecialArgs = {inherit inputs outputs;};
+        modules = [
+          ./hosts/lxc/machine-learning/home.nix
         ];
       };
     };

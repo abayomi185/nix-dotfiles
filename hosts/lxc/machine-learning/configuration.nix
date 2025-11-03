@@ -117,7 +117,7 @@ in {
       pull.rebase = true;
       user = {
         name = "Yomi Ikuru";
-        email = "yomi+git_homelab_lxc_ml@yomitosh.com";
+        email = "yomi+git_homelab_lxc_ml_root@yomitosh.com";
       };
     };
   };
@@ -125,48 +125,6 @@ in {
   programs.nix-ld.enable = true;
 
   programs.zsh.enable = true;
-
-  services.llama-swap = {
-    enable = true;
-    port = 11343;
-    openFirewall = true;
-    settings = {
-      healthCheckTimeout = 240;
-      logLevel = "info";
-      metricsMaxInMemory = 1000;
-      startPort = 10001;
-
-      macros = {
-        latest-llama = ''${pkgs.llama-cpp}/bin/llama-server --port $${PORT}'';
-      };
-
-      models = {
-        "local:qwen3-default" = {
-          cmd = ''$${latest-llama} -hf unsloth/Qwen3-30B-A3B-Instruct-2507-GGUF:Q4_K_M --jinja --rope-scaling yarn --rope-scale 4 --yarn-orig-ctx 32768 -np 4'';
-          name = "Qwen3-30B-A3B-Instruct-2507-GGUF:Q4_K_M";
-          description = "Default model";
-          ttl = 600;
-          useModelName = "ylac/Qwen3-30B-A3B-Instruct-2507-GGUF:Q4_K_M";
-        };
-
-        "local:gpt-oss-20b" = {
-          cmd = ''$${latest-llama} -hf unsloth/gpt-oss-20b-GGUF:F16 --jinja'';
-          name = "gpt-oss-20b-GGUF:F16";
-          description = "GPT-OSS 20B GGUF model";
-          ttl = 600;
-          useModelName = "ylac/gpt-oss-20b-GGUF:F16";
-        };
-      };
-
-      hooks = {
-        on_startup = {
-          preload = [
-            "qwen3-default"
-          ];
-        };
-      };
-    };
-  };
 
   system.stateVersion = "24.11";
 }
