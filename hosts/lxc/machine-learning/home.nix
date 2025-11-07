@@ -8,6 +8,11 @@
     outputs.homeManagerModules.terminal.zellij
   ];
 
+  nix = {
+    package = pkgs.nix;
+    settings.experimental-features = ["nix-command" "flakes"];
+  };
+
   home.username = "ml";
   home.homeDirectory = "/home/ml";
   home.packages = with pkgs; [
