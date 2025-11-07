@@ -23,7 +23,23 @@ end
 
 -- wezterm.gui is not available to the mux server, so take care to
 -- do something reasonable when this config is evaluated by the mux
-local color_scheme_light = "Solarized Light (Gogh)"
+
+-- Light schemes
+-- local color_scheme_light = "Solarized Light (Gogh)"
+-- local color_scheme_light = "Belafonte Day"
+-- local color_scheme_light = "Belafonte Day (Gogh)"
+-- local color_scheme_light = "Butrin (Gogh)"
+-- local color_scheme_light = "Ef-Day"
+-- local color_scheme_light = "Equilibrium Light (base16)"
+-- local color_scheme_light = "Embers (light) (terminal.sexy)"
+local color_scheme_light = "Novel"
+-- local color_scheme_light = "Paper (Gogh)"
+-- local color_scheme_light = "Rosé Pine Dawn (Gogh)"
+-- local color_scheme_light = "Seafoam Pastel (Gogh)"
+
+-- Dark schemes
+-- local color_scheme_dark = "Seafoam Pastel (Gogh)"
+-- local color_scheme_dark = "X::Erosion (terminal.sexy)"
 local color_scheme_dark = "Batman"
 
 local function get_appearance()
