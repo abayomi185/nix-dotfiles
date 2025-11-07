@@ -33,6 +33,7 @@
           lg = "lazygit";
           update = lib.mkDefault "sudo nixos-rebuild switch";
           vim = "nvim";
+          ns = "NIXPKGS_ALLOW_UNFREE=1 nix-shell -p";
         }
         config.programs.zsh.extendedShellAliases
       ];
