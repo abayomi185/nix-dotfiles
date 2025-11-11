@@ -43,6 +43,8 @@
       alias txt="echo 'Hello, world!'"
 
       alias python=python3
+
+      alias opencode="npx opencode-ai@latest"
     '';
 
     # zprofile equivalent
