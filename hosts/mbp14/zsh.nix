@@ -15,6 +15,9 @@
 
     # zshenv equivalent
     envExtra = ''
+      # Homebrew
+      export PATH="/opt/homebrew/bin:$PATH"
+
       # Cargo
       . "$HOME/.cargo/env"
 
