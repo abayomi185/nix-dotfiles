@@ -105,30 +105,43 @@ config.keys = {
 	{
 		key = "f",
 		mods = "ALT",
-		action = wezterm.action_callback(function(win, pane)
-			print("Opening dotfiles workspace")
+		action = wezterm.action.TogglePaneZoomState,
+	},
 
-			print(pane)
-			print(win)
+	-- {
+	-- 	key = "f",
+	-- 	mods = "ALT",
+	-- 	action = wezterm.action_callback(function(win, pane)
+	-- 		print("Opening dotfiles workspace")
+	--
+	-- 		print(pane)
+	-- 		print(win)
+	--
+	-- 		win:perform_action(
+	-- 			wezterm.action.SwitchToWorkspace({
+	-- 				name = "test",
+	-- 			}),
+	-- 			pane
+	-- 		)
+	--
+	-- 		print(pane)
+	-- 		print(win)
+	--
+	-- 		-- window:perform_action(
+	-- 		-- 	wezterm.action.SwitchToWorkspace({
+	-- 		-- 		name = "dotfiles",
+	-- 		-- 	}),
+	-- 		-- 	pane
+	-- 		-- )
+	-- 		print("Switched to dotfiles workspace")
+	-- 	end),
+	-- },
 
-			win:perform_action(
-				wezterm.action.SwitchToWorkspace({
-					name = "test",
-				}),
-				pane
-			)
-
-			print(pane)
-			print(win)
-
-			-- window:perform_action(
-			-- 	wezterm.action.SwitchToWorkspace({
-			-- 		name = "dotfiles",
-			-- 	}),
-			-- 	pane
-			-- )
-			print("Switched to dotfiles workspace")
-		end),
+	-- Resize pane
+	{
+		key = ".",
+		mods = "CTRL",
+		action = wezterm.action.SplitHorizontal({ domain = "CurrentPaneDomain" }),
 	},
 
 	-- Resurrect
