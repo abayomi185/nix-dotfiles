@@ -7,6 +7,7 @@
   llama-cpp = import ./llama-cpp.nix;
   llama-swap = import ./llama-swap.nix;
   lua = import ./lua.nix;
+  markdown = import ./markdown.nix;
   nodejs = import ./nodejs.nix;
   ollama = import ./ollama.nix;
   opencode = import ./opencode.nix;
