@@ -1,10 +1,10 @@
 {pkgs, ...}: {
   programs.git = {
     enable = true;
-    userName = "Yomi Ikuru";
-    userEmail = "captyomjnr@gmail.com";
 
-    extraConfig = {
+    ignores = [".DS_Store" ".direnv/"];
+
+    settings = {
       init.defaultBranch = "main";
       core.pager = "bat --paging=always";
       push.autoSetupRemote = true;
@@ -17,9 +17,11 @@
         keepBackup = false;
         prompt = false;
       };
+      user = {
+        name = "Yomi Ikuru";
+        email = "captyomjnr@gmail.com";
+      };
     };
-
-    ignores = [".DS_Store" ".direnv/"];
   };
 
   programs.lazygit = {

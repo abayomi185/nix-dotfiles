@@ -71,8 +71,13 @@
 
   programs.git = {
     enable = true;
-    userName = "Yomi Ikuru";
-    userEmail = "yomi+git_homelab_lxc_ml_ml@yomitosh.com";
+
+    settings = {
+      user = {
+        name = "yomi+git_homelab_lxc_ml_ml@yomitosh.com";
+        email = "Yomi Ikuru";
+      };
+    };
   };
 
   programs.starship = {

@@ -52,8 +52,12 @@
   };
   programs.git = {
     enable = true;
-    userName = "Yomi Ikuru";
-    userEmail = "yomi+git_cloud_vps@yomitosh.com";
+    settings = {
+      user = {
+        name = "Yomi Ikuru";
+        email = "yomi+git_cloud_vps@yomitosh.com";
+      };
+    };
   };
 
   programs.home-manager.enable = true;
