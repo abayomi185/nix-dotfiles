@@ -75,6 +75,10 @@
     "handbrake-app"
     "mu-editor"
     "stremio"
+    "losslesscut"
+    "protonvpn"
+    "winbox"
+    "antigravity"
   ];
 
   nix-homebrew = {
