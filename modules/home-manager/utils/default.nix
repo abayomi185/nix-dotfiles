@@ -1,5 +1,6 @@
 {
   age = import ./age.nix;
+  exiftool = import ./exiftool.nix;
   ffmpeg = import ./ffmpeg.nix;
   pulseview = import ./pulseview.nix;
   ranger = import ./ranger.nix;

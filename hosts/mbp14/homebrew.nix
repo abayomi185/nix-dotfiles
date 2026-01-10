@@ -4,6 +4,7 @@
     outputs.darwinModules.homebrew
 
     # Brews - See ../../modules/darwin/brews/default.nix
+    outputs.darwinModules.brews.exiftool
     outputs.darwinModules.brews.group_armDev
     outputs.darwinModules.brews.group_mobileDev
     outputs.darwinModules.brews.group_awsDev
