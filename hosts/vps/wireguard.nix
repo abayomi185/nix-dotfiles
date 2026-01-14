@@ -1,6 +1,7 @@
 {
   config,
   inputs,
+  lib,
   pkgs,
   ...
 }: let
@@ -13,8 +14,7 @@
   secret_peers = secretsJson.wireguard.peers;
   secret_listenPort = secretsJson.wireguard.listen_port;
 
-  secret_wireguardRoute_address = secretsJson.wireguard.route.address;
-  secret_wireguardRoute_via = secretsJson.wireguard.route.via;
+  secret_wireguardRoutes = secretsJson.wireguard.routes;
 
   wireguardSecrets.sopsFile = "${inputs.nix-secrets}/hosts/vps/wireguard.enc.yaml";
 in {
@@ -71,11 +71,12 @@ in {
     };
   };
 
-  networking.interfaces.wg0.ipv4.routes = [
-    {
-      address = secret_wireguardRoute_address;
-      prefixLength = 24;
-      via = secret_wireguardRoute_via;
-    }
-  ];
+  networking.interfaces.wg0.ipv4.routes =
+    lib.map
+    (route: {
+      address = route.address;
+      prefixLength = route.prefix_length;
+      via = route.via;
+    })
+    secret_wireguardRoutes;
 }
