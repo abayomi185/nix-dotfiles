@@ -10,14 +10,13 @@
     };
 
     # zshrc equivalent
-    initExtra = ''
+    initContent = ''
+      # Homebrew Apple Silicon
+      eval "$(/opt/homebrew/bin/brew shellenv)"
     '';
 
     # zshenv equivalent
     envExtra = ''
-      # Homebrew
-      export PATH="/opt/homebrew/bin:$PATH"
-
       # Cargo
       . "$HOME/.cargo/env"
 
