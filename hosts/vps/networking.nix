@@ -15,7 +15,6 @@
   secret_enp7s0MacAddress = secretsJson.network.enp7s0_mac_address;
   secret_enp7s0Ipv4Address = secretsJson.network.enp7s0_ipv4_address;
 
-  secret__dnsmasq_address = secretsJson.dnsmasq.address;
   secret__dnsmasq_server = secretsJson.dnsmasq.server;
 in {
   # This file was populated at runtime with the networking
@@ -85,7 +84,6 @@ in {
   services.dnsmasq = {
     enable = true;
     settings = {
-      address = secret__dnsmasq_address;
       server = secret__dnsmasq_server;
     };
   };
