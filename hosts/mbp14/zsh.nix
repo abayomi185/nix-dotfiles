@@ -7,6 +7,8 @@
 
     extendedShellAliases = {
       update = "sudo darwin-rebuild switch";
+      gt = "cd $(fd -t d -H . ~ | fzf)";
+      opencode = "npx -y opencode-ai@latest";
     };
 
     # zshrc equivalent
