@@ -20,6 +20,7 @@ in {
     ./middleware/authelia.nix
 
     # File Providers
+    ./file-provider/3dprintlive.nix
     ./file-provider/auth.nix
     ./file-provider/chat.nix
     ./file-provider/comfyui.nix
