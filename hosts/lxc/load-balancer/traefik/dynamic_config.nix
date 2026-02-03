@@ -10,6 +10,15 @@ in {
     # Routers
     ###############################################################
     routers = {
+      # 3D Print Live
+      "3dprintlive" = {
+        entryPoints = ["websecure"];
+        rule = ''Host("3dprintlive.${internal_domain_name}")'';
+        tls.certResolver = "letsencrypt";
+        service = "3dprintlive";
+        middlewares = ["3dprintlive-forgepath"];
+      };
+
       # AdGuard Home
       adguard = {
         entryPoints = ["websecure"];
@@ -270,12 +279,27 @@ in {
           permanent = true;
         };
       };
+
+      # 3D Print Live - force all requests to webcam path
+      "3dprintlive-forgepath" = {
+        replacePathRegex = {
+          regex = "^/.*";
+          replacement = "/webcam?action=stream";
+        };
+      };
     };
 
     ###############################################################
     # Services
     ###############################################################
     services = {
+      # 3D Print Live
+      "3dprintlive" = {
+        loadBalancer.servers = [
+          {url = "http://k1c.internal.yomitosh.media:4409";}
+        ];
+      };
+
       # AdGuard Home
       adguard = {
         loadBalancer.servers = [

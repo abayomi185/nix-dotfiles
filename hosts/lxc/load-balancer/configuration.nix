@@ -8,12 +8,6 @@
   timeZone = "Europe/London";
   defaultLocale = "en_GB.UTF-8";
 
-  hostname = "k-lb";
-  ipv4_lan_address = "10.0.1.40";
-  ipv4_cluster_address = "10.0.7.40";
-  default_gateway = "10.0.1.1";
-  nameservers = ["10.0.1.53"];
-
   traefikEnvSecretsSopsFile = "${inputs.nix-secrets}/hosts/lxc/load-balancer/traefik.enc.env";
 
   traefik_staticConfig = import ./traefik/static_config.nix {inherit config inputs;};
@@ -69,27 +63,18 @@ in {
   environment.systemPackages = with pkgs; [git neovim];
 
   networking.interfaces = {
-    eth0 = {
-      ipv4.addresses = [
-        {
-          address = ipv4_lan_address;
-          prefixLength = 24;
-        }
-      ];
-    };
+    eth0.useDHCP = true;
     eth1 = {
       ipv4.addresses = [
         {
-          address = ipv4_cluster_address;
+          address = "10.0.7.40";
           prefixLength = 24;
         }
       ];
     };
   };
-  networking.defaultGateway = default_gateway;
-  networking.hostName = hostname;
+  networking.hostName = "kloadbalancer"; # Ingress load balancer for the cluster.
   networking.firewall.allowedTCPPorts = [80 443];
-  networking.nameservers = nameservers;
 
   users.groups = {
     users = {
