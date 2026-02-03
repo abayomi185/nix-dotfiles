@@ -67,21 +67,8 @@ in {
     git
   ];
 
-  networking.hosts = {
-    "10.0.7.41" = ["knode1"];
-    "10.0.7.42" = ["knode2"];
-    "10.0.7.43" = ["knode3"];
-  };
-
   networking.interfaces = {
-    eth0 = {
-      ipv4.addresses = [
-        {
-          address = "10.0.1.4${pNodeId}";
-          prefixLength = 24;
-        }
-      ];
-    };
+    eth0.usesDHCP = true;
     eth1 = {
       ipv4.addresses = [
         {
@@ -91,8 +78,6 @@ in {
       ];
     };
   };
-  networking.defaultGateway = "10.0.1.1";
-  networking.nameservers = ["10.0.1.53"];
 
   networking.firewall.allowedTCPPorts = [
     6443 # k3s: required so that pods can reach the API server (running on port 6443 by default)
@@ -113,7 +98,7 @@ in {
     ];
     serverAddr =
       if pK3sServerId != ""
-      then "https://knode${pK3sServerId}:6443"
+      then "https://knode${pK3sServerId}.cluster.internal.yomitosh.media:6443"
       else "";
   };
 
