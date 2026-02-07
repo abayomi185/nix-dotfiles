@@ -57,10 +57,8 @@ in {
   environment.systemPackages = with pkgs; [git pamixer scream];
 
   networking.hostName = hostname;
+  networking.useDHCP = true;
   networking.interfaces = {
-    eth0 = {
-      ipv4.useDHCP = true;
-    };
     eth1 = {
       ipv4.addresses = [
         {

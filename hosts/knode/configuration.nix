@@ -67,8 +67,8 @@ in {
     git
   ];
 
+  networking.useDHCP = true;
   networking.interfaces = {
-    eth0.usesDHCP = true;
     eth1 = {
       ipv4.addresses = [
         {

@@ -7,10 +7,6 @@
   defaultLocale = "en_GB.UTF-8";
 
   hostname = "temp_lxc_node";
-  default_gateway = "10.0.1.1";
-  nameservers = ["10.0.1.53"];
-
-  ipv4_address = "10.0.1.254";
 in {
   imports = [
     # Include the default lxc/lxd configuration.
@@ -49,18 +45,7 @@ in {
 
   environment.systemPackages = with pkgs; [git];
 
-  networking.interfaces = {
-    eth0 = {
-      ipv4.addresses = [
-        {
-          address = ipv4_address;
-          prefixLength = 24;
-        }
-      ];
-    };
-  };
-  networking.defaultGateway = default_gateway;
-  networking.nameservers = nameservers;
+  networking.useDHCP = true;
 
   system.stateVersion = "24.05";
 }

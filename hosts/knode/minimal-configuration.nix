@@ -37,18 +37,7 @@ in {
     "sys-fs-fuse-connections.mount"
   ];
 
-  networking.interfaces = {
-    eth0 = {
-      ipv4.addresses = [
-        {
-          address = "10.0.1.49";
-          prefixLength = 24;
-        }
-      ];
-    };
-  };
-  networking.defaultGateway = "10.0.1.1";
-  networking.nameservers = ["1.0.1.53"];
+  networking.useDHCP = true;
 
   system.stateVersion = "24.05";
 }

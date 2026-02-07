@@ -62,8 +62,8 @@ in {
 
   environment.systemPackages = with pkgs; [git neovim];
 
+  networking.useDHCP = true;
   networking.interfaces = {
-    eth0.useDHCP = true;
     eth1 = {
       ipv4.addresses = [
         {
