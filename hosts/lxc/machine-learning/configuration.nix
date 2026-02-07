@@ -8,10 +8,7 @@
   defaultLocale = "en_GB.UTF-8";
 
   hostname = "machine-learning";
-  ipv4_lan_address = "10.0.1.250";
   ipv4_cluster_address = "10.0.7.250";
-  default_gateway = "10.0.1.1";
-  nameservers = ["10.0.1.53"];
 in {
   imports = [
     # Include the default lxc/lxd configuration.
@@ -59,12 +56,7 @@ in {
 
   networking.interfaces = {
     eth0 = {
-      ipv4.addresses = [
-        {
-          address = ipv4_lan_address;
-          prefixLength = 24;
-        }
-      ];
+      ipv4.useDHCP = true;
     };
     eth1 = {
       ipv4.addresses = [
@@ -75,8 +67,6 @@ in {
       ];
     };
   };
-  networking.defaultGateway = default_gateway;
-  networking.nameservers = nameservers;
 
   services.xserver.videoDrivers = ["nvidia"];
   hardware.graphics.enable = true;
