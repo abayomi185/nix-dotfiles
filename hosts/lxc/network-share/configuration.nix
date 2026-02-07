@@ -7,12 +7,10 @@
   defaultLocale = "en_GB.UTF-8";
 
   hostname = "network-share";
+
   cluster_subnet = "10.0.7.0/24";
-  ipv4_lan_address = "10.0.1.202";
   ipv4_netshare_address = "10.0.5.202";
   ipv4_cluster_address = "10.0.7.202";
-  default_gateway = "10.0.1.1";
-  nameservers = ["10.0.1.53"];
 
   time_machine_mount = "/mnt/mofp0/backups/TimeMachine";
   jellyfin_mount = "/mnt/mopower/swarm-data/jellyfin";
@@ -74,12 +72,7 @@ in {
 
   networking.interfaces = {
     eth0 = {
-      ipv4.addresses = [
-        {
-          address = ipv4_lan_address;
-          prefixLength = 24;
-        }
-      ];
+      ipv4.useDHCP = true;
     };
     eth1 = {
       ipv4.addresses = [
@@ -98,8 +91,6 @@ in {
       ];
     };
   };
-  networking.defaultGateway = default_gateway;
-  networking.nameservers = nameservers;
 
   users.groups = {
     users = {
