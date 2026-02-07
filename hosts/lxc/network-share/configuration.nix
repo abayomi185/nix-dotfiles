@@ -70,10 +70,8 @@ in {
 
   environment.systemPackages = with pkgs; [git];
 
+  networking.useDHCP = true;
   networking.interfaces = {
-    eth0 = {
-      ipv4.useDHCP = true;
-    };
     eth1 = {
       ipv4.addresses = [
         {
