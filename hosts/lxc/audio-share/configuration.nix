@@ -7,10 +7,7 @@
   defaultLocale = "en_GB.UTF-8";
 
   hostname = "l-audio-share";
-  ipv4_lan_address = "10.0.1.203";
   ipv4_cluster_address = "10.0.7.203";
-  default_gateway = "10.0.1.1";
-  nameservers = ["10.0.1.53"];
 in {
   imports = [
     # Include the proxmox lxc configuration.
@@ -59,14 +56,10 @@ in {
 
   environment.systemPackages = with pkgs; [git pamixer scream];
 
+  networking.hostName = hostname;
   networking.interfaces = {
     eth0 = {
-      ipv4.addresses = [
-        {
-          address = ipv4_lan_address;
-          prefixLength = 24;
-        }
-      ];
+      ipv4.useDHCP = true;
     };
     eth1 = {
       ipv4.addresses = [
@@ -77,12 +70,6 @@ in {
       ];
     };
   };
-  networking.defaultGateway = {
-    address = default_gateway;
-    interface = "eth0";
-  };
-  networking.hostName = hostname;
-  networking.nameservers = nameservers;
 
   users.groups = {
     users = {
