@@ -101,6 +101,7 @@ in {
     clusterInit = pK3sClusterInit;
     extraFlags = toString [
       "--disable=traefik,servicelb"
+      "--tls-san=knode${pNodeId}.cluster.internal.yomitosh.media"
     ];
     serverAddr =
       if pK3sServerId != ""
