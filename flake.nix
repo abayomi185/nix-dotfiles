@@ -230,7 +230,7 @@
       audio-share = import ./hosts/lxc/audio-share/default.nix {
         inherit inputs outputs;
       };
-      load-balancer = import ./hosts/lxc/load-balancer/default.nix {
+      kloadbalancer = import ./hosts/lxc/load-balancer/default.nix {
         inherit inputs outputs sops-nix;
       };
       # TODO: Unable to get this working in LXC due to Nix driver installation
