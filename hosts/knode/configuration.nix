@@ -64,9 +64,7 @@ in {
     "sys-fs-fuse-connections.mount"
   ];
 
-  environment.systemPackages = with pkgs; [
-    git
-  ];
+  # environment.systemPackages = with pkgs; [];
 
   networking.useDHCP = true;
   networking.interfaces = {
@@ -88,6 +86,13 @@ in {
   networking.firewall.allowedUDPPorts = [
     8472 # k3s, flannel: required if using multi-node for inter-node networking
   ];
+
+  programs.git = {
+    enable = true;
+    config = {
+      pull.rebase = true;
+    };
+  };
 
   services.k3s = {
     enable = true;
