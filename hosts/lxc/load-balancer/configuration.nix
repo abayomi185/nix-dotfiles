@@ -21,7 +21,7 @@ in {
     ../common.nix
 
     # Wireguard VPN for access from VPS to home lab.
-    ./wireguard.nix
+    # ./wireguard.nix
   ];
 
   sops.secrets.traefikEnv = {
