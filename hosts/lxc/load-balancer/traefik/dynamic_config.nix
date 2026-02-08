@@ -423,15 +423,14 @@ in {
       # Mainsail
       mainsail = {
         loadBalancer.servers = [
-          {url = "http://10.5.0.242:4409";}
+          {url = "http://k1c.internal.yomitosh.media:4409";}
         ];
       };
 
       # Nextcloud
       nextcloud = {
         loadBalancer.servers = [
-          {url = "http://10.0.7.41:30180";}
-          {url = "http://10.0.7.41:30180";}
+          {url = "http://knode1.cluster.internal.yomitosh.media:30180";}
         ];
       };
 
