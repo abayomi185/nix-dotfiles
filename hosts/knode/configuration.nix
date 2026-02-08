@@ -102,6 +102,7 @@ in {
     extraFlags = toString [
       "--disable=traefik,servicelb"
       "--tls-san=knode${pNodeId}.cluster.internal.yomitosh.media"
+      "--tls-san=knode${pNodeId}.internal.yomitosh.media"
     ];
     serverAddr =
       if pK3sServerId != ""
