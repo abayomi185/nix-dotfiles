@@ -19,9 +19,6 @@ in {
 
     # For common settings across all LXC containers.
     ../common.nix
-
-    # Wireguard VPN for access from VPS to home lab.
-    # ./wireguard.nix
   ];
 
   sops.secrets.traefikEnv = {
