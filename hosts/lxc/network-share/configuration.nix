@@ -165,6 +165,11 @@ in {
             <port>0</port>
             <txt-record>model=RackMac</txt-record>
           </service>
+
+          <service>
+            <type>_timemachine._tcp</type>
+            <port>445</port>
+          </service>
         </service-group>
       '';
     };
@@ -221,13 +226,10 @@ in {
         "read only" = "no";
         "inherit acls" = "yes";
         "store dos attributes" = "no";
-        "fruit:encoding" = "private";
-        "fruit:locking" = "none";
-        "fruit:metadata" = "netatalk";
-        "fruit:resource" = "file";
         "fruit:time machine" = "yes";
         "fruit:time machine max size" = "1024 G";
         # Permissions
+        "force group" = "users";
         "create mask" = "0664";
         "force create mode" = "0664";
         "directory mask" = "0775";
