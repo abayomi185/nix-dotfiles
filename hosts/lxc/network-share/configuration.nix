@@ -227,7 +227,7 @@ in {
         "inherit acls" = "yes";
         "store dos attributes" = "no";
         "fruit:time machine" = "yes";
-        "fruit:time machine max size" = "1024 G";
+        "fruit:time machine max size" = "2560 G";
         # Permissions
         "force group" = "users";
         "create mask" = "0664";
