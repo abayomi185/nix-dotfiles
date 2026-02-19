@@ -159,6 +159,12 @@ in {
             <type>_smb._tcp</type>
             <port>445</port>
           </service>
+
+          <service>
+            <type>_device-info._tcp</type>
+            <port>0</port>
+            <txt-record>model=RackMac</txt-record>
+          </service>
         </service-group>
       '';
     };
