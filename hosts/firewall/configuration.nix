@@ -45,7 +45,7 @@
     ethtool
     bridge-utils
     wireguard-tools
-    dig
+    dnsutils
     traceroute
     iperf3
   ];

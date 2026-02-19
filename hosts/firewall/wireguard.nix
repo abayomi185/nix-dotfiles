@@ -8,15 +8,12 @@
 {
   config,
   inputs,
-  lib,
-  pkgs,
   ...
 }: let
   secretsPath = builtins.toString inputs.nix-secrets;
-  hasSecretFile = builtins.pathExists "${secretsPath}/hosts/firewall/wireguard.enc.yaml";
 in {
   # ── Secrets ─────────────────────────────────────────────────────────────
-  sops.secrets."wireguard/privateKey" = lib.mkIf hasSecretFile {
+  sops.secrets."wireguard/privateKey" = {
     sopsFile = "${secretsPath}/hosts/firewall/wireguard.enc.yaml";
   };
 
@@ -26,7 +23,7 @@ in {
     address = ["10.13.13.2/32"];
 
     # Private key from sops (falls back to a file path for manual setup)
-    privateKeyFile = config.sops.secrets."wireguard/privateKey".path
+    privateKeyFile = config.sops.secrets."wireguard/privateKey".path;
 
     # MSS clamping is handled in nftables.nix
 
@@ -41,12 +38,4 @@ in {
     ];
   };
 
-  # ── Route to WireGuard network via the VPS gateway ──────────────────────
-  networking.interfaces.wg0.ipv4.routes = [
-    {
-      address = "10.13.13.0";
-      prefixLength = 24;
-      via = "10.13.13.1";
-    }
-  ];
 }

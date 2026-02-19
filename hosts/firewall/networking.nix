@@ -165,11 +165,6 @@ in {
       ];
     };
 
-    # ── NAT ───────────────────────────────────────────────────────────
-    nat = {
-      enable = true;
-      externalInterface = "wan0";
-      internalInterfaces = ["br-phy" "br-main" "br-iot" "sfp1-v5" "wg0"];
-    };
+    # NAT is handled entirely in nftables.nix (table ip nat / masquerade)
   };
 }

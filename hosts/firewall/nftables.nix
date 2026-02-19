@@ -102,8 +102,8 @@
 
           # MSS clamping for WireGuard traffic
           # (matching OPNsense scrub max-mss 1380 on wireguard interface)
-          iifname "wg0" tcp flags syn tcp option maxseg size set 1380
-          oifname "wg0" tcp flags syn tcp option maxseg size set 1380
+          iifname "wg0" tcp flags syn / syn,rst tcp option maxseg size set 1380
+          oifname "wg0" tcp flags syn / syn,rst tcp option maxseg size set 1380
 
           # ── BRIDGE_PHY_LAN (br-phy): pass any to any ───────────────
           iifname "br-phy" accept
