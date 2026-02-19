@@ -162,6 +162,16 @@
       #   ];
       # };
 
+      firewall = inputs.nixpkgs-stable.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = {inherit inputs outputs;};
+        modules = [
+          ./hosts/firewall/configuration.nix
+          sops-nix.nixosModules.sops
+          agenix.nixosModules.default
+        ];
+      };
+
       vps-arm64 = inputs.nixpkgs-stable.lib.nixosSystem {
         system = "aarch64-linux";
         specialArgs = {inherit inputs outputs;};
