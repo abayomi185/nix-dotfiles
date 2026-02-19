@@ -210,7 +210,7 @@ in {
         "fruit:model" = "RackMac"; # https://askubuntu.com/a/1379614
         "fruit:encoding" = "native";
         "fruit:metadata" = "stream";
-        "spotlight backend" = "elasticsearch";
+        "spotlight backend" = "noindex";
         # Extra options
         "min receivefile size" = "16384";
         "max connections" = "65535";
@@ -224,8 +224,10 @@ in {
         "comment" = "TimeMachine backups";
         "path" = time_machine_mount;
         "read only" = "no";
+        "valid users" = "sambayom";
         "inherit acls" = "yes";
         "store dos attributes" = "no";
+        "vfs objects" = "catia fruit streams_xattr";
         "fruit:time machine" = "yes";
         "fruit:time machine max size" = "2560 G";
         # Permissions
