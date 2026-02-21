@@ -22,8 +22,7 @@
     nixpkgs-fmt
     btop
     lazygit
-    llama-cpp
-    unstable.llama-swap
+    unstable.llama-cpp
     lua-language-server
     nodejs_22
     stylua
@@ -96,9 +95,6 @@
       };
     };
   };
-
-  xdg.configFile."llama-swap/config.yaml".source =
-    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nix-dotfiles/hosts/lxc/machine-learning/configs/llama-swap.yaml";
 
   programs.home-manager.enable = true;
   systemd.user.startServices = "sd-switch";
