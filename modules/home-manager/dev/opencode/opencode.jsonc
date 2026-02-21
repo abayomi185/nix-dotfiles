@@ -1,13 +1,25 @@
 {
+  "plugin": [
+    "oh-my-opencode@latest"
+  ],
   "$schema": "https://opencode.ai/config.json",
-  "mcp": {
-    "chrome-devtools": {
-      "type": "local",
-      "command": ["npx", "-y", "chrome-devtools-mcp@latest"],
-    },
-  },
   "server": {
     "hostname": "127.0.0.1",
     "mdns": true,
   },
+  "mcp": {
+    "chrome-devtools": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "chrome-devtools-mcp@latest"
+      ]
+    }
+  },
+  // To disable oh-my-opencode
+  // "omo_agent": {
+  //   "disabled": true
+  // },
+  "provider": {},
 }
