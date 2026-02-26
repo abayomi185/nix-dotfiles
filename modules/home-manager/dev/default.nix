@@ -1,4 +1,5 @@
 {
+  bun = import ./bun.nix;
   cargo-bins = import ./cargo-bins.nix;
   devenv = import ./devenv.nix;
   github = import ./github.nix;

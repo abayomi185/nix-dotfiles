@@ -48,7 +48,7 @@
 
       alias python=python3
 
-      alias opencode="npx opencode-ai@latest"
+      alias opencode="bunx opencode-ai@latest --port 0"
     '';
 
     # zprofile equivalent
