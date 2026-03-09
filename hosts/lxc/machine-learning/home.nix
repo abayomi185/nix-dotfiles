@@ -1,5 +1,6 @@
 {
   config,
+  inputs,
   outputs,
   pkgs,
   ...
@@ -22,7 +23,7 @@
     nixpkgs-fmt
     btop
     lazygit
-    unstable.llama-cpp
+    inputs.llama-cpp.packages.${pkgs.stdenv.hostPlatform.system}.cuda
     lua-language-server
     nodejs_22
     stylua
