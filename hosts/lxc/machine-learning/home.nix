@@ -23,19 +23,23 @@
     nixpkgs-fmt
     btop
     lazygit
-    (unstable.llama-cpp.override {cudaSupport = true;})
-    (pkgs.runCommand "llama-cpp-edge" {} ''
-      mkdir -p $out/bin
-      for bin in ${inputs.llama-cpp.packages.${pkgs.system}.cuda}/bin/*; do
-        ln -s "$bin" "$out/bin/$(basename "$bin")-edge"
-      done
-    '')
     lua-language-server
     nodejs_22
     stylua
     selene
     ssh-to-age
     uv
+
+    # llama-cpp
+    inputs.llama-cpp.packages.${pkgs.stdenv.hostPlatform.system}.cuda
+    # (unstable.llama-cpp.override {cudaSupport = true;})
+    # (pkgs.runCommand "llama-cpp-edge" {} ''
+    #   mkdir -p $out/bin
+    #   for bin in ${inputs.llama-cpp.packages.${pkgs.system}.cuda}/bin/*; do
+    #     ln -s "$bin" "$out/bin/$(basename "$bin")-edge"
+    #   done
+    # '')
+    ##########
   ];
 
   programs.zsh = {
