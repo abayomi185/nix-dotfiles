@@ -30,16 +30,14 @@
     ssh-to-age
     uv
 
-    # llama-cpp
-    inputs.llama-cpp.packages.${pkgs.stdenv.hostPlatform.system}.cuda
-    # (unstable.llama-cpp.override {cudaSupport = true;})
-    # (pkgs.runCommand "llama-cpp-edge" {} ''
-    #   mkdir -p $out/bin
-    #   for bin in ${inputs.llama-cpp.packages.${pkgs.system}.cuda}/bin/*; do
-    #     ln -s "$bin" "$out/bin/$(basename "$bin")-edge"
-    #   done
-    # '')
-    ##########
+    # llama-cpp (bleeding edge flake, wrapped for host libcuda on Ubuntu)
+    (pkgs.runCommand "llama-cpp" {nativeBuildInputs = [pkgs.makeWrapper];} ''
+      mkdir -p $out/bin
+      for bin in ${inputs.llama-cpp.packages.${pkgs.stdenv.hostPlatform.system}.cuda}/bin/*; do
+        makeWrapper "$bin" "$out/bin/$(basename $bin)" \
+          --prefix LD_LIBRARY_PATH : /usr/lib/x86_64-linux-gnu
+      done
+    '')
   ];
 
   programs.zsh = {
