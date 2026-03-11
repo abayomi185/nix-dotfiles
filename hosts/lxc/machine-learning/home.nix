@@ -30,12 +30,18 @@
     ssh-to-age
     uv
 
-    # llama-cpp (bleeding edge flake, wrapped for host libcuda on Ubuntu)
+    # llama-cpp (bleeding edge flake, wrapped for host NVIDIA driver libs on Ubuntu)
     (pkgs.runCommand "llama-cpp" {nativeBuildInputs = [pkgs.makeWrapper];} ''
-      mkdir -p $out/bin
+      mkdir -p $out/bin $out/nvidia-driver
+
+      ln -s /usr/lib/x86_64-linux-gnu/libcuda.so $out/nvidia-driver/libcuda.so
+      ln -s /usr/lib/x86_64-linux-gnu/libcuda.so.1 $out/nvidia-driver/libcuda.so.1
+      ln -s /usr/lib/x86_64-linux-gnu/libnvidia-ml.so $out/nvidia-driver/libnvidia-ml.so
+      ln -s /usr/lib/x86_64-linux-gnu/libnvidia-ml.so.1 $out/nvidia-driver/libnvidia-ml.so.1
+
       for bin in ${inputs.llama-cpp.packages.${pkgs.stdenv.hostPlatform.system}.cuda}/bin/*; do
         makeWrapper "$bin" "$out/bin/$(basename $bin)" \
-          --prefix LD_LIBRARY_PATH : /usr/lib/x86_64-linux-gnu
+          --prefix LD_LIBRARY_PATH : $out/nvidia-driver
       done
     '')
   ];
