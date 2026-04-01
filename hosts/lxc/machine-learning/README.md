@@ -22,7 +22,7 @@ nix --extra-experimental-features "nix-command flakes" run nixpkgs#home-manager 
 # nix --extra-experimental-features "nix-command flakes" run nixpkgs#home-manager -- --extra-experimental-features "nix-command flakes" switch --flake .#ml@machine-learning -b backup
 ```
 
-Expose llama.cpp via the VPS
+## Expose llama.cpp via the VPS
 
 ```bash
 export LLAMA_API_KEY='<shared-token>'
