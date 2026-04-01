@@ -25,6 +25,7 @@ in {
     ./file-provider/chat.nix
     ./file-provider/comfyui.nix
     ./file-provider/jellyfin.nix
+    ./file-provider/llama.nix
     ./file-provider/nextcloud.nix
     ./file-provider/openchat.nix
     # ./file-provider/home.nix
