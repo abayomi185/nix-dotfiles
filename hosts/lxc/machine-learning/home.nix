@@ -32,7 +32,7 @@
     '';
 in {
   imports = [
-    outputs.homeManagerModules.dev.llama-cpp
+    outputs.homeManagerModules.services.llama-server
     outputs.homeManagerModules.terminal.zellij
   ];
 

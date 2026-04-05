@@ -25,6 +25,9 @@
   # Music
   music = import ./music;
 
+  # Services
+  services = import ./services;
+
   # Shell
   shell = import ./shell;
 
