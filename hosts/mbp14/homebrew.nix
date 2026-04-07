@@ -9,6 +9,7 @@
     outputs.darwinModules.brews.group_awsDev
     outputs.darwinModules.brews.group_azureDev
     # outputs.darwinModules.brews.docker # Using OrbStack
+    outputs.darwinModules.brews.imagemagick
     outputs.darwinModules.brews.sdl2
 
     # Casks - See ../../modules/darwin/casks/default.nix
