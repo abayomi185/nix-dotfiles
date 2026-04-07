@@ -288,6 +288,14 @@
           {
             nixpkgs.hostPlatform = "aarch64-darwin";
 
+            # Use nixpkgs-unstable as the default pkgs for this host
+            # NOTE: nixpkgs.config is ignored when nixpkgs.pkgs is set;
+            # overlays from nixpkgs.overlays are still applied
+            nixpkgs.pkgs = import inputs.nixpkgs-unstable {
+              system = "aarch64-darwin";
+              config.allowUnfree = true;
+            };
+
             # home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.extraSpecialArgs = {inherit inputs outputs;};
@@ -313,7 +321,7 @@
       };
 
       "yomi@MacBook-Pro-14" = home-manager.lib.homeManagerConfiguration {
-        pkgs = inputs.nixpkgs-stable.legacyPackages.aarch64-darwin;
+        pkgs = inputs.nixpkgs-unstable.legacyPackages.aarch64-darwin;
         extraSpecialArgs = {inherit inputs outputs;};
         modules = [
           ./hosts/mbp14/home.nix

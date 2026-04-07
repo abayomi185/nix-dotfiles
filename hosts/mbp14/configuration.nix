@@ -40,16 +40,15 @@
     trusted-users = ["yomi"]; # For devenv/cachix
   };
 
-  # nixpkgs = {
-  #   # You can add overlays here
-  #   overlays = [
-  #     # Add overlays your own flake exports (from overlays and pkgs dir):
-  #     outputs.overlays.additions
-  #     outputs.overlays.modifications
-  #     outputs.overlays.stable-packages
-  #     outputs.overlays.unstable-packages
-  #   ];
-  # };
+  nixpkgs = {
+    # NOTE: config.allowUnfree is set in flake.nix via nixpkgs.pkgs;
+    # nixpkgs.config is ignored when nixpkgs.pkgs is set
+    overlays = [
+      # Add overlays your own flake exports (from overlays and pkgs dir):
+      outputs.overlays.stable-packages
+      # outputs.overlays.unstable-packages
+    ];
+  };
 
   # Define a user account
   system.primaryUser = "yomi"; # Required for darwin
