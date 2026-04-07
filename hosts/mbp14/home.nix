@@ -83,7 +83,7 @@ in {
   };
 
   home.packages = [
-    pkgs.nixVersions.nix_2_29 # brew-nix input requires nix version > 2.19
+    pkgs.nixVersions.nix_2_31
   ];
 
   # Override wezterm package to use the latest from the flake input
@@ -104,5 +104,5 @@ in {
   programs.home-manager.enable = true;
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
-  home.stateVersion = "23.11";
+  home.stateVersion = "26.05";
 }
