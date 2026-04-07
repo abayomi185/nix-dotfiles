@@ -19,9 +19,6 @@ in {
     outputs.homeManagerModules.apps.tree
     outputs.homeManagerModules.apps.vscode
 
-    # Casks - See ../../modules/home-manager/casks/default.nix
-    # outputs.homeManagerModules.casks.ncdu
-
     # Dev - See ../../modules/home-manager/dev/default.nix
     outputs.homeManagerModules.dev.bun
     outputs.homeManagerModules.dev.cargo-bins

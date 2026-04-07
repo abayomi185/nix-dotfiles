@@ -1,3 +1,0 @@
-{
-  ncdu = import ./ncdu.nix;
-}

@@ -35,7 +35,7 @@
     home-manager.url = "github:nix-community/home-manager/release-25.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs-stable";
 
-    # Any other flake needed
+    # Hardware support
     hardware.url = "github:nixos/nixos-hardware";
 
     # AGS
@@ -74,16 +74,6 @@
     nix-secrets = {
       url = "git+ssh://git@github.com/abayomi185/nix-secrets.git?ref=main&shallow=1";
       flake = false;
-    };
-
-    # Brew Nix
-    brew-api = {
-      url = "github:BatteredBunny/brew-api";
-      flake = false;
-    };
-    brew-nix = {
-      url = "github:BatteredBunny/brew-nix";
-      inputs.brew-api.follows = "brew-api";
     };
 
     # Wezterm
