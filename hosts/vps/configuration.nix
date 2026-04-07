@@ -126,8 +126,8 @@ in {
 
   # System Packages
   environment.systemPackages = with pkgs; [
-    inputs.compose2nix.packages.${system}.default
-    inputs.agenix.packages.${system}.default
+    inputs.compose2nix.packages.${pkgs.stdenv.hostPlatform.system}.default
+    inputs.agenix.packages.${pkgs.stdenv.hostPlatform.system}.default
     podman-tui
     podman-compose
     sops

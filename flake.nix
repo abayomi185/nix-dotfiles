@@ -13,8 +13,8 @@
 
     # Darwin
     nixpkgs-darwin = {
-      url = "github:LnL7/nix-darwin/nix-darwin-25.11";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
+      url = "github:LnL7/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
     nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
@@ -32,8 +32,8 @@
     };
 
     # Home manager
-    home-manager.url = "github:nix-community/home-manager/release-25.11";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs-stable";
+    home-manager.url = "github:nix-community/home-manager";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
     # Hardware support
     hardware.url = "github:nixos/nixos-hardware";

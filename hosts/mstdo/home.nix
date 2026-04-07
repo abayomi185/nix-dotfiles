@@ -50,7 +50,6 @@
       outputs.overlays.additions
       outputs.overlays.modifications
       outputs.overlays.unstable-packages
-      inputs.brew-nix.overlays.default
     ];
 
     config = {

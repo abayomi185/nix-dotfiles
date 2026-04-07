@@ -72,8 +72,8 @@
 
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
-    inputs.agenix.packages.${system}.default
-    # inputs.wezterm.packages.${system}.default
+    inputs.agenix.packages.${pkgs.stdenv.hostPlatform.system}.default
+    # inputs.wezterm.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
 
   # Creates global /etc/zshrc that loads the nix-darwin environment
