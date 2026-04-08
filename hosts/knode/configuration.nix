@@ -1,6 +1,7 @@
 {
   config,
   inputs,
+  lib,
   pNodeId,
   pK3sRole,
   pK3sServerId,
@@ -120,6 +121,20 @@ in {
     };
     wantedBy = ["multi-user.target"];
   };
+
+  # Bound the global stop timeout so that services stuck on unavailable NFS
+  # mounts (uninterruptible D-state processes) do not prevent shutdown/reboot.
+  # Without this, the node hangs indefinitely when trying to drain k3s pods
+  # that are blocked on NFS I/O, requiring a forced LXC stop.
+  systemd.extraConfig = ''
+    DefaultTimeoutStopSec=30s
+  '';
+
+  # Override the k3s service stop timeout individually so that k3s's own pod-
+  # drain phase (which tries to gracefully evict every pod) is also bounded.
+  # k3s can wait many minutes for stuck NFS-backed pods to terminate; this
+  # caps that wait and lets systemd SIGKILL the process after 30 s.
+  systemd.services.k3s.serviceConfig.TimeoutStopSec = lib.mkForce "30";
 
   system.stateVersion = "24.05";
 }
