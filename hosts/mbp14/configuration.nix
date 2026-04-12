@@ -13,6 +13,9 @@
     # outputs.darwinModules.desktop.spacebar
     outputs.darwinModules.desktop.yabai
 
+    # Nitora brightness daemon
+    inputs.nitora.darwinModules.default
+
     # Homebrew - See ./brew.nix
     ./homebrew.nix
 
@@ -78,6 +81,12 @@
 
   # Creates global /etc/zshrc that loads the nix-darwin environment
   programs.zsh.enable = true; # Important!
+
+  # Nitora XDR/EDR brightness control
+  programs.nitora = {
+    enable = true;
+    autoActivate = true;
+  };
 
   # Add ability to used TouchID for sudo authentication
   security.pam.services.sudo_local.touchIdAuth = true;

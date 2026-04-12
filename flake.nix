@@ -87,6 +87,12 @@
       url = "github:ggml-org/llama.cpp";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+
+    # Nitora
+    nitora = {
+      url = "github:abayomi185/nitora";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
 
   outputs = {

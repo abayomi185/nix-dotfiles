@@ -368,6 +368,26 @@
         "type": "github"
       }
     },
+    "nitora": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs-unstable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1775991636,
+        "narHash": "sha256-JT2VC8EmTxSxvmXFwP+49rXEnQNLVTss1D2+OIJlQyA=",
+        "owner": "abayomi185",
+        "repo": "nitora",
+        "rev": "1c84a92d93afaca37135aa436af3b5d55d400e48",
+        "type": "github"
+      },
+      "original": {
+        "owner": "abayomi185",
+        "repo": "nitora",
+        "type": "github"
+      }
+    },
     "nix-colors": {
       "inputs": {
         "base16-schemes": "base16-schemes",
@@ -558,6 +578,7 @@
         "homebrew-cask": "homebrew-cask",
         "homebrew-core": "homebrew-core",
         "llama-cpp": "llama-cpp",
+        "nitora": "nitora",
         "nix-colors": "nix-colors",
         "nix-homebrew": "nix-homebrew",
         "nix-secrets": "nix-secrets",
