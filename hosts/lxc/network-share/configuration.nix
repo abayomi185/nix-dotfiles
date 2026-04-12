@@ -110,6 +110,7 @@ in {
 
   networking.firewall = {
     # for NFSv3; view with `rpcinfo -p`
+    # Ports 4000-4002 are pinned for lockd and mountd via services.nfs.settings
     allowedTCPPorts = [111 2020 2121 2049 4000 4001 4002 20048];
     allowedUDPPorts = [111 2049 4000 4001 4002 20048];
     allowedTCPPortRanges = [
@@ -118,6 +119,29 @@ in {
         to = 10100;
       }
     ];
+  };
+
+  # Pin auxiliary NFS daemon ports so the firewall rules above are always
+  # effective (by default these are assigned randomly at startup).
+  # Increase nfsd threads to reduce server-side queuing under load, which
+  # can contribute to client-side I/O stalls that drive up knode CPU load.
+  services.nfs.settings = {
+    nfsd = {
+      # Use 16 threads instead of the default 8 to handle concurrent
+      # requests from multiple Kubernetes nodes more smoothly.
+      threads = 16;
+    };
+    lockd = {
+      port = 4000;
+      udp-port = 4000;
+    };
+    mountd = {
+      port = 4002;
+    };
+    statd = {
+      port = 4001;
+      outgoing-port = 4001;
+    };
   };
 
   services.nfs.server = {
