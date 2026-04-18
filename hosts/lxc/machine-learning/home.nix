@@ -33,8 +33,9 @@
 in {
   imports = [
     outputs.homeManagerModules.services.llama-server
-    outputs.homeManagerModules.terminal.zellij
+    outputs.homeManagerModules.shell.fzf
     outputs.homeManagerModules.shell.zoxide
+    outputs.homeManagerModules.terminal.zellij
   ];
 
   nix = {
