@@ -34,6 +34,7 @@ in {
   imports = [
     outputs.homeManagerModules.services.llama-server
     outputs.homeManagerModules.terminal.zellij
+    outputs.homeManagerModules.shell.zoxide
   ];
 
   nix = {
@@ -90,7 +91,7 @@ in {
 
     oh-my-zsh = {
       enable = true;
-      plugins = ["git" "vi-mode"];
+      plugins = ["git" "fzf" "vi-mode"];
       theme = "robbyrussell";
     };
   };
