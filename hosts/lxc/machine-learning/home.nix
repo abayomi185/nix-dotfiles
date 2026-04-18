@@ -63,41 +63,20 @@ in {
     llamaCppWrapped
   ];
 
-  # llama-server for the tuned Qwen3.6 single-model setup
+  # llama-server router with explicit presets for selectable local models
   services.llama-server = {
     enable = true;
     package = llamaCppWrapped;
     host = "0.0.0.0";
     port = 9000;
     extraFlags = [
-      "-hf"
-      "unsloth/Qwen3.6-35B-A3B-GGUF:UD-Q4_K_XL"
-      "--fit"
-      "on"
-      "--fit-ctx"
-      "131072"
-      "--fit-target"
-      "512"
-      "-np"
+      "--models-preset"
+      "${./configs/llama-models.ini}"
+      "--models-max"
       "1"
-      "-t"
-      "32"
-      "-tb"
-      "32"
-      "-fa"
-      "on"
-      "-ctk"
-      "q8_0"
-      "-ctv"
-      "q8_0"
-      "-b"
-      "2048"
-      "-ub"
-      "2048"
-      "--mlock"
+      "--no-models-autoload"
       "--metrics"
       "--no-webui"
-      "--no-mmproj"
     ];
   };
 
