@@ -49,7 +49,7 @@ in {
               (toString cfg.port)
             ]
             ++ cfg.extraFlags;
-        in "${cfg.package}/bin/llama-server ${lib.concatStringsSep " " flags}";
+        in "${lib.getExe' cfg.package "llama-server"} ${lib.escapeShellArgs flags}";
         Restart = "on-failure";
         RestartSec = 5;
       };

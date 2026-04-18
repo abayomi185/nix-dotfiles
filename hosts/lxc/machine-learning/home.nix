@@ -63,12 +63,42 @@ in {
     llamaCppWrapped
   ];
 
-  # llama-server in router mode for multi-model serving
+  # llama-server for the tuned Qwen3.6 single-model setup
   services.llama-server = {
     enable = true;
     package = llamaCppWrapped;
     host = "0.0.0.0";
     port = 9000;
+    extraFlags = [
+      "-hf"
+      "unsloth/Qwen3.6-35B-A3B-GGUF:UD-Q4_K_XL"
+      "--fit"
+      "on"
+      "--fit-ctx"
+      "131072"
+      "--fit-target"
+      "512"
+      "-np"
+      "1"
+      "-t"
+      "32"
+      "-tb"
+      "32"
+      "-fa"
+      "on"
+      "-ctk"
+      "q8_0"
+      "-ctv"
+      "q8_0"
+      "-b"
+      "2048"
+      "-ub"
+      "2048"
+      "--mlock"
+      "--metrics"
+      "--no-webui"
+      "--no-mmproj"
+    ];
   };
 
   programs.zsh = {
