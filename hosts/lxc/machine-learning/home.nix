@@ -47,6 +47,7 @@ in {
   home.packages = with pkgs; [
     age
     alejandra
+    bun
     nil
     nixpkgs-fmt
     btop
