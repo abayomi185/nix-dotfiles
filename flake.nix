@@ -336,9 +336,12 @@
       };
 
       "ml@machine-learning" = home-manager.lib.homeManagerConfiguration {
-        pkgs = import inputs.nixpkgs-stable {
+        pkgs = import inputs.nixpkgs-unstable {
           system = "x86_64-linux";
-          overlays = [outputs.overlays.unstable-packages];
+          overlays = [
+            outputs.overlays.unstable-packages
+            outputs.overlays.stable-packages
+          ];
         };
         extraSpecialArgs = {inherit inputs outputs;};
         modules = [
