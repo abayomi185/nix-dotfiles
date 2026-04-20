@@ -35,6 +35,9 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
+    home-manager-stable.url = "github:nix-community/home-manager/release-25.11";
+    home-manager-stable.inputs.nixpkgs.follows = "nixpkgs-stable";
+
     # Hardware support
     hardware.url = "github:nixos/nixos-hardware";
 
@@ -182,7 +185,7 @@
           ./hosts/vps/configuration.nix
           sops-nix.nixosModules.sops
           agenix.nixosModules.default
-          home-manager.nixosModules.home-manager
+          inputs.home-manager-stable.nixosModules.home-manager
           {
             # home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
@@ -207,7 +210,7 @@
           {
             home-manager.useUserPackages = true;
             home-manager.extraSpecialArgs = {inherit inputs outputs;};
-            home-manager.users.cloud = import ./hosts/game/home.nix;
+            home-manager.users.game = import ./hosts/game/home.nix;
             home-manager.sharedModules = [
               inputs.sops-nix.homeManagerModules.sops
             ];
