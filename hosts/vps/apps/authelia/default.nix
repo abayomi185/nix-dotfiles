@@ -19,6 +19,8 @@ in {
     "authelia_duoApi_secretKey" = autheliaSecrets;
     "authelia_smtp_username" = autheliaSecrets;
     "authelia_smtp_password" = autheliaSecrets;
+    "authelia_oidcHmacSecret" = autheliaSecrets;
+    "authelia_oidcJwksPrivateKey" = autheliaSecrets;
   };
 
   sops.templates."authelia-addon-secrets.yaml" = {
@@ -29,22 +31,25 @@ in {
           - domain: "${config.sops.placeholder."authelia_domain"}"
             authelia_url: "${config.sops.placeholder."authelia_defaultRedirectionUrl"}"
 
-      # identity_providers:
-      #   oidc:
-      #     clients:
-      #       - client_id: "open-webui-internal"
-      #         client_name: "Open WebUI Internal"
-      #         client_secret: ""
-      #         public: false
-      #         authorization_policy: "two_factor"
-      #         redirect_uris:
-      #           - 'https://chat.example.com/oauth/oidc/callback'
-      #         scopes:
-      #           - 'openid'
-      #           - 'profile'
-      #           - 'groups'
-      #           - 'email'
-      #         userinfo_signed_response_alg: 'RS256'
+      identity_providers:
+        oidc:
+          hmac_secret: "${config.sops.placeholder."authelia_oidcHmacSecret"}"
+          jwks:
+            - key_id: "default-rs256"
+              algorithm: "RS256"
+              use: "sig"
+              key: |
+                ${config.sops.placeholder."authelia_oidcJwksPrivateKey"}
+          enable_client_debug_messages: false
+          minimum_parameter_entropy: 8
+          enforce_pkce: "public_clients_only"
+          enable_pkce_plain_challenge: false
+          require_pushed_authorization_requests: false
+          lifespans:
+            access_token: "1h"
+            authorize_code: "1m"
+            id_token: "1h"
+            refresh_token: "90m"
 
       notifier:
         smtp:
@@ -78,6 +83,7 @@ in {
           authz = {
             forward-auth = {
               implementation = "ForwardAuth";
+              # Keep the default browser session-based authz flow for now.
             };
           };
         };
