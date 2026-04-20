@@ -137,6 +137,14 @@ in {
         service = "lidarr";
       };
 
+      # LLM
+      llm = {
+        entryPoints = ["websecure"];
+        rule = ''Host("llm.${internal_domain_name}") || Host("llm.${media_domain_name}")'';
+        tls.certResolver = "letsencrypt";
+        service = "llm";
+      };
+
       # Local cert service
       local = {
         entryPoints = ["websecure"];
@@ -410,6 +418,13 @@ in {
         loadBalancer.servers = [
           {url = "http://10.0.7.41:30686";}
           {url = "http://10.0.7.42:30686";}
+        ];
+      };
+
+      # LLM
+      llm = {
+        loadBalancer.servers = [
+          {url = "http://machine-learning.internal.yomitosh.media:9000";}
         ];
       };
 
