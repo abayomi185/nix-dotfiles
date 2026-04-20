@@ -33,13 +33,6 @@ in {
 
       identity_providers:
         oidc:
-          hmac_secret: "${config.sops.placeholder."authelia_oidcHmacSecret"}"
-          jwks:
-            - key_id: "default-rs256"
-              algorithm: "RS256"
-              use: "sig"
-              key: |
-                ${config.sops.placeholder."authelia_oidcJwksPrivateKey"}
           enable_client_debug_messages: false
           minimum_parameter_entropy: 8
           enforce_pkce: "public_clients_only"
@@ -69,6 +62,8 @@ in {
     secrets = {
       jwtSecretFile = config.sops.secrets."authelia_jwtSecret".path;
       storageEncryptionKeyFile = config.sops.secrets."authelia_storageEncryptionKey".path;
+      oidcHmacSecretFile = config.sops.secrets."authelia_oidcHmacSecret".path;
+      oidcIssuerPrivateKeyFile = config.sops.secrets."authelia_oidcJwksPrivateKey".path;
     };
     settingsFiles = [
       "${config.sops.templates."authelia-addon-secrets.yaml".path}"
