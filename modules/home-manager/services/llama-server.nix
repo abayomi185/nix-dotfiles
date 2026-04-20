@@ -25,6 +25,12 @@ in {
       description = "Port for the llama-server to listen on.";
     };
 
+    apiKeyFile = lib.mkOption {
+      type = lib.types.nullOr lib.types.str;
+      default = null;
+      description = "Path to a file containing one llama-server API key per line.";
+    };
+
     extraFlags = lib.mkOption {
       type = lib.types.listOf lib.types.str;
       default = [];
@@ -47,6 +53,10 @@ in {
               cfg.host
               "--port"
               (toString cfg.port)
+            ]
+            ++ lib.optionals (cfg.apiKeyFile != null) [
+              "--api-key-file"
+              cfg.apiKeyFile
             ]
             ++ cfg.extraFlags;
         in "${lib.getExe' cfg.package "llama-server"} ${lib.escapeShellArgs flags}";

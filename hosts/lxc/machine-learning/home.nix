@@ -1,5 +1,6 @@
 {
   inputs,
+  llamaServerApiKeyFile,
   outputs,
   pkgs,
   ...
@@ -69,6 +70,7 @@ in {
     package = llamaCppWrapped;
     host = "0.0.0.0";
     port = 9000;
+    apiKeyFile = llamaServerApiKeyFile;
     extraFlags = [
       "--models-preset"
       "${./configs/llama-models.ini}"

@@ -346,7 +346,10 @@
             outputs.overlays.stable-packages
           ];
         };
-        extraSpecialArgs = {inherit inputs outputs;};
+        extraSpecialArgs = {
+          inherit inputs outputs;
+          llamaServerApiKeyFile = "/home/ml/.config/llama-server/api-keys";
+        };
         modules = [
           ./hosts/lxc/machine-learning/home.nix
         ];
