@@ -262,6 +262,27 @@
         "type": "github"
       }
     },
+    "home-manager-stable": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs-stable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1775425411,
+        "narHash": "sha256-KY6HsebJHEe5nHOWP7ur09mb0drGxYSzE3rQxy62rJo=",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "0d02ec1d0a05f88ef9e74b516842900c41f0f2fe",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "ref": "release-25.11",
+        "repo": "home-manager",
+        "type": "github"
+      }
+    },
     "home-manager_2": {
       "inputs": {
         "nixpkgs": [
@@ -451,10 +472,10 @@
     "nix-secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1770585177,
-        "narHash": "sha256-tMKFxpZFAOGlJQdGZbntByR6wM+JimsQN1QhpfV2h2A=",
+        "lastModified": 1776670394,
+        "narHash": "sha256-mHLwkZ2qB2bniO/L3cUpzu34Pqm9rt8N58mqBGfMFOk=",
         "ref": "main",
-        "rev": "43b5db48ebfca8bdee8bf45c64e60158af6326f0",
+        "rev": "07e0760106791be493e3c75c2a465b6496722c72",
         "shallow": true,
         "type": "git",
         "url": "ssh://git@github.com/abayomi185/nix-secrets.git"
@@ -574,6 +595,7 @@
         "compose2nix": "compose2nix",
         "hardware": "hardware",
         "home-manager": "home-manager_2",
+        "home-manager-stable": "home-manager-stable",
         "homebrew-bundle": "homebrew-bundle",
         "homebrew-cask": "homebrew-cask",
         "homebrew-core": "homebrew-core",
