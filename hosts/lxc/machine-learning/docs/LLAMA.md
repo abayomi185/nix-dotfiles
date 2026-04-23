@@ -14,6 +14,8 @@ The current managed setup is the source of truth, not the older one-off benchmar
 Current presets:
 
 - `unsloth/Qwen3.6-35B-A3B-GGUF:UD-Q4_K_XL`
+- `unsloth/Qwen3.6-27B-GGUF:UD-Q4_K_XL`
+- `unsloth/gemma-4-31B-it-GGUF:UD-Q4_K_XL`
 - `unsloth/gpt-oss-20b-GGUF:F16`
 
 The managed tuning currently comes from `hosts/lxc/machine-learning/configs/llama-models.ini`:
@@ -22,7 +24,7 @@ The managed tuning currently comes from `hosts/lxc/machine-learning/configs/llam
 - `threads = 32`
 - `threads-batch = 32`
 - `mlock = true`
-- Qwen3.6 preset: `fit-target = 512`, `flash-attn = on`, `cache-type-k/v = q8_0`, `batch-size = 2048`, `ubatch-size = 2048`
+- Qwen3.6 and Gemma q4 presets: `fit-target = 512`, `flash-attn = on`, `cache-type-k/v = q8_0`, `batch-size = 2048`, `ubatch-size = 2048`
 - GPT OSS 20B preset: `fit-target = 512`, `flash-attn = on`, `jinja = true`, `batch-size = 2048`, `ubatch-size = 512`
 
 ## Checking the current API key
