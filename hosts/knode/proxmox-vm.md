@@ -55,4 +55,3 @@ scsi0: local-lvm:vm-403-disk-0,size=25G
 scsihw: virtio-scsi-pci
 startup: order=6
 ```
-
