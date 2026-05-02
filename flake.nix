@@ -255,6 +255,13 @@
       network-share = import ./hosts/lxc/network-share/default.nix {
         inherit inputs outputs;
       };
+      livecd = inputs.nixpkgs-stable.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = {inherit inputs outputs;};
+        modules = [
+          ./hosts/livecd/configuration.nix
+        ];
+      };
     };
 
     darwinConfigurations = {
