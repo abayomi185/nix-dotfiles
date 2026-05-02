@@ -5,7 +5,7 @@
   ...
 }: {
   imports = [
-    "${inputs.nixpkgs-stable}/nixos/modules/installer/cd-dvd/installation-cd-graphical-gnome.nix"
+    "${inputs.nixpkgs-stable}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
   ];
 
   networking.hostName = "livecd";
