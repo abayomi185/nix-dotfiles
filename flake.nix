@@ -73,6 +73,11 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+    };
+
     # Secrets
     nix-secrets = {
       url = "git+ssh://git@github.com/abayomi185/nix-secrets.git?ref=main&shallow=1";
@@ -254,6 +259,14 @@
       # };
       network-share = import ./hosts/lxc/network-share/default.nix {
         inherit inputs outputs;
+      };
+      nixos-anywhere-generic = inputs.nixpkgs-stable.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = {inherit inputs outputs;};
+        modules = [
+          inputs.disko.nixosModules.disko
+          ./hosts/nixos-anywhere/configuration.nix
+        ];
       };
       livecd = inputs.nixpkgs-stable.lib.nixosSystem {
         system = "x86_64-linux";
