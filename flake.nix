@@ -268,6 +268,15 @@
           ./hosts/nixos-anywhere/configuration.nix
         ];
       };
+      nixos-anywhere-generic-nvme = inputs.nixpkgs-stable.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = {inherit inputs outputs;};
+        modules = [
+          inputs.disko.nixosModules.disko
+          ./hosts/nixos-anywhere/configuration.nix
+          ./hosts/nixos-anywhere/disk-config-nvme.nix
+        ];
+      };
       livecd = inputs.nixpkgs-stable.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = {inherit inputs outputs;};
