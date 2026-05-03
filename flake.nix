@@ -260,6 +260,8 @@
       network-share = import ./hosts/lxc/network-share/default.nix {
         inherit inputs outputs;
       };
+
+      # NixOS Anywhere targets
       nixos-anywhere-generic = inputs.nixpkgs-stable.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = {inherit inputs outputs;};
@@ -277,6 +279,8 @@
           ./hosts/nixos-anywhere/disk-config-nvme.nix
         ];
       };
+
+      # LiveCD target
       livecd = inputs.nixpkgs-stable.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = {inherit inputs outputs;};

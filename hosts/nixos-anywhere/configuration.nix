@@ -1,11 +1,9 @@
 # Generic nixos-anywhere target for x86_64-linux hosts.
 #
-
 # Install with:
 # nix run github:nix-community/nixos-anywhere -- \
 #   --flake .#nixos-anywhere-generic \
 #   --target-host root@<ip-address>
-
 {
   modulesPath,
   lib,
@@ -30,9 +28,11 @@
     pkgs.gitMinimal
   ];
 
-  users.users.root.openssh.authorizedKeys.keys = [
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJUFAxoqI9FZ1z4X+CVoyqwzdeYj/7uqI19U/hNiVQ41 yomi@MacBook-Air.lan"
-  ] ++ (args.extraPublicKeys or []);
+  users.users.root.openssh.authorizedKeys.keys =
+    [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJUFAxoqI9FZ1z4X+CVoyqwzdeYj/7uqI19U/hNiVQ41 yomi@MacBook-Pro.lan"
+    ]
+    ++ (args.extraPublicKeys or []);
 
   system.stateVersion = "25.11";
 }
