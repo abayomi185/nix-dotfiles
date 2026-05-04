@@ -1,9 +1,7 @@
 # Generic nixos-anywhere target for x86_64-linux hosts.
 #
 # Install with:
-# nix run github:nix-community/nixos-anywhere -- \
-#   --flake .#nixos-anywhere-generic \
-#   --target-host root@<ip-address>
+# nix run github:nix-community/nixos-anywhere -- --flake .#nixos-anywhere-generic --generate-hardware-config nixos-generate-config ./hosts/nixos-anywhere/hardware-configuration.nix --target-host nixos@<ip-address>
 {
   modulesPath,
   lib,
