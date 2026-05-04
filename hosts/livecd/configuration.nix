@@ -5,7 +5,7 @@
   ...
 }: {
   imports = [
-    "${inputs.nixpkgs-stable}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
+    "${inputs.nixpkgs-stable}/nixos/modules/installer/cd-dvd/installation-cd-minimal-combined.nix"
   ];
 
   networking.hostName = "livecd";
