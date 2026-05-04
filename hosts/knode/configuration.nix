@@ -5,25 +5,27 @@
   pK3sRole,
   pK3sServerId,
   pK3sClusterInit,
-  modulesPath,
-  pkgs,
   ...
 }: let
   timeZone = "Europe/London";
   defaultLocale = "en_GB.UTF-8";
 in {
   imports = [
-    # Include the default lxc/lxd configuration.
-    "${modulesPath}/virtualisation/lxc-container.nix"
+    ./hardware-configuration.nix
   ];
 
   nix.settings = {
     auto-optimise-store = true;
     experimental-features = "nix-command flakes";
-    sandbox = false;
   };
 
-  boot.isContainer = true;
+  boot.loader.grub = {
+    enable = true;
+    device = "nodev";
+    efiSupport = true;
+    efiInstallAsRemovable = true;
+  };
+
   networking.hostName = "knode${pNodeId}";
 
   boot.supportedFilesystems = ["nfs"];
@@ -55,14 +57,6 @@ in {
       LC_TIME = defaultLocale;
     };
   };
-
-  # Supress systemd units that don't work because of LXC.
-  # https://blog.xirion.net/posts/nixos-proxmox-lxc/#configurationnix-tweak
-  systemd.suppressedSystemUnits = [
-    "dev-mqueue.mount"
-    "sys-kernel-debug.mount"
-    "sys-fs-fuse-connections.mount"
-  ];
 
   # environment.systemPackages = with pkgs; [];
 
@@ -108,17 +102,6 @@ in {
       if pK3sServerId != ""
       then "https://knode${pK3sServerId}.cluster.internal.yomitosh.media:6443"
       else "";
-  };
-
-  systemd.services.createDevKmsgSymlink = {
-    description = "Create /dev/kmsg symlink to /dev/console for kubelet";
-    after = ["sysinit.target"];
-    serviceConfig = {
-      Type = "oneshot";
-      ExecStart = ["${pkgs.coreutils}/bin/ln -sf /dev/console /dev/kmsg"];
-      RemainAfterExit = true;
-    };
-    wantedBy = ["multi-user.target"];
   };
 
   system.stateVersion = "24.05";

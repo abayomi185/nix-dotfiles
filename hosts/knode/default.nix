@@ -11,6 +11,7 @@ inputs.nixpkgs-stable.lib.nixosSystem {
   specialArgs = {
     inherit inputs outputs pNodeId pK3sRole pK3sServerId pK3sClusterInit;
   };
+
   modules = [
     ./configuration.nix
     inputs.sops-nix.nixosModules.sops
