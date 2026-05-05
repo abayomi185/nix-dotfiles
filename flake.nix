@@ -236,12 +236,12 @@
       knode2 = import ./hosts/knode/default.nix {
         inherit inputs outputs;
         pNodeId = "2";
-        pK3sRole = "server";
+        pK3sRole = "agent";
       };
       knode3 = import ./hosts/knode/default.nix {
         inherit inputs outputs;
         pNodeId = "3";
-        pK3sRole = "server";
+        pK3sRole = "agent";
       };
       knode4 = import ./hosts/knode/default.nix {
         inherit inputs outputs;
