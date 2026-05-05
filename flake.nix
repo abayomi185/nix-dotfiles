@@ -243,6 +243,11 @@
         pNodeId = "3";
         pK3sRole = "server";
       };
+      knode4 = import ./hosts/knode/default.nix {
+        inherit inputs outputs;
+        pNodeId = "4";
+        pK3sRole = "agent";
+      };
     };
 
     # LXC node definitions
