@@ -27,9 +27,7 @@
   ];
 
   users.users.root.openssh.authorizedKeys.keys =
-    [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJUFAxoqI9FZ1z4X+CVoyqwzdeYj/7uqI19U/hNiVQ41 yomi@MacBook-Pro.lan"
-    ]
+    import ../shared/authorized-keys.nix
     ++ (args.extraPublicKeys or []);
 
   system.stateVersion = "25.11";
