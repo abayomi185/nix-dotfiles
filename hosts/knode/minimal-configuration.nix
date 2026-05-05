@@ -1,16 +1,26 @@
-{modulesPath, ...}: let
+{
+  lib,
+  modulesPath,
+  pDiskDevice ? "/dev/sda",
+  ...
+}: let
   timeZone = "Europe/London";
   defaultLocale = "en_GB.UTF-8";
 in {
   imports = [
-    # Include the default lxc/lxd configuration.
-    "${modulesPath}/virtualisation/lxc-container.nix"
+    (modulesPath + "/profiles/qemu-guest.nix")
+    ./disk-config.nix
+    ./hardware-configuration.nix
   ];
 
-  nix.settings.experimental-features = ["nix-command" "flakes"];
+  boot.loader.grub = {
+    efiSupport = true;
+    efiInstallAsRemovable = true;
+  };
 
-  boot.isContainer = true;
   networking.hostName = "knode";
+
+  nix.settings.experimental-features = ["nix-command" "flakes"];
 
   time.timeZone = timeZone;
 
@@ -28,14 +38,6 @@ in {
       LC_TIME = defaultLocale;
     };
   };
-
-  # Supress systemd units that don't work because of LXC.
-  # https://blog.xirion.net/posts/nixos-proxmox-lxc/#configurationnix-tweak
-  systemd.suppressedSystemUnits = [
-    "dev-mqueue.mount"
-    "sys-kernel-debug.mount"
-    "sys-fs-fuse-connections.mount"
-  ];
 
   networking.useDHCP = true;
 

@@ -1,30 +1,34 @@
 {
   config,
   inputs,
-  pNodeId,
+  lib,
+  pClusterInterface ? "eth1",
+  pK3sClusterInit,
   pK3sRole,
   pK3sServerId,
-  pK3sClusterInit,
-  modulesPath,
-  pkgs,
+  pNodeId,
   ...
 }: let
   timeZone = "Europe/London";
   defaultLocale = "en_GB.UTF-8";
 in {
   imports = [
-    # Include the default lxc/lxd configuration.
-    "${modulesPath}/virtualisation/lxc-container.nix"
+    ./disk-config.nix
+    ./hardware-configuration.nix
   ];
 
   nix.settings = {
     auto-optimise-store = true;
     experimental-features = "nix-command flakes";
-    sandbox = false;
   };
 
-  boot.isContainer = true;
+  boot.loader.grub = {
+    efiSupport = true;
+    efiInstallAsRemovable = true;
+  };
+
   networking.hostName = "knode${pNodeId}";
+  networking.usePredictableInterfaceNames = lib.mkForce false;
 
   boot.supportedFilesystems = ["nfs"];
   services.rpcbind.enable = true;
@@ -38,6 +42,8 @@ in {
   };
 
   services.openssh.enable = true;
+  users.users.root.openssh.authorizedKeys.keys = import ../shared/authorized-keys.nix;
+  services.qemuGuest.enable = true;
 
   time.timeZone = timeZone;
 
@@ -56,26 +62,14 @@ in {
     };
   };
 
-  # Supress systemd units that don't work because of LXC.
-  # https://blog.xirion.net/posts/nixos-proxmox-lxc/#configurationnix-tweak
-  systemd.suppressedSystemUnits = [
-    "dev-mqueue.mount"
-    "sys-kernel-debug.mount"
-    "sys-fs-fuse-connections.mount"
-  ];
-
-  # environment.systemPackages = with pkgs; [];
-
   networking.useDHCP = true;
-  networking.interfaces = {
-    eth1 = {
-      ipv4.addresses = [
-        {
-          address = "10.0.7.4${pNodeId}";
-          prefixLength = 24;
-        }
-      ];
-    };
+  networking.interfaces.${pClusterInterface} = {
+    ipv4.addresses = [
+      {
+        address = "10.0.7.4${pNodeId}";
+        prefixLength = 24;
+      }
+    ];
   };
 
   networking.firewall.allowedTCPPorts = [
@@ -108,17 +102,6 @@ in {
       if pK3sServerId != ""
       then "https://knode${pK3sServerId}.cluster.internal.yomitosh.media:6443"
       else "";
-  };
-
-  systemd.services.createDevKmsgSymlink = {
-    description = "Create /dev/kmsg symlink to /dev/console for kubelet";
-    after = ["sysinit.target"];
-    serviceConfig = {
-      Type = "oneshot";
-      ExecStart = ["${pkgs.coreutils}/bin/ln -sf /dev/console /dev/kmsg"];
-      RemainAfterExit = true;
-    };
-    wantedBy = ["multi-user.target"];
   };
 
   system.stateVersion = "24.05";
