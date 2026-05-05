@@ -122,6 +122,7 @@ in {
 
   services.nfs.server = {
     enable = true;
+    nproc = 16;
     exports = ''
       ${swarm_config_directory}           ${cluster_subnet}(${nfs_export_permissions})
       ${swarm_data_directory}             ${cluster_subnet}(${nfs_export_permissions})
