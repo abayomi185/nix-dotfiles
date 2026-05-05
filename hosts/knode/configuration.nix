@@ -42,7 +42,7 @@ in {
   };
 
   services.openssh.enable = true;
-  users.users.root.openssh.authorizedKeys.keys = import ../shared/authorized-keys.nix;
+  users.users.root.openssh.authorizedKeys.keys = import ../shared/authorized-keys.nix {inherit inputs;};
   services.qemuGuest.enable = true;
 
   time.timeZone = timeZone;

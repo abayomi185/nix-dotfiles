@@ -3,6 +3,7 @@
 # Install with:
 # nix run github:nix-community/nixos-anywhere -- --flake .#nixos-anywhere-generic --generate-hardware-config nixos-generate-config ./hosts/nixos-anywhere/hardware-configuration.nix --target-host nixos@<ip-address>
 {
+  inputs,
   modulesPath,
   lib,
   pkgs,
@@ -27,7 +28,7 @@
   ];
 
   users.users.root.openssh.authorizedKeys.keys =
-    import ../shared/authorized-keys.nix
+    import ../shared/authorized-keys.nix {inherit inputs;}
     ++ (args.extraPublicKeys or []);
 
   system.stateVersion = "25.11";

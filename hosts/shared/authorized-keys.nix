@@ -1,3 +1,1 @@
-[
-  "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJUFAxoqI9FZ1z4X+CVoyqwzdeYj/7uqI19U/hNiVQ41"
-]
+{inputs}: import "${builtins.toString inputs.nix-secrets}/shared/authorized-keys.nix"
