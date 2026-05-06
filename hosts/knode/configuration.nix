@@ -63,14 +63,6 @@ in {
   };
 
   networking.useDHCP = true;
-  networking.interfaces.${pClusterInterface} = {
-    ipv4.addresses = [
-      {
-        address = "10.0.7.4${pNodeId}";
-        prefixLength = 24;
-      }
-    ];
-  };
 
   networking.firewall.allowedTCPPorts = [
     6443 # k3s: required so that pods can reach the API server (running on port 6443 by default)
