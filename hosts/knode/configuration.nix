@@ -93,8 +93,11 @@ in {
     role = pK3sRole; # "server" or "agent"
     tokenFile = config.sops.secrets.k3s_token.path;
     clusterInit = pK3sClusterInit;
-    extraFlags = toString [
-      "--disable=traefik,servicelb"
+    disable = lib.optionals (pK3sRole == "server") [
+      "traefik"
+      "servicelb"
+    ];
+    extraFlags = lib.optionals (pK3sRole == "server") [
       "--tls-san=knode${pNodeId}.cluster.internal.yomitosh.media"
       "--tls-san=knode${pNodeId}.internal.yomitosh.media"
     ];
