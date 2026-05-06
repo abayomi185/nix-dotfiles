@@ -17,6 +17,9 @@ shared private key to the node before re-running activation.
 export NODE_NUM=1 # Replace with the node number you want to update (1, 2, 3, 4)
 ssh root@knode${NODE_NUM}.internal.yomitosh.media "install -d -m 700 /root/.ssh"
 rsync -avP id_ed25519 id_ed25519.pub root@knode${NODE_NUM}.internal.yomitosh.media:/root/.ssh/
+
+# If additional authorized_keys are needed, you can copy them to the node and then run the following command to set correct permissions. Otherwise, you can skip this step.
+# ssh root@knode${NODE_NUM}.internal.yomitosh.media "chown -R root:root /root/.ssh /root/.ssh/authorized_keys && chmod 600 /root/.ssh/authorized_keys"
 ssh root@knode${NODE_NUM}.internal.yomitosh.media "chmod 600 /root/.ssh/id_ed25519 && chmod 644 /root/.ssh/id_ed25519.pub && /run/current-system/bin/switch-to-configuration switch"
 ```
 
