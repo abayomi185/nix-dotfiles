@@ -8,9 +8,7 @@
 
   hostname = "network-share";
 
-  cluster_subnet = "10.0.7.0/24";
-  ipv4_netshare_address = "10.0.5.202";
-  ipv4_cluster_address = "10.0.7.202";
+  cluster_subnet = "10.1.5.0/24";
 
   time_machine_mount = "/mnt/mofp0/backups/TimeMachine";
   jellyfin_mount = "/mnt/mopower/swarm-data/jellyfin";
@@ -71,24 +69,6 @@ in {
   environment.systemPackages = with pkgs; [git];
 
   networking.useDHCP = true;
-  networking.interfaces = {
-    eth1 = {
-      ipv4.addresses = [
-        {
-          address = ipv4_netshare_address;
-          prefixLength = 24;
-        }
-      ];
-    };
-    eth2 = {
-      ipv4.addresses = [
-        {
-          address = ipv4_cluster_address;
-          prefixLength = 24;
-        }
-      ];
-    };
-  };
 
   users.groups = {
     users = {
