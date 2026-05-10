@@ -312,15 +312,13 @@ in {
       adguard = {
         loadBalancer.servers = [
           {url = "http://10.0.7.53:80";}
-          {url = "http://10.0.7.53:80";}
         ];
       };
 
       # AudioBookShelf
       audiobookshelf = {
         loadBalancer.servers = [
-          {url = "http://10.0.7.41:30378";}
-          {url = "http://10.0.7.42:30378";}
+          {url = "http://knode1.internal.yomitosh.media:30378";}
         ];
       };
 
@@ -334,38 +332,33 @@ in {
       # Bazarr
       bazarr = {
         loadBalancer.servers = [
-          {url = "http://10.0.7.41:30767";}
-          {url = "http://10.0.7.42:30767";}
+          {url = "http://knode1.internal.yomitosh.media:30767";}
         ];
       };
 
       # Chat - OpenWebUI Public
       openchat = {
         loadBalancer.servers = [
-          {url = "http://10.0.7.41:30281";}
-          {url = "http://10.0.7.42:30281";}
-          {url = "http://10.0.7.43:30281";}
+          {url = "http://knode1.internal.yomitosh.media:30281";}
         ];
       };
 
       # Chat - OpenWebUI Internal
       chat = {
         loadBalancer.servers = [
-          {url = "http://10.0.7.41:30280";}
-          {url = "http://10.0.7.42:30280";}
-          {url = "http://10.0.7.43:30280";}
+          {url = "http://knode3.internal.yomitosh.media:30280";}
         ];
       };
       chat-backend = {
         loadBalancer.servers = [
-          {url = "http://10.0.7.250:11434";}
+          {url = "http://machine-learning.internal.yomitosh:11434";}
         ];
       };
 
       # ComfyUI
       comfyui = {
         loadBalancer.servers = [
-          {url = "http://10.0.1.250:8188";}
+          {url = "http://machine-learning.internal.yomitosh.media:8188";}
         ];
       };
 
@@ -386,15 +379,14 @@ in {
       # Home Assistant
       home = {
         loadBalancer.servers = [
-          {url = "http://10.0.7.206:8123";}
+          {url = "http://home.internal.yomitosh.media:8123";}
         ];
       };
 
       # Immich
       immich = {
         loadBalancer.servers = [
-          {url = "http://10.0.7.41:32283";}
-          {url = "http://10.0.7.42:32283";}
+          {url = "http://knode1.internal.yomitosh.media:32283";}
         ];
       };
 
@@ -408,16 +400,14 @@ in {
       # Jellyfin
       jellyfin = {
         loadBalancer.servers = [
-          {url = "http://10.0.7.41:30096";}
-          {url = "http://10.0.7.43:30096";}
+          {url = "http://knode1.internal.yomitosh.media:30096";}
         ];
       };
 
       # Lidarr
       lidarr = {
         loadBalancer.servers = [
-          {url = "http://10.0.7.41:30686";}
-          {url = "http://10.0.7.42:30686";}
+          {url = "http://knode1.internal.yomitosh.media:30686";}
         ];
       };
 
@@ -452,16 +442,14 @@ in {
       # Ombi
       ombi = {
         loadBalancer.servers = [
-          {url = "http://10.0.7.41:30579";}
-          {url = "http://10.0.7.42:30579";}
+          {url = "http://knode1.internal.yomitosh.media:30579";}
         ];
       };
 
       # Prowlarr
       prowlarr = {
         loadBalancer.servers = [
-          {url = "http://10.0.7.41:30696";}
-          {url = "http://10.0.7.42:30696";}
+          {url = "http://knode1.internal.yomitosh.media:30696";}
         ];
       };
 
@@ -475,16 +463,14 @@ in {
       # Radarr
       radarr = {
         loadBalancer.servers = [
-          {url = "http://10.0.7.41:30078";}
-          {url = "http://10.0.7.42:30078";}
+          {url = "http://knode1.internal.yomitosh.media:30078";}
         ];
       };
 
       # Readarr
       readarr = {
         loadBalancer.servers = [
-          {url = "http://10.0.7.41:8787";}
-          {url = "http://10.0.7.42:8787";}
+          {url = "http://knode1.internal.yomitosh.media:8787";}
         ];
       };
 
@@ -505,25 +491,21 @@ in {
       # Sonarr
       sonarr = {
         loadBalancer.servers = [
-          {url = "http://10.0.7.41:30089";}
-          {url = "http://10.0.7.42:30089";}
+          {url = "http://knode1.internal.yomitosh.media:30089";}
         ];
       };
 
       # Syncthing
       syncthing = {
         loadBalancer.servers = [
-          {url = "https://10.0.7.41:8384";}
-          {url = "https://10.0.7.42:8384";}
-          {url = "https://10.0.7.43:8384";}
+          {url = "https://knode1.internal.yomitosh.media:8384";}
         ];
       };
 
       # Transmission
       transmission = {
         loadBalancer.servers = [
-          {url = "http://10.0.7.41:30091";}
-          {url = "http://10.0.7.42:30091";}
+          {url = "http://knode1.internal.yomitosh.media:30091";}
         ];
       };
 
