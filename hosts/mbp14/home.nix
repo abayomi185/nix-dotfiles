@@ -4,6 +4,8 @@
   pkgs,
   ...
 }: let
+  userName = "yomi";
+  homeDirectory = "/Users/${userName}";
   secretsPath = builtins.toString inputs.mysecrets;
 in {
   imports = [
@@ -91,8 +93,9 @@ in {
   # programs.wezterm.package = lib.mkForce inputs.wezterm.packages.${pkgs.system}.default;
 
   home = {
-    username = "yomi";
-    homeDirectory = "/Users/yomi";
+    username = userName;
+    inherit homeDirectory;
+    sessionPath = ["${homeDirectory}/.bun/bin"];
   };
 
   sops = {
