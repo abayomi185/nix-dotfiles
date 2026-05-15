@@ -42,3 +42,9 @@ mv ~/.config/llama-server/api-keys.tmp ~/.config/llama-server/api-keys
 chmod 600 ~/.config/llama-server/api-keys
 systemctl --user restart llama-server
 ```
+
+For regular server maintenance:
+
+```sh
+nix run run nixpkgs#home-manager -- switch --flake .#ml@machine-learning
+```
