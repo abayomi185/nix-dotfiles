@@ -11,6 +11,7 @@
 }: let
   timeZone = "Europe/London";
   defaultLocale = "en_GB.UTF-8";
+  isIntelGpuNode = pNodeId == "4";
 in {
   imports = [
     ./disk-config.nix
@@ -44,6 +45,9 @@ in {
   services.openssh.enable = true;
   users.users.root.openssh.authorizedKeys.keys = import ../shared/authorized-keys.nix {inherit inputs;};
   services.qemuGuest.enable = true;
+
+  hardware.enableRedistributableFirmware = isIntelGpuNode;
+  boot.kernelParams = lib.optionals isIntelGpuNode ["i915.enable_guc=3"];
 
   time.timeZone = timeZone;
 
