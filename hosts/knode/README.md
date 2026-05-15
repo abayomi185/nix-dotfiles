@@ -40,3 +40,10 @@ nix run nixpkgs#nixos-rebuild -- switch \
   --flake .#knode${NODE_NUM} \
   --target-host root@knode${NODE_NUM}.internal.yomitosh.media
 ```
+
+To test intel gpu passthrough on knode4:
+
+```bash
+nix shell nixpkgs#intel-media-driver -c bash
+intel_gpu_top
+```
