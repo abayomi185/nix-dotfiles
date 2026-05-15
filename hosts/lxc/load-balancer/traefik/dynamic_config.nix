@@ -43,6 +43,14 @@ in {
         service = "authelia";
       };
 
+      # Bambubuddy
+      bambubuddy = {
+        entryPoints = ["websecure"];
+        rule = ''Host("bambubuddy.${internal_domain_name}") || Host("bambubuddy.${media_domain_name}")'';
+        tls.certResolver = "letsencrypt";
+        service = "bambubuddy";
+      };
+
       # Bazarr
       bazarr = {
         entryPoints = ["websecure"];
@@ -326,6 +334,13 @@ in {
       authelia = {
         loadBalancer.servers = [
           {url = "http://10.0.7.205:8008";}
+        ];
+      };
+
+      # Bambubuddy
+      bambubuddy = {
+        loadBalancer.servers = [
+          {url = "http://knode1.internal.yomitosh.media:30800";}
         ];
       };
 
