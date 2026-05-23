@@ -229,6 +229,7 @@
       knode1 = import ./hosts/knode/default.nix {
         inherit inputs outputs;
         pNodeId = "1";
+        pClusterAddress = "10.0.7.41";
         pK3sRole = "server";
         pK3sClusterInit = true;
         pK3sServerId = "";
@@ -236,11 +237,13 @@
       knode2 = import ./hosts/knode/default.nix {
         inherit inputs outputs;
         pNodeId = "2";
+        pClusterAddress = "10.0.7.42";
         pK3sRole = "agent";
       };
       knode3 = import ./hosts/knode/default.nix {
         inherit inputs outputs;
         pNodeId = "3";
+        pClusterAddress = "10.0.7.43";
         pK3sRole = "agent";
       };
       knode4 = import ./hosts/knode/default.nix {
