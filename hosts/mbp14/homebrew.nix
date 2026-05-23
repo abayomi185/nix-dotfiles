@@ -44,7 +44,7 @@
     outputs.darwinModules.casks.ocenaudio
     outputs.darwinModules.casks.openscad
     outputs.darwinModules.casks.orbstack
-    outputs.darwinModules.casks.orca-slicer
+    outputs.darwinModules.casks.orcaslicer
     outputs.darwinModules.casks.private-internet-access
     outputs.darwinModules.casks.raspberry-pi-imager
     outputs.darwinModules.casks.raycast

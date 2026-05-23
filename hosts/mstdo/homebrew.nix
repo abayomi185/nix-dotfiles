@@ -22,7 +22,7 @@
     outputs.darwinModules.casks.obs
     outputs.darwinModules.casks.obsidian
     outputs.darwinModules.casks.ollama-app
-    outputs.darwinModules.casks.orca-slicer
+    outputs.darwinModules.casks.orcaslicer
     outputs.darwinModules.casks.raycast
     outputs.darwinModules.casks.serif-apps
     outputs.darwinModules.casks.spotify

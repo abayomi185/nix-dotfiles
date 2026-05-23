@@ -34,7 +34,8 @@
   openscad = import ./openscad.nix;
   ocenaudio = import ./ocenaudio.nix;
   orbstack = import ./orbstack.nix;
-  orca-slicer = import ./orca-slicer.nix;
+  orcaslicer = import ./orcaslicer.nix;
+  orcaslicer-nightly = import ./orcaslicer-nightly.nix;
   orion = import ./orion.nix;
   private-internet-access = import ./private-internet-access.nix;
   raspberry-pi-imager = import ./raspberry-pi-imager.nix;
