@@ -3,6 +3,7 @@
     enable = true;
     package = pkgs.unstable.neovim-unwrapped;
     defaultEditor = true;
+    sideloadInitLua = true;
     extraPackages = with pkgs; [
       # Global Lua packages
       lua-language-server
