@@ -56,7 +56,7 @@ in {
   nixpkgs = {
     overlays = [
       outputs.overlays.additions
-      outputs.overlays.modifications
+      outputs.overlays.applications
       outputs.overlays.unstable-packages
     ];
   };

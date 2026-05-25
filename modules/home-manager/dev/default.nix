@@ -11,7 +11,8 @@
   markdown = import ./markdown.nix;
   nodejs = import ./nodejs.nix;
   ollama = import ./ollama.nix;
-  opencode = import ./opencode.nix;
+  oh-my-pi = import ./oh-my-pi;
+  opencode = import ./opencode;
   python = import ./python.nix;
   rust = import ./rust.nix;
   turso = import ./turso.nix;

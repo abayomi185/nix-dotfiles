@@ -22,7 +22,7 @@ in {
     outputs.homeManagerModules.apps.vscode
 
     # Dev - See ../../modules/home-manager/dev/default.nix
-    outputs.homeManagerModules.dev.bun
+    outputs.homeManagerModules.dev.oh-my-pi
     outputs.homeManagerModules.dev.cargo-bins
     outputs.homeManagerModules.dev.devenv
     outputs.homeManagerModules.dev.github
@@ -72,7 +72,7 @@ in {
   nixpkgs = {
     overlays = [
       outputs.overlays.additions
-      outputs.overlays.modifications
+      outputs.overlays.applications
       outputs.overlays.unstable-packages
     ];
 
@@ -95,7 +95,6 @@ in {
   home = {
     username = userName;
     inherit homeDirectory;
-    sessionPath = ["${homeDirectory}/.bun/bin"];
   };
 
   sops = {

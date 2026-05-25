@@ -15,6 +15,7 @@
     outputs.homeManagerModules.apps.tree
 
     # Dev - See ../../modules/home-manager/dev/default.nix
+    outputs.homeManagerModules.dev.oh-my-pi
     outputs.homeManagerModules.dev.github
     outputs.homeManagerModules.dev.llama-cpp
     outputs.homeManagerModules.dev.kubectl
@@ -48,7 +49,7 @@
   nixpkgs = {
     overlays = [
       outputs.overlays.additions
-      outputs.overlays.modifications
+      outputs.overlays.applications
       outputs.overlays.unstable-packages
     ];
 
