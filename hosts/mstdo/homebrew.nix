@@ -4,10 +4,11 @@
     outputs.darwinModules.homebrew
 
     # Brews - See ../../modules/darwin/brews/default.nix
-    outputs.darwinModules.brews.llama-swap
     outputs.darwinModules.brews.group_mobileDev
+    outputs.darwinModules.brews.omlx
 
     # Casks - See ../../modules/darwin/casks/default.nix
+    outputs.darwinModules.casks.affinity
     outputs.darwinModules.casks.autodesk-fusion
     outputs.darwinModules.casks.brave
     outputs.darwinModules.casks.calibre
@@ -21,8 +22,7 @@
     outputs.darwinModules.casks.notion
     outputs.darwinModules.casks.obs
     outputs.darwinModules.casks.obsidian
-    outputs.darwinModules.casks.ollama-app
-    outputs.darwinModules.casks.orcaslicer
+    outputs.darwinModules.casks.orcaslicer-nightly
     outputs.darwinModules.casks.raycast
     outputs.darwinModules.casks.serif-apps
     outputs.darwinModules.casks.spotify

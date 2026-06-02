@@ -10,6 +10,7 @@
     outputs.darwinModules.brews.group_azureDev
     # outputs.darwinModules.brews.docker # Using OrbStack
     outputs.darwinModules.brews.imagemagick
+    outputs.darwinModules.brews.omlx
     outputs.darwinModules.brews.sdl2
 
     # Casks - See ../../modules/darwin/casks/default.nix
@@ -46,7 +47,6 @@
     outputs.darwinModules.casks.openscad
     outputs.darwinModules.casks.orbstack
     outputs.darwinModules.casks.orcaslicer-nightly
-    outputs.darwinModules.casks.private-internet-access
     outputs.darwinModules.casks.raspberry-pi-imager
     outputs.darwinModules.casks.raycast
     outputs.darwinModules.casks.scroll-reverser
