@@ -7,6 +7,7 @@
   docker = import ./docker.nix;
   imagemagick = import ./imagemagick.nix;
   llama-swap = import ./llama-swap.nix;
+  omlx = import ./omlx.nix;
   sdl2 = import ./sdl2.nix;
 
   # Default brews that don't fit into a specific group
