@@ -17,6 +17,7 @@
     outputs.darwinModules.casks.alt-tab
     outputs.darwinModules.casks.autodesk-fusion
     outputs.darwinModules.casks.balenaetcher
+    outputs.darwinModules.casks.bambu-studio
     outputs.darwinModules.casks.blender
     outputs.darwinModules.casks.bruno
     outputs.darwinModules.casks.calibre
@@ -44,7 +45,7 @@
     outputs.darwinModules.casks.ocenaudio
     outputs.darwinModules.casks.openscad
     outputs.darwinModules.casks.orbstack
-    outputs.darwinModules.casks.orcaslicer
+    outputs.darwinModules.casks.orcaslicer-nightly
     outputs.darwinModules.casks.private-internet-access
     outputs.darwinModules.casks.raspberry-pi-imager
     outputs.darwinModules.casks.raycast

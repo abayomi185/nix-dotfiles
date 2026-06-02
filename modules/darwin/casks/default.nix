@@ -3,6 +3,7 @@
   alt-tab = import ./alt-tab.nix;
   autodesk-fusion = import ./autodesk-fusion.nix;
   balenaetcher = import ./balenaetcher.nix;
+  bambu-studio = import ./bambu-studio.nix;
   blender = import ./blender.nix;
   brave = import ./brave.nix;
   bruno = import ./bruno.nix;
@@ -17,6 +18,7 @@
   freecad = import ./freecad.nix;
   ghostty = import ./ghostty.nix;
   google-chrome = import ./google-chrome.nix;
+  handy = import ./handy.nix;
   heroic = import ./heroic.nix;
   ice = import ./ice.nix;
   iina = import ./iina.nix;
