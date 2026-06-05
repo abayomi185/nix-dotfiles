@@ -3,6 +3,8 @@
     enable = true;
     package = pkgs.unstable.neovim-unwrapped;
     defaultEditor = true;
+    withPython3 = true;
+    withRuby = false;
     sideloadInitLua = true;
     extraPackages = with pkgs; [
       # Global Lua packages

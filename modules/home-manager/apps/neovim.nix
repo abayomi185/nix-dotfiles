@@ -2,6 +2,8 @@
   programs.neovim = {
     enable = true;
     defaultEditor = true;
+    withPython3 = true;
+    withRuby = false;
     extraPackages = with pkgs; [
       # Global Lua packages
       lua-language-server
