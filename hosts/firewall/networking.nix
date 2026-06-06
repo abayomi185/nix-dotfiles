@@ -31,12 +31,12 @@
   # will not come up) rather than silently mis-ordering NICs — see README.md.
   # TODO(switchover): replace the placeholder MACs with the VM's real ones.
   macs = {
-    wan0 = "XX:XX:XX:XX:XX:00"; # net0 / vtnet0
-    lan1 = "XX:XX:XX:XX:XX:01"; # net1 / vtnet1
-    lan2 = "XX:XX:XX:XX:XX:02"; # net2 / vtnet2
-    lan3 = "XX:XX:XX:XX:XX:03"; # net3 / vtnet3
-    sfp0 = "XX:XX:XX:XX:XX:04"; # net4 / vtnet4
-    sfp1 = "XX:XX:XX:XX:XX:05"; # net5 / vtnet5
+    wan0 = "BC:24:11:51:30:B7"; # net0 / vtnet0
+    lan1 = "BC:24:11:B4:EF:0D"; # net1 / vtnet1
+    lan2 = "BC:24:11:CC:64:55"; # net2 / vtnet2
+    lan3 = "BC:24:11:66:B5:B9"; # net3 / vtnet3
+    sfp0 = "BC:24:11:37:82:FC"; # net4 / vtnet4
+    sfp1 = "BC:24:11:96:2E:53"; # net5 / vtnet5
   };
 
   mkLink = name: mac: {
