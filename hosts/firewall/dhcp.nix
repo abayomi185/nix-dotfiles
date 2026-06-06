@@ -1,82 +1,62 @@
-# DHCP and local DNS authority via Dnsmasq
-# Dnsmasq runs on port 53053 for DNS (forwarded from Unbound) and handles DHCP
+# DHCP + local DNS authority — Dnsmasq.
 #
-# Migrated from OPNsense Dnsmasq configuration
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}: {
+# Dnsmasq answers DNS on :53053 (Unbound forwards the local zones here, see
+# dns.nix) and serves DHCP for every LAN. DHCP reservations double as static
+# DNS records: each `mac,host,ip` makes `host.internal.yomitosh.media` resolve
+# to `ip` regardless of lease state — this is what k3s' serverAddr
+# (`knodeN.internal.yomitosh.media:6443`) depends on.
+#
+# Migrated from OPNsense Dnsmasq configuration.
+{...}: {
   services.dnsmasq = {
     enable = true;
     settings = {
-      # ── General ─────────────────────────────────────────────────────
-      # Listen on port 53053 for DNS (Unbound forwards local zones here)
+      # DNS on 53053 — Unbound owns :53 and forwards local zones to us.
       port = 53053;
+      interface = ["br-phy" "br-main" "br-iot" "sfp1.5"];
 
-      # Only listen on LAN-facing interfaces for DNS
-      # (DHCP will also use these interfaces)
-      interface = ["br-phy" "br-main" "br-iot" "sfp1-v5"];
-
-      # Don't read /etc/resolv.conf (matching OPNsense no-resolv)
+      # Self-contained local authority: never read /etc/resolv.conf, never
+      # forward upstream (Unbound handles recursion).
       no-resolv = true;
-
-      # Don't send queries upstream - we only answer what we know locally
-      # Unbound handles recursion
       local = "/internal.yomitosh.media/";
-
-      # Domain for DHCP hostnames
       domain = "internal.yomitosh.media";
-
-      # Always return fully qualified domain names for DHCP hosts
       expand-hosts = true;
-
-      # Authoritative mode (matching OPNsense setting)
       dhcp-authoritative = true;
 
-      # ── DHCP Ranges ────────────────────────────────────────────────
+      # ── DHCP ranges (per LAN) ──────────────────────────────────────────
       dhcp-range = [
-        # VLAN_MAIN (br-main) - 10.1.10.0/24, lease 4h
-        "interface:br-main,10.1.10.100,10.1.10.250,255.255.255.0,4h"
-        # VLAN_IOT (br-iot) - 10.1.50.0/24, lease 6h
-        "interface:br-iot,10.1.50.100,10.1.50.250,255.255.255.0,6h"
-        # PHY_LAN (br-phy) - 10.1.1.0/24, lease 4h
-        "interface:br-phy,10.1.1.100,10.1.1.250,255.255.255.0,4h"
-        # VLAN_PHY (sfp1-v5) - 10.1.5.0/24, lease 4h
-        "interface:sfp1-v5,10.1.5.100,10.1.5.250,255.255.255.0,4h"
+        "interface:br-main,10.1.10.100,10.1.10.250,255.255.255.0,4h" # VLAN_MAIN
+        "interface:br-iot,10.1.50.100,10.1.50.250,255.255.255.0,6h" # VLAN_IOT
+        "interface:br-phy,10.1.1.100,10.1.1.250,255.255.255.0,4h" # PHY bridge
+        "interface:sfp1.5,10.1.5.100,10.1.5.250,255.255.255.0,4h" # VLAN_PHY/infra
       ];
 
-      # ── DHCP Options ───────────────────────────────────────────────
-      # Set default gateway (this firewall) and DNS per interface
+      # ── Per-LAN gateway + DNS (this firewall) ──────────────────────────
       dhcp-option = [
-        # br-main: gateway + DNS
         "interface:br-main,option:router,10.1.10.1"
         "interface:br-main,option:dns-server,10.1.10.1"
-        # br-iot: gateway + DNS
         "interface:br-iot,option:router,10.1.50.1"
         "interface:br-iot,option:dns-server,10.1.50.1"
-        # br-phy: gateway + DNS
         "interface:br-phy,option:router,10.1.1.1"
         "interface:br-phy,option:dns-server,10.1.1.1"
-        # sfp1-v5: gateway + DNS
-        "interface:sfp1-v5,option:router,10.1.5.1"
-        "interface:sfp1-v5,option:dns-server,10.1.5.1"
+        "interface:sfp1.5,option:router,10.1.5.1"
+        "interface:sfp1.5,option:dns-server,10.1.5.1"
       ];
 
-      # ── Static DHCP Leases ─────────────────────────────────────────
+      # ── Static reservations (mac,host,ip) — from OPNsense ──────────────
       dhcp-host = [
-        # k1c Klipper printer (IoT VLAN)
-        "fc:ee:28:03:6c:d5,k1c,10.1.50.83"
-        # Kubernetes load balancer (Infrastructure VLAN)
+        # Infrastructure / VLAN 5 (10.1.5.0/24)
         "bc:24:11:78:dc:ab,kloadbalancer,10.1.5.40"
+        "bc:24:11:24:10:3b,knode1,10.1.5.71"
+        "bc:24:11:34:e2:12,knode2,10.1.5.72"
+        "bc:24:11:3b:26:f1,knode3,10.1.5.73"
+        "bc:24:11:8b:0c:40,knode4,10.1.5.74"
+        # IoT / VLAN 50 (10.1.50.0/24)
+        "fc:ee:28:03:6c:d5,k1c,10.1.50.83"
+        "80:9d:65:5e:3a:34,x2d,10.1.50.114"
       ];
 
-      # ── Logging ─────────────────────────────────────────────────────
-      # Quiet DHCP logging (can enable for debugging)
       quiet-dhcp = true;
-
-      # Don't use /etc/hosts
       no-hosts = false;
     };
   };

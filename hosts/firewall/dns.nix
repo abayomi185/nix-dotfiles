@@ -82,7 +82,7 @@
           ''"knode1.cluster.internal.yomitosh.media. IN A 10.0.7.41"''
           ''"knode2.cluster.internal.yomitosh.media. IN A 10.0.7.42"''
           ''"knode3.cluster.internal.yomitosh.media. IN A 10.0.7.43"''
-          ''"knode4.cluster.internal.yomitosh.media. IN A 10.0.7.44"''
+          ''"network-share.cluster.internal.yomitosh.media. IN A 10.0.7.202"''
           # Wildcard for *.local.yomitosh.media -> K8s load balancer
           ''"local.yomitosh.media. IN A 10.1.5.40"''
         ];

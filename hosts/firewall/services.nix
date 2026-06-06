@@ -25,7 +25,7 @@
   services.avahi = {
     enable = true;
     reflector = true;
-    allowInterfaces = ["br-main" "sfp1-v5"];
+    allowInterfaces = ["br-main" "sfp1.5"];
     # Don't publish the firewall's own services
     publish = {
       enable = false;

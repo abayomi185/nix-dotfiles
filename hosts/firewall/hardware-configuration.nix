@@ -1,9 +1,12 @@
-# Hardware configuration for the firewall VM (QEMU/Proxmox)
+# Hardware — Proxmox QEMU guest. Filesystems and the boot device come from
+# disko-config.nix, so they are intentionally not declared here.
 #
-# IMPORTANT: This is a best-effort placeholder. Generate the real
-# hardware config by running on the actual VM:
-#   nixos-generate-config --show-hardware-config
-# and replacing the boot/filesystem sections below.
+# Regenerate at install time with nixos-anywhere:
+#   nix run github:nix-community/nixos-anywhere -- \
+#     --flake .#firewall \
+#     --generate-hardware-config nixos-generate-config \
+#       ./hosts/firewall/hardware-configuration.nix \
+#     --target-host root@<installer-ip>
 {
   lib,
   modulesPath,
@@ -17,20 +20,6 @@
   boot.initrd.kernelModules = [];
   boot.kernelModules = [];
   boot.extraModulePackages = [];
-
-  # Boot loader - adjust based on your VM's boot method
-  boot.loader.grub = {
-    enable = true;
-    device = "/dev/vda"; # Adjust to match your VM disk
-  };
-
-  # Filesystem - adjust to match your VM disk layout
-  fileSystems."/" = {
-    device = "/dev/vda1";
-    fsType = "ext4";
-  };
-
-  swapDevices = [];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 }

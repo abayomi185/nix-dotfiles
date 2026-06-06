@@ -177,6 +177,7 @@
         specialArgs = {inherit inputs outputs;};
         modules = [
           ./hosts/firewall/configuration.nix
+          inputs.disko.nixosModules.disko
           sops-nix.nixosModules.sops
           agenix.nixosModules.default
         ];
