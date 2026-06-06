@@ -44,39 +44,37 @@ does not route; only static DNS records point at it.
    (replace the `XX:XX:…` placeholders). Until this is done the router will not
    come up (NIC naming fails loudly rather than mis-ordering).
 
-3. **Create the WireGuard secret** in the `nix-secrets` repo. Reuse the existing
-   OPNsense WG0 private key so the VPS peer needs no change:
-   ```bash
-   # in the nix-secrets checkout, encrypted to the shared age recipient
-   sops hosts/firewall/default.enc.yaml
-   # add:
-   #   wireguard:
-   #     privateKey: QLmtOUOW6CMWSs4yjMzGH3ND4PEIrQ/xR6SyoMurOm4=
-   ```
-   (The matching public key `CvwrIcJkTMA+w44xOIsvGXH2dH4gQCywLnVQZrx2DlI=` is
-   already a trusted peer on the VPS.) Commit + push nix-secrets, then
-   `nix flake update nix-secrets` here.
+3. **WireGuard secret — already created.** `nix-secrets` holds the OPNsense WG0
+   private key at `hosts/firewall/default.enc.yaml` (key `wireguard/privateKey`),
+   encrypted to a **dedicated** firewall age recipient (`&firewall`
+   `age1xh03ujgc49gn0pua5u3su94sf28ggwwpxrykeuzvg25pyu92r48qcm6sly` in
+   `.sops.yaml`) — isolated from the knode key. The matching public key
+   `CvwrIcJkTMA+w44xOIsvGXH2dH4gQCywLnVQZrx2DlI=` is already a trusted peer on
+   the VPS, so the VPS side is unchanged. Nothing to do here unless the key
+   rotates.
 
 ## Install
 
-`nixos-anywhere` onto the booted NixOS installer ISO (disko partitions the
-disk, hardware config is generated):
+The firewall decrypts sops with its **own** `/root/.ssh/id_ed25519`, generated
+at `~/firewall-root-key/id_ed25519` on the admin box (recipient registered as
+`&firewall`). Keep that private key backed up and off the other hosts. Stage it
+so `nixos-anywhere` drops it in before first boot, so the WireGuard secret
+decrypts on the first activation (disko partitions the disk; the hardware
+config is generated from the target):
 
 ```bash
+mkdir -p extra-files/root/.ssh
+install -m 600 ~/firewall-root-key/id_ed25519     extra-files/root/.ssh/id_ed25519
+install -m 644 ~/firewall-root-key/id_ed25519.pub extra-files/root/.ssh/id_ed25519.pub
+
 nix run github:nix-community/nixos-anywhere -- \
   --flake .#firewall \
+  --extra-files extra-files \
   --generate-hardware-config nixos-generate-config \
     ./hosts/firewall/hardware-configuration.nix \
   --target-host root@<installer-ip>
-```
 
-SOPS decrypts with `/root/.ssh/id_ed25519` (same shared key as the knodes), so
-copy it to the box before activation completes:
-
-```bash
-ssh root@<firewall-ip> "install -d -m 700 /root/.ssh"
-rsync -avP id_ed25519 id_ed25519.pub root@<firewall-ip>:/root/.ssh/
-ssh root@<firewall-ip> "chmod 600 /root/.ssh/id_ed25519 && /run/current-system/bin/switch-to-configuration switch"
+rm -rf extra-files          # don't leave the private key lying around
 ```
 
 Subsequent changes:

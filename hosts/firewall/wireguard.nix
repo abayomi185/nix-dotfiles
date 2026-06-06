@@ -5,9 +5,8 @@
 #
 #   firewall  10.13.13.2  <-- wg -->  10.13.13.1  VPS (wireguard.yomitosh.media)
 #
-# SETUP (switchover): put the OPNsense WG0 private key into nix-secrets at
-#   hosts/firewall/default.enc.yaml  under key  wireguard/privateKey
-# (sops, encrypted to this host's age key). See README.md.
+# The private key lives in nix-secrets at hosts/firewall/default.enc.yaml
+# (key wireguard/privateKey), encrypted to the dedicated &firewall age key.
 {config, ...}: {
   sops.secrets."wireguard/privateKey" = {};
 
