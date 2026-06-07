@@ -10,6 +10,7 @@
     ./networking.nix
     ./nftables.nix
     ./dns.nix
+    ./blocky.nix
     ./dhcp.nix
     ./wireguard.nix
     ./prometheus.nix

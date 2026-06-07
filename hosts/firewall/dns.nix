@@ -1,9 +1,9 @@
-# DNS configuration: Unbound (recursive resolver) + Dnsmasq (local authority)
+# DNS configuration: Unbound (recursive resolver) + Dnsmasq (local authority) + Blocky (ad blocking)
 #
-# Architecture (matching OPNsense split-DNS setup):
-#   Clients -> Unbound (port 53) -> Internet (recursive)
-#                                -> Dnsmasq (port 53053) for local zones
-#   Dnsmasq handles: internal.yomitosh.media, reverse PTR zones, DHCP hostnames
+# Architecture:
+#   Clients → Unbound (port 53) → internal.yomitosh.media? → Dnsmasq:53053
+#                               → cluster/local zones?      → Unbound local-data
+#                               → everything else?          → Blocky:5354 → upstream
 {...}: {
   # ── Unbound: Recursive DNS resolver on port 53 ─────────────────────────
   services.unbound = {
@@ -94,8 +94,11 @@
         control-enable = true;
       };
 
-      # ── Forward zones to Dnsmasq (port 53053) for local resolution ───
+      # ── Forward zones ─────────────────────────────────────────────────
+      # More-specific zones are tried first. Local zones → Dnsmasq;
+      # catch-all (".") → Blocky (ad filtering before upstream recursion).
       forward-zone = [
+        # Local DNS authority — DHCP hostnames, host-record entries.
         {
           name = "internal.yomitosh.media.";
           forward-addr = "127.0.0.1@53053";
@@ -116,6 +119,11 @@
         {
           name = "5.1.10.in-addr.arpa.";
           forward-addr = "127.0.0.1@53053";
+        }
+        # Blocky ad blocker — filters all external DNS before upstream.
+        {
+          name = ".";
+          forward-addr = "127.0.0.1@5354";
         }
       ];
     };

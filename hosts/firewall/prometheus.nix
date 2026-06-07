@@ -44,7 +44,6 @@
     port = 9090;
     listenAddress = "0.0.0.0";
 
-    # Scrape the local exporters every 15 s.
     scrapeConfigs = [
       {
         job_name = "firewall-node";
@@ -60,6 +59,11 @@
         job_name = "firewall-dnsmasq";
         scrape_interval = "15s";
         static_configs = [{targets = ["localhost:9153"];}];
+      }
+      {
+        job_name = "firewall-blocky";
+        scrape_interval = "15s";
+        static_configs = [{targets = ["localhost:4000"];}];
       }
     ];
 
