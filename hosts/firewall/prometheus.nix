@@ -86,16 +86,24 @@
       };
     };
 
-    # Provision Prometheus as the default datasource.
+    # Provision Prometheus as the default datasource and dashboard.
     provision = {
       enable = true;
       datasources.settings.datasources = [
         {
           name = "Prometheus";
           type = "prometheus";
+          uid = "prometheus";
           access = "proxy";
           url = "http://localhost:9090";
           isDefault = true;
+        }
+      ];
+
+      dashboards.settings.providers = [
+        {
+          name = "firewall";
+          options.path = ./dashboards;
         }
       ];
     };
