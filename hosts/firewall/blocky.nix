@@ -7,18 +7,14 @@
 # Blocky filters via StevenBlack blocklist, then forwards clean queries
 # to Cloudflare (1.1.1.1) and Quad9 (9.9.9.9).
 # Prometheus metrics exposed on :4000/metrics.
+# Custom allowlist in ./blocky-allowlist.nix.
 # Bootstrap DNS — used by Blocky itself to resolve blocklist download URLs.
 # Without this, Blocky can't download lists at startup (Blocky IS the DNS).
-# These bypass Unbound and go direct to Cloudflare.
 let
   bootstrapDns = "1.1.1.1";
 
-  # Custom allowlist — domains that should never be blocked.
-  # Add entries here to unblock sites caught by the denylist.
-  customAllowlist = [
-    "opencode.ai"
-    "*.opencode.ai"
-  ];
+  # Custom allowlist — imported from a separate file for easy editing.
+  customAllowlist = import ./blocky-allowlist.nix;
 in {
   services.blocky = {
     enable = true;
