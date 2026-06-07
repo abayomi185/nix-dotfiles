@@ -72,7 +72,8 @@ nix run github:nix-community/nixos-anywhere -- \
   --extra-files extra-files \
   --generate-hardware-config nixos-generate-config \
     ./hosts/firewall/hardware-configuration.nix \
-  --target-host root@<installer-ip>
+  --target-host root@<installer-ip> \
+  --build-host root@<installer-ip>
 
 rm -rf extra-files          # don't leave the private key lying around
 ```
