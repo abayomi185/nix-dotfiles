@@ -6,7 +6,7 @@
 #
 # Blocky filters via StevenBlack blocklist, then forwards clean queries
 # to Cloudflare (1.1.1.1) and Quad9 (9.9.9.9).
-# Prometheus metrics exposed on :4000/metrics.
+# Prometheus metrics and web UI on :4000.
 # Custom allowlist in ./blocky-allowlist.nix.
 # Bootstrap DNS — used by Blocky itself to resolve blocklist download URLs.
 # Without this, Blocky can't download lists at startup (Blocky IS the DNS).
@@ -21,11 +21,11 @@ in {
 
     settings = {
       ports = {
-        # Listen on loopback only — Unbound is the only client.
+        # DNS: loopback only — Unbound is the only client.
         # Port 5354 avoids conflict with avahi (mDNS on 5353).
         dns = ["127.0.0.1:5354"];
-        # HTTP for Prometheus metrics (loopback only; Prometheus scrapes locally).
-        http = ["127.0.0.1:4000"];
+        # HTTP: Prometheus metrics (/metrics) and web UI on all interfaces.
+        http = ["0.0.0.0:4000"];
       };
 
       upstreams.groups.default = [

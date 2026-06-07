@@ -59,8 +59,8 @@
           # Prometheus exporters (reachable from any LAN for future K8s scraping).
           iifname @lan_ifaces tcp dport { 9100, 9167, 9153 } accept
 
-          # Prometheus & Grafana web UIs (admin access only).
-          iifname { "br-main", "sfp1.5" } tcp dport { 9090, 3000 } accept
+          # Prometheus, Grafana & Blocky web UIs (admin access only).
+          iifname { "br-main", "sfp1.5" } tcp dport { 9090, 3000, 4000 } accept
 
           # WireGuard peer (VPS, 10.13.13.1) reaching firewall services.
           iifname "wg0" ip saddr 10.13.13.0/24 accept
