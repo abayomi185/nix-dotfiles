@@ -90,6 +90,13 @@
         ];
       };
 
+      # ── Remote control socket for prometheus-unbound-exporter ──────────
+      # The exporter connects via tcp://127.0.0.1:8953 to read stats.
+      # control-enable = false by default (hardened); enable explicitly.
+      remote-control = {
+        control-enable = true;
+      };
+
       # ── Forward zones to Dnsmasq (port 53053) for local resolution ───
       forward-zone = [
         {

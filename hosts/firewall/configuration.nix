@@ -12,6 +12,7 @@
     ./dns.nix
     ./dhcp.nix
     ./wireguard.nix
+    ./prometheus.nix
     ./services.nix
   ];
 
