@@ -68,8 +68,8 @@
       }
     ];
 
-    # 15 days of data at ~15 s scrape interval = ~40 MiB for these targets.
-    retentionTime = "15d";
+    # 90 days of data at ~15 s scrape interval = ~200 MiB for these targets.
+    retentionTime = "90d";
   };
 
   # ── Grafana ────────────────────────────────────────────────────────────
