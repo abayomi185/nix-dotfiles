@@ -8,9 +8,8 @@
 # to Cloudflare (1.1.1.1) and Quad9 (9.9.9.9).
 # Prometheus metrics and web UI on :4000.
 # Custom allowlist in ./blocky-allowlist.nix.
-# Bootstrap DNS — used by Blocky itself to resolve blocklist download URLs.
-# Without this, Blocky can't download lists at startup (Blocky IS the DNS).
-let
+{inputs, ...}: let
+  # Bootstrap DNS — used by Blocky itself to resolve blocklist download URLs.
   bootstrapDns = "1.1.1.1";
 
   # Custom allowlist — imported from a separate file for easy editing.
@@ -18,6 +17,8 @@ let
 in {
   services.blocky = {
     enable = true;
+    # Use unstable Blocky
+    package = inputs.nixpkgs-unstable.legacyPackages.x86_64-linux.blocky;
 
     settings = {
       ports = {
