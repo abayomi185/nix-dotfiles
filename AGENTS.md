@@ -27,10 +27,20 @@ darwin-rebuild switch --flake .#Mac-Studio
 darwin-rebuild switch --flake .#MacBook-Pro-14
 update --flake .#MacBook-Pro-14 # Alias for darwin-rebuild switch --flake .#MacBook-Pro-14
 
-# Rebuild NixOS system (run on the target host)
-nixos-rebuild switch --flake .#<hostname>
-# Hostnames: firewall, vps-arm64, knode1, knode2, knode3,
-#            audio-share, kloadbalancer, network-share
+# Rebuild NixOS system remotely (from macOS or any non-NixOS host).
+# nixos-rebuild is not available globally; invoke it via nix shell.
+# --build-host builds Linux derivations on the target instead of locally.
+# Use root@ if the host has it; otherwise any user with passwordless sudo
+# and add --use-remote-sudo.
+nix shell nixpkgs#nixos-rebuild -c nixos-rebuild switch \
+  --flake .#<hostname> \
+  --target-host root@<hostname> \
+  --build-host root@<hostname>
+
+# Rebuild NixOS system locally (run on the target host)
+ nixos-rebuild switch --flake .#<hostname>
+ # Hostnames: firewall, vps-arm64, knode1, knode2, knode3,
+ #            audio-share, kloadbalancer, network-share
 
 # Rebuild home-manager standalone config
 home-manager switch --flake .#yomi@A-MacBook-Pro-eth
