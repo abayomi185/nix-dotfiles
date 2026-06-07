@@ -5,11 +5,11 @@
 #   Proxmox virtio NIC   role / OPNsense name        membership
 #   ──────────────────   ─────────────────────────   ─────────────────────────
 #   net0  -> wan0        WAN (vtnet0, DHCP)           default route, NAT egress
-      # net1  -> lan1        LAN1 (vtnet1, trunk)         br-phy + VLAN 10/50 trunk
-      # net2  -> lan2        LAN2 (vtnet2)                br-phy
-      # net3  -> lan3        LAN3 (vtnet3)                br-phy
-      # net4  -> sfp0        Mac Studio (vtnet4)            br-main
-      # net5  -> sfp1        LAN_SFP1 (vtnet5, trunk)     br-phy + VLAN 5/10/50 trunk
+#   net1  -> lan1        LAN1 (vtnet1, trunk)         br-phy + VLAN 10/50 trunk
+#   net2  -> lan2        LAN2 (vtnet2)                br-phy
+#   net3  -> lan3        LAN3 (vtnet3)                br-phy
+#   net4  -> sfp0        Mac Studio (vtnet4)          br-main
+#   net5  -> sfp1        LAN_SFP1 (vtnet5, trunk)     br-phy + VLAN 5/10/50 trunk
 #
 #   bridge / vlan        subnet           gateway      OPNsense equivalent
 #   ──────────────────   ──────────────   ──────────   ───────────────────

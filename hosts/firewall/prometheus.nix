@@ -7,12 +7,7 @@
 #
 # Prometheus scrapes the local exporters and serves at :9090.
 # Grafana dashboards at :3000 (default admin:admin).
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}: {
+{...}: {
   # ── Exporters ───────────────────────────────────────────────────────────
   services.prometheus.exporters = {
     # System / network interface metrics (bandwidth, drops, errors).

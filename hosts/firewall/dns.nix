@@ -4,12 +4,7 @@
 #   Clients -> Unbound (port 53) -> Internet (recursive)
 #                                -> Dnsmasq (port 53053) for local zones
 #   Dnsmasq handles: internal.yomitosh.media, reverse PTR zones, DHCP hostnames
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}: {
+{...}: {
   # ── Unbound: Recursive DNS resolver on port 53 ─────────────────────────
   services.unbound = {
     enable = true;

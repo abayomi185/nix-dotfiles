@@ -1,11 +1,6 @@
 # Additional services
 # mDNS repeater, SSH, QEMU guest agent, NTP
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}: {
+{...}: {
   # ── QEMU Guest Agent (matching OPNsense os-qemu-guest-agent) ───────────
   services.qemuGuest.enable = true;
 
