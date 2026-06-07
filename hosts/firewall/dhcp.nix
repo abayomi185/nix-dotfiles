@@ -58,6 +58,7 @@
 
       # ── Static DNS records (no DHCP lease needed) ─────────────────────
       "host-record" = [
+        "firewall.internal.yomitosh.media,10.1.10.1"
         "pve-firewall.internal.yomitosh.media,10.1.5.11"
         "pve.internal.yomitosh.media,10.1.5.12"
       ];

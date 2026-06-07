@@ -87,6 +87,8 @@
           ''"network-share.cluster.internal.yomitosh.media. IN A 10.0.7.202"''
           # Wildcard for *.local.yomitosh.media -> K8s load balancer
           ''"local.yomitosh.media. IN A 10.1.5.40"''
+          # Override /etc/hosts loopback mapping so clients resolve the real IP.
+          ''"firewall.internal.yomitosh.media. IN A 10.1.10.1"''
         ];
       };
 
