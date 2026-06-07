@@ -121,9 +121,11 @@
           forward-addr = "127.0.0.1@53053";
         }
         # Blocky ad blocker — filters all external DNS before upstream.
+        # DNSSEC validation (Blocky strips DNSSEC signatures).
         {
           name = ".";
           forward-addr = "127.0.0.1@5354";
+          forward-first = "yes";
         }
       ];
     };

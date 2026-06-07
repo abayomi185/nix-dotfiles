@@ -12,6 +12,13 @@
 # These bypass Unbound and go direct to Cloudflare.
 let
   bootstrapDns = "1.1.1.1";
+
+  # Custom allowlist — domains that should never be blocked.
+  # Add entries here to unblock sites caught by the denylist.
+  customAllowlist = [
+    "opencode.ai"
+    "*.opencode.ai"
+  ];
 in {
   services.blocky = {
     enable = true;
@@ -44,6 +51,7 @@ in {
         denylists.ads = [
           "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts"
         ];
+        allowlists.custom = customAllowlist;
         clientGroupsBlock.default = ["ads"];
         loading.downloads = {
           timeout = "30s";
