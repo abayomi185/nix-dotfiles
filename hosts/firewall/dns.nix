@@ -29,6 +29,11 @@
           "::1/128 allow"
         ];
 
+        # Unbound's compiled-in default blocks queries to localhost
+        # (do-not-query-localhost: yes), which silently breaks forwarding to
+        # dnsmasq on 127.0.0.1:53053. Allow it so the split-DNS forward works.
+        do-not-query-localhost = false;
+
         # Privacy and security
         hide-identity = true;
         hide-version = true;
@@ -70,15 +75,12 @@
 
         # Local zone: transparent (pass through to forwarding if no local data)
         local-zone = [
-          ''"internal.yomitosh.media." transparent''
           ''"cluster.internal.yomitosh.media." transparent''
           ''"local.yomitosh.media." redirect''
         ];
 
         # ── Host overrides (from OPNsense Unbound host entries) ────────
         local-data = [
-          ''"pve-firewall.internal.yomitosh.media. IN A 10.1.5.11"''
-          ''"pve.internal.yomitosh.media. IN A 10.1.5.12"''
           ''"knode1.cluster.internal.yomitosh.media. IN A 10.0.7.41"''
           ''"knode2.cluster.internal.yomitosh.media. IN A 10.0.7.42"''
           ''"knode3.cluster.internal.yomitosh.media. IN A 10.0.7.43"''
@@ -93,6 +95,7 @@
         {
           name = "internal.yomitosh.media.";
           forward-addr = "127.0.0.1@53053";
+          forward-first = "yes";
         }
         {
           name = "10.1.10.in-addr.arpa.";

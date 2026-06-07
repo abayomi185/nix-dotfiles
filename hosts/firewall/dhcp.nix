@@ -56,8 +56,14 @@
         "80:9d:65:5e:3a:34,x2d,10.1.50.114"
       ];
 
-      quiet-dhcp = true;
+      # ── Static DNS records (no DHCP lease needed) ─────────────────────
+      "host-record" = [
+        "pve-firewall.internal.yomitosh.media,10.1.5.11"
+        "pve.internal.yomitosh.media,10.1.5.12"
+      ];
+
       no-hosts = false;
+      quiet-dhcp = true;
     };
   };
 }
