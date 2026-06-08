@@ -1,13 +1,13 @@
 # Prometheus monitoring stack: exporters + Prometheus server + Grafana
 #
 # Exporters (firewall metrics exposed to any Prometheus scraper):
-#   - node_exporter (netdev/netstat only) → :9100
-#   - unbound_exporter (DNS query stats)   → :9167
-#   - dnsmasq_exporter (DHCP/lease stats)  → :9153
+#   - node_exporter (netdev/netstat/textfile) → :9100
+#   - unbound_exporter (DNS query stats)      → :9167
+#   - dnsmasq_exporter (DHCP/lease stats)     → :9153
 #
 # Prometheus scrapes the local exporters and serves at :9090.
 # Grafana dashboards at :3000 (default admin:admin).
-{...}: {
+{pkgs, ...}: {
   # ── Exporters ───────────────────────────────────────────────────────────
   services.prometheus.exporters = {
     # System / network interface metrics (bandwidth, drops, errors).
@@ -17,6 +17,10 @@
       enabledCollectors = [
         "netdev"
         "netstat"
+        "textfile"
+      ];
+      extraFlags = [
+        "--collector.textfile.directory=/var/lib/node_exporter/textfile_collector"
       ];
       # Listen on all interfaces so K8s cluster (sfp1.5) can scrape later.
       listenAddress = "0.0.0.0";
@@ -105,6 +109,39 @@
           options.path = ./dashboards;
         }
       ];
+    };
+  };
+
+  # ── DHCP lease metrics collector ───────────────────────────────────────
+  # Parses dnsmasq leases and writes per-hostname/IP Prometheus metrics
+  # so Grafana can display a hostname→IP table.
+  systemd.services.dhcp-lease-metrics = {
+    description = "Write dnsmasq DHCP lease metrics for node_exporter textfile collector";
+    path = with pkgs; [coreutils gawk];
+    serviceConfig = {
+      Type = "oneshot";
+      User = "root";
+      ExecStart = pkgs.writeShellScript "dhcp-lease-metrics" ''
+        set -e
+        out="/var/lib/node_exporter/textfile_collector"
+        tmp="$out/dhcp_leases.prom.tmp"
+        mkdir -p "$out"
+        echo '# HELP dnsmasq_dhcp_lease_info Per-lease hostname/IP mapping (1 = active).' > "$tmp"
+        echo '# TYPE dnsmasq_dhcp_lease_info gauge' >> "$tmp"
+        awk 'NF { printf "dnsmasq_dhcp_lease_info{hostname=\"%s\",ip=\"%s\",mac=\"%s\"} 1\n", $4, $3, $2 }' \
+          /var/lib/dnsmasq/dnsmasq.leases >> "$tmp"
+        mv "$tmp" "$out/dhcp_leases.prom"
+      '';
+    };
+  };
+
+  systemd.timers.dhcp-lease-metrics = {
+    description = "Collect DHCP lease metrics every 60s";
+    wantedBy = ["timers.target"];
+    timerConfig = {
+      OnBootSec = "30s";
+      OnUnitActiveSec = "60s";
+      AccuracySec = "5s";
     };
   };
 }
