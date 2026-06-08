@@ -57,7 +57,6 @@
     outputs.darwinModules.casks.thinkorswim
     outputs.darwinModules.casks.virtualhere
     outputs.darwinModules.casks.whisky
-    outputs.darwinModules.casks.windsurf
     outputs.darwinModules.casks.xcodes-app
     outputs.darwinModules.casks.zed
     outputs.darwinModules.casks.zen
