@@ -32,6 +32,7 @@
     outputs.darwinModules.casks.freecad
     outputs.darwinModules.casks.ghostty
     outputs.darwinModules.casks.google-chrome
+    outputs.darwinModules.casks.handy
     outputs.darwinModules.casks.heroic
     outputs.darwinModules.casks.ice
     outputs.darwinModules.casks.iina
