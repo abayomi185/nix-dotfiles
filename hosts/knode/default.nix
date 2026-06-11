@@ -2,6 +2,7 @@
   inputs,
   outputs,
   pClusterInterface ? "eth1",
+  pClusterAddress ? null,
   pDiskDevice ? "/dev/sda",
   pNodeId,
   pK3sRole ? "agent",
@@ -11,7 +12,7 @@
 inputs.nixpkgs-stable.lib.nixosSystem {
   system = "x86_64-linux";
   specialArgs = {
-    inherit inputs outputs pClusterInterface pDiskDevice pNodeId pK3sRole pK3sServerId pK3sClusterInit;
+    inherit inputs outputs pClusterInterface pClusterAddress pDiskDevice pNodeId pK3sRole pK3sServerId pK3sClusterInit;
   };
   modules = [
     inputs.disko.nixosModules.disko

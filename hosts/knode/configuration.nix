@@ -3,6 +3,7 @@
   inputs,
   lib,
   pClusterInterface ? "eth1",
+  pClusterAddress ? null,
   pK3sClusterInit,
   pK3sRole,
   pK3sServerId,
@@ -67,6 +68,16 @@ in {
   };
 
   networking.useDHCP = true;
+  networking.interfaces = lib.optionalAttrs (pClusterAddress != null) {
+    "${pClusterInterface}" = {
+      ipv4.addresses = [
+        {
+          address = pClusterAddress;
+          prefixLength = 24;
+        }
+      ];
+    };
+  };
 
   networking.firewall.allowedTCPPorts = [
     6443 # k3s: required so that pods can reach the API server (running on port 6443 by default)
@@ -93,13 +104,19 @@ in {
       "traefik"
       "servicelb"
     ];
-    extraFlags = lib.optionals (pK3sRole == "server") [
-      "--tls-san=knode${pNodeId}.cluster.internal.yomitosh.media"
-      "--tls-san=knode${pNodeId}.internal.yomitosh.media"
-    ];
+    extraFlags =
+      lib.optionals (pK3sRole == "server") [
+        "--tls-san=knode${pNodeId}.internal.yomitosh.media"
+      ]
+      ++ lib.optionals (pK3sRole == "server" && pClusterAddress != null) [
+        "--tls-san=knode${pNodeId}.cluster.internal.yomitosh.media"
+      ];
     serverAddr =
       if pK3sServerId != ""
-      then "https://knode${pK3sServerId}.cluster.internal.yomitosh.media:6443"
+      then
+        if pClusterAddress != null
+        then "https://knode${pK3sServerId}.cluster.internal.yomitosh.media:6443"
+        else "https://knode${pK3sServerId}.internal.yomitosh.media:6443"
       else "";
   };
 

@@ -1,5 +1,6 @@
 {
   modulesPath,
+  lib,
   pkgs,
   ...
 }: let
@@ -8,7 +9,9 @@
 
   hostname = "network-share";
 
-  cluster_subnet = "10.1.5.0/24";
+  external_subnet = "10.1.5.0/24";
+  cluster_subnet = "10.0.7.0/24";
+  ipv4_cluster_address = "10.0.7.202";
 
   time_machine_mount = "/mnt/mofp0/backups/TimeMachine";
   jellyfin_mount = "/mnt/mopower/swarm-data/jellyfin";
@@ -24,6 +27,12 @@
   kubernetes_home_cluster_data = "/mnt/mofp0/kubernetes/home-cluster/data";
 
   nfs_export_permissions = "rw,sync,no_subtree_check,no_root_squash";
+  nfs_export_targets = [
+    external_subnet
+    cluster_subnet
+  ];
+  mkNfsExports = path:
+    lib.concatMapStrings (subnet: "${path} ${subnet}(${nfs_export_permissions})") nfs_export_targets;
 in {
   imports = [
     # Include the default lxc/lxd configuration.
@@ -69,6 +78,16 @@ in {
   environment.systemPackages = with pkgs; [git];
 
   networking.useDHCP = true;
+  networking.interfaces = {
+    eth2 = {
+      ipv4.addresses = [
+        {
+          address = ipv4_cluster_address;
+          prefixLength = 24;
+        }
+      ];
+    };
+  };
 
   users.groups = {
     users = {
@@ -104,12 +123,12 @@ in {
     enable = true;
     nproc = 16;
     exports = ''
-      ${swarm_config_directory}           ${cluster_subnet}(${nfs_export_permissions})
-      ${swarm_data_directory}             ${cluster_subnet}(${nfs_export_permissions})
-      ${nas_yom_old_directory}            ${cluster_subnet}(${nfs_export_permissions})
-      ${nas_yom_directory}                ${cluster_subnet}(${nfs_export_permissions})
-      ${kubernetes_home_cluster_configs}  ${cluster_subnet}(${nfs_export_permissions})
-      ${kubernetes_home_cluster_data}     ${cluster_subnet}(${nfs_export_permissions})
+      ${mkNfsExports swarm_config_directory}
+      ${mkNfsExports swarm_data_directory}
+      ${mkNfsExports nas_yom_old_directory}
+      ${mkNfsExports nas_yom_directory}
+      ${mkNfsExports kubernetes_home_cluster_configs}
+      ${mkNfsExports kubernetes_home_cluster_data}
     '';
   };
 
