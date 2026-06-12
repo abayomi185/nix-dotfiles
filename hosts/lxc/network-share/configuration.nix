@@ -32,7 +32,8 @@
     cluster_subnet
   ];
   mkNfsExports = path:
-    lib.concatMapStrings (subnet: "${path} ${subnet}(${nfs_export_permissions})") nfs_export_targets;
+    "${path} "
+    + lib.concatMapStringsSep " " (subnet: "${subnet}(${nfs_export_permissions})") nfs_export_targets;
 in {
   imports = [
     # Include the default lxc/lxd configuration.
