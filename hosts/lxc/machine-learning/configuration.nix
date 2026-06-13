@@ -13,6 +13,10 @@ in {
   imports = [
     # Include the default lxc/lxd configuration.
     "${modulesPath}/virtualisation/lxc-container.nix"
+    # Cross-compile aarch64-linux (for Pi images, etc.). Requires
+    # QEMU user-mode registered on the Proxmox HOST — see
+    # modules/nixos/dev/cross-compile-aarch64.nix.
+    inputs.nixosModules.dev.cross-compile-aarch64
   ];
 
   nix.settings = {
