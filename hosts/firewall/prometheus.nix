@@ -86,6 +86,8 @@
       security = {
         admin_user = "admin";
         admin_password = "admin";
+        # Hardcoded; NixOS 26.05 removed the default. Internal monitoring only.
+        secret_key = "c032aaa2061bd49212b49b9cb09ec9bc9d332ab038cfcc513fbd154431720668";
       };
     };
 
