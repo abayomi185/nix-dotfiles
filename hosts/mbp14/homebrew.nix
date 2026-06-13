@@ -15,7 +15,6 @@
 
     # Casks - See ../../modules/darwin/casks/default.nix
     outputs.darwinModules.casks.affinity
-    outputs.darwinModules.casks.alt-tab
     outputs.darwinModules.casks.autodesk-fusion
     outputs.darwinModules.casks.balenaetcher
     outputs.darwinModules.casks.bambu-studio
