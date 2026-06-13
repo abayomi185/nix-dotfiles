@@ -3,7 +3,7 @@
 
   inputs = {
     # Nixpkgs
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-26.05";
 
     # Also see the 'unstable-packages' overlay at 'overlays/default.nix'.
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -94,6 +94,12 @@
     llama-cpp = {
       url = "github:ggml-org/llama.cpp";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
+    # Raspberry Pi
+    nixos-raspberrypi = {
+      url = "github:nvmd/nixos-raspberrypi/main";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
     # Nitora
@@ -296,6 +302,13 @@
         modules = [
           ./hosts/livecd/configuration.nix
         ];
+      };
+    };
+
+    # Raspberry Pi 4 wifi-repeater
+    nixosConfigurations = {
+      wifi-repeater = import ./hosts/wifi-repeater/default.nix {
+        inherit inputs outputs;
       };
     };
 
