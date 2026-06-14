@@ -41,7 +41,22 @@ in {
 
   nix = {
     package = pkgs.nix;
-    settings.experimental-features = ["nix-command" "flakes"];
+    settings = {
+      experimental-features = ["nix-command" "flakes"];
+      # Cross-compile aarch64-linux (e.g. Raspberry Pi images) from
+      # this x86_64 host. Pairs with `boot.binfmt.emulatedSystems`
+      # (NixOS Proxmox) or `apt install qemu-user-static` (Debian
+      # Proxmox) on the host. See modules/nixos/dev/cross-compile-aarch64.nix
+      # for the NixOS-host equivalent.
+      #
+      # NOTE: this advertises aarch64 as a buildable platform, but
+      # `--extra-platforms aarch64-linux` (or `extra-platforms` in
+      # the nix.conf) is a RESTRICTED setting. ml must be in
+      # /etc/nix/nix.conf's `trusted-users` for it to be honored:
+      #   echo "trusted-users = root ml" | sudo tee -a /etc/nix/nix.conf
+      #   sudo systemctl restart nix-daemon
+      extra-platforms = ["aarch64-linux"];
+    };
   };
 
   home.username = "ml";
