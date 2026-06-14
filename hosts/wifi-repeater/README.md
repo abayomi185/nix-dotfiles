@@ -24,10 +24,14 @@ so the radio is the bottleneck. The Pi 4 USB subsystem shares
 
 ## Driver
 
-`pkgs.rtl8821au` (morrownr/8821au-20210708) covers the RTL8811AU
-chipset family. Loaded with `rtw_vht_enable=1` for 2.4 GHz. The
-rpi4 vendor kernel (6.12) is within the driver's 5.12–6.14
-supported range.
+In-kernel `rtw_8821au` (mainline from 6.13, polished in 6.14)
+covers the RTL8811AU (`0bda:0811`). The out-of-tree
+morrownr/8821au-20210708 driver is broken on kernels ≥ 6.15 and
+morrownr has deprecated it, so we use the in-kernel driver.
+
+AP mode on `rtw_8821au` has open flakiness reports
+([lwfinger/rtw88#323][flaky-ap]); test the AP on the bench
+before deploying.
 
 ## Configuration knobs
 
@@ -203,13 +207,12 @@ ssh root@wifi-repeater.local "systemctl status hostapd"
 
 ## Known limitations
 
-- **Kernel/driver coupling**: `pkgs.rtl8821au` is `broken` on
-  kernels ≥ 6.15. The in-kernel `rtw_8821au` driver covers
-  RTL8811AU from 6.14, but is less battle-tested for AP mode. If
-  the rpi4 vendor kernel crosses 6.15, switch to
-  `boot.kernelModules = [ "rtw_8821au" ]` and drop the
-  out-of-tree driver.
-- **First build time**: 12+ hours for the kernel compile on a
-  fresh 26.05 host.
-- **Single radio**: 2.4 GHz only. For 5 GHz, a second adapter
-  is needed.
+- **AP mode on in-kernel `rtw_8821au`**: less battle-tested than the
+  out-of-tree morrownr driver. Verify on the bench before deploying;
+  see [lwfinger/rtw88#323][flaky-ap].
+- **First build time**: 12+ hours for the kernel compile on a fresh
+  26.05 host.
+- **Single radio**: 2.4 GHz only. For 5 GHz, a second adapter is
+  needed.
+
+[flaky-ap]: https://github.com/lwfinger/rtw88/issues/323

@@ -25,12 +25,13 @@
   };
 
   # ── Wireless driver (AWUS0360ACS = RTL8811AU) ──────────
-  # morrownr/8821au-20210708 covers the 8811AU/8821AU chipset family.
-  # rtw_vht_enable=1 is the morrownr recommendation for 2.4 GHz.
-  # Kernel rpi4 (6.12 LTS) is within the driver's supported range (5.12–6.14).
-  boot.kernelModules = ["8821au"];
-  boot.extraModulePackages = [config.boot.kernelPackages.rtl8821au];
-  boot.extraModprobeConfig = "options 8821au rtw_vht_enable=1";
+  # In-kernel rtw_8821au (mainline from 6.13, polished in 6.14)
+  # covers the RTL8811AU (0bda:0811). Used in-kernel here because
+  # pkgs.rtl8821au is broken on kernels ≥ 6.15 and morrownr has
+  # deprecated the out-of-tree driver.
+  # AP mode on rtw_8821au has open flakiness reports
+  # (lwfinger/rtw88#323) — test on the bench before deploying.
+  boot.kernelModules = ["rtw_8821au"];
 
   # Disable onboard WiFi/BT so hostapd has clean control of the USB radio.
   # Per morrownr/USB-WiFi AP guide: Pi 4 USB subsystem is shared 1200 mA budget;

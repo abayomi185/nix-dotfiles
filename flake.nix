@@ -97,8 +97,11 @@
     };
 
     # Raspberry Pi
+    # Tracking the develop branch: main is still on 6.12, develop has
+    # 6.18.33 (see nvmd/nixos-raspberrypi#191). Switch back to `main`
+    # once nvmd cuts a release that brings 6.18 to main.
     nixos-raspberrypi = {
-      url = "github:nvmd/nixos-raspberrypi/main";
+      url = "github:nvmd/nixos-raspberrypi/develop";
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
