@@ -64,6 +64,11 @@
   # Add ability to used TouchID for sudo authentication
   security.pam.services.sudo_local.touchIdAuth = true;
 
+  power.sleep = {
+    computer = "never";
+    display = 15;
+  };
+
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog
   system.stateVersion = 5;
