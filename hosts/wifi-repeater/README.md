@@ -91,10 +91,10 @@ directly (see the build command below).
 
 ```bash
 # With the nix.conf setting above, just:
-nix build .#wifi-repeater.config.system.build.sdImage
+nix build .#nixosConfigurations.wifi-repeater.config.system.build.sdImage
 
 # Or one-off, without touching nix.conf:
-nix build .#wifi-repeater.config.system.build.sdImage \
+nix build .#nixosConfigurations.wifi-repeater.config.system.build.sdImage \
   --extra-platforms aarch64-linux
 ```
 
