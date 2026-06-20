@@ -7,7 +7,7 @@
     outputs.darwinModules.brews.group_armDev
     outputs.darwinModules.brews.group_mobileDev
     outputs.darwinModules.brews.group_awsDev
-    outputs.darwinModules.brews.group_azureDev
+    # outputs.darwinModules.brews.group_azureDev
     # outputs.darwinModules.brews.docker # Using OrbStack
     outputs.darwinModules.brews.imagemagick
     outputs.darwinModules.brews.omlx
