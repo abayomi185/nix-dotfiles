@@ -3,6 +3,7 @@ keys:
   - &mba13 age1sx0dh82apfxxdv9z0l77dmu00e9vz5rn3pfwwnxhwumdxmwy7gsshaxxlc
   - &vps_arm age1wpz4fg9wcakl5vj92gcfj8pnsjg9l3el79le3fw0lh0tt2h3m9aqp6zz26
   - &ml age1w469f43rsm4a37e0mrpmnjq4s349q832spjfg2xede2cf9um0vdsgl7yh5
+  - &wifi_repeater age177s8ks6s8zh49p7e528tlcjrjs0h8nzr83yxppx35xfnxzwpkpps97q8er
 creation_rules:
   # SD-image build for the Pi 4 runs on machine-learning
   - path_regex: hosts/wifi-repeater/secrets\.enc\.yaml
@@ -12,6 +13,7 @@ creation_rules:
           - *mba13
           - *vps_arm
           - *ml
+          - *wifi_repeater
   - path_regex: .*secret?s\.(ya?ml|enc\.yaml|json|env|ini|sops)$
     key_groups:
       - age:
