@@ -112,6 +112,7 @@ in {
       la = "ls -la";
       check = "nix flake check";
       update = "sudo nixos-rebuild switch";
+      home-update = "nix run nixpkgs#home-manager -- switch --flake .#ml@machine-learning";
       garbage = "sudo nix-collect-garbage --delete-older-than";
       develop = "nix develop -c $SHELL";
     };
