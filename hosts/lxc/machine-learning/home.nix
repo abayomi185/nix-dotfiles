@@ -61,6 +61,11 @@ in {
 
   home.username = "ml";
   home.homeDirectory = "/home/ml";
+
+  home.sessionVariables = {
+    LANG = "en_US.UTF-8";
+    LC_ALL = "en_US.UTF-8";
+  };
   home.packages = with pkgs; [
     age
     alejandra
