@@ -50,8 +50,8 @@
           # NTP for IoT (OPNsense allowed UDP 123 from VLAN_IOT to self).
           iifname "br-iot" udp dport 123 accept
 
-          # mDNS reflector ingress (VLAN_MAIN + infra VLAN).
-          iifname { "br-main", "sfp1.5" } udp dport 5353 accept
+          # mDNS reflector ingress (main, infra, and IoT VLANs).
+          iifname { "br-main", "br-iot", "sfp1.5" } udp dport 5353 accept
 
           # SSH management from the main LAN and the infra VLAN only.
           iifname { "br-main", "sfp1.5" } tcp dport 22 accept
