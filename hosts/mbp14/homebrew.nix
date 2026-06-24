@@ -80,6 +80,8 @@
     "protonvpn"
     "winbox"
     "antigravity"
+    "codex"
+    "codex-app"
   ];
 
   nix-homebrew = {
