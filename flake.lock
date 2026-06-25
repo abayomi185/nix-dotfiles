@@ -320,16 +320,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1775425411,
-        "narHash": "sha256-KY6HsebJHEe5nHOWP7ur09mb0drGxYSzE3rQxy62rJo=",
+        "lastModified": 1781981105,
+        "narHash": "sha256-/1nNBbA7PrSQpTc9Qazkhl4kIPg+TNl0CjxS3UQJKlw=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "0d02ec1d0a05f88ef9e74b516842900c41f0f2fe",
+        "rev": "7bfff44b465909f69a442701293bc0badcf476dc",
         "type": "github"
       },
       "original": {
         "owner": "nix-community",
-        "ref": "release-25.11",
+        "ref": "release-26.05",
         "repo": "home-manager",
         "type": "github"
       }
@@ -523,10 +523,10 @@
     "nix-secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1780711374,
-        "narHash": "sha256-kAewN5mEK7GNrlERwTuSwqTIFXTN+qvERZGq6qNRKO0=",
+        "lastModified": 1782418292,
+        "narHash": "sha256-nhpNiCP2JDvDhnUwg5BqHHLMAs6793pIsB4/Ba57/2g=",
         "ref": "main",
-        "rev": "6e950047dfe58a6ff73cfb7383f2d549b7610156",
+        "rev": "4e8a138b9d6823d499ba89c35219aca60c1d71fd",
         "shallow": true,
         "type": "git",
         "url": "ssh://git@github.com/abayomi185/nix-secrets.git"
