@@ -35,7 +35,7 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
-    home-manager-stable.url = "github:nix-community/home-manager/release-25.11";
+    home-manager-stable.url = "github:nix-community/home-manager/release-26.05";
     home-manager-stable.inputs.nixpkgs.follows = "nixpkgs-stable";
 
     # Hardware support
@@ -276,6 +276,10 @@
       #   inherit inputs outputs;
       # };
       network-share = import ./hosts/lxc/network-share/default.nix {
+        inherit inputs outputs;
+      };
+
+      yhld-vpsr1 = import ./hosts/yhld-vpsr1/default.nix {
         inherit inputs outputs;
       };
 
