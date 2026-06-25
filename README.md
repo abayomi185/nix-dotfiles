@@ -21,3 +21,5 @@
 ## Tips
 
 - Update a single flake input with `nix flake update nix-secrets`
+- See [remote NixOS rebuilds](./docs/remote-nixos-rebuilds.md) for rebuilding
+  Linux hosts from macOS with `--build-host` and SOPS-nix.

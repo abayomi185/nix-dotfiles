@@ -32,6 +32,9 @@ update --flake .#MacBook-Pro-14 # Alias for darwin-rebuild switch --flake .#MacB
 # --build-host builds Linux derivations on the target instead of locally.
 # Use root@ if the host has it; otherwise any user with passwordless sudo
 # and add --use-remote-sudo.
+# SOPS note: encrypted nix-secrets sources are copied as flake inputs; plaintext
+# is not decrypted locally or copied. sops-nix decrypts on the target during
+# activation using that host's configured age identity.
 nix shell nixpkgs#nixos-rebuild -c nixos-rebuild switch \
   --flake .#<hostname> \
   --target-host root@<hostname> \
