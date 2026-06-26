@@ -30,7 +30,7 @@
         # YHLD-VPSR1 WireGuard server, reusing the legacy vps-arm64 keypair.
         publicKey = "5zyIMCJ0eeTmXP/QrqnM7JmkZPN77PpU2u+dMazyzi4=";
         allowedIPs = ["10.13.13.0/24"];
-        endpoint = "194.9.62.17:42773";
+        endpoint = "wireguard.yomitosh.media:42773";
         persistentKeepalive = 25;
       }
     ];
