@@ -16,8 +16,9 @@ runs at a time.
 | WireGuard to VPS   | `wg0`               | 10.13.13.2/32  | 10.13.13.1  |
 
 `br-main` and `br-iot` bridge VLAN 10 / 50 across both trunk NICs
-(`sfp1` + `lan1`). The 6 virtio NICs are pinned to names by MAC via
-systemd `.link` files (`net0→wan0 … net5→sfp1`).
+(`sfp1` + `lan1`). `lan3` (`net3` / firewall eth3) is an untagged
+`br-main` access port for the Windows box. The 6 virtio NICs are pinned to
+names by MAC via systemd `.link` files (`net0→wan0 … net5→sfp1`).
 
 Services: nftables (router firewall + WAN masquerade), Unbound (`:53`
 recursive) + Dnsmasq (`:53053` local zone + DHCP), avahi mDNS reflector

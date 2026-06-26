@@ -7,7 +7,7 @@
 #   net0  -> wan0        WAN (vtnet0, DHCP)           default route, NAT egress
 #   net1  -> lan1        LAN1 (vtnet1, trunk)         br-phy + VLAN 10/50 trunk
 #   net2  -> lan2        LAN2 (vtnet2)                br-phy
-#   net3  -> lan3        LAN3 (vtnet3)                br-phy
+#   net3  -> lan3        Game Box (vtnet3)        br-main
 #   net4  -> sfp0        Mac Studio (vtnet4)          br-main
 #   net5  -> sfp1        LAN_SFP1 (vtnet5, trunk)     br-phy + VLAN 5/10/50 trunk
 #
@@ -134,7 +134,7 @@ in {
         vlan = ["sfp1.5" "sfp1.10" "sfp1.50"];
         linkConfig.RequiredForOnline = false;
       };
-      # Plain untagged br-phy members.
+      # Plain untagged bridge members.
       "40-lan2" = {
         matchConfig.Name = "lan2";
         networkConfig.Bridge = "br-phy";
@@ -142,7 +142,7 @@ in {
       };
       "40-lan3" = {
         matchConfig.Name = "lan3";
-        networkConfig.Bridge = "br-phy";
+        networkConfig.Bridge = "br-main";
         linkConfig.RequiredForOnline = false;
       };
       "40-sfp0" = {
