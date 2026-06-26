@@ -52,8 +52,7 @@
         "bc:24:11:3b:26:f1,knode3,10.1.5.73"
         "bc:24:11:8b:0c:40,knode4,10.1.5.74"
         # IoT / VLAN 50 (10.1.50.0/24)
-        "fc:ee:28:03:6c:d5,k1c,10.1.50.83"
-        "80:9d:65:5e:3a:34,x2d,10.1.50.114"
+        "80:9d:65:5e:3a:34,x2d,10.1.50.114" # Static name: device has no friendly hostname
       ];
 
       # ── Static DNS records (no DHCP lease needed) ─────────────────────
