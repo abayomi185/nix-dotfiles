@@ -27,7 +27,7 @@
     # MSS clamping for the tunnel lives in nftables.nix.
     peers = [
       {
-        # VPS WireGuard server.
+        # YHLD-VPSR1 WireGuard server, reusing the legacy vps-arm64 keypair.
         publicKey = "5zyIMCJ0eeTmXP/QrqnM7JmkZPN77PpU2u+dMazyzi4=";
         allowedIPs = ["10.13.13.0/24"];
         endpoint = "wireguard.yomitosh.media:42773";
