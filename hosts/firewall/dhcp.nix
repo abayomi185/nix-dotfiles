@@ -60,6 +60,7 @@
         "firewall.internal.yomitosh.media,10.1.10.1"
         "pve-firewall.internal.yomitosh.media,10.1.5.11"
         "pve.internal.yomitosh.media,10.1.5.12"
+        "yhld-vpsr1.internal.yomitosh.media,10.13.13.1"
       ];
 
       no-hosts = false;
