@@ -11,6 +11,7 @@
 
   external_subnet = "10.1.5.0/24";
   cluster_subnet = "10.0.7.0/24";
+  vps_wireguard_ip = "10.13.13.1";
   ipv4_cluster_address = "10.0.7.202";
 
   time_machine_mount = "/mnt/mofp0/backups/TimeMachine";
@@ -30,6 +31,7 @@
   nfs_export_targets = [
     external_subnet
     cluster_subnet
+    vps_wireguard_ip
   ];
   mkNfsExports = path:
     "${path} "
