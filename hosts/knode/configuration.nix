@@ -8,6 +8,7 @@
   pK3sRole,
   pK3sServerId,
   pNodeId,
+  pNodeLabels ? [],
   ...
 }: let
   timeZone = "Europe/London";
@@ -116,7 +117,8 @@ in {
       ]
       ++ lib.optionals (pK3sRole == "server" && pClusterAddress != null) [
         "--tls-san=knode${pNodeId}.cluster.internal.yomitosh.media"
-      ];
+      ]
+      ++ map (label: "--node-label=${label}") pNodeLabels;
     serverAddr =
       if pK3sServerId != ""
       then
