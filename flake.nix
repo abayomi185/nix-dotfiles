@@ -249,12 +249,14 @@
         pNodeId = "2";
         pClusterAddress = "10.0.7.42";
         pK3sRole = "agent";
+        pNodeLabels = ["yomitosh.media/ingress=true"];
       };
       knode3 = import ./hosts/knode/default.nix {
         inherit inputs outputs;
         pNodeId = "3";
         pClusterAddress = "10.0.7.43";
         pK3sRole = "agent";
+        pNodeLabels = ["yomitosh.media/ingress=true"];
       };
       knode4 = import ./hosts/knode/default.nix {
         inherit inputs outputs;

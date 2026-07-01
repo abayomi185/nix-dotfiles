@@ -19,6 +19,7 @@
       "--flannel-iface=wg0"
       "--node-taint=dedicated=vps-public:NoSchedule"
       "--node-label=yomitosh.media/role=vps-public"
+      "--node-label=yomitosh.media/ingress=true"
     ];
   };
 }
