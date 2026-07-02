@@ -55,6 +55,8 @@ in {
     enable = true;
     allowedTCPPorts = [
       22
+      80 # public HTTP for in-cluster Traefik
+      443 # public HTTPS for in-cluster Traefik
       8888 # tinyproxy
     ];
   };
