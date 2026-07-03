@@ -6,6 +6,7 @@
   cura = import ./cura.nix;
   davinci-resolve-studio = import ./davinci-resolve-studio.nix;
   discord = import ./discord.nix;
+  helix = import ./helix;
   jq = import ./jq.nix;
   k9s = import ./k9s.nix;
   karabiner-elements = import ./karabiner-elements;
