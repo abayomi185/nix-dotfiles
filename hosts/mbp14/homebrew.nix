@@ -82,6 +82,8 @@
     "antigravity"
     "codex"
     "codex-app"
+    "claude"
+    "claude-code@latest"
   ];
 
   nix-homebrew = {
