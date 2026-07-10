@@ -6,4 +6,6 @@ Favour using `uv` over `python` `python3` or `pip`.
 
 For certain situations where binaries or tools might not be available, use nix shell.
 
-Use the git-commit skill when committing changes in a git repo
+Use the git-commit skill when committing changes in a git repo. Always use logical and structural commits
+
+Remember to commit after you finish a piece of work or task to mark the end of it.
