@@ -110,6 +110,8 @@ in {
     isSystemUser = true; # Do not create a home directory
   };
 
+  security.pam.services.vsftpd.enable = true;
+
   networking.firewall = {
     # for NFSv3; view with `rpcinfo -p`
     allowedTCPPorts = [111 2020 2121 2049 4000 4001 4002 20048];
