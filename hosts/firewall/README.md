@@ -22,7 +22,7 @@ names by MAC via systemd `.link` files (`net0→wan0 … net5→sfp1`).
 
 Services: nftables (router firewall + WAN masquerade), Unbound (`:53`
 recursive) + Dnsmasq (`:53053` local zone + DHCP), avahi mDNS reflector
-(main↔infra), chrony NTP, qemu-guest-agent, SSH (key-only, from
+(main↔infra↔iot), chrony NTP, qemu-guest-agent, SSH (key-only, from
 `br-main` + `sfp1.5`).
 
 The k3s cluster network (10.0.7.0/24) is a Proxmox-internal bridge the
@@ -84,6 +84,8 @@ Only one router runs at a time — they share the same physical NIC plumbing.
 
 - **DHCP pools** are `.100–.250` per subnet. Static reservations are unchanged.
 - **SSH** is allowed from Main and Infra (not just Main) to avoid lockout.
+- **mDNS reflection**: Avahi reflects mDNS between Main, Infra, and IoT so
+  Home Assistant can discover ESPHome devices across VLANs.
 - **DNS split**: Unbound on `:53` forwards `internal.yomitosh.media` and
   reverse zones to Dnsmasq on `127.0.0.1:53053`, which auto-registers DHCP
   hostnames. `do-not-query-localhost = false` must be set in Unbound, otherwise

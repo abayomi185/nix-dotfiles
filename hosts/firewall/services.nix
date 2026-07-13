@@ -16,11 +16,12 @@
 
   # ── mDNS Repeater ──────────────────────────────────────────────────────
   # OPNsense had mdns-repeater between VLAN_MAIN and VLAN_PHY.
-  # Avahi reflector mode achieves the same by reflecting mDNS across interfaces.
+  # Reflect mDNS across main, infra, and IoT so Home Assistant can discover
+  # ESPHome devices on the isolated VLAN.
   services.avahi = {
     enable = true;
     reflector = true;
-    allowInterfaces = ["br-main" "sfp1.5"];
+    allowInterfaces = ["br-main" "br-iot" "sfp1.5"];
     # Don't publish the firewall's own services
     publish = {
       enable = false;
