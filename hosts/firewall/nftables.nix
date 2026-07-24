@@ -15,7 +15,7 @@
         # LAN-facing L3 interfaces (the firewall's own service surface).
         set lan_ifaces {
           type ifname
-          elements = { "br-phy", "br-main", "br-iot", "sfp1.5" }
+          elements = { "br-phy", "br-main", "lan1.20", "br-iot", "sfp1.5" }
         }
 
         # Subnets a WireGuard peer (the VPS) is allowed to reach.
@@ -81,6 +81,9 @@
 
           # Trusted LANs: unrestricted egress (OPNsense "net -> any" rules).
           iifname { "br-phy", "br-main", "sfp1.5" } accept
+
+          # Guests: internet only; no access to other LANs.
+          iifname "lan1.20" oifname "wan0" accept
 
           # IoT: internet only, plus same-segment hairpin; no lateral access to
           # other LANs (OPNsense "IoT net -> !RFC1918" + "IoT -> IoT").

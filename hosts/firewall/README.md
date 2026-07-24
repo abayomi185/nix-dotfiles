@@ -12,6 +12,7 @@ runs at a time.
 | PHY LAN (untagged) | `br-phy`            | 10.1.1.0/24    | 10.1.1.1    |
 | Infra (VLAN 5)     | `sfp1.5`            | 10.1.5.0/24    | 10.1.5.1    |
 | Main (VLAN 10)     | `br-main`           | 10.1.10.0/24   | 10.1.10.1   |
+| Guest (VLAN 20)    | `lan1.20`           | 10.1.20.0/24   | 10.1.20.1   |
 | IoT (VLAN 50)      | `br-iot`            | 10.1.50.0/24   | 10.1.50.1   |
 | WireGuard to VPS   | `wg0`               | 10.13.13.2/32  | 10.13.13.1  |
 
@@ -19,6 +20,9 @@ runs at a time.
 (`sfp1` + `lan1`). `lan3` (`net3` / firewall eth3) is an untagged
 `br-main` access port for the Windows box. The 6 virtio NICs are pinned to
 names by MAC via systemd `.link` files (`net0→wan0 … net5→sfp1`).
+Guest VLAN 20 is tagged on `lan1` (`net1` / firewall eth1) and permits
+internet access only; configure the access point uplink to tag guest traffic
+with VLAN ID 20.
 
 Services: nftables (router firewall + WAN masquerade), Unbound (`:53`
 recursive) + Dnsmasq (`:53053` local zone + DHCP), avahi mDNS reflector

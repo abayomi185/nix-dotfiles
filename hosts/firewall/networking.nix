@@ -5,7 +5,7 @@
 #   Proxmox virtio NIC   role / OPNsense name        membership
 #   ──────────────────   ─────────────────────────   ─────────────────────────
 #   net0  -> wan0        WAN (vtnet0, DHCP)           default route, NAT egress
-#   net1  -> lan1        LAN1 (vtnet1, trunk)         br-phy + VLAN 10/50 trunk
+#   net1  -> lan1        LAN1 (vtnet1, trunk)         br-phy + VLAN 10/20/50 trunk
 #   net2  -> lan2        LAN2 (vtnet2)                br-phy
 #   net3  -> lan3        Game Box (vtnet3)        br-main
 #   net4  -> sfp0        Mac Studio (vtnet4)          br-main
@@ -16,11 +16,12 @@
 #   br-phy               10.1.1.0/24      10.1.1.1     opt2  (bridge0, untagged)
 #   sfp1.5               10.1.5.0/24      10.1.5.1     opt13 (vlan04, infra/PHY)
 #   br-main              10.1.10.0/24     10.1.10.1    opt11 (bridge1, VLAN 10)
+#   lan1.20              10.1.20.0/24     10.1.20.1    guest (VLAN 20)
 #   br-iot               10.1.50.0/24     10.1.50.1    opt12 (bridge2, VLAN 50)
 #
-# br-main / br-iot bridge the matching VLAN across BOTH trunks (sfp1 + lan1) so a
-# device tagged VLAN 10/50 on either physical medium lands on the same L2 segment,
-# exactly as OPNsense bridged vlan03+vlan05 (10) and vlan01+vlan09 (50).
+# br-main / br-iot bridge the matching VLAN across BOTH trunks (sfp1 + lan1) so
+# tagged VLAN 10/50 traffic on either physical medium lands on the same L2 segment.
+# Guest VLAN 20 is available only on lan1 (the firewall's eth1 connection).
 #
 # The cluster network (10.0.7.0/24) is a Proxmox-internal bridge shared directly
 # by the k8s nodes; the firewall has no interface on it and does not route it.
@@ -107,6 +108,7 @@ in {
       "30-sfp1.10" = vlan "sfp1.10" 10;
       "30-sfp1.50" = vlan "sfp1.50" 50;
       "30-lan1.10" = vlan "lan1.10" 10;
+      "30-lan1.20" = vlan "lan1.20" 20;
       "30-lan1.50" = vlan "lan1.50" 50;
     };
 
@@ -120,14 +122,14 @@ in {
         linkConfig.RequiredForOnline = "routable";
       };
 
-      # Trunk: lan1 — untagged to br-phy, tagged 10/50 split to vlan netdevs.
+      # Trunk: lan1 — untagged to br-phy, tagged 10/20/50 split to VLAN netdevs.
       "40-lan1" = {
         matchConfig.Name = "lan1";
         networkConfig.Bridge = "br-phy";
-        vlan = ["lan1.10" "lan1.50"];
+        vlan = ["lan1.10" "lan1.20" "lan1.50"];
         linkConfig.RequiredForOnline = false;
       };
-      # Trunk: sfp1 — untagged to br-phy, tagged 5/10/50 split to vlan netdevs.
+      # Trunk: sfp1 — untagged to br-phy, tagged 5/10/50 split to VLAN netdevs.
       "40-sfp1" = {
         matchConfig.Name = "sfp1";
         networkConfig.Bridge = "br-phy";
@@ -151,7 +153,7 @@ in {
         linkConfig.RequiredForOnline = false;
       };
 
-      # VLAN sub-interfaces: 5 is routed standalone; 10/50 feed their bridges.
+      # VLAN sub-interfaces: 5/20 are routed; 10/50 feed their bridges.
       "45-sfp1.5" = {
         matchConfig.Name = "sfp1.5";
         address = ["10.1.5.1/24"];
@@ -170,6 +172,11 @@ in {
       "45-lan1.10" = {
         matchConfig.Name = "lan1.10";
         networkConfig.Bridge = "br-main";
+        linkConfig.RequiredForOnline = false;
+      };
+      "45-lan1.20" = {
+        matchConfig.Name = "lan1.20";
+        address = ["10.1.20.1/24"];
         linkConfig.RequiredForOnline = false;
       };
       "45-lan1.50" = {

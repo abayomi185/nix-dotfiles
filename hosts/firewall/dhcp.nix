@@ -13,7 +13,7 @@
     settings = {
       # DNS on 53053 — Unbound owns :53 and forwards local zones to us.
       port = 53053;
-      interface = ["br-phy" "br-main" "br-iot" "sfp1.5"];
+      interface = ["br-phy" "br-main" "lan1.20" "br-iot" "sfp1.5"];
 
       # Self-contained local authority: never read /etc/resolv.conf, never
       # forward upstream (Unbound handles recursion).
@@ -26,6 +26,7 @@
       # ── DHCP ranges (per LAN) ──────────────────────────────────────────
       dhcp-range = [
         "interface:br-main,10.1.10.100,10.1.10.250,255.255.255.0,4h" # VLAN_MAIN
+        "interface:lan1.20,10.1.20.100,10.1.20.250,255.255.255.0,4h" # VLAN_GUEST
         "interface:br-iot,10.1.50.100,10.1.50.250,255.255.255.0,6h" # VLAN_IOT
         "interface:br-phy,10.1.1.100,10.1.1.250,255.255.255.0,4h" # PHY bridge
         "interface:sfp1.5,10.1.5.100,10.1.5.250,255.255.255.0,4h" # VLAN_PHY/infra
@@ -35,6 +36,8 @@
       dhcp-option = [
         "interface:br-main,option:router,10.1.10.1"
         "interface:br-main,option:dns-server,10.1.10.1"
+        "interface:lan1.20,option:router,10.1.20.1"
+        "interface:lan1.20,option:dns-server,10.1.20.1"
         "interface:br-iot,option:router,10.1.50.1"
         "interface:br-iot,option:dns-server,10.1.50.1"
         "interface:br-phy,option:router,10.1.1.1"
