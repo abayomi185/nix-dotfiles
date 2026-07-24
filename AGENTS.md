@@ -7,6 +7,14 @@ configurations for macOS (Darwin), NixOS servers, LXC containers, Kubernetes
 nodes, a VPS, and a firewall VM. Primary language is Nix (~95%), with some
 shell scripts, Lua, YAML, and JSON.
 
+## Related Repositories
+
+- [`../h-projek/homelab`](https://github.com/abayomi185/homelab) is the source
+  of truth for physical-device inventory, topology, rack placement, networking
+  facts, and operational notes. In particular, Proxmox host documentation
+  belongs under `devices/YHLD-SERV1/`; keep this repository focused on
+  declarative Nix-managed systems and guests.
+
 ## Build / Rebuild Commands
 
 ```bash
