@@ -14,7 +14,9 @@
     ./dhcp.nix
     ./wireguard.nix
     ./prometheus.nix
+    ./unifi-os-server.nix
     ./services.nix
+    inputs.unifi-os-server.nixosModules.unifi-os-server
   ];
 
   # ── Nix ──────────────────────────────────────────────────────────────────

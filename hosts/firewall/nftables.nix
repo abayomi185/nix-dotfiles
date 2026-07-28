@@ -62,6 +62,13 @@
           # Prometheus, Grafana & Blocky web UIs (admin access only).
           iifname { "br-main", "sfp1.5" } tcp dport { 9090, 3000, 4000 } accept
 
+          # UniFi OS Server UI (admin access only).
+          iifname { "br-main", "sfp1.5" } tcp dport 11443 accept
+
+          # UniFi device adoption, management, STUN, and discovery.
+          iifname @lan_ifaces tcp dport { 6789, 8080, 8443, 8843, 8880 } accept
+          iifname @lan_ifaces udp dport { 3478, 10001 } accept
+
           # WireGuard peer (VPS, 10.13.13.1) reaching firewall services.
           iifname "wg0" ip saddr 10.13.13.0/24 accept
 
