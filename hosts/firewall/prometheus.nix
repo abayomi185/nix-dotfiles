@@ -22,7 +22,7 @@
       extraFlags = [
         "--collector.textfile.directory=/var/lib/node_exporter/textfile_collector"
       ];
-      # Listen on all interfaces so K8s cluster (sfp1.5) can scrape later.
+      # Listen on all interfaces so K8s cluster (vlan-infra) can scrape later.
       listenAddress = "0.0.0.0";
     };
 

@@ -48,7 +48,7 @@
 
   # ── Network Sysctl ──────────────────────────────────────────────────────
   # rp_filter is anti-spoofing for end hosts. On a router the reply path is
-  # naturally asymmetric (request in on sfp1.5, reply out the same interface
+  # naturally asymmetric (request in on vlan-infra, reply out the same interface
   # but sourced from a different local IP like br-main's 10.1.10.1). Strict
   # rp_filter drops those replies — breaks UDP DNS from LAN clients. Input
   # filtering is handled by nftables (see ./nftables.nix), so rp_filter is

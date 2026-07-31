@@ -15,7 +15,7 @@
         # LAN-facing L3 interfaces (the firewall's own service surface).
         set lan_ifaces {
           type ifname
-          elements = { "br-phy", "br-main", "lan1.20", "br-iot", "sfp1.5" }
+          elements = { "br-native", "vlan-infra", "br-main", "vlan-guest", "br-iot" }
         }
 
         # Subnets a WireGuard peer (the VPS) is allowed to reach.
@@ -51,30 +51,30 @@
           iifname "br-iot" udp dport 123 accept
 
           # mDNS reflector ingress (VLAN_MAIN + infra VLAN).
-          iifname { "br-main", "sfp1.5" } udp dport 5353 accept
+          iifname { "br-main", "vlan-infra" } udp dport 5353 accept
 
           # SSH management from the main LAN and the infra VLAN only.
-          iifname { "br-main", "sfp1.5" } tcp dport 22 accept
+          iifname { "br-main", "vlan-infra" } tcp dport 22 accept
 
           # Prometheus exporters (reachable from any LAN for future K8s scraping).
           iifname @lan_ifaces tcp dport { 9100, 9167, 9153 } accept
 
           # Prometheus, Grafana & Blocky web UIs (admin access only).
-          iifname { "br-main", "sfp1.5" } tcp dport { 9090, 3000, 4000 } accept
+          iifname { "br-main", "vlan-infra" } tcp dport { 9090, 3000, 4000 } accept
 
           # UniFi OS Server UI (admin access only).
-          iifname { "br-main", "sfp1.5" } tcp dport 11443 accept
+          iifname { "br-main", "vlan-infra" } tcp dport 11443 accept
 
           # UniFi device adoption, provisioning, STUN, and discovery.
-          iifname "sfp1.5" tcp dport 8080 accept
-          iifname "sfp1.5" udp dport { 3478, 10001 } accept
+          iifname "vlan-infra" tcp dport 8080 accept
+          iifname "vlan-infra" udp dport { 3478, 10001 } accept
 
           # Direct UniFi Network UI/API and mobile speed test.
-          iifname { "br-main", "sfp1.5" } tcp dport 8443 accept
+          iifname { "br-main", "vlan-infra" } tcp dport 8443 accept
           iifname "br-main" tcp dport 6789 accept
 
           # Guest captive portal redirection.
-          iifname "lan1.20" tcp dport { 8843, 8880 } accept
+          iifname "vlan-guest" tcp dport { 8843, 8880 } accept
 
           # WireGuard peer (VPS, 10.13.13.1) reaching firewall services.
           iifname "wg0" ip saddr 10.13.13.0/24 accept
@@ -94,10 +94,10 @@
           oifname "wg0" tcp flags syn / syn,rst tcp option maxseg size set 1380
 
           # Trusted LANs: unrestricted egress (OPNsense "net -> any" rules).
-          iifname { "br-phy", "br-main", "sfp1.5" } accept
+          iifname { "br-native", "vlan-infra", "br-main" } accept
 
           # Guests: internet only; no access to other LANs.
-          iifname "lan1.20" oifname "wan0" accept
+          iifname "vlan-guest" oifname "wan0" accept
 
           # IoT: internet only, plus same-segment hairpin; no lateral access to
           # other LANs (OPNsense "IoT net -> !RFC1918" + "IoT -> IoT").

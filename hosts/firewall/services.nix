@@ -11,7 +11,7 @@
       PermitRootLogin = "prohibit-password";
       PasswordAuthentication = false;
     };
-    # Firewall rules restrict SSH to br-main only (see nftables.nix)
+    # Firewall rules restrict SSH to Main and Infra (see nftables.nix).
   };
 
   # ── mDNS Repeater ──────────────────────────────────────────────────────
@@ -20,7 +20,7 @@
   services.avahi = {
     enable = true;
     reflector = true;
-    allowInterfaces = ["br-main" "sfp1.5"];
+    allowInterfaces = ["br-main" "vlan-infra"];
     # Don't publish the firewall's own services
     publish = {
       enable = false;

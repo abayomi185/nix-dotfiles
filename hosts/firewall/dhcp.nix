@@ -13,7 +13,7 @@
     settings = {
       # DNS on 53053 — Unbound owns :53 and forwards local zones to us.
       port = 53053;
-      interface = ["br-phy" "br-main" "lan1.20" "br-iot" "sfp1.5"];
+      interface = ["br-native" "vlan-infra" "br-main" "vlan-guest" "br-iot"];
 
       # Self-contained local authority: never read /etc/resolv.conf, never
       # forward upstream (Unbound handles recursion).
@@ -25,25 +25,25 @@
 
       # ── DHCP ranges (per LAN) ──────────────────────────────────────────
       dhcp-range = [
-        "interface:br-main,10.1.10.100,10.1.10.250,255.255.255.0,4h" # VLAN_MAIN
-        "interface:lan1.20,10.1.20.100,10.1.20.250,255.255.255.0,4h" # VLAN_GUEST
-        "interface:br-iot,10.1.50.100,10.1.50.250,255.255.255.0,6h" # VLAN_IOT
-        "interface:br-phy,10.1.1.100,10.1.1.250,255.255.255.0,4h" # PHY bridge
-        "interface:sfp1.5,10.1.5.100,10.1.5.250,255.255.255.0,4h" # VLAN_PHY/infra
+        "interface:br-native,10.1.1.100,10.1.1.250,255.255.255.0,4h" # Native
+        "interface:vlan-infra,10.1.5.100,10.1.5.250,255.255.255.0,4h" # Infra
+        "interface:br-main,10.1.10.100,10.1.10.250,255.255.255.0,4h" # Main
+        "interface:vlan-guest,10.1.20.100,10.1.20.250,255.255.255.0,4h" # Guest
+        "interface:br-iot,10.1.50.100,10.1.50.250,255.255.255.0,6h" # IoT
       ];
 
       # ── Per-LAN gateway + DNS (this firewall) ──────────────────────────
       dhcp-option = [
+        "interface:br-native,option:router,10.1.1.1"
+        "interface:br-native,option:dns-server,10.1.1.1"
+        "interface:vlan-infra,option:router,10.1.5.1"
+        "interface:vlan-infra,option:dns-server,10.1.5.1"
         "interface:br-main,option:router,10.1.10.1"
         "interface:br-main,option:dns-server,10.1.10.1"
-        "interface:lan1.20,option:router,10.1.20.1"
-        "interface:lan1.20,option:dns-server,10.1.20.1"
+        "interface:vlan-guest,option:router,10.1.20.1"
+        "interface:vlan-guest,option:dns-server,10.1.20.1"
         "interface:br-iot,option:router,10.1.50.1"
         "interface:br-iot,option:dns-server,10.1.50.1"
-        "interface:br-phy,option:router,10.1.1.1"
-        "interface:br-phy,option:dns-server,10.1.1.1"
-        "interface:sfp1.5,option:router,10.1.5.1"
-        "interface:sfp1.5,option:dns-server,10.1.5.1"
 
         # UniFi L3 adoption: firewall-hosted controller 10.1.5.1 encoded as
         # type, length, then IPv4.

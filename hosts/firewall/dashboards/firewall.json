@@ -100,12 +100,12 @@
       },
       "targets": [
         {
-          "expr": "rate(node_network_receive_bytes_total{device=~\"wan0|wg0|br-phy|br-main|br-iot|sfp0|sfp1|sfp1.5\"}[1m])",
+          "expr": "rate(node_network_receive_bytes_total{device=~\"wan0|wg0|br-native|vlan-infra|br-main|vlan-guest|br-iot|sfp0|sfp1\"}[1m])",
           "legendFormat": "{{device}} rx",
           "refId": "A"
         },
         {
-          "expr": "- rate(node_network_transmit_bytes_total{device=~\"wan0|wg0|br-phy|br-main|br-iot|sfp0|sfp1|sfp1.5\"}[1m])",
+          "expr": "- rate(node_network_transmit_bytes_total{device=~\"wan0|wg0|br-native|vlan-infra|br-main|vlan-guest|br-iot|sfp0|sfp1\"}[1m])",
           "legendFormat": "{{device}} tx",
           "refId": "B"
         }
@@ -635,7 +635,7 @@
       },
       "targets": [
         {
-          "expr": "rate(node_network_receive_drop_total{device=~\"wan0|wg0|br-phy|br-main|br-iot|sfp0|sfp1|sfp1.5\"}[1m]) + rate(node_network_transmit_drop_total{device=~\"wan0|wg0|br-phy|br-main|br-iot|sfp0|sfp1|sfp1.5\"}[1m])",
+          "expr": "rate(node_network_receive_drop_total{device=~\"wan0|wg0|br-native|vlan-infra|br-main|vlan-guest|br-iot|sfp0|sfp1\"}[1m]) + rate(node_network_transmit_drop_total{device=~\"wan0|wg0|br-native|vlan-infra|br-main|vlan-guest|br-iot|sfp0|sfp1\"}[1m])",
           "legendFormat": "{{device}} drops",
           "refId": "A"
         }
@@ -725,7 +725,7 @@
       },
       "targets": [
         {
-          "expr": "rate(node_network_receive_errs_total{device=~\"wan0|wg0|br-phy|br-main|br-iot|sfp0|sfp1|sfp1.5\"}[1m]) + rate(node_network_transmit_errs_total{device=~\"wan0|wg0|br-phy|br-main|br-iot|sfp0|sfp1|sfp1.5\"}[1m])",
+          "expr": "rate(node_network_receive_errs_total{device=~\"wan0|wg0|br-native|vlan-infra|br-main|vlan-guest|br-iot|sfp0|sfp1\"}[1m]) + rate(node_network_transmit_errs_total{device=~\"wan0|wg0|br-native|vlan-infra|br-main|vlan-guest|br-iot|sfp0|sfp1\"}[1m])",
           "legendFormat": "{{device}} errors",
           "refId": "A"
         }
