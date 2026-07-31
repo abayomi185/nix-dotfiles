@@ -44,6 +44,10 @@
         "interface:br-phy,option:dns-server,10.1.1.1"
         "interface:sfp1.5,option:router,10.1.5.1"
         "interface:sfp1.5,option:dns-server,10.1.5.1"
+
+        # UniFi L3 adoption: firewall-hosted controller 10.1.10.1 encoded as
+        # type, length, then IPv4.
+        "43,01:04:0a:01:0a:01"
       ];
 
       # ── Static reservations (mac,host,ip) — from OPNsense ──────────────
