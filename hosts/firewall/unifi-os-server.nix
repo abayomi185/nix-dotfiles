@@ -13,8 +13,8 @@ in {
 
   services.unifi-os-server = {
     enable = true;
-    # Stable address reachable by devices on every routed LAN.
-    uosSystemIP = "10.1.10.1";
+    # Advertise the controller on the infrastructure management VLAN.
+    uosSystemIP = "10.1.5.1";
     extraVolumes = ["${networkPackage}:/run/unifi-network.deb:ro"];
   };
 
