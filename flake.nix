@@ -78,6 +78,9 @@
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
+    # UniFi OS Server
+    unifi-os-server.url = "github:rcambrj/unifi-os-server";
+
     # Secrets
     nix-secrets = {
       url = "git+ssh://git@github.com/abayomi185/nix-secrets.git?ref=main&shallow=1";
