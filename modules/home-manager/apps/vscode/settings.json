@@ -6,15 +6,15 @@
   "editor.formatOnSave": true,
 
   "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
   },
 
   "[rust]": {
-    "editor.defaultFormatter": "rust-lang.rust-analyzer"
+    "editor.defaultFormatter": "rust-lang.rust-analyzer",
   },
 
   "[jsonc]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
   },
 
   // NOTE: More options
@@ -26,15 +26,15 @@
   "vim.normalModeKeyBindingsNonRecursive": [
     {
       "before": ["<leader>", "/"],
-      "commands": ["editor.action.commentLine"]
+      "commands": ["editor.action.commentLine"],
     },
     {
       "before": ["<leader>", "h"],
-      "commands": [":noh"]
+      "commands": [":noh"],
     },
     {
       "before": ["<leader>", "w"],
-      "commands": [":w"]
+      "commands": [":w"],
     },
     // {
     //   "before": ["<leader>", "d"],
@@ -43,7 +43,7 @@
     {
       // This focuses the hover window
       "before": ["K"],
-      "commands": ["editor.debug.action.showDebugHover"]
+      "commands": ["editor.debug.action.showDebugHover"],
     },
     // {
     //   "before": ["K"],
@@ -51,55 +51,55 @@
     // },
     {
       "before": ["g", "r"],
-      "commands": ["editor.action.goToReferences"]
+      "commands": ["editor.action.goToReferences"],
     },
     // MOVE LINES
     {
       "before": ["alt+j"],
-      "commands": ["editor.action.moveLinesDownAction"]
+      "commands": ["editor.action.moveLinesDownAction"],
     },
     {
       "before": ["alt+k"],
-      "commands": ["editor.action.moveLinesUpAction"]
+      "commands": ["editor.action.moveLinesUpAction"],
     },
     // QUICK OPEN
     {
       "before": ["<leader>", "f", "f"],
-      "commands": ["workbench.action.quickOpen"]
+      "commands": ["workbench.action.quickOpen"],
       // "when": "inFilesPicker && inQuickOpen"
     },
     {
       "before": ["<leader>", "f", "w"],
-      "commands": ["livegrep.search"]
+      "commands": ["livegrep.search"],
     },
     // BUFFER COMMANDS
     {
       "before": ["<leader>", "b", "h"],
-      "commands": ["workbench.action.closeEditorsToTheLeft"]
+      "commands": ["workbench.action.closeEditorsToTheLeft"],
     },
     {
       "before": ["<leader>", "b", "l"],
-      "commands": ["workbench.action.closeEditorsToTheRight"]
+      "commands": ["workbench.action.closeEditorsToTheRight"],
     },
     {
       "before": ["<leader>", "b", "b"],
       "commands": ["bookmarks.toggle"],
-      "when": ["editorTextFocus"]
+      "when": ["editorTextFocus"],
     },
     // CODE ACTIONS
     {
       "before": ["<leader>", "l", "a"],
-      "commands": ["editor.action.quickFix"]
+      "commands": ["editor.action.quickFix"],
     },
     {
       "before": ["<leader>", "j"],
-      "commands": ["workbench.action.togglePanel"]
+      "commands": ["workbench.action.togglePanel"],
     },
     // DEBUG
     {
       "before": ["<leader>", "d", "t"],
       "commands": ["editor.debug.action.toggleBreakpoint"],
-      "when": ["debuggersAvailable, editorTextFocus"]
+      "when": ["debuggersAvailable, editorTextFocus"],
     },
     // {
     //   "before": ["<leader>", "t"],
@@ -113,74 +113,74 @@
     // }
     {
       "before": ["<leader>", "e"],
-      "commands": ["workbench.action.toggleSidebarVisibility"]
+      "commands": ["workbench.action.toggleSidebarVisibility"],
     },
     // CLOSE TAB
     {
       "before": ["<leader>", "c"],
-      "commands": ["workbench.action.closeActiveEditor"]
+      "commands": ["workbench.action.closeActiveEditor"],
     },
     // NAVIGATE TABS
     {
       // Navigate to the next tab
       "before": ["<S-l>"],
-      "commands": ["workbench.action.nextEditor"]
+      "commands": ["workbench.action.nextEditor"],
     },
     {
       // Navigate to the previous tab
       "before": ["<S-h>"],
-      "commands": ["workbench.action.previousEditor"]
+      "commands": ["workbench.action.previousEditor"],
     },
     // GIT
     {
       "before": ["<leader>", "g", "l"],
-      "commands": ["gitlens.toggleFileBlame"]
+      "commands": ["gitlens.toggleFileBlame"],
     },
     // WHICH KEY
     {
       "before": ["<space>"],
-      "commands": ["whichkey.show"]
-    }
+      "commands": ["whichkey.show"],
+    },
   ],
   "vim.visualModeKeyBindingsNonRecursive": [
     {
       "before": ["<leader>", "/"],
-      "commands": ["editor.action.commentLine"]
+      "commands": ["editor.action.commentLine"],
     },
     {
       "before": ["<leader>", "d"],
-      "after": ["\"", "_", "d"]
+      "after": ["\"", "_", "d"],
     },
     {
       "before": ["<leader>", "c"],
-      "after": ["\"", "_", "c"]
+      "after": ["\"", "_", "c"],
     },
     {
       "before": [">"],
-      "after": [">", "g", "v"]
+      "after": [">", "g", "v"],
     },
     {
       "before": ["<"],
-      "after": ["<", "g", "v"]
+      "after": ["<", "g", "v"],
     },
     // MOVE LINES
     {
       "before": ["<alt+j>"],
-      "commands": ["editor.action.moveLinesDownAction"]
+      "commands": ["editor.action.moveLinesDownAction"],
     },
     {
       "before": ["<alt+k>"],
-      "commands": ["editor.action.moveLinesUpAction"]
+      "commands": ["editor.action.moveLinesUpAction"],
     },
     // WHICH KEY
     {
       "before": ["<space>"],
-      "commands": ["whichkey.show"]
-    }
+      "commands": ["whichkey.show"],
+    },
   ],
   "vim.handleKeys": {
     "<C-b>": false,
-    "<C-j>": false
+    "<C-j>": false,
   },
   "github.copilot.nextEditSuggestions.enabled": true,
   "@azure.argTenant": "",
@@ -192,13 +192,23 @@
     "editor.quickSuggestions": {
       "other": true,
       "comments": false,
-      "strings": true
+      "strings": true,
     },
-    "editor.defaultFormatter": "redhat.vscode-yaml"
+    "editor.defaultFormatter": "redhat.vscode-yaml",
   },
   "[github-actions-workflow]": {
-    "editor.defaultFormatter": "redhat.vscode-yaml"
+    "editor.defaultFormatter": "redhat.vscode-yaml",
   },
-  "python.defaultInterpreterPath": "/opt/homebrew/bin/python3"
+  "python.defaultInterpreterPath": "/opt/homebrew/bin/python3",
+  "yaml.disableSchemaDetection": [
+    "**/docker-compose.yml",
+    "**/docker-compose.yaml",
+    "**/docker-compose.*.yml",
+    "**/docker-compose.*.yaml",
+    "**/compose.yml",
+    "**/compose.yaml",
+    "**/compose.*.yml",
+    "**/compose.*.yaml",
+  ],
   // NOTE: End of VSCode Vim
 }
