@@ -273,6 +273,11 @@
       sonamesh = import ./hosts/sonamesh/default.nix {
         inherit inputs outputs;
       };
+      sonamesh-installer = inputs.nixpkgs-stable.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = {inherit inputs outputs;};
+        modules = [./hosts/sonamesh/iso.nix];
+      };
       audio-share = import ./hosts/lxc/audio-share/default.nix {
         inherit inputs outputs;
       };
