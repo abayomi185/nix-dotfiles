@@ -268,8 +268,11 @@
       };
     };
 
-    # LXC node definitions
+    # Server and LXC node definitions
     nixosConfigurations = {
+      sonamesh = import ./hosts/sonamesh/default.nix {
+        inherit inputs outputs;
+      };
       audio-share = import ./hosts/lxc/audio-share/default.nix {
         inherit inputs outputs;
       };
