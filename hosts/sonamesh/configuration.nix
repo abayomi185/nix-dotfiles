@@ -2,7 +2,46 @@
   inputs,
   pkgs,
   ...
-}: {
+}: let
+  package = inputs.sonamesh.packages.${pkgs.stdenv.hostPlatform.system}.default;
+  outputNode = "alsa_output.usb-BEHRINGER_UMC1820_50F63C5A-00.multichannel-output";
+  waitForOutput = pkgs.writeShellApplication {
+    name = "sonamesh-wait-for-output";
+    runtimeInputs = [pkgs.coreutils pkgs.jq pkgs.pipewire];
+    text = ''
+      attempt=0
+      while [ "$attempt" -lt 30 ]; do
+        if pw-dump | jq -e --arg target "$1" \
+          'any(.[]; .info.props."node.name"? == $target)' >/dev/null
+        then
+          exit 0
+        fi
+        sleep 1
+        attempt=$((attempt + 1))
+      done
+
+      echo "PipeWire output did not appear: $1" >&2
+      exit 1
+    '';
+  };
+  verifyReceiver = pkgs.writeShellApplication {
+    name = "sonamesh-verify-receiver";
+    runtimeInputs = [pkgs.coreutils pkgs.gnugrep pkgs.iproute2];
+    text = ''
+      attempt=0
+      while [ "$attempt" -lt 10 ]; do
+        if ss -H -lun 'sport = :4010' | grep -q .; then
+          exit 0
+        fi
+        sleep 0.2
+        attempt=$((attempt + 1))
+      done
+
+      echo "SonaMesh receiver did not bind UDP port 4010" >&2
+      exit 1
+    '';
+  };
+in {
   imports = [
     ./disk-config.nix
     ./hardware-configuration.nix
@@ -74,6 +113,28 @@
     };
   };
 
+  systemd.user.services.sonamesh-receiver = {
+    description = "SonaMesh network audio receiver";
+    wantedBy = ["default.target"];
+    wants = ["pipewire.service" "wireplumber.service"];
+    after = ["pipewire.service" "wireplumber.service"];
+    unitConfig = {
+      StartLimitIntervalSec = 30;
+      StartLimitBurst = 10;
+    };
+    serviceConfig = {
+      Type = "exec";
+      ExecStartPre = "${waitForOutput}/bin/sonamesh-wait-for-output ${outputNode}";
+      ExecStart = "${package}/bin/sonamesh pipewire-receive --bind 0.0.0.0:4010 --target ${outputNode} --latency 10ms --jitter-packets 8";
+      ExecStartPost = "${verifyReceiver}/bin/sonamesh-verify-receiver";
+      Restart = "always";
+      RestartSec = "1s";
+      StandardOutput = "journal";
+      StandardError = "journal";
+      SyslogIdentifier = "sonamesh-receiver";
+    };
+  };
+
   services.avahi = {
     enable = true;
     nssmdns4 = true;
@@ -86,6 +147,7 @@
   };
 
   environment.systemPackages = with pkgs; [
+    package
     alsa-utils
     pamixer
     pipewire
