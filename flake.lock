@@ -752,6 +752,7 @@
         "nixpkgs-stable": "nixpkgs-stable",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "rust-overlay": "rust-overlay",
+        "sonamesh": "sonamesh",
         "sops-nix": "sops-nix",
         "unifi-os-server": "unifi-os-server",
         "wezterm": "wezterm"
@@ -796,6 +797,28 @@
         "owner": "oxalica",
         "repo": "rust-overlay",
         "type": "github"
+      }
+    },
+    "sonamesh": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs-stable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1785714263,
+        "narHash": "sha256-VIpB5Kv856o2F54jbitsWgOwdpWW7Il/Rv7td04/d3k=",
+        "ref": "refs/heads/main",
+        "rev": "27c4525b2cff327e4aced02895693ddfe414cba2",
+        "shallow": true,
+        "type": "git",
+        "url": "ssh://git@github.com/abayomi185/sonamesh.git"
+      },
+      "original": {
+        "rev": "27c4525b2cff327e4aced02895693ddfe414cba2",
+        "shallow": true,
+        "type": "git",
+        "url": "ssh://git@github.com/abayomi185/sonamesh.git"
       }
     },
     "sops-nix": {
