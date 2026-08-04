@@ -3,6 +3,7 @@
   pkgs,
   ...
 }: let
+  authorizedKeys = import ../shared/authorized-keys.nix {inherit inputs;};
   package = inputs.sonamesh.packages.${pkgs.stdenv.hostPlatform.system}.default;
   outputNode = "alsa_output.usb-BEHRINGER_UMC1820_50F63C5A-00.multichannel-output";
   waitForOutput = pkgs.writeShellApplication {
@@ -82,8 +83,7 @@ in {
       PermitRootLogin = "prohibit-password";
     };
   };
-  users.users.root.openssh.authorizedKeys.keys =
-    import ../shared/authorized-keys.nix {inherit inputs;};
+  users.users.root.openssh.authorizedKeys.keys = authorizedKeys;
 
   # A lingering user session owns PipeWire and remains active without login.
   users.users.sonamesh = {
@@ -92,6 +92,7 @@ in {
     home = "/var/lib/sonamesh";
     createHome = true;
     linger = true;
+    openssh.authorizedKeys.keys = authorizedKeys;
     extraGroups = ["audio"];
   };
 
