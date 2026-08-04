@@ -119,6 +119,7 @@ in {
     wants = ["pipewire.service" "wireplumber.service"];
     after = ["pipewire.service" "wireplumber.service"];
     unitConfig = {
+      ConditionUser = "sonamesh";
       StartLimitIntervalSec = 30;
       StartLimitBurst = 10;
     };
