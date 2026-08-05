@@ -1,11 +1,17 @@
 {
   inputs,
+  lib,
   pkgs,
   ...
 }: let
   authorizedKeys = import ../shared/authorized-keys.nix {inherit inputs;};
   package = inputs.sonamesh.packages.${pkgs.stdenv.hostPlatform.system}.default;
   outputNode = "alsa_output.usb-BEHRINGER_UMC1820_50F63C5A-00.multichannel-output";
+  receiverSources = {
+    gamebox = 4010;
+    macbook = 4011;
+    "mac-studio-2" = 4012;
+  };
   waitForOutput = pkgs.writeShellApplication {
     name = "sonamesh-wait-for-output";
     runtimeInputs = [pkgs.coreutils pkgs.jq pkgs.pipewire];
@@ -31,17 +37,48 @@
     text = ''
       attempt=0
       while [ "$attempt" -lt 10 ]; do
-        if ss -H -lun 'sport = :4010' | grep -q .; then
+        if ss -H -lun "sport = :$1" | grep -q .; then
           exit 0
         fi
         sleep 0.2
         attempt=$((attempt + 1))
       done
 
-      echo "SonaMesh receiver did not bind UDP port 4010" >&2
+      echo "SonaMesh receiver did not bind UDP port $1" >&2
       exit 1
     '';
   };
+  mkReceiver = {
+    source,
+    port,
+  }: {
+    description = "SonaMesh ${source} audio receiver";
+    wantedBy = ["default.target"];
+    wants = ["pipewire.service" "wireplumber.service"];
+    after = ["pipewire.service" "wireplumber.service"];
+    unitConfig = {
+      ConditionUser = "sonamesh";
+      StartLimitIntervalSec = 30;
+      StartLimitBurst = 10;
+    };
+    serviceConfig = {
+      Type = "exec";
+      ExecStartPre = "${waitForOutput}/bin/sonamesh-wait-for-output ${outputNode}";
+      ExecStart = "${package}/bin/sonamesh pipewire-receive --bind 0.0.0.0:${toString port} --target ${outputNode} --latency 50ms --jitter-packets 8";
+      ExecStartPost = "${verifyReceiver}/bin/sonamesh-verify-receiver ${toString port}";
+      Restart = "always";
+      RestartSec = "1s";
+      StandardOutput = "journal";
+      StandardError = "journal";
+      SyslogIdentifier = "sonamesh-receiver-${source}";
+    };
+  };
+  receiverServices =
+    lib.mapAttrs' (
+      source: port:
+        lib.nameValuePair "sonamesh-receiver-${source}" (mkReceiver {inherit source port;})
+    )
+    receiverSources;
 in {
   imports = [
     ./disk-config.nix
@@ -68,7 +105,7 @@ in {
     hostName = "sonamesh";
     domain = "internal.yomitosh.media";
     useDHCP = true;
-    firewall.allowedUDPPorts = [4010];
+    firewall.allowedUDPPorts = builtins.attrValues receiverSources;
   };
 
   time.timeZone = "Europe/London";
@@ -108,34 +145,14 @@ in {
       "context.properties" = {
         "default.clock.rate" = 48000;
         "default.clock.allowed-rates" = [48000];
+        "default.clock.quantum" = 256;
         "default.clock.min-quantum" = 48;
-        "default.clock.max-quantum" = 1024;
+        "default.clock.max-quantum" = 256;
       };
     };
   };
 
-  systemd.user.services.sonamesh-receiver = {
-    description = "SonaMesh network audio receiver";
-    wantedBy = ["default.target"];
-    wants = ["pipewire.service" "wireplumber.service"];
-    after = ["pipewire.service" "wireplumber.service"];
-    unitConfig = {
-      ConditionUser = "sonamesh";
-      StartLimitIntervalSec = 30;
-      StartLimitBurst = 10;
-    };
-    serviceConfig = {
-      Type = "exec";
-      ExecStartPre = "${waitForOutput}/bin/sonamesh-wait-for-output ${outputNode}";
-      ExecStart = "${package}/bin/sonamesh pipewire-receive --bind 0.0.0.0:4010 --target ${outputNode} --latency 10ms --jitter-packets 8";
-      ExecStartPost = "${verifyReceiver}/bin/sonamesh-verify-receiver";
-      Restart = "always";
-      RestartSec = "1s";
-      StandardOutput = "journal";
-      StandardError = "journal";
-      SyslogIdentifier = "sonamesh-receiver";
-    };
-  };
+  systemd.user.services = receiverServices;
 
   services.avahi = {
     enable = true;
