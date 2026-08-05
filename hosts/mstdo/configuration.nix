@@ -64,6 +64,8 @@
   # Add ability to used TouchID for sudo authentication
   security.pam.services.sudo_local.touchIdAuth = true;
 
+  # Disable system sleep; allow display sleep. Mac Studio is a desktop
+  # (AC-only), and SSH needs the system to be reachable.
   power.sleep = {
     computer = "never";
     display = 15;
