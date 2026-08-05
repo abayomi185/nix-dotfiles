@@ -23,6 +23,12 @@ if font_ok then
 	config.font = wezterm.font(font.family)
 end
 
+local resurrect_config_ok, resurrect_config = pcall(require, "resurrect_config")
+local resurrect_public_key = "age1yzgt8vkltmfuf3cfj0ywt6t27clj80c4k5kktg437x0vuxryvp5qnkrq08"
+if resurrect_config_ok then
+	resurrect_public_key = resurrect_config.public_key
+end
+
 local function get_age_path(user)
 	return string.format("/etc/profiles/per-user/%s/bin/age", user)
 end
@@ -243,7 +249,7 @@ resurrect.state_manager.set_encryption({
 	enable = true,
 	method = get_age_path(wezterm.home_dir:match("([^/]+)$")),
 	private_key = wezterm.home_dir .. "/.config/wezterm/resurrect_secret.txt",
-	public_key = "age1yzgt8vkltmfuf3cfj0ywt6t27clj80c4k5kktg437x0vuxryvp5qnkrq08",
+	public_key = resurrect_public_key,
 })
 
 wezterm.on("gui-startup", resurrect.state_manager.resurrect_on_gui_startup)

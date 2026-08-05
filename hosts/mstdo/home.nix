@@ -62,6 +62,12 @@
     };
   };
 
+  xdg.configFile."wezterm/resurrect_config.lua".text = ''
+    return {
+      public_key = "age1t8nkk5v5cwnk3wsp8sffmknczf5k0eyejalw2lvx5emgdec9k5vqt6d9rt",
+    }
+  '';
+
   # homebrew = {
   #   enable = true;
   #   casks =
