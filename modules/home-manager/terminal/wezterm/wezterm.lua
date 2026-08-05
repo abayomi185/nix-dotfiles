@@ -17,6 +17,12 @@ if wezterm.config_builder then
 	config = wezterm.config_builder()
 end
 
+local font_ok, font = pcall(require, "font")
+if font_ok then
+	config.font_dirs = font.dirs
+	config.font = wezterm.font(font.family)
+end
+
 local function get_age_path(user)
 	return string.format("/etc/profiles/per-user/%s/bin/age", user)
 end
