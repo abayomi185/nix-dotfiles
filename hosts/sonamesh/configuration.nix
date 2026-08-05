@@ -93,6 +93,8 @@ in {
   };
   # USB audio must remain available while the VM is idle.
   boot.kernelParams = ["usbcore.autosuspend=-1"];
+  # Absorb scheduler and network bursts before the bounded userspace playout buffer.
+  boot.kernel.sysctl."net.core.rmem_max" = 8 * 1024 * 1024;
 
   # ── Nix ─────────────────────────────────────────────────────────────────
   nix.settings = {
