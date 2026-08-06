@@ -8,9 +8,18 @@
   package = inputs.sonamesh.packages.${pkgs.stdenv.hostPlatform.system}.default;
   outputNode = "alsa_output.usb-BEHRINGER_UMC1820_50F63C5A-00.multichannel-output";
   receiverSources = {
-    gamebox = 4010;
-    macbook = 4011;
-    "mac-studio-2" = 4012;
+    gamebox = {
+      port = 4010;
+      latency = "20ms";
+    };
+    macbook = {
+      port = 4011;
+      latency = "150ms";
+    };
+    "mac-studio-2" = {
+      port = 4012;
+      latency = "20ms";
+    };
   };
   waitForOutput = pkgs.writeShellApplication {
     name = "sonamesh-wait-for-output";
@@ -51,6 +60,7 @@
   mkReceiver = {
     source,
     port,
+    latency,
   }: {
     description = "SonaMesh ${source} audio receiver";
     wantedBy = ["default.target"];
@@ -64,7 +74,7 @@
     serviceConfig = {
       Type = "exec";
       ExecStartPre = "${waitForOutput}/bin/sonamesh-wait-for-output ${outputNode}";
-      ExecStart = "${package}/bin/sonamesh pipewire-receive --bind 0.0.0.0:${toString port} --target ${outputNode} --latency 20ms --jitter-packets 4";
+      ExecStart = "${package}/bin/sonamesh pipewire-receive --bind 0.0.0.0:${toString port} --target ${outputNode} --latency ${latency} --jitter-packets 4";
       ExecStartPost = "${verifyReceiver}/bin/sonamesh-verify-receiver ${toString port}";
       Restart = "always";
       RestartSec = "1s";
@@ -75,8 +85,11 @@
   };
   receiverServices =
     lib.mapAttrs' (
-      source: port:
-        lib.nameValuePair "sonamesh-receiver-${source}" (mkReceiver {inherit source port;})
+      source: config:
+        lib.nameValuePair "sonamesh-receiver-${source}" (mkReceiver {
+          inherit source;
+          inherit (config) port latency;
+        })
     )
     receiverSources;
 in {
@@ -107,7 +120,7 @@ in {
     hostName = "sonamesh";
     domain = "internal.yomitosh.media";
     useDHCP = true;
-    firewall.allowedUDPPorts = builtins.attrValues receiverSources;
+    firewall.allowedUDPPorts = lib.mapAttrsToList (_: config: config.port) receiverSources;
   };
 
   time.timeZone = "Europe/London";
