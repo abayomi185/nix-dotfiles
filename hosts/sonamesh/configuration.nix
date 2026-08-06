@@ -64,7 +64,7 @@
     serviceConfig = {
       Type = "exec";
       ExecStartPre = "${waitForOutput}/bin/sonamesh-wait-for-output ${outputNode}";
-      ExecStart = "${package}/bin/sonamesh pipewire-receive --bind 0.0.0.0:${toString port} --target ${outputNode} --latency 50ms --jitter-packets 8";
+      ExecStart = "${package}/bin/sonamesh pipewire-receive --bind 0.0.0.0:${toString port} --target ${outputNode} --latency 20ms --jitter-packets 4";
       ExecStartPost = "${verifyReceiver}/bin/sonamesh-verify-receiver ${toString port}";
       Restart = "always";
       RestartSec = "1s";
