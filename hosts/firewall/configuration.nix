@@ -58,6 +58,15 @@
     "net.ipv4.conf.all.rp_filter" = 0;
   };
 
+  # Keep transient UniFi allocations from stalling the routing plane.
+  swapDevices = [
+    {
+      device = "/var/lib/swapfile";
+      size = 1024;
+    }
+  ];
+  boot.kernel.sysctl."vm.swappiness" = 10;
+
   # ── Secrets (sops, decrypted with the host SSH key) ────────────────────
   sops = {
     age.sshKeyPaths = ["/root/.ssh/id_ed25519"];
