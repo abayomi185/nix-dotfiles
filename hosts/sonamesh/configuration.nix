@@ -73,6 +73,10 @@ in {
         channel = "AUX0";
         destination = "10.1.10.243:4110";
       };
+      "umc-input-1-mac-studio" = {
+        channel = "AUX0";
+        destination = "10.1.10.242:4110";
+      };
       "umc-input-2-gamebox" = {
         channel = "AUX1";
         destination = "gamebox.internal.yomitosh.media:4111";
