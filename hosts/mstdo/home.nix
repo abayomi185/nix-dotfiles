@@ -3,6 +3,7 @@
     # Apps - See ../../modules/home-manager/apps/default.nix
     outputs.homeManagerModules.apps.bat
     outputs.homeManagerModules.apps.discord
+    outputs.homeManagerModules.apps.hass-cli
     outputs.homeManagerModules.apps.jq
     outputs.homeManagerModules.apps.k9s
     outputs.homeManagerModules.apps.karabiner-elements
