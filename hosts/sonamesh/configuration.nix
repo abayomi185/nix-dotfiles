@@ -1,101 +1,14 @@
 {
   inputs,
-  lib,
   pkgs,
   ...
 }: let
   authorizedKeys = import ../shared/authorized-keys.nix {inherit inputs;};
-  package = inputs.sonamesh.packages.${pkgs.stdenv.hostPlatform.system}.default;
-  outputNode = "alsa_output.usb-BEHRINGER_UMC1820_50F63C5A-00.multichannel-output";
-  receiverSources = {
-    gamebox = {
-      port = 4010;
-      latency = "20ms";
-    };
-    macbook = {
-      port = 4011;
-      latency = "150ms";
-    };
-    "mac-studio-2" = {
-      port = 4012;
-      latency = "20ms";
-    };
-  };
-  waitForOutput = pkgs.writeShellApplication {
-    name = "sonamesh-wait-for-output";
-    runtimeInputs = [pkgs.coreutils pkgs.jq pkgs.pipewire];
-    text = ''
-      attempt=0
-      while [ "$attempt" -lt 30 ]; do
-        if pw-dump | jq -e --arg target "$1" \
-          'any(.[]; .info.props."node.name"? == $target)' >/dev/null
-        then
-          exit 0
-        fi
-        sleep 1
-        attempt=$((attempt + 1))
-      done
-
-      echo "PipeWire output did not appear: $1" >&2
-      exit 1
-    '';
-  };
-  verifyReceiver = pkgs.writeShellApplication {
-    name = "sonamesh-verify-receiver";
-    runtimeInputs = [pkgs.coreutils pkgs.gnugrep pkgs.iproute2];
-    text = ''
-      attempt=0
-      while [ "$attempt" -lt 10 ]; do
-        if ss -H -lun "sport = :$1" | grep -q .; then
-          exit 0
-        fi
-        sleep 0.2
-        attempt=$((attempt + 1))
-      done
-
-      echo "SonaMesh receiver did not bind UDP port $1" >&2
-      exit 1
-    '';
-  };
-  mkReceiver = {
-    source,
-    port,
-    latency,
-  }: {
-    description = "SonaMesh ${source} audio receiver";
-    wantedBy = ["default.target"];
-    wants = ["pipewire.service" "wireplumber.service"];
-    after = ["pipewire.service" "wireplumber.service"];
-    unitConfig = {
-      ConditionUser = "sonamesh";
-      StartLimitIntervalSec = 30;
-      StartLimitBurst = 10;
-    };
-    serviceConfig = {
-      Type = "exec";
-      ExecStartPre = "${waitForOutput}/bin/sonamesh-wait-for-output ${outputNode}";
-      ExecStart = "${package}/bin/sonamesh pipewire-receive --bind 0.0.0.0:${toString port} --target ${outputNode} --latency ${latency} --jitter-packets 4";
-      ExecStartPost = "${verifyReceiver}/bin/sonamesh-verify-receiver ${toString port}";
-      Restart = "always";
-      RestartSec = "1s";
-      StandardOutput = "journal";
-      StandardError = "journal";
-      SyslogIdentifier = "sonamesh-receiver-${source}";
-    };
-  };
-  receiverServices =
-    lib.mapAttrs' (
-      source: config:
-        lib.nameValuePair "sonamesh-receiver-${source}" (mkReceiver {
-          inherit source;
-          inherit (config) port latency;
-        })
-    )
-    receiverSources;
 in {
   imports = [
     ./disk-config.nix
     ./hardware-configuration.nix
+    inputs.sonamesh.nixosModules.default
   ];
 
   # ── Boot ────────────────────────────────────────────────────────────────
@@ -120,7 +33,6 @@ in {
     hostName = "sonamesh";
     domain = "internal.yomitosh.media";
     useDHCP = true;
-    firewall.allowedUDPPorts = lib.mapAttrsToList (_: config: config.port) receiverSources;
   };
 
   time.timeZone = "Europe/London";
@@ -150,6 +62,40 @@ in {
 
   # ── Audio ───────────────────────────────────────────────────────────────
   security.rtkit.enable = true;
+  services.sonamesh = {
+    enable = true;
+    pipewire = {
+      inputNode = "alsa_input.usb-BEHRINGER_UMC1820_50F63C5A-00.multichannel-input";
+      outputNode = "alsa_output.usb-BEHRINGER_UMC1820_50F63C5A-00.multichannel-output";
+    };
+    inputRoutes = {
+      "umc-input-1-macbook" = {
+        channel = "AUX0";
+        destination = "10.1.10.243:4110";
+      };
+      "umc-input-2-gamebox" = {
+        channel = "AUX1";
+        destination = "gamebox.internal.yomitosh.media:4111";
+      };
+    };
+    outputRoutes = {
+      gamebox = {
+        port = 4010;
+        latency = "20ms";
+        channels = ["AUX0" "AUX1"];
+      };
+      macbook = {
+        port = 4011;
+        latency = "150ms";
+        channels = ["AUX0" "AUX1"];
+      };
+      "mac-studio-2" = {
+        port = 4012;
+        latency = "20ms";
+        channels = ["AUX0" "AUX1"];
+      };
+    };
+  };
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -167,8 +113,6 @@ in {
     };
   };
 
-  systemd.user.services = receiverServices;
-
   services.avahi = {
     enable = true;
     nssmdns4 = true;
@@ -181,7 +125,6 @@ in {
   };
 
   environment.systemPackages = with pkgs; [
-    package
     alsa-utils
     pamixer
     pipewire
