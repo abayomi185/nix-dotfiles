@@ -1,5 +1,6 @@
 {
   inputs,
+  config,
   outputs,
   pkgs,
   ...
@@ -99,7 +100,7 @@ in {
   };
 
   sops = {
-    age.sshKeyPaths = ["/home/yomi/.ssh/id_ed25519"];
+    age.sshKeyPaths = ["${config.home.homeDirectory}/.ssh/id_ed25519"];
     defaultSopsFile = "${secretsPath}/hosts/mba13/secrets.enc.yaml";
   };
 

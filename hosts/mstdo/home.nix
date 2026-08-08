@@ -1,4 +1,8 @@
-{outputs, ...}: {
+{
+  config,
+  outputs,
+  ...
+}: {
   imports = [
     # Apps - See ../../modules/home-manager/apps/default.nix
     outputs.homeManagerModules.apps.bat
@@ -67,6 +71,7 @@
     username = "yomi";
     homeDirectory = "/Users/yomi";
   };
+  sops.age.sshKeyPaths = ["${config.home.homeDirectory}/.ssh/id_ed25519"];
 
   # Enable home-manager
   programs.home-manager.enable = true;
