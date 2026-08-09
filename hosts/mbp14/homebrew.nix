@@ -9,6 +9,7 @@
     outputs.darwinModules.brews.group_awsDev
     # outputs.darwinModules.brews.group_azureDev
     # outputs.darwinModules.brews.docker # Using OrbStack
+    outputs.darwinModules.brews.hf
     outputs.darwinModules.brews.imagemagick
     outputs.darwinModules.brews.omlx
     outputs.darwinModules.brews.sdl2

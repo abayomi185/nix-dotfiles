@@ -5,6 +5,7 @@
   group_azureDev = import ./groups/azure-dev.nix;
 
   docker = import ./docker.nix;
+  hf = import ./hf.nix;
   imagemagick = import ./imagemagick.nix;
   llama-swap = import ./llama-swap.nix;
   omlx = import ./omlx.nix;
