@@ -33,6 +33,13 @@ local function get_age_path(user)
 	return string.format("/etc/profiles/per-user/%s/bin/age", user)
 end
 
+local function save_current_workspace()
+	local workspace_state = resurrect.workspace_state.get_workspace_state()
+	resurrect.state_manager.save_state(workspace_state)
+	resurrect.state_manager.write_current_state(workspace_state.workspace, "workspace")
+	return workspace_state
+end
+
 -- wezterm.gui is not available to the mux server, so take care to
 -- do something reasonable when this config is evaluated by the mux
 
@@ -162,8 +169,7 @@ config.keys = {
 		mods = "ALT",
 		action = wezterm.action_callback(function(win, pane)
 			-- NOTE: Resurrect state is stored in resurrect plugin directory
-			local workspace_state = resurrect.workspace_state.get_workspace_state()
-			resurrect.state_manager.save_state(workspace_state)
+			local workspace_state = save_current_workspace()
 			print("Saved workspace state:", workspace_state.workspace)
 		end),
 	},
@@ -243,6 +249,13 @@ resurrect.state_manager.periodic_save({
 	interval_seconds = 300,
 	save_workspaces = true,
 })
+
+wezterm.on("resurrect.state_manager.periodic_save.finished", function(opts)
+	if opts.save_workspaces then
+		resurrect.state_manager.write_current_state(wezterm.mux.get_active_workspace(), "workspace")
+	end
+end)
+
 resurrect.state_manager.set_max_nlines(50000)
 
 resurrect.state_manager.set_encryption({
@@ -294,7 +307,7 @@ wezterm.on("augment-command-palette", function(window, pane)
 				action = wezterm.action_callback(function(window, pane, line)
 					if line then
 						wezterm.mux.rename_workspace(wezterm.mux.get_active_workspace(), line)
-						resurrect.state_manager.save_state(workspace_state.get_workspace_state())
+						save_current_workspace()
 					end
 				end),
 			}),
