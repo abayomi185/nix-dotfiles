@@ -16,6 +16,7 @@
     outputs.darwinModules.casks.coconutbattery
     outputs.darwinModules.casks.figma
     outputs.darwinModules.casks.firefox
+    outputs.darwinModules.casks.handy
     outputs.darwinModules.casks.iina
     outputs.darwinModules.casks.karabiner-elements
     outputs.darwinModules.casks.kicad
