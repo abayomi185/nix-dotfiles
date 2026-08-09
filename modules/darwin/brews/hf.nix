@@ -1,3 +1,3 @@
 {
-  homebrew.brews = ["hf"];
+  homebrew.brews = ["git-xet" "hf"];
 }
