@@ -98,7 +98,6 @@ in {
       "1"
       "--no-models-autoload"
       "--metrics"
-      "--no-webui"
     ];
   };
 

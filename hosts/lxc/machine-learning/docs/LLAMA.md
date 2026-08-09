@@ -8,7 +8,7 @@ The current managed setup is the source of truth, not the older one-off benchmar
 - bind: `0.0.0.0:9000`
 - auth: `--api-key-file /home/ml/.config/llama-server/api-keys`
 - preset source: `hosts/lxc/machine-learning/configs/llama-models.ini`
-- web UI: disabled
+- web UI: enabled at `http://machine-learning:9000/`
 - metrics: enabled
 
 Current presets:
