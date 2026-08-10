@@ -15,6 +15,7 @@ Current presets:
 
 - `unsloth/Qwen3.6-35B-A3B-GGUF:UD-Q4_K_XL`
 - `unsloth/Qwen3.6-27B-GGUF:UD-Q4_K_XL`
+- `unsloth/Qwen3.6-27B-MTP-GGUF:Q4_K_M`
 - `unsloth/gemma-4-31B-it-GGUF:UD-Q4_K_XL`
 - `unsloth/gpt-oss-20b-GGUF:F16`
 
@@ -24,7 +25,8 @@ The managed tuning currently comes from `hosts/lxc/machine-learning/configs/llam
 - `threads = 32`
 - `threads-batch = 32`
 - `mlock = true`
-- Qwen3.6 and Gemma q4 presets: `fit-target = 512`, `flash-attn = on`, `cache-type-k/v = q8_0`, `batch-size = 2048`, `ubatch-size = 2048`
+- Qwen3.6 and Gemma dynamic q4 presets: `fit-target = 512`, `flash-attn = on`, `cache-type-k/v = q8_0`, `batch-size = 2048`, `ubatch-size = 2048`
+- Qwen3.6 27B MTP preset: `fit-ctx = 65536`, `fit-target = 1024`, `flash-attn = on`, `cache-type-k/v = q8_0`, `batch-size = 2048`, `ubatch-size = 512`, `spec-type = draft-mtp`, `spec-draft-n-max = 2`
 - GPT OSS 20B preset: `fit-target = 512`, `flash-attn = on`, `jinja = true`, `batch-size = 2048`, `ubatch-size = 512`
 
 ## Checking the current API key
@@ -90,6 +92,18 @@ If the Home Manager config has not been applied on the host yet, apply it first 
 nix --extra-experimental-features "nix-command flakes" run nixpkgs#home-manager -- \
   --extra-experimental-features "nix-command flakes" switch --flake .#ml@machine-learning
 ```
+
+## Qwen3.6 27B MTP baseline
+
+The managed `Q4_K_M` MTP preset was smoke-tested with deterministic completions at both the old 100 W limit and the selected 300 W limit:
+
+- fitted context: 128,256 tokens
+- GPU memory during generation: 22,738 MiB
+- 100 W, 512 tokens: 10.78 tokens/s, 81.234% draft acceptance
+- 300 W, 512 tokens: 60.06 tokens/s, 81.912% draft acceptance
+- 300 W, 2,048 tokens: 65.17 tokens/s, 91.759% draft acceptance, 60 °C peak sampled temperature
+
+The 300 W limit raised sustained generation by about 6.0x over the power-throttled 100 W MTP baseline. The equivalent non-MTP `UD-Q4_K_XL` baseline produced 7.83 tokens/s at 100 W, but it has not been re-benchmarked at 300 W.
 
 ## Ad hoc single-model benchmark commands
 
