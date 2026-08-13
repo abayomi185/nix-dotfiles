@@ -808,14 +808,14 @@
       "locked": {
         "lastModified": 1786660798,
         "narHash": "sha256-I0y3SrXelKhg0IDykcGQs20tpOLf+dJVuguDQ66GkuI=",
-        "ref": "main",
+        "ref": "refs/heads/main",
         "rev": "4720d6b75e3ca4fabb2064220d9e2b466c60f570",
         "shallow": true,
         "type": "git",
         "url": "ssh://git@github.com/abayomi185/sonamesh.git"
       },
       "original": {
-        "ref": "main",
+        "rev": "4720d6b75e3ca4fabb2064220d9e2b466c60f570",
         "shallow": true,
         "type": "git",
         "url": "ssh://git@github.com/abayomi185/sonamesh.git"
