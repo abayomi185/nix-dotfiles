@@ -95,7 +95,7 @@ in {
       };
       "mac-studio-2" = {
         port = 4012;
-        latency = "20ms";
+        latency = "40ms";
         channels = ["AUX0" "AUX1"];
       };
     };
