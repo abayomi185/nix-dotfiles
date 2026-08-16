@@ -96,7 +96,6 @@ in {
       "${./configs/llama-models.ini}"
       "--models-max"
       "1"
-      "--no-models-autoload"
       "--metrics"
     ];
   };
