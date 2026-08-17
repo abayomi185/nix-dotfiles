@@ -99,6 +99,21 @@ in {
         channels = ["AUX0" "AUX1"];
       };
     };
+    aes67OutputRoutes."mac-studio-2-v2" = {
+      port = 5012;
+      channels = ["AUX0" "AUX1"];
+      payloadType = 98;
+      ssrc = 1397555202;
+      presentationDelayMs = 20;
+      outputLeadMs = 10;
+      bufferPackets = 64;
+    };
+    ptp = {
+      enable = true;
+      interface = "ens18";
+      domain = 0;
+      utcOffset = 37;
+    };
   };
   services.pipewire = {
     enable = true;
