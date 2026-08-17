@@ -104,8 +104,8 @@ in {
       channels = ["AUX0" "AUX1"];
       payloadType = 98;
       ssrc = 1397555202;
-      presentationDelayMs = 20;
-      outputLeadMs = 10;
+      presentationDelayMs = 40;
+      outputLeadMs = 20;
       bufferPackets = 64;
     };
     ptp = {
