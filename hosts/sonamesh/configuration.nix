@@ -93,11 +93,6 @@ in {
         latency = "150ms";
         channels = ["AUX0" "AUX1"];
       };
-      "mac-studio-2" = {
-        port = 4012;
-        latency = "40ms";
-        channels = ["AUX0" "AUX1"];
-      };
     };
     aes67OutputRoutes."mac-studio-2-v2" = {
       port = 5012;
