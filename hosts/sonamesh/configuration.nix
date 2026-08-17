@@ -112,7 +112,6 @@ in {
       enable = true;
       interface = "ens18";
       domain = 0;
-      utcOffset = 37;
     };
   };
   services.pipewire = {
