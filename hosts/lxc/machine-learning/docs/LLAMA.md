@@ -17,6 +17,7 @@ Current presets:
 - `unsloth/Qwen3.6-27B-GGUF:UD-Q4_K_XL`
 - `unsloth/Qwen3.6-27B-MTP-GGUF:Q4_K_M`
 - `unsloth/Qwen3.8-27B-GGUF:UD-Q4_K_XL`
+- `unsloth/Ornith-1.0-35B-GGUF:UD-Q4_K_XL`
 - `unsloth/gemma-4-31B-it-GGUF:UD-Q4_K_XL`
 - `unsloth/gpt-oss-20b-GGUF:F16`
 
@@ -29,6 +30,7 @@ The managed tuning currently comes from `hosts/lxc/machine-learning/configs/llam
 - Qwen3.6, Qwen3.8, and Gemma dynamic q4 presets: `fit-target = 512`, `flash-attn = on`, `cache-type-k/v = q8_0`, `batch-size = 2048`, `ubatch-size = 2048`
 - Qwen3.6 27B MTP preset: `fit-ctx = 65536`, `fit-target = 1024`, `flash-attn = on`, `cache-type-k/v = q8_0`, `batch-size = 2048`, `ubatch-size = 512`, `spec-type = draft-mtp`, `spec-draft-n-max = 2`
 - Qwen3.8 27B uses its embedded MTP head: `spec-type = draft-mtp`, `spec-draft-n-max = 2`
+- Ornith 1.0 35B uses `UD-Q4_K_XL`, `fit-ctx = 131072`, `jinja = true`, and its embedded MTP head with `spec-draft-n-max = 2`
 - GPT OSS 20B preset: `fit-target = 512`, `flash-attn = on`, `jinja = true`, `batch-size = 2048`, `ubatch-size = 512`
 
 ## Checking the current API key
