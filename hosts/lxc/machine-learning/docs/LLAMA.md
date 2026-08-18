@@ -28,6 +28,7 @@ The managed tuning currently comes from `hosts/lxc/machine-learning/configs/llam
 - `mlock = true`
 - Qwen3.6, Qwen3.8, and Gemma dynamic q4 presets: `fit-target = 512`, `flash-attn = on`, `cache-type-k/v = q8_0`, `batch-size = 2048`, `ubatch-size = 2048`
 - Qwen3.6 27B MTP preset: `fit-ctx = 65536`, `fit-target = 1024`, `flash-attn = on`, `cache-type-k/v = q8_0`, `batch-size = 2048`, `ubatch-size = 512`, `spec-type = draft-mtp`, `spec-draft-n-max = 2`
+- Qwen3.8 27B uses its embedded MTP head: `spec-type = draft-mtp`, `spec-draft-n-max = 2`
 - GPT OSS 20B preset: `fit-target = 512`, `flash-attn = on`, `jinja = true`, `batch-size = 2048`, `ubatch-size = 512`
 
 ## Checking the current API key
@@ -78,7 +79,7 @@ curl http://127.0.0.1:9000/v1/completions \
 # Expect HTTP 401
 ```
 
-Then send the same request with the bearer token. In router mode with `--no-models-autoload`, a successful auth check may still return a model-state error such as `400 model is not loaded`; the important part is that it is no longer `401 Invalid API Key`.
+Then send the same request with the bearer token. Router mode automatically loads the requested model on demand.
 
 ```bash
 curl http://127.0.0.1:9000/v1/completions \
