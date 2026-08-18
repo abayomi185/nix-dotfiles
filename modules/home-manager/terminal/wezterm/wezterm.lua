@@ -28,6 +28,7 @@ local resurrect_public_key = "age1yzgt8vkltmfuf3cfj0ywt6t27clj80c4k5kktg437x0vux
 if resurrect_config_ok then
 	resurrect_public_key = resurrect_config.public_key
 end
+local resurrect_state_dir = wezterm.home_dir .. "/.local/state/wezterm/resurrect/"
 
 local function get_age_path(user)
 	return string.format("/etc/profiles/per-user/%s/bin/age", user)
@@ -244,6 +245,8 @@ config.keys = {
 		action = workspace_switcher.switch_to_prev_workspace(),
 	},
 }
+-- Keep session data outside the plugin checkout so plugin updates cannot move or remove it.
+resurrect.state_manager.change_state_save_dir(resurrect_state_dir)
 
 resurrect.state_manager.periodic_save({
 	interval_seconds = 300,
