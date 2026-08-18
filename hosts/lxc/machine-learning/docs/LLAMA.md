@@ -14,8 +14,7 @@ The current managed setup is the source of truth, not the older one-off benchmar
 Current presets:
 
 - `unsloth/Qwen3.6-35B-A3B-GGUF:UD-Q4_K_XL`
-- `unsloth/Qwen3.6-27B-GGUF:UD-Q4_K_XL`
-- `unsloth/Qwen3.6-27B-MTP-GGUF:Q4_K_M`
+- `unsloth/Qwen3.6-27B-MTP-GGUF:UD-Q4_K_XL`
 - `unsloth/Qwen3.8-27B-GGUF:UD-Q4_K_XL`
 - `unsloth/Ornith-1.0-35B-GGUF:UD-Q4_K_XL`
 - `unsloth/gemma-4-31B-it-GGUF:UD-Q4_K_XL`
