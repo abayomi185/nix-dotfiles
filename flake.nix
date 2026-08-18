@@ -200,27 +200,6 @@
         ];
       };
 
-      vps-arm64 = inputs.nixpkgs-stable.lib.nixosSystem {
-        system = "aarch64-linux";
-        specialArgs = {inherit inputs outputs;};
-        modules = [
-          # > Our main nixos configuration file <
-          ./hosts/vps/configuration.nix
-          sops-nix.nixosModules.sops
-          agenix.nixosModules.default
-          inputs.home-manager-stable.nixosModules.home-manager
-          {
-            # home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = {inherit inputs outputs;};
-            home-manager.users.cloud = import ./hosts/vps/home.nix;
-            home-manager.sharedModules = [
-              inputs.sops-nix.homeManagerModules.sops
-            ];
-          }
-        ];
-      };
-
       vm-game = inputs.nixpkgs-stable.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = {inherit inputs outputs;};
