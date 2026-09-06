@@ -15,6 +15,7 @@
           "-DLLAMA_OPENSSL=ON"
           "-DLLAMA_BUILD_EXAMPLES=OFF"
           "-DLLAMA_BUILD_TESTS=OFF"
+          "-DCMAKE_CUDA_ARCHITECTURES=86"
         ];
     });
   in
