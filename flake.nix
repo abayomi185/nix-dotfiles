@@ -79,7 +79,7 @@
     };
 
     sonamesh = {
-      url = "git+ssh://git@github.com/abayomi185/sonamesh.git?ref=main&shallow=1";
+      url = "git+ssh://git@github.com/abayomi185/sonamesh.git?rev=c3f7998a4d653c81bdf79cef3d2262641fc7dc08&shallow=1";
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 

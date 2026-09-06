@@ -806,16 +806,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1786187766,
-        "narHash": "sha256-c6hVQm/3K1TpnkOkTmbA95CNE+JEBlaVlj24CDkh7Bw=",
-        "ref": "main",
-        "rev": "6a97ec1bbdd5e4be9209a988de3460ea50dfb049",
+        "lastModified": 1787066008,
+        "narHash": "sha256-mRPsGy7I/s4iyskzyYnZLK5rYLiPwvYs80p1R5EFFhs=",
+        "ref": "refs/heads/main",
+        "rev": "c3f7998a4d653c81bdf79cef3d2262641fc7dc08",
         "shallow": true,
         "type": "git",
         "url": "ssh://git@github.com/abayomi185/sonamesh.git"
       },
       "original": {
-        "ref": "main",
+        "rev": "c3f7998a4d653c81bdf79cef3d2262641fc7dc08",
         "shallow": true,
         "type": "git",
         "url": "ssh://git@github.com/abayomi185/sonamesh.git"

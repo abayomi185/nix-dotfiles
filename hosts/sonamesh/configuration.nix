@@ -3,48 +3,13 @@
   pkgs,
   ...
 }: let
-  package = inputs.sonamesh.packages.${pkgs.stdenv.hostPlatform.system}.default;
-  outputNode = "alsa_output.usb-BEHRINGER_UMC1820_50F63C5A-00.multichannel-output";
-  waitForOutput = pkgs.writeShellApplication {
-    name = "sonamesh-wait-for-output";
-    runtimeInputs = [pkgs.coreutils pkgs.jq pkgs.pipewire];
-    text = ''
-      attempt=0
-      while [ "$attempt" -lt 30 ]; do
-        if pw-dump | jq -e --arg target "$1" \
-          'any(.[]; .info.props."node.name"? == $target)' >/dev/null
-        then
-          exit 0
-        fi
-        sleep 1
-        attempt=$((attempt + 1))
-      done
-
-      echo "PipeWire output did not appear: $1" >&2
-      exit 1
-    '';
-  };
-  verifyReceiver = pkgs.writeShellApplication {
-    name = "sonamesh-verify-receiver";
-    runtimeInputs = [pkgs.coreutils pkgs.gnugrep pkgs.iproute2];
-    text = ''
-      attempt=0
-      while [ "$attempt" -lt 10 ]; do
-        if ss -H -lun 'sport = :4010' | grep -q .; then
-          exit 0
-        fi
-        sleep 0.2
-        attempt=$((attempt + 1))
-      done
-
-      echo "SonaMesh receiver did not bind UDP port 4010" >&2
-      exit 1
-    '';
-  };
+  authorizedKeys = import ../shared/authorized-keys.nix {inherit inputs;};
 in {
   imports = [
+    ./airplay.nix
     ./disk-config.nix
     ./hardware-configuration.nix
+    inputs.sonamesh.nixosModules.default
   ];
 
   # ── Boot ────────────────────────────────────────────────────────────────
@@ -55,6 +20,8 @@ in {
   };
   # USB audio must remain available while the VM is idle.
   boot.kernelParams = ["usbcore.autosuspend=-1"];
+  # Absorb scheduler and network bursts before the bounded userspace playout buffer.
+  boot.kernel.sysctl."net.core.rmem_max" = 8 * 1024 * 1024;
 
   # ── Nix ─────────────────────────────────────────────────────────────────
   nix.settings = {
@@ -67,7 +34,6 @@ in {
     hostName = "sonamesh";
     domain = "internal.yomitosh.media";
     useDHCP = true;
-    firewall.allowedUDPPorts = [4010];
   };
 
   time.timeZone = "Europe/London";
@@ -82,8 +48,7 @@ in {
       PermitRootLogin = "prohibit-password";
     };
   };
-  users.users.root.openssh.authorizedKeys.keys =
-    import ../shared/authorized-keys.nix {inherit inputs;};
+  users.users.root.openssh.authorizedKeys.keys = authorizedKeys;
 
   # A lingering user session owns PipeWire and remains active without login.
   users.users.sonamesh = {
@@ -92,11 +57,59 @@ in {
     home = "/var/lib/sonamesh";
     createHome = true;
     linger = true;
+    openssh.authorizedKeys.keys = authorizedKeys;
     extraGroups = ["audio"];
   };
 
   # ── Audio ───────────────────────────────────────────────────────────────
   security.rtkit.enable = true;
+  services.sonamesh = {
+    enable = true;
+    pipewire = {
+      inputNode = "alsa_input.usb-BEHRINGER_UMC1820_50F63C5A-00.multichannel-input";
+      outputNode = "alsa_output.usb-BEHRINGER_UMC1820_50F63C5A-00.multichannel-output";
+    };
+    inputRoutes = {
+      "umc-input-1-macbook" = {
+        channel = "AUX0";
+        destination = "10.1.10.243:4110";
+      };
+      "umc-input-1-mac-studio" = {
+        channel = "AUX0";
+        destination = "10.1.10.242:4110";
+      };
+      "umc-input-1-gamebox" = {
+        channel = "AUX0";
+        destination = "gamebox.internal.yomitosh.media:4111";
+      };
+    };
+    outputRoutes = {
+      gamebox = {
+        port = 4010;
+        latency = "20ms";
+        channels = ["AUX0" "AUX1"];
+      };
+      macbook = {
+        port = 4011;
+        latency = "150ms";
+        channels = ["AUX0" "AUX1"];
+      };
+    };
+    aes67OutputRoutes."mac-studio-2-v2" = {
+      port = 5012;
+      channels = ["AUX0" "AUX1"];
+      payloadType = 98;
+      ssrc = 1397555202;
+      presentationDelayMs = 40;
+      outputLeadMs = 20;
+      bufferPackets = 64;
+    };
+    ptp = {
+      enable = true;
+      interface = "ens18";
+      domain = 0;
+    };
+  };
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -107,31 +120,10 @@ in {
       "context.properties" = {
         "default.clock.rate" = 48000;
         "default.clock.allowed-rates" = [48000];
+        "default.clock.quantum" = 256;
         "default.clock.min-quantum" = 48;
-        "default.clock.max-quantum" = 1024;
+        "default.clock.max-quantum" = 256;
       };
-    };
-  };
-
-  systemd.user.services.sonamesh-receiver = {
-    description = "SonaMesh network audio receiver";
-    wantedBy = ["default.target"];
-    wants = ["pipewire.service" "wireplumber.service"];
-    after = ["pipewire.service" "wireplumber.service"];
-    unitConfig = {
-      StartLimitIntervalSec = 30;
-      StartLimitBurst = 10;
-    };
-    serviceConfig = {
-      Type = "exec";
-      ExecStartPre = "${waitForOutput}/bin/sonamesh-wait-for-output ${outputNode}";
-      ExecStart = "${package}/bin/sonamesh pipewire-receive --bind 0.0.0.0:4010 --target ${outputNode} --latency 10ms --jitter-packets 8";
-      ExecStartPost = "${verifyReceiver}/bin/sonamesh-verify-receiver";
-      Restart = "always";
-      RestartSec = "1s";
-      StandardOutput = "journal";
-      StandardError = "journal";
-      SyslogIdentifier = "sonamesh-receiver";
     };
   };
 
@@ -147,7 +139,6 @@ in {
   };
 
   environment.systemPackages = with pkgs; [
-    package
     alsa-utils
     pamixer
     pipewire
