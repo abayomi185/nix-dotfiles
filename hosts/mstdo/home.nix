@@ -31,6 +31,7 @@
     outputs.homeManagerModules.shell.fzf
     outputs.homeManagerModules.shell.git
     outputs.homeManagerModules.shell.starship
+    outputs.homeManagerModules.shell.zoxide
     outputs.homeManagerModules.shell.zsh
 
     # Terminal - See ../../modules/home-manager/terminal/default.nix
