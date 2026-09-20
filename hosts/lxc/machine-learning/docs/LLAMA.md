@@ -1,5 +1,11 @@
 # machine-learning llama-server
 
+LAN HTTPS UI: <https://llm.local.yomitosh.media>. The OpenAI-compatible base URL
+is <https://llm.local.yomitosh.media/v1>, using the existing API key. The route
+is managed in home-ops under `apps/base/productivity/machine-learning`.
+
+ComfyUI shares this GPU. See [COMFYUI.md](./COMFYUI.md) for service switching.
+
 ## Current managed service
 
 The machine-learning host runs `llama-server` as a Home Manager user service named `llama-server`.

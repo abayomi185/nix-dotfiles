@@ -24,6 +24,9 @@ nix --extra-experimental-features "nix-command flakes" run nixpkgs#home-manager 
 
 llama-server notes live in `./docs/LLAMA.md`.
 
+ComfyUI and Qwen-Image-2.1 setup, local URLs and GPU switching are documented
+in [docs/COMFYUI.md](./docs/COMFYUI.md).
+
 Current managed llama-server details:
 
 - service: `systemctl --user status llama-server`

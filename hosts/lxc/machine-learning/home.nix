@@ -34,6 +34,7 @@
     '';
 in {
   imports = [
+    ./comfyui.nix
     outputs.homeManagerModules.services.llama-server
     outputs.homeManagerModules.shell.fzf
     outputs.homeManagerModules.shell.zoxide
