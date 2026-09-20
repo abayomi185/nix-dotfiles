@@ -98,6 +98,8 @@ in {
       "${./configs/llama-models.ini}"
       "--models-max"
       "1"
+      "--sleep-idle-seconds"
+      "300"
       "--metrics"
     ];
   };
