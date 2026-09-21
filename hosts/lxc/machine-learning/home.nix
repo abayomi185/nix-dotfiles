@@ -99,7 +99,7 @@ in {
       "--models-max"
       "1"
       "--sleep-idle-seconds"
-      "300"
+      "3600"
       "--metrics"
     ];
   };

@@ -6,7 +6,7 @@ is managed in home-ops under `apps/base/productivity/machine-learning`.
 
 ComfyUI shares this GPU. See [COMFYUI.md](./COMFYUI.md) for service switching.
 
-Models sleep after five idle minutes via `--sleep-idle-seconds 300`. The
+Models sleep after one idle hour via `--sleep-idle-seconds 3600`. The
 router stays available and wakes the selected model on its next request.
 Sleep releases model and KV-cache memory; health and status polling do not
 keep models awake. This is not a lock against concurrent ComfyUI inference.

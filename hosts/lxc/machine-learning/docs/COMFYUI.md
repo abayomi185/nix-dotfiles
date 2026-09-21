@@ -75,9 +75,9 @@ using the output. The bundled demo is an official Comfy-Org sample, not a
 photo of the user. Home Manager seeds missing presets without overwriting
 edits saved in the UI.
 
-## Five-minute idle unloading
+## Idle unloading
 
-llama.cpp uses its native `--sleep-idle-seconds 300` flag, inherited by models
+llama.cpp uses its native `--sleep-idle-seconds 3600` flag for a one-hour timeout, inherited by models
 started through the router. It releases model and KV-cache memory after
 inactivity and reloads on the next inference request. Health, props, models
 and metrics queries do not reset the timer.
