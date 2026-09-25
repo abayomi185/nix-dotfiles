@@ -44,6 +44,13 @@ in {
     };
   };
 
+  # The root disk is small and shared with etcd and container images; a full disk
+  # takes k3s down, so keep the journal bounded.
+  services.journald.extraConfig = ''
+    SystemMaxUse=500M
+    SystemKeepFree=2G
+  '';
+
   services.openssh.enable = true;
   users.users.root.openssh.authorizedKeys.keys = import ../shared/authorized-keys.nix {inherit inputs;};
   services.qemuGuest.enable = true;
