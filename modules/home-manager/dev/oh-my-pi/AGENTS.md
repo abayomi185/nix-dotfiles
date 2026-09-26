@@ -31,3 +31,5 @@ For certain situations where binaries or tools might not be available, use nix s
 Use the git-commit skill when committing changes in a git repo. Always use logical and structural commits
 
 Remember to commit after you finish a piece of work or task to mark the end of it.
+
+Git worktrees: create them in a sibling `<repo>.wt/` dir next to the repo, e.g. `~/w-projek/test` → `~/w-projek/test.wt/<short-name>`. Remove the worktree once its branch is merged
