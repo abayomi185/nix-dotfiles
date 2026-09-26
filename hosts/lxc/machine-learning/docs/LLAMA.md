@@ -36,7 +36,7 @@ The managed tuning currently comes from `hosts/lxc/machine-learning/configs/llam
 - `parallel = 1`
 - `threads = 32`
 - `threads-batch = 32`
-- `load-mode = mmap+mlock` (replaces removed `mlock`)
+- `load-mode = mmap+mlock`
 - Qwen3.6, Qwen3.8, and Gemma dynamic q4 presets: `fit-target = 512`, `flash-attn = on`, `cache-type-k/v = q8_0`, `batch-size = 2048`, `ubatch-size = 2048`
 - Qwen3.8 27B uses its embedded MTP head: `spec-type = draft-mtp`, `spec-draft-n-max = 2`
 - Swift 1.5 (Qwen3.8 27B finetune) uses `Q4_K_M` with the Qwen3.8 tuning and its embedded MTP head (`nextn_predict_layers = 1`)
