@@ -38,6 +38,13 @@ in {
     };
   };
 
+  # dnsmasq binds to wg0; at boot it otherwise races wg-quick, fails with
+  # "unknown interface wg0" and hits the restart limit, leaving VPN DNS down.
+  systemd.services.dnsmasq = {
+    after = ["wg-quick-wg0.service"];
+    wants = ["wg-quick-wg0.service"];
+  };
+
   networking.wg-quick.interfaces.wg0 = {
     address = vpnHubSecrets.wireguard.addresses;
     privateKeyFile = config.sops.secrets."wireguard/privateKey".path;
