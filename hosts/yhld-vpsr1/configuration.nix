@@ -51,6 +51,13 @@ in {
 
   # ── Networking ─────────────────────────────────────────────────────────
   networking.useDHCP = true;
+
+  # BBR keeps throughput up on lossy, high-RTT client links (e.g. remote VPN streaming)
+  boot.kernelModules = ["tcp_bbr"];
+  boot.kernel.sysctl = {
+    "net.core.default_qdisc" = "fq";
+    "net.ipv4.tcp_congestion_control" = "bbr";
+  };
   networking.firewall = {
     enable = true;
     allowedTCPPorts = [
