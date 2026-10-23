@@ -30,5 +30,6 @@ inputs.nixpkgs-stable.lib.nixosSystem {
     inputs.disko.nixosModules.disko
     ./configuration.nix
     inputs.sops-nix.nixosModules.sops
+    inputs.i915-sriov.nixosModules.default
   ];
 }

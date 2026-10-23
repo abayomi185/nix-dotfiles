@@ -2,6 +2,7 @@
   config,
   inputs,
   lib,
+  pkgs,
   pClusterInterface ? "eth1",
   pClusterAddress ? null,
   pK3sClusterInit,
@@ -55,8 +56,10 @@ in {
   users.users.root.openssh.authorizedKeys.keys = import ../shared/authorized-keys.nix {inherit inputs;};
   services.qemuGuest.enable = true;
 
+  # knode4 gets an SR-IOV VF of the host iGPU, which needs the patched i915 driver.
   hardware.enableRedistributableFirmware = isIntelGpuNode;
-  boot.kernelParams = lib.optionals isIntelGpuNode ["i915.enable_guc=3"];
+  boot.extraModulePackages = lib.optionals isIntelGpuNode [pkgs.i915-sriov];
+  boot.kernelParams = lib.optionals isIntelGpuNode ["i915.enable_guc=3" "module_blacklist=xe"];
 
   time.timeZone = timeZone;
 

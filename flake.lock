@@ -427,6 +427,27 @@
         "type": "github"
       }
     },
+    "i915-sriov": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs-stable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1789569076,
+        "narHash": "sha256-MJDR3r/OeCo0Uc4yrk7G2jlzVy5p7JMsJh7E2j74hJw=",
+        "owner": "strongtz",
+        "repo": "i915-sriov-dkms",
+        "rev": "b42c0f87643c07e06b4f53bbedfb3b728da222e1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "strongtz",
+        "ref": "2026.09.16",
+        "repo": "i915-sriov-dkms",
+        "type": "github"
+      }
+    },
     "libpng": {
       "flake": false,
       "locked": {
@@ -758,6 +779,7 @@
         "homebrew-bundle": "homebrew-bundle",
         "homebrew-cask": "homebrew-cask",
         "homebrew-core": "homebrew-core",
+        "i915-sriov": "i915-sriov",
         "llama-cpp": "llama-cpp",
         "nitora": "nitora",
         "nix-colors": "nix-colors",

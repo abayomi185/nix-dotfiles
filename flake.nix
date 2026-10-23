@@ -113,6 +113,13 @@
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
+    # Intel iGPU SR-IOV driver (knode4 guest). Keep the tag in step with the
+    # i915-sriov-dkms .deb installed on the pve-firewall host.
+    i915-sriov = {
+      url = "github:strongtz/i915-sriov-dkms/2026.09.16";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+    };
+
     # Nitora
     nitora = {
       url = "github:abayomi185/nitora";
