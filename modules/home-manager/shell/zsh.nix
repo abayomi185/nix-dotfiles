@@ -39,7 +39,7 @@
       ];
 
       # zshrc equivalent
-      initExtra = lib.mkDefault "";
+      initContent = lib.mkDefault "";
 
       # zshenv equivalent
       envExtra = lib.mkDefault "";
