@@ -87,7 +87,7 @@ in {
   };
 
   home.packages = [
-    pkgs.nixVersions.nix_2_31
+    pkgs.nixVersions.nix_2_34
   ];
 
   # Override wezterm package to use the latest from the flake input
