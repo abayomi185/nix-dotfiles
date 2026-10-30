@@ -282,6 +282,9 @@
       network-share = import ./hosts/lxc/network-share/default.nix {
         inherit inputs outputs;
       };
+      video-recorder = import ./hosts/lxc/video-recorder/default.nix {
+        inherit inputs outputs;
+      };
 
       yhld-vpsr1 = import ./hosts/yhld-vpsr1/default.nix {
         inherit inputs outputs;
