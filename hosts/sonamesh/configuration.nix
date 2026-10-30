@@ -28,6 +28,11 @@ in {
     auto-optimise-store = true;
     experimental-features = ["nix-command" "flakes"];
   };
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 30d";
+  };
 
   # NOTE: ptp4l stops sending to unicast clients after a port fault. Remove once
   # a linuxptp release includes this fix (not in v4.4).
