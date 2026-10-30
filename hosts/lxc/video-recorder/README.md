@@ -44,10 +44,10 @@ This configuration has not provisioned a running container or allocated an IP.
 Choose a free CT ID and reserve a guest address in the homelab inventory before
 creation. Physical-host configuration remains in the homelab repository.
 
-Suggested starting allocation: unprivileged LXC, 2 vCPU, 2 GiB RAM, 8 GiB root
-volume, one network interface with a reachable reserved address. Proxmox supplies
-the network settings. Enable boot at host startup. No nesting, device
-passthrough, or privileged container is required for this recorder.
+[`lxc.conf`](./lxc.conf) is the guest template: unprivileged, 2 vCPU, 2 GiB RAM,
+8 GiB root volume, `nesting=1`, boot at host startup. Add one network interface
+with a reachable reserved address; Proxmox supplies the network settings. No
+device passthrough or privileged container is needed.
 
 Build the template on an x86_64 Linux Nix machine from a checkout containing
 these files. New files must be added to Git before using a Git flake checkout.
@@ -68,13 +68,20 @@ into the recorder. Bind-mounted footage is outside the container root disk and
 is not included in ordinary container backups. Cover it with the NAS backup
 policy separately.
 
-The service runs as guest UID 1001, GID 100. With the default unprivileged LXC
-mapping, these become host UID 101001, GID 100100. Verify the actual mapping.
-Grant the mapped recorder identity write access on the dedicated directory,
-and grant the identity used by `sambayom` in `network-share` read/write access
-through inherited ACLs. Do not recursively change ownership of existing NAS
-contents. Check the network-share mapping too; matching guest IDs alone does
-not prove the host identities match.
+The service runs as guest UID 1001, GID 100. The `lxc.idmap` lines in `lxc.conf`
+map both straight through to host UID 1001, GID 100, the same identity as
+`sambayom` in the privileged `network-share` guest. MediaMTX creates directories
+as `750` and files as `660`, so manage recordings over SMB as `sambayom`.
+
+Before starting the guest, allow the mapping on `pve` and hand it the directory.
+Do not recursively change ownership of existing NAS contents.
+
+```sh
+echo 'root:1001:1' >> /etc/subuid
+echo 'root:100:1' >> /etc/subgid
+mkdir /mnt/mofp0/data/NAS-YOM/VideoProjects
+chown 1001:100 /mnt/mofp0/data/NAS-YOM/VideoProjects
+```
 
 The existing `network-share` exports already include the parent `NAS-YOM`
 directory. Files can be accessed through its existing NFS export or the

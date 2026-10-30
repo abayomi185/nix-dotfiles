@@ -28,8 +28,8 @@ in {
   };
   users.users.root.openssh.authorizedKeys.keys = authorizedKeys;
 
-  # Match sambayom and the NAS users group inside the guest. Unprivileged
-  # LXC mappings must be accounted for on the host; see README.md.
+  # Match sambayom and the NAS users group. lxc.conf maps both IDs straight
+  # through to the host, so recordings have the same owner as SMB access.
   users.groups.users.gid = 100;
   users.users.mediamtx = {
     isSystemUser = true;
