@@ -7,6 +7,7 @@
 }: let
   authorizedKeys = import ../../shared/authorized-keys.nix {inherit inputs;};
   recordingDir = "/srv/recordings";
+  sourcePaths = ["a7v" "a7cr" "iphone"];
   trustedNetworks = ["10.1.10.0/24" "10.1.5.0/24" "10.0.7.0/24" "127.0.0.1" "::1"];
 in {
   imports = ["${modulesPath}/virtualisation/proxmox-lxc.nix"];
@@ -41,31 +42,25 @@ in {
     enable = true;
     settings = {
       logDestinations = ["stdout"];
-      # RTMP is a LAN-only starting point for Sony Creators' App.
-      # Authentication below limits access by source network, not stream key.
+      # RTMP and unencrypted SRT are LAN-only. Authentication below limits
+      # access by source network, not stream key.
       authMethod = "internal";
       authInternalUsers = [
         {
           user = "any";
           ips = trustedNetworks;
-          permissions = [
-            {
-              action = "publish";
-              path = "a7v";
-            }
-            {
-              action = "publish";
-              path = "a7cr";
-            }
-            {
-              action = "read";
-              path = "a7v";
-            }
-            {
-              action = "read";
-              path = "a7cr";
-            }
-          ];
+          permissions =
+            lib.concatMap (path: [
+              {
+                action = "publish";
+                inherit path;
+              }
+              {
+                action = "read";
+                inherit path;
+              }
+            ])
+            sourcePaths;
         }
       ];
       api = false;
@@ -79,7 +74,8 @@ in {
       hlsAddress = ":8888";
       hlsAllowOrigins = [];
       webrtc = false;
-      srt = false;
+      srt = true;
+      srtAddress = ":8890";
       pathDefaults = {
         source = "publisher";
         overridePublisher = false;
@@ -91,10 +87,7 @@ in {
         # Project footage must never expire automatically.
         recordDeleteAfter = "0s";
       };
-      paths = {
-        a7v = {};
-        a7cr = {};
-      };
+      paths = lib.genAttrs sourcePaths (_: {});
     };
   };
 
@@ -112,6 +105,7 @@ in {
 
   # MediaMTX also checks source networks for every publish/read request.
   networking.firewall.allowedTCPPorts = [1935 8888];
-  environment.systemPackages = with pkgs; [ffmpeg git];
+  networking.firewall.allowedUDPPorts = [8890];
+  environment.systemPackages = with pkgs; [git];
   system.stateVersion = "26.05";
 }

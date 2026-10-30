@@ -27,14 +27,14 @@ from the camera's Network > Streaming > Network Streaming menu or the app.
 - [a7V network streaming](https://helpguide.sony.net/ilc/2540/v1/en/contents/221h_network_streaming.html)
 - [a7CR network streaming and firmware requirement](https://helpguide.sony.net/ilc/2370/v1/en/contents/221h_network_streaming.html)
 
-Start with H.264 over RTMP, 4K 25p at 34 Mbps, on the trusted main LAN.
-Use 1080p 25p at 6 Mbps for the first connectivity check. Sony supports wired
+Start with H.265 over SRT on the trusted main LAN, at 1440p 25p or 30p around
+8 Mbps. Use 1080p 25p at 6 Mbps for the first connectivity check. Sony supports wired
 and wireless networking; compatible USB Ethernet adapters are an option if
 Wi-Fi proves unreliable. Verify long-duration power and temperature behaviour
 with the actual cameras. Keep card recording enabled during initial trials.
 
-At 34 Mbps, allow roughly 15.3 GB per camera-hour plus audio and container
-overhead, or about 31 GB/hour for both cameras. These are compressed streaming
+At 8 Mbps, allow roughly 3.6 GB per camera-hour plus audio and container
+overhead, or about 7 GB/hour for both cameras. These are compressed streaming
 files, not an assurance of the same quality, bit depth, or colour sampling as
 in-camera masters. For work needing those masters, keep card recording too.
 
@@ -93,8 +93,8 @@ starting. Without it, the service fails and retries. Once running, a full disk
 or storage error can still interrupt recordings. Monitor NAS free space and
 service logs; automatic deletion is disabled.
 
-Allow the cameras' VLAN to reach the guest on TCP 1935, and trusted viewing
-clients on TCP 8888. The configuration currently permits MediaMTX requests
+Allow the cameras' VLAN to reach the guest on UDP 8890 and TCP 1935, and trusted
+viewing clients on TCP 8888. The configuration currently permits MediaMTX requests
 from `10.1.10.0/24`, `10.1.5.0/24`, `10.0.7.0/24`, and localhost. Adjust
 `trustedNetworks` if the cameras use another subnet. Routed clients must retain
 their source IP for these restrictions to apply.
@@ -104,29 +104,37 @@ their source IP for these restrictions to apply.
 Replace `RECORDER_IP` with the reserved guest address. An internal DNS record
 for `video-recorder.internal.yomitosh.media` can be added once allocated.
 
-| Camera | Server URL | Stream key |
-| --- | --- | --- |
-| a7V | `rtmp://RECORDER_IP:1935` | `a7v` |
-| a7CR | `rtmp://RECORDER_IP:1935` | `a7cr` |
+SRT carries H.265 and is the preferred route. Sony only sends H.264 over RTMP,
+which remains as a fallback. MediaMTX selects the path from the SRT stream ID,
+so the full URL is:
 
-The complete publishing URLs are `rtmp://RECORDER_IP:1935/a7v` and
-`rtmp://RECORDER_IP:1935/a7cr`. Verify Sony's custom destination accepts this
-split in Creators' App during commissioning.
+```text
+srt://RECORDER_IP:8890?streamid=publish:a7v
+srt://RECORDER_IP:8890?streamid=publish:a7cr
+srt://RECORDER_IP:8890?streamid=publish:iphone
+```
 
-This initial configuration uses unencrypted RTMP and network-based access
-control. The camera names are routing keys, not passwords. Any permitted LAN
+The RTMP fallback is `rtmp://RECORDER_IP:1935` with the path (`a7v`, `a7cr`,
+`iphone`) as stream key. Verify how Creators' App takes the SRT stream ID, with
+encryption set to None, during commissioning. On iPhone, use an SRT app such as
+Larix Broadcaster in caller mode.
+
+This initial configuration uses unencrypted SRT and RTMP with network-based
+access control. The camera names are routing keys, not passwords. Any permitted LAN
 client can publish or view those paths. Keep the guest internal, with no
 Internet port forwards or public ingress. If traffic must cross an untrusted
-network, configure RTMPS with a camera-trusted certificate or encrypted SRT and
-runtime secrets before using that network. Never put credentials in Nix strings.
+network, configure RTMPS with a camera-trusted certificate or an SRT passphrase
+and runtime secrets before using that network. Never put credentials in Nix strings.
 
 Browser previews are available while each camera is streaming:
 
 - `http://RECORDER_IP:8888/a7v/`
 - `http://RECORDER_IP:8888/a7cr/`
+- `http://RECORDER_IP:8888/iphone/`
 
 HLS preview has buffering delay. It is useful for checking framing and that a
-feed arrived, but does not by itself prove recordings are being written.
+feed arrived, but does not by itself prove recordings are being written. H.265
+preview depends on browser support; recording does not.
 
 ## Recordings and operation
 
@@ -135,6 +143,7 @@ Files land at:
 ```text
 VideoProjects/a7v/YYYY-MM-DD/HH-MM-SS-microseconds.mp4
 VideoProjects/a7cr/YYYY-MM-DD/HH-MM-SS-microseconds.mp4
+VideoProjects/iphone/YYYY-MM-DD/HH-MM-SS-microseconds.mp4
 ```
 
 Files use fragmented MP4 and split at approximately 15-minute boundaries.
@@ -143,8 +152,8 @@ amount at risk from an interrupted write, although power-loss durability also
 depends on the storage stack. No files expire automatically. See
 [MediaMTX recording documentation](https://mediamtx.org/docs/features/record).
 
-If an editor needs conventional MP4, remux a completed segment without
-re-encoding:
+If an editor needs conventional MP4, remux a completed segment on your
+workstation without re-encoding:
 
 ```sh
 ffmpeg -i recording.mp4 -c copy -movflags +faststart editing-copy.mp4
