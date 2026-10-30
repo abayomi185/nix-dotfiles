@@ -29,6 +29,23 @@ in {
     experimental-features = ["nix-command" "flakes"];
   };
 
+  # NOTE: ptp4l stops sending to unicast clients after a port fault. Remove once
+  # a linuxptp release includes this fix (not in v4.4).
+  nixpkgs.overlays = [
+    (_final: prev: {
+      linuxptp = prev.linuxptp.overrideAttrs (old: {
+        patches =
+          (old.patches or [])
+          ++ [
+            (prev.fetchpatch {
+              url = "https://github.com/richardcochran/linuxptp/commit/dbc9e7792793600bb94003aa2ae9dba84a37a7bd.patch";
+              hash = "sha256-A5w6MI/JbEpaFmIxKTh6NQnslGz/NbCZs4F1v34qeZE=";
+            })
+          ];
+      });
+    })
+  ];
+
   # ── Host ────────────────────────────────────────────────────────────────
   networking = {
     hostName = "sonamesh";
