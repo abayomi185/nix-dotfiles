@@ -19,6 +19,7 @@
   ghostty = import ./ghostty.nix;
   google-chrome = import ./google-chrome.nix;
   handy = import ./handy.nix;
+  hex = import ./hex.nix;
   heroic = import ./heroic.nix;
   ice = import ./ice.nix;
   iina = import ./iina.nix;
