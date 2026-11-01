@@ -27,6 +27,7 @@
     outputs.darwinModules.casks.serif-apps
     outputs.darwinModules.casks.spotify
     outputs.darwinModules.casks.sublime-text
+    outputs.darwinModules.casks.t3-code-nightly
     outputs.darwinModules.casks.xcodes-app
     outputs.darwinModules.casks.zen
 

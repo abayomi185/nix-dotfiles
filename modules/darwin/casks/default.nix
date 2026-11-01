@@ -48,6 +48,7 @@
   spotify = import ./spotify.nix;
   steam = import ./steam.nix;
   sublime-text = import ./sublime-text.nix;
+  t3-code-nightly = import ./t3-code-nightly.nix;
   thinkorswim = import ./thinkorswim.nix;
   virtualhere = import ./virtualhere.nix;
   whisky = import ./whisky.nix;
