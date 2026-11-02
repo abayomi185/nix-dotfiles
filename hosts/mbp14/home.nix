@@ -55,7 +55,6 @@ in {
     outputs.homeManagerModules.shell.zoxide
 
     # Terminal - See ../../modules/home-manager/terminal/default.nix
-    outputs.homeManagerModules.terminal.ghostty
     outputs.homeManagerModules.terminal.wezterm
     outputs.homeManagerModules.terminal.zellij
 

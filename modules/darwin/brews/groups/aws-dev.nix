@@ -1,3 +1,3 @@
 {
-  homebrew.brews = ["awscli" "aws-sam-cli"];
+  homebrew.brews = ["awscli"];
 }

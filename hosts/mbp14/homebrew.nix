@@ -24,25 +24,19 @@
     outputs.darwinModules.casks.calibre
     outputs.darwinModules.casks.chatgpt
     outputs.darwinModules.casks.coconutbattery
-    outputs.darwinModules.casks.cursor
     outputs.darwinModules.casks.devtoys
     outputs.darwinModules.casks.expo-orbit
-    outputs.darwinModules.casks.figma
     outputs.darwinModules.casks.firefox
     outputs.darwinModules.casks.freecad
-    outputs.darwinModules.casks.ghostty
     outputs.darwinModules.casks.google-chrome
     outputs.darwinModules.casks.handy
     outputs.darwinModules.casks.hex
     outputs.darwinModules.casks.heroic
-    outputs.darwinModules.casks.ice
     outputs.darwinModules.casks.iina
     outputs.darwinModules.casks.karabiner-elements
     outputs.darwinModules.casks.kicad
     outputs.darwinModules.casks.macs-fan-control
-    outputs.darwinModules.casks.middleclick
     outputs.darwinModules.casks.moonlight
-    outputs.darwinModules.casks.notion
     outputs.darwinModules.casks.obs
     outputs.darwinModules.casks.obsidian
     outputs.darwinModules.casks.ocenaudio
@@ -57,10 +51,7 @@
     outputs.darwinModules.casks.steam
     outputs.darwinModules.casks.sublime-text
     outputs.darwinModules.casks.thinkorswim
-    outputs.darwinModules.casks.virtualhere
-    outputs.darwinModules.casks.whisky
     outputs.darwinModules.casks.xcodes-app
-    outputs.darwinModules.casks.zed
     outputs.darwinModules.casks.zen
 
     # Mas - See ../../modules/darwin/mas/default.nix
@@ -72,16 +63,12 @@
   homebrew.casks = [
     "audacity"
     "diffusionbee"
-    "lm-studio"
     "propresenter"
-    "sidequest"
     "handbrake-app"
     "mu-editor"
     "stremio"
     "losslesscut"
     "protonvpn"
-    "winbox"
-    "antigravity"
     "codex"
     "codex-app"
     "claude"
