@@ -64,6 +64,10 @@ in {
       22
       80 # public HTTP for in-cluster Traefik
       443 # public HTTPS for in-cluster Traefik
+    ];
+    # VPN-only services
+    interfaces.wg0.allowedTCPPorts = [
+      8191 # flaresolverr
       8888 # tinyproxy
     ];
   };
@@ -90,10 +94,7 @@ in {
   security.sudo.wheelNeedsPassword = false;
 
   # ── Services ───────────────────────────────────────────────────────────
-  services.flaresolverr = {
-    enable = true;
-    openFirewall = true;
-  };
+  services.flaresolverr.enable = true;
   services.tinyproxy = {
     enable = true;
     settings = {

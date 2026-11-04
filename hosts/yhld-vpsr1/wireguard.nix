@@ -26,8 +26,12 @@ in {
     internalInterfaces = ["wg0"];
   };
 
-  networking.firewall.allowedTCPPorts = lib.unique (vpnHubSecrets.wireguard.allowed_tcp_ports ++ [10250]);
-  networking.firewall.allowedUDPPorts = lib.unique (vpnHubSecrets.wireguard.allowed_udp_ports ++ [8472]);
+  # Only the WireGuard listener is public; DNS, kubelet and flannel stay on wg0.
+  networking.firewall.allowedUDPPorts = [vpnHubSecrets.wireguard.listen_port];
+  networking.firewall.interfaces.wg0 = {
+    allowedTCPPorts = lib.unique (vpnHubSecrets.wireguard.allowed_tcp_ports ++ [10250]);
+    allowedUDPPorts = lib.unique (vpnHubSecrets.wireguard.allowed_udp_ports ++ [8472]);
+  };
 
   services.dnsmasq = {
     enable = true;
