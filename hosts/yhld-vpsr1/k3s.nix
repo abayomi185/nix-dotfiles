@@ -17,6 +17,8 @@
     extraFlags = [
       "--node-ip=10.13.13.1"
       "--flannel-iface=wg0"
+      # kube-proxy NodePort rules bypass the host firewall; keep them off the public IP
+      "--kube-proxy-arg=nodeport-addresses=10.13.13.1/32"
       "--node-taint=dedicated=vps-public:NoSchedule"
       "--node-label=yomitosh.media/role=vps-public"
       "--node-label=yomitosh.media/ingress=true"
