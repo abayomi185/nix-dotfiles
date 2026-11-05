@@ -53,6 +53,7 @@ yabai -m rule --add app="^Google Chrome$" manage=off
 yabai -m rule --add app="^Terminal$" manage=off
 yabai -m rule --add app="^iTerm2$" manage=off
 yabai -m rule --add app="^kitty$" manage=off
+yabai -m rule --add app="^WezTerm$" manage=off
 # yabai -m rule --add app="^Flux$" manage=off
 yabai -m rule --add app="^Stats$" manage=off
 yabai -m rule --add app="^console$" manage=off
