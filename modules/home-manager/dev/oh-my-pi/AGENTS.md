@@ -39,3 +39,5 @@ Gamebox (`gamebox.internal.yomitosh.media`) is my gaming PC and is not always on
 Homelab SSH: you can SSH into `yom@pve.internal.yomitosh.media` (Proxmox host; use root/sudo only when required), `root@pve-firewall.internal.yomitosh.media` (Proxmox firewall host) and `ml@machine-learning.internal.yomitosh.media`. Read-only by default: inspect freely, but make no changes unless I explicitly ask.
 
 Homelab context: `~/nix-dotfiles` holds declarative Nix configs for these hosts; `~/h-projek/homelab` is the source of truth for physical inventory, topology, networking and ops notes. Read them when you need context.
+
+Secrets: `~/nix-secrets` holds SOPS/agenix secrets. The SOPS age key is not in a keys file; it's derived from my SSH key (see `~/nix-secrets/.envrc`): `SOPS_AGE_KEY=$(ssh-to-age -i ~/.ssh/id_ed25519 -private-key)`. Works for home-ops `*.sops.yaml` too. Prefer `sops set`/`sops unset` so values aren't printed.
