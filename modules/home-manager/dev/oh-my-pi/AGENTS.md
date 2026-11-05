@@ -33,3 +33,7 @@ Use the git-commit skill when committing changes in a git repo. Always use logic
 Remember to commit after you finish a piece of work or task to mark the end of it.
 
 Git worktrees: create them in a sibling `<repo>.wt/` dir next to the repo, e.g. `~/w-projek/test` → `~/w-projek/test.wt/<short-name>`. Remove the worktree once its branch is merged
+
+Gamebox (`gamebox.internal.yomitosh.media`) is my gaming PC and is not always online, so failed SonaMesh `gamebox` routes are expected: do not flag them.
+
+Homelab SSH: you can SSH into `yom@pve.internal.yomitosh.media` (Proxmox host; use root/sudo only when required), `root@pve-firewall.internal.yomitosh.media` (Proxmox firewall host) and `ml@machine-learning.internal.yomitosh.media`. Read-only by default: inspect freely, but make no changes unless I explicitly ask.
