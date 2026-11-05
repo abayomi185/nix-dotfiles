@@ -37,3 +37,5 @@ Git worktrees: create them in a sibling `<repo>.wt/` dir next to the repo, e.g. 
 Gamebox (`gamebox.internal.yomitosh.media`) is my gaming PC and is not always online, so failed SonaMesh `gamebox` routes are expected: do not flag them.
 
 Homelab SSH: you can SSH into `yom@pve.internal.yomitosh.media` (Proxmox host; use root/sudo only when required), `root@pve-firewall.internal.yomitosh.media` (Proxmox firewall host) and `ml@machine-learning.internal.yomitosh.media`. Read-only by default: inspect freely, but make no changes unless I explicitly ask.
+
+Homelab context: `~/nix-dotfiles` holds declarative Nix configs for these hosts; `~/h-projek/homelab` is the source of truth for physical inventory, topology, networking and ops notes. Read them when you need context.
