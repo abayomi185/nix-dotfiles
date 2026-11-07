@@ -128,6 +128,11 @@ HLS preview has buffering delay. It is useful for checking framing and that a
 feed arrived, but does not by itself prove recordings are being written. H.265
 preview depends on browser support; recording does not.
 
+Preview uses MediaMTX's default Low-Latency HLS. Apple devices need HTTPS for it,
+so on iPhone or iPad use a Traefik route in home-ops instead of the plain HTTP
+URLs. MediaMTX then sees Traefik's address, so viewing is limited by who can reach
+that route rather than by `trustedNetworks`.
+
 ## Recordings and operation
 
 Files land at:
