@@ -55,7 +55,6 @@
         # Infrastructure / VLAN 5 (10.1.5.0/24)
         "d0:21:f9:4b:f6:ea,yhld-swch2,10.1.5.20"
         "d0:21:f9:b1:8e:74,yhld-acpt2,10.1.5.30"
-        "bc:24:11:78:dc:ab,kloadbalancer,10.1.5.40"
         "bc:24:11:24:10:3b,knode1,10.1.5.71"
         "bc:24:11:34:e2:12,knode2,10.1.5.72"
         "bc:24:11:3b:26:f1,knode3,10.1.5.73"
