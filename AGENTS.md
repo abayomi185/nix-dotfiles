@@ -51,7 +51,7 @@ nix shell nixpkgs#nixos-rebuild -c nixos-rebuild switch \
 # Rebuild NixOS system locally (run on the target host)
  nixos-rebuild switch --flake .#<hostname>
  # Hostnames: firewall, vps-arm64, knode1, knode2, knode3,
- #            audio-share, kloadbalancer, network-share
+ #            network-share
 
 # Rebuild home-manager standalone config
 home-manager switch --flake .#yomi@A-MacBook-Pro-eth
@@ -108,12 +108,12 @@ Uses **Conventional Commits** with path-based scopes:
 
 Types: `feat`, `fix`, `chore`, `test`, `wip`, `feat!` (breaking)
 Scopes match host/module paths: `firewall`, `vps`, `knode`, `mbp14`,
-`lxc/network-share`, `lxc/load-balancer`, `home/dev/opencode`, `git`
+`lxc/network-share`, `home/dev/opencode`, `git`
 
 Examples:
 ```
 feat(lxc/network-share): update time machine max size config
-fix(lxc/load-balancer): SSL certs with traefik and letsencrypt
+fix(firewall): reflect mdns to iot vlan
 chore: update secrets
 ```
 
