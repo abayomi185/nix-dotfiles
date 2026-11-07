@@ -269,12 +269,6 @@
         specialArgs = {inherit inputs outputs;};
         modules = [./hosts/sonamesh/iso.nix];
       };
-      audio-share = import ./hosts/lxc/audio-share/default.nix {
-        inherit inputs outputs;
-      };
-      kloadbalancer = import ./hosts/lxc/load-balancer/default.nix {
-        inherit inputs outputs sops-nix;
-      };
       # TODO: Unable to get this working in LXC due to Nix driver installation
       # machine-learning = import ./hosts/lxc/machine-learning/default.nix {
       #   inherit inputs outputs;
