@@ -44,7 +44,7 @@ Nothing is provisioned yet. Pick a free VMID on `pve` and record it, with the
 DHCP address and MAC, in the homelab inventory once created.
 
 Create a UEFI VM like `sonamesh`: 2 vCPU, 2 GiB RAM, 16 GiB `local-lvm` SCSI
-disk, one virtio NIC on `vmbr0`, booted from a NixOS minimal ISO.
+disk, one virtio NIC on `vmbr0`, booted from the repo `livecd` ISO.
 
 ```sh
 qm create <VMID> --name video-recorder --onboot 1 --ostype l26 \
@@ -52,10 +52,10 @@ qm create <VMID> --name video-recorder --onboot 1 --ostype l26 \
   --cores 2 --memory 2048 --agent 1 \
   --scsihw virtio-scsi-single --scsi0 local-lvm:16,iothread=1,ssd=1 \
   --net0 virtio,bridge=vmbr0,firewall=1 \
-  --ide2 local:iso/<nixos-minimal>.iso,media=cdrom --boot 'order=scsi0;ide2'
+  --ide2 local:iso/livecd.iso,media=cdrom --boot 'order=scsi0;ide2'
 ```
 
-From the ISO console, set a root password or add an SSH key, then install from
+`livecd` takes root SSH with the shared authorized keys, so install straight from
 this repository. The disk layout is the shared `hosts/nixos-anywhere/disk-config.nix`.
 
 ```sh
