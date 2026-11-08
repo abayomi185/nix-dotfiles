@@ -1,6 +1,17 @@
+{ pkgs, ... }:
+let
+  stable = import ../stable-bin.nix {
+    inherit pkgs;
+    name = "yabai";
+    src = pkgs.yabai;
+  };
+in
 {
+  system.activationScripts.preActivation.text = stable.activation;
+
   services.yabai = {
     enable = true;
+    package = stable.package;
     config = {
       window_placement = "second_child";
       window_opacity = "off";
