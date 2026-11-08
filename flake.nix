@@ -264,11 +264,6 @@
       sonamesh = import ./hosts/sonamesh/default.nix {
         inherit inputs outputs;
       };
-      sonamesh-installer = inputs.nixpkgs-stable.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = {inherit inputs outputs;};
-        modules = [./hosts/sonamesh/iso.nix];
-      };
       # TODO: Unable to get this working in LXC due to Nix driver installation
       # machine-learning = import ./hosts/lxc/machine-learning/default.nix {
       #   inherit inputs outputs;
