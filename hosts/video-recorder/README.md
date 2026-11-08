@@ -40,8 +40,8 @@ in-camera masters. For work needing those masters, keep card recording too.
 
 ## VM provisioning
 
-Nothing is provisioned yet. Pick a free VMID on `pve` and record it, with the
-DHCP address and MAC, in the homelab inventory once created.
+Deployed facts (VMID, address) live in the homelab inventory. The address is
+reserved in `hosts/firewall/dhcp.nix`. To rebuild from scratch:
 
 Create a UEFI VM like `sonamesh`: 2 vCPU, 2 GiB RAM, 16 GiB `local-lvm` SCSI
 disk, one virtio NIC on `vmbr0`, booted from the repo `livecd` ISO.
