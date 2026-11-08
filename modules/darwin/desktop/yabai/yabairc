@@ -49,6 +49,8 @@ yabai -m rule --add app="^Notes$" manage=off
 yabai -m rule --add app="^Microsoft Word$" manage=off
 # yabai -m rule --add app="^Notion$" manage=off
 yabai -m rule --add app="^Google Chrome$" manage=off
+# Phi with thousands of tabs stalls yabai's AX calls, which delays input events
+yabai -m rule --add app="^Phi$" manage=off
 # yabai -m rule --add app="^Safari$" manage=off
 yabai -m rule --add app="^Terminal$" manage=off
 yabai -m rule --add app="^iTerm2$" manage=off
