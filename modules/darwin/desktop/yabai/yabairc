@@ -160,8 +160,6 @@ yabai -m signal --add app='^Ghostty$' event=window_destroyed action='yabai -m sp
 # yabai -m signal --add event=window_destroyed action="terminal-notifier -message 'window_destroyed'"
 # yabai -m signal --add event=application_terminated action="terminal-notifier -message 'application_terminated'"
 
-## If I close the active window, focus on any other visible window.
-yabai -m signal --add event=window_destroyed action="bash /Users/yomi/.config/custom-scripts/window-focus-on-destroy.sh"
 # yabai -m signal --add event=space_changed action="export CUR_ACTIVE_APP=\"iTerm2\""
 
 # Keep the native space-switch animation
