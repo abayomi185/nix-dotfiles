@@ -6,3 +6,6 @@ secret.yaml
 secrets.yaml
 
 *.env
+
+# Large local build artifacts (SD images etc.)
+images/
