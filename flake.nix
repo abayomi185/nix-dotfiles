@@ -271,6 +271,9 @@
       network-share = import ./hosts/lxc/network-share/default.nix {
         inherit inputs outputs;
       };
+      home-assistant = import ./hosts/home-assistant/default.nix {
+        inherit inputs outputs;
+      };
       video-recorder = import ./hosts/video-recorder/default.nix {
         inherit inputs outputs;
       };
