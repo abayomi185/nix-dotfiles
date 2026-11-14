@@ -132,9 +132,10 @@ in {
     // lib.mapAttrs' (path: port:
       lib.nameValuePair "srt-relay-${path}" {
         description = "SRT relay for ${path}";
+        # Start and stop with MediaMTX, including after NAS mount recovery.
         after = ["mediamtx.service"];
-        requires = ["mediamtx.service"];
-        wantedBy = ["multi-user.target"];
+        bindsTo = ["mediamtx.service"];
+        wantedBy = ["mediamtx.service"];
         serviceConfig = {
           # Exit when the camera disconnects so MediaMTX closes the recording;
           # systemd starts a fresh listener.
