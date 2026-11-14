@@ -8,7 +8,7 @@
   authorizedKeys = import ../shared/authorized-keys.nix {inherit inputs;};
   recordingDir = "/srv/recordings";
   nasExport = "network-share.internal.yomitosh.media:/mnt/mofp0/data/NAS-YOM/VideoProjects";
-  sourcePaths = ["a7v" "a7cr" "iphone"];
+  sourcePaths = ["a7v" "a7cr" "iphone13pro" "iphone17pro"];
   trustedNetworks = ["10.1.10.0/24" "10.1.5.0/24" "10.0.7.0/24" "127.0.0.1" "::1"];
 in {
   imports = ["${modulesPath}/profiles/qemu-guest.nix"];

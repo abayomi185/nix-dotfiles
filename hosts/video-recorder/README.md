@@ -103,11 +103,12 @@ so the full URL is:
 ```text
 srt://RECORDER_IP:8890?streamid=publish:a7v
 srt://RECORDER_IP:8890?streamid=publish:a7cr
-srt://RECORDER_IP:8890?streamid=publish:iphone
+srt://RECORDER_IP:8890?streamid=publish:iphone13pro
+srt://RECORDER_IP:8890?streamid=publish:iphone17pro
 ```
 
 The RTMP fallback is `rtmp://RECORDER_IP:1935` with the path (`a7v`, `a7cr`,
-`iphone`) as stream key. Verify how Creators' App takes the SRT stream ID, with
+`iphone13pro`, `iphone17pro`) as stream key. Verify how Creators' App takes the SRT stream ID, with
 encryption set to None, during commissioning. On iPhone, use an SRT app such as
 Larix Broadcaster in caller mode.
 
@@ -122,7 +123,8 @@ Browser previews are available while each camera is streaming:
 
 - `http://RECORDER_IP:8888/a7v/`
 - `http://RECORDER_IP:8888/a7cr/`
-- `http://RECORDER_IP:8888/iphone/`
+- `http://RECORDER_IP:8888/iphone13pro/`
+- `http://RECORDER_IP:8888/iphone17pro/`
 
 HLS preview has buffering delay. It is useful for checking framing and that a
 feed arrived, but does not by itself prove recordings are being written. H.265
@@ -140,7 +142,8 @@ Files land at:
 ```text
 VideoProjects/a7v/YYYY-MM-DD/HH-MM-SS-microseconds.mp4
 VideoProjects/a7cr/YYYY-MM-DD/HH-MM-SS-microseconds.mp4
-VideoProjects/iphone/YYYY-MM-DD/HH-MM-SS-microseconds.mp4
+VideoProjects/iphone13pro/YYYY-MM-DD/HH-MM-SS-microseconds.mp4
+VideoProjects/iphone17pro/YYYY-MM-DD/HH-MM-SS-microseconds.mp4
 ```
 
 Files use fragmented MP4 and split at approximately 15-minute boundaries.
