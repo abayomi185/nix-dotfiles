@@ -10,6 +10,13 @@
   nasExport = "network-share.internal.yomitosh.media:/mnt/mofp0/data/NAS-YOM/VideoProjects";
   sourcePaths = ["a7v" "a7cr" "iphone13pro" "iphone17pro"];
   trustedNetworks = ["10.1.10.0/24" "10.1.5.0/24" "10.0.7.0/24" "127.0.0.1" "::1"];
+  # Sony Creators' App strips everything after a colon in the SRT URL, so
+  # MediaMTX's `publish:<path>` stream ID can't be set. Each camera gets its own
+  # port, and a relay forwards it with the stream ID added.
+  sonySrtRelays = {
+    a7v = 8891;
+    a7cr = 8892;
+  };
 in {
   imports = ["${modulesPath}/profiles/qemu-guest.nix"];
 
@@ -109,18 +116,40 @@ in {
     };
   };
 
-  # A missing NAS mount must not redirect recordings onto the root disk.
-  systemd.services.mediamtx.unitConfig.RequiresMountsFor = recordingDir;
-  systemd.services.mediamtx.serviceConfig = {
-    DynamicUser = lib.mkForce false;
-    Group = lib.mkForce "users";
-    UMask = "0007";
-    RestartSec = "5s";
-  };
+  systemd.services =
+    {
+      mediamtx = {
+        # A missing NAS mount must not redirect recordings onto the root disk.
+        unitConfig.RequiresMountsFor = recordingDir;
+        serviceConfig = {
+          DynamicUser = lib.mkForce false;
+          Group = lib.mkForce "users";
+          UMask = "0007";
+          RestartSec = "5s";
+        };
+      };
+    }
+    // lib.mapAttrs' (path: port:
+      lib.nameValuePair "srt-relay-${path}" {
+        description = "SRT relay for ${path}";
+        after = ["mediamtx.service"];
+        requires = ["mediamtx.service"];
+        wantedBy = ["multi-user.target"];
+        serviceConfig = {
+          # Exit when the camera disconnects so MediaMTX closes the recording;
+          # systemd starts a fresh listener.
+          ExecStart = "${pkgs.srt}/bin/srt-live-transmit -a:no 'srt://:${toString port}?mode=listener' 'srt://127.0.0.1:8890?streamid=publish:${path}'";
+          DynamicUser = true;
+          Restart = "always";
+          RestartSec = "1s";
+        };
+      })
+    sonySrtRelays;
 
-  # MediaMTX also checks source networks for every publish/read request.
+  # MediaMTX also checks source networks for every publish/read request. Relay
+  # ports bypass that (MediaMTX sees 127.0.0.1), so the VM must stay LAN-only.
   networking.firewall.allowedTCPPorts = [1935 8888];
-  networking.firewall.allowedUDPPorts = [8890];
+  networking.firewall.allowedUDPPorts = [8890] ++ lib.attrValues sonySrtRelays;
   environment.systemPackages = with pkgs; [git];
   system.stateVersion = "26.05";
 }

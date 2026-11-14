@@ -85,7 +85,7 @@ The mount is `hard`, so writes stall rather than fail during a short NAS outage.
 A full disk or storage error can still interrupt recordings. Monitor NAS free
 space and service logs; automatic deletion is disabled.
 
-Allow the cameras' VLAN to reach the VM on UDP 8890 and TCP 1935, and trusted
+Allow the cameras' VLAN to reach the VM on UDP 8890-8892 and TCP 1935, and trusted
 viewing clients on TCP 8888. The configuration currently permits MediaMTX requests
 from `10.1.10.0/24`, `10.1.5.0/24`, `10.0.7.0/24`, and localhost. Adjust
 `trustedNetworks` if the cameras use another subnet. Routed clients must retain
@@ -97,19 +97,26 @@ Replace `RECORDER_IP` with the VM address, or use
 `video-recorder.internal.yomitosh.media` once its DHCP lease registers it.
 
 SRT carries H.265 and is the preferred route. Sony only sends H.264 over RTMP,
-which remains as a fallback. MediaMTX selects the path from the SRT stream ID,
-so the full URL is:
+which remains as a fallback.
+
+Creators' App strips everything after a colon in the URL, so Sony cameras can't
+set a stream ID. Each one gets its own port, where a relay adds the stream ID
+before passing the stream to MediaMTX. Set encryption to None:
 
 ```text
-srt://RECORDER_IP:8890?streamid=publish:a7v
-srt://RECORDER_IP:8890?streamid=publish:a7cr
+srt://RECORDER_IP:8891   # a7v
+srt://RECORDER_IP:8892   # a7cr
+```
+
+Other SRT clients select the path with the stream ID:
+
+```text
 srt://RECORDER_IP:8890?streamid=publish:iphone13pro
 srt://RECORDER_IP:8890?streamid=publish:iphone17pro
 ```
 
 The RTMP fallback is `rtmp://RECORDER_IP:1935` with the path (`a7v`, `a7cr`,
-`iphone13pro`, `iphone17pro`) as stream key. Verify how Creators' App takes the SRT stream ID, with
-encryption set to None, during commissioning. On iPhone, use an SRT app such as
+`iphone13pro`, `iphone17pro`) as stream key. On iPhone, use an SRT app such as
 Larix Broadcaster in caller mode.
 
 This initial configuration uses unencrypted SRT and RTMP with network-based
