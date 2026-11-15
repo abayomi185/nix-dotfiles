@@ -1,38 +1,10 @@
-# AstroNvim Template
+# Neovim (AstroNvim)
 
-**NOTE:** This is for AstroNvim v4+
+AstroNvim v6 config. Managed by `../default.nix`, which symlinks
+`~/.config/nvim` here, installs Neovim and its tools, and sets `NVIM_PROFILE`.
 
-A template for getting started with [AstroNvim](https://github.com/AstroNvim/AstroNvim)
+- `lua/plugins/work.lua`: plugins enabled only when `NVIM_PROFILE=work`
+- `CHANGELOG.md`: what's new and how to use it
 
-## 🛠️ Installation
-
-#### Make a backup of your current nvim and shared folder
-
-```shell
-mv ~/.config/nvim ~/.config/nvim.bak
-mv ~/.local/share/nvim ~/.local/share/nvim.bak
-mv ~/.local/state/nvim ~/.local/state/nvim.bak
-mv ~/.cache/nvim ~/.cache/nvim.bak
-```
-
-#### Create a new user repository from this template
-
-Press the "Use this template" button above to create a new repository to store your user configuration.
-
-You can also just clone this repository directly if you do not want to track your user configuration in GitHub.
-
-#### Clone the repository
-
-```shell
-git clone https://github.com/abayomi185/astronvim-config ~/.config/nvim
-```
-
-```shell
-git clone git@github.com:abayomi185/astronvim-config ~/.config/nvim
-```
-
-#### Start Neovim
-
-```shell
-nvim
-```
+Imported with full history (git subtree) from the archived
+[astronvim-config](https://github.com/abayomi185/astronvim-config) repo.
