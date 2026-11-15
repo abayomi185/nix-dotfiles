@@ -12,11 +12,14 @@
   trustedNetworks = ["10.1.10.0/24" "10.1.5.0/24" "10.0.7.0/24" "127.0.0.1" "::1"];
   # Sony Creators' App strips everything after a colon in the SRT URL, so
   # MediaMTX's `publish:<path>` stream ID can't be set. Each camera gets its own
-  # port, and a relay forwards it with the stream ID added.
+  # port, and a relay forwards it to MediaMTX as MPEG-TS over localhost UDP.
+  # A second SRT hop would add another fixed 120 ms delay; loopback needs no
+  # retransmission.
   sonySrtRelays = {
     a7v = 8891;
     a7cr = 8892;
   };
+  relayUdpPort = port: port + 1000;
 in {
   imports = ["${modulesPath}/profiles/qemu-guest.nix"];
 
@@ -32,6 +35,8 @@ in {
     domain = "internal.yomitosh.media";
     useDHCP = true;
   };
+  # Lets MediaMTX set its UDP read buffer (udpReadBufferSize).
+  boot.kernel.sysctl."net.core.rmem_max" = 8388608;
   time.timeZone = "Europe/London";
   i18n.defaultLocale = "en_GB.UTF-8";
   nix.settings.experimental-features = ["nix-command" "flakes"];
@@ -67,6 +72,8 @@ in {
     enable = true;
     settings = {
       logDestinations = ["stdout"];
+      # Headroom so a brief stall doesn't drop relay UDP packets.
+      udpReadBufferSize = 8388608;
       # RTMP and unencrypted SRT are LAN-only. Authentication below limits
       # access by source network, not stream key.
       authMethod = "internal";
@@ -112,7 +119,10 @@ in {
         # Project footage must never expire automatically.
         recordDeleteAfter = "0s";
       };
-      paths = lib.genAttrs sourcePaths (_: {});
+      paths = lib.genAttrs sourcePaths (path:
+        lib.optionalAttrs (sonySrtRelays ? ${path}) {
+          source = "udp+mpegts://127.0.0.1:${toString (relayUdpPort sonySrtRelays.${path})}";
+        });
     };
   };
 
@@ -137,9 +147,9 @@ in {
         bindsTo = ["mediamtx.service"];
         wantedBy = ["mediamtx.service"];
         serviceConfig = {
-          # Exit when the camera disconnects so MediaMTX closes the recording;
-          # systemd starts a fresh listener.
-          ExecStart = "${pkgs.srt}/bin/srt-live-transmit -a:no 'srt://:${toString port}?mode=listener' 'srt://127.0.0.1:8890?streamid=publish:${path}'";
+          # Exit when the camera disconnects; systemd starts a fresh listener.
+          # MediaMTX closes the recording after readTimeout (10s) without data.
+          ExecStart = "${pkgs.srt}/bin/srt-live-transmit -a:no 'srt://:${toString port}?mode=listener' 'udp://127.0.0.1:${toString (relayUdpPort port)}'";
           DynamicUser = true;
           Restart = "always";
           RestartSec = "1s";
