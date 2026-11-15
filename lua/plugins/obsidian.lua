@@ -33,6 +33,7 @@ return {
     local astrocore = require "astrocore"
     return astrocore.extend_tbl(opts, {
       legacy_commands = false,
+      ui = { enable = false }, -- render-markdown handles rendering
       callback = {
         enter_note = function(note)
           vim.ui.open = (function(overridden)

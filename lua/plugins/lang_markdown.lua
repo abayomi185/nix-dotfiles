@@ -95,7 +95,7 @@ return {
       -- 'echasnovski/mini.icons' -- if you use standalone mini plugins
       "nvim-tree/nvim-web-devicons",
     },
-    config = function() require("render-markdown").setup {} end,
+    opts = { latex = { enabled = false } },
   },
   {
     "AstroNvim/astrocore",
