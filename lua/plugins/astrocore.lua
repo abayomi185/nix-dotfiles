@@ -41,6 +41,7 @@ return {
         -- configure global vim variables (vim.g)
         -- NOTE: `mapleader` and `maplocalleader` must be set in the AstroNvim opts or before `lazy.setup`
         -- This can be found in the `lua/lazy_setup.lua` file
+        clipboard = vim.fn.has "wsl" == 1 and "win32yank" or nil, -- WSLg otherwise picks wl-copy
       },
       o = {
         hls = true, -- set highlight search
