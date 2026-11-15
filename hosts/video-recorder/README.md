@@ -100,8 +100,9 @@ SRT carries H.265 and is the preferred route. Sony only sends H.264 over RTMP,
 which remains as a fallback.
 
 Creators' App strips everything after a colon in the URL, so Sony cameras can't
-set a stream ID. Each one gets its own port, where a relay adds the stream ID
-before passing the stream to MediaMTX. Set encryption to None:
+set a stream ID. Each one gets its own port, where a relay passes the stream to
+MediaMTX as MPEG-TS over localhost UDP, avoiding a second SRT delay. Recordings
+close about 10 seconds after the camera stops. Set encryption to None:
 
 ```text
 srt://RECORDER_IP:8891   # a7v
