@@ -13,6 +13,8 @@ return {
         ensure_installed = {
           "lua",
           "vim",
+          "html", -- used by render-markdown
+          "dap_repl", -- registered by nvim-dap-repl-highlights
           -- add more arguments for adding more treesitter parsers
         },
       },
@@ -26,11 +28,6 @@ return {
       dependencies = { "mfussenegger/nvim-dap" },
       opts = {},
     },
-    opts = function(_, opts)
-      if opts.ensure_installed ~= "all" then
-        opts.ensure_installed = require("astrocore").list_insert_unique(opts.ensure_installed, { "dap_repl" })
-      end
-    end,
   },
   {
     "theHamsta/nvim-dap-virtual-text",
