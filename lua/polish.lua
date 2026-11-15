@@ -42,7 +42,7 @@ end
 
 function _G.dump_lsp_config_to_buffer()
   -- Capture the output of the Lua command
-  local output = vim.inspect(require("lspconfig").yamlls)
+  local output = vim.inspect(vim.lsp.config.yamlls)
 
   -- Create a new buffer
   vim.cmd "new"
@@ -91,11 +91,3 @@ dap.adapters.debugpy = dap.adapters.python
 -- Seemingly not needed anymore as seen in work branch
 -- dap.adapters.debugpy = dap.adapters.python
 -- addPythonPathToDapConfigs(dap.configurations.python, os.getenv "VIRTUAL_ENV" or os.getenv "CONDA_PREFIX")
-
--- Misc
-vim.cmd [[
-  augroup SlintFileType
-    autocmd!
-    autocmd BufRead,BufNewFile *.slint set filetype=slint
-  augroup END
-]]
