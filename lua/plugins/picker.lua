@@ -1,10 +1,6 @@
 local dap_prefix = "<Leader>fd"
 return {
   {
-    "nvim-telescope/telescope-ui-select.nvim",
-    lazy = false,
-  },
-  {
     "nvim-telescope/telescope.nvim",
     dependencies = {
       "nvim-telescope/telescope-live-grep-args.nvim",

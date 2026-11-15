@@ -6,13 +6,8 @@ return {
     lazy = false,
   },
   {
-    "nvim-treesitter/playground",
-    enable = false,
-  },
-
-  {
     "folke/trouble.nvim",
-    cmd = "TroubleToggle",
+    cmd = "Trouble",
   },
   {
     "folke/todo-comments.nvim",
