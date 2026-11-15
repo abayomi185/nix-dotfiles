@@ -7,13 +7,6 @@ return {
   -- == Examples of Adding Plugins ==
 
   {
-    "andweeb/presence.nvim",
-    event = "User AstroLspSetup",
-    opts = {
-      main_image = "file",
-    },
-  },
-  {
     "ray-x/lsp_signature.nvim",
     event = "BufRead",
     config = function() require("lsp_signature").setup() end,
