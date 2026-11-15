@@ -13,10 +13,10 @@ replacing the HAOS VM (306). HAOS add-ons map to NixOS services:
 | Music Assistant | `services.music-assistant` |
 | Whisper | `services.wyoming.faster-whisper` |
 | Node-RED | `services.node-red` |
-| Frigate, Studio Code Server, Get HACS | dropped |
+| Frigate, Studio Code Server, Get HACS | dropped (unused) |
 
 HACS components: `octopus_energy` comes from nixpkgs. Custom VeSync and Apple TV
-Beta are replaced with the built-in `vesync` and `apple_tv` integrations.
+Beta are unused and dropped.
 
 The host follows `nixpkgs-unstable`: HA cannot downgrade its database, and stable
 lags the HAOS release.

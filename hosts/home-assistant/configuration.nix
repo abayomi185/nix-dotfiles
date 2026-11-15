@@ -44,7 +44,6 @@ in {
     enable = true;
     extraComponents = [
       "analytics"
-      "apple_tv"
       "backup"
       "default_config"
       "esphome"
@@ -62,7 +61,6 @@ in {
       "spotify"
       "sun"
       "thread"
-      "vesync"
       "wyoming"
     ];
     customComponents = with pkgs.home-assistant-custom-components; [
