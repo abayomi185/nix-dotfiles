@@ -79,6 +79,7 @@
           ''"knode1.cluster.internal.yomitosh.media. IN A 10.0.7.41"''
           ''"knode2.cluster.internal.yomitosh.media. IN A 10.0.7.42"''
           ''"knode3.cluster.internal.yomitosh.media. IN A 10.0.7.43"''
+          ''"knode6.cluster.internal.yomitosh.media. IN A 10.0.7.46"''
           ''"network-share.cluster.internal.yomitosh.media. IN A 10.0.7.202"''
           # Wildcard for *.local.yomitosh.media -> in-cluster Traefik (MetalLB VIP)
           ''"local.yomitosh.media. IN A 10.1.5.96"''
