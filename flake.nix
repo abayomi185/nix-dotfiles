@@ -271,6 +271,9 @@
 
     # Server and LXC node definitions
     nixosConfigurations = {
+      builder = import ./hosts/builder/default.nix {
+        inherit inputs outputs;
+      };
       sonamesh = import ./hosts/sonamesh/default.nix {
         inherit inputs outputs;
       };
