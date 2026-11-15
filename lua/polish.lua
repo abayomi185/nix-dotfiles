@@ -53,4 +53,9 @@ require("dap.ext.vscode").type_to_filetypes = { rt_lldb = { "rust" }, ["probe-rs
 -- Debugpy adapter for dap needs to be set
 local dap = require "dap"
 
-dap.adapters.debugpy = dap.adapters.python
+if vim.env.NVIM_PROFILE == "work" then
+  -- run debugpy from the project's venv rather than Mason's
+  dap.adapters.debugpy = { type = "executable", command = "python", args = { "-m", "debugpy.adapter" } }
+else
+  dap.adapters.debugpy = dap.adapters.python
+end
