@@ -3,9 +3,11 @@
   outputs,
   pClusterInterface ? "eth1",
   pClusterAddress ? null,
+  pDataDiskDevice ? null,
   pDiskDevice ? "/dev/sda",
   pNodeId,
   pNodeLabels ? [],
+  pNodeTaints ? [],
   pK3sRole ? "agent",
   pK3sClusterInit ? false,
   pK3sServerId ? "1",
@@ -18,9 +20,11 @@ inputs.nixpkgs-stable.lib.nixosSystem {
       outputs
       pClusterInterface
       pClusterAddress
+      pDataDiskDevice
       pDiskDevice
       pNodeId
       pNodeLabels
+      pNodeTaints
       pK3sRole
       pK3sServerId
       pK3sClusterInit
