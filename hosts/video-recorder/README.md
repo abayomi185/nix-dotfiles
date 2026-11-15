@@ -147,10 +147,10 @@ that route rather than by `trustedNetworks`.
 Files land at:
 
 ```text
-VideoProjects/a7v/YYYY-MM-DD/HH-MM-SS-microseconds.mp4
-VideoProjects/a7cr/YYYY-MM-DD/HH-MM-SS-microseconds.mp4
-VideoProjects/iphone13pro/YYYY-MM-DD/HH-MM-SS-microseconds.mp4
-VideoProjects/iphone17pro/YYYY-MM-DD/HH-MM-SS-microseconds.mp4
+VideoProjects/a7v/YYYY-MM-DD_HH-MM-SS-microseconds.mp4
+VideoProjects/a7cr/YYYY-MM-DD_HH-MM-SS-microseconds.mp4
+VideoProjects/iphone13pro/YYYY-MM-DD_HH-MM-SS-microseconds.mp4
+VideoProjects/iphone17pro/YYYY-MM-DD_HH-MM-SS-microseconds.mp4
 ```
 
 Files use fragmented MP4 and split at approximately 15-minute boundaries.

@@ -105,7 +105,7 @@ in {
         source = "publisher";
         overridePublisher = false;
         record = true;
-        recordPath = "${recordingDir}/%path/%Y-%m-%d/%H-%M-%S-%f";
+        recordPath = "${recordingDir}/%path/%Y-%m-%d_%H-%M-%S-%f";
         recordFormat = "fmp4";
         recordPartDuration = "1s";
         recordSegmentDuration = "15m";
