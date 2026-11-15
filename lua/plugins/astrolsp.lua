@@ -130,7 +130,7 @@ return {
     mappings = {
       n = {
         gl = { function() vim.diagnostic.open_float() end, desc = "Hover diagnostics" },
-        grr = { function() require("telescope.builtin").lsp_references() end, desc = "LSP References w/ Telescope" },
+        grr = { function() require("snacks").picker.lsp_references() end, desc = "LSP References" },
         grR = { function() vim.lsp.buf.references() end, desc = "LSP References" },
         -- a `cond` key can provided as the string of a server capability to be required to attach, or a function with `client` and `bufnr` parameters from the `on_attach` that returns a boolean
         -- gD = {

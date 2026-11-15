@@ -47,11 +47,8 @@ return {
         ["<Leader>gD"] = { ":DiffviewClose<cr>", desc = "Close Git Diff" },
 
         -- NOTE: Git Signs
-        ["<Leader>gn"] = { ":Gitsigns next_hunk<CR>", desc = "Next Hunk" },
-        ["<Leader>gN"] = { ":Gitsigns prev_hunk<CR>", desc = "Previous Hunk" },
-
-        -- NOTE: Legendary
-        ["<C-p>"] = { ":Legendary<CR>", desc = "Toggle Legendary" },
+        ["<Leader>gn"] = { ":Gitsigns nav_hunk next<CR>", desc = "Next Hunk" },
+        ["<Leader>gN"] = { ":Gitsigns nav_hunk prev<CR>", desc = "Previous Hunk" },
 
         -- Move line
         ["<M-j>"] = ":m .+1<CR>==",
@@ -59,26 +56,11 @@ return {
 
         ["<Leader>v"] = { "<C-v>", desc = "Visual Block" },
 
-        -- NOTE: Telescope mappings
-        -- ["<Leader>sg"] = ":Telescope grep_string<CR>",
-        ["<Leader>fw"] = {
-          "<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>",
-          desc = "Find Words",
-        },
-        ["<Leader>bm"] = {
-          "<cmd>lua require('telescope.builtin').marks()<CR>",
-          desc = "Telescope Marks",
-        },
+        ["<Leader>bm"] = { function() require("snacks").picker.marks() end, desc = "Find marks" },
 
         -- NOTE: Custom workaround for vertical resize on macOS
         ["<C-M-l>"] = ":vertical resize -2<CR>",
         ["<C-M-h>"] = ":vertical resize +2<CR>",
-
-        -- NOTE: Copilot mapping
-        ["gp"] = ":Copilot panel<CR>",
-
-        -- NOTE: Telescope mappings
-        -- ["<Leader>ss"] = ":Telescope<CR>",
 
         -- NOTE: LSP mappings
         ["gh"] = { "<cmd>lua vim.lsp.buf.hover()<cr>", desc = "Show hover" },
@@ -103,7 +85,6 @@ return {
           "<cmd>lua require('astrocore.buffer').close_right()<CR>",
           desc = "Close all buffers to the right",
         },
-        -- ["<Leader>br"] = false, -- Disabled for Legendary.nvim support
 
         -- NOTE: Crates
         ["<Leader>R"] = { desc = "Crates" },
@@ -134,8 +115,8 @@ return {
       v = {
         ["<Leader>d"] = '"_d', -- register
 
-        -- OSC52
-        ["<Leader>y"] = { "<cmd>lua require('osc52').copy_visual()<CR>", desc = "OSC52 yank" },
+        -- System clipboard (Neovim uses OSC52 automatically over SSH)
+        ["<Leader>y"] = { '"+y', desc = "Yank to system clipboard" },
 
         -- Move line
         ["<A-j>"] = ":m '>+1<CR>gv-gv",
