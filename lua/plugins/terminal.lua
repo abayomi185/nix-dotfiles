@@ -26,7 +26,8 @@ return {
             maps.n["<Leader>gg"] = { lazygit, desc = "Lazygit" }
             maps.n[prefix .. "l"] = { lazygit, desc = "Lazygit" }
           end
-          for key, cmd in pairs { n = "node", p = "python3", t = "btm", u = "gdu-go" } do
+          local gdu = vim.fn.has "mac" == 1 and "gdu-go" or "gdu"
+          for key, cmd in pairs { n = "node", p = "python3", t = "btm", u = gdu } do
             if vim.fn.executable(cmd) == 1 then maps.n[prefix .. key] = { term(cmd), desc = "Terminal " .. cmd } end
           end
           maps.n[prefix .. "f"] = { term(), desc = "Terminal float" }
