@@ -62,6 +62,7 @@ return {
   },
 
   -- You can disable default plugins as follows:
+  { "nvimtools/none-ls.nvim", enabled = false }, -- conform + nvim-lint cover formatting and linting
   {
     "max397574/better-escape.nvim",
     opts = {

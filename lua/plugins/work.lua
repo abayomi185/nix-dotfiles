@@ -19,7 +19,6 @@ local specs = {
   { "giuxtaposition/blink-cmp-copilot", enabled = is_work, lazy = true },
   { "nvim-neotest/neotest-jest", enabled = is_work, lazy = true },
   { "marilari88/neotest-vitest", enabled = is_work, lazy = true },
-  { "nvimtools/none-ls-extras.nvim", enabled = is_work, lazy = true },
   {
     "3rd/image.nvim",
     enabled = is_work,
@@ -98,44 +97,23 @@ return vim.list_extend(specs, {
             },
           },
         },
-        snyk_ls = {
-          init_options = {
-            activateSnykCode = "true",
-            trustedFolders = { "/home/test/projek" },
-            enableTelemetry = "false",
-            sendErrorReports = "false",
-          },
-        },
       },
     },
   },
   {
-    "nvimtools/none-ls.nvim",
+    "stevearc/conform.nvim",
+    opts = {
+      formatters_by_ft = { sql = { "sqlfluff" } },
+      formatters = { sqlfluff = { args = { "fix", "--dialect", "mysql", "-" }, require_cwd = false } },
+    },
+  },
+  {
+    "mfussenegger/nvim-lint",
     opts = function(_, opts)
-      local null_ls = require "null-ls"
-      opts.sources = {
-        null_ls.builtins.formatting.sqlfluff.with { filetypes = { "sql" }, extra_args = { "--dialect", "mysql" } },
-        null_ls.builtins.formatting.alejandra.with { filetypes = { "nix" } },
-        null_ls.builtins.formatting.black.with { filetypes = { "python" } },
-        null_ls.builtins.formatting.isort.with { filetypes = { "python" }, extra_args = { "--profile", "black" } },
-        require("none-ls.diagnostics.eslint").with {
-          filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue", "svelte" },
-        },
-        require("none-ls.diagnostics.flake8").with {
-          filetypes = { "python" },
-          extra_args = {
-            "--format",
-            "default",
-            "--stdin-display-name",
-            "$FILENAME",
-            "-",
-            "--count",
-            "--max-line-length",
-            "115",
-            "--exclude=snapshots",
-          },
-        },
-      }
+      local flake8_args = { "--max-line-length", "115", "--exclude=snapshots" }
+      opts.linters_by_ft = vim.tbl_extend("force", opts.linters_by_ft or {}, { python = { "flake8" } })
+      opts.linters = opts.linters or {}
+      opts.linters.flake8 = { args = vim.list_extend(flake8_args, require("lint").linters.flake8.args) }
     end,
   },
   {
