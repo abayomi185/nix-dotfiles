@@ -9,15 +9,12 @@
   ...
 }: let
   cfg = config.programs.neovim.astronvim;
-  git = lib.getExe pkgs.git;
-  dotfiles = lib.escapeShellArg cfg.dotfiles;
-  nvimDir = lib.escapeShellArg "${config.xdg.configHome}/nvim";
 in {
   options.programs.neovim.astronvim = {
     dotfiles = lib.mkOption {
       type = lib.types.str;
       default = "${config.home.homeDirectory}/nix-dotfiles";
-      description = "Editable nix-dotfiles checkout; cloned on activation if missing.";
+      description = "Path to an editable nix-dotfiles clone; ~/.config/nvim links into it.";
     };
     profile = lib.mkOption {
       type = lib.types.nullOr lib.types.str;
@@ -54,26 +51,5 @@ in {
       config.lib.file.mkOutOfStoreSymlink "${cfg.dotfiles}/modules/home-manager/apps/neovim/config";
 
     home.sessionVariables = lib.mkIf (cfg.profile != null) {NVIM_PROFILE = cfg.profile;};
-
-    home.activation = {
-      # One-off: move a pre-existing ~/.config/nvim directory aside so the symlink can replace it
-      astronvimBackup = lib.hm.dag.entryBefore ["checkLinkTargets"] ''
-        if [ -d ${nvimDir} ] && [ ! -L ${nvimDir} ]; then
-          backup=${nvimDir}.bak-$(date +%Y%m%d%H%M%S)
-          noteEcho "Moving "${nvimDir}" to $backup"
-          run mv ${nvimDir} "$backup"
-        fi
-      '';
-      # Fresh machine: clone over https (no ssh agent needed), push over ssh
-      astronvimClone = lib.hm.dag.entryAfter ["writeBoundary"] ''
-        if [ ! -e ${dotfiles} ]; then
-          if run ${git} clone https://github.com/abayomi185/nix-dotfiles.git ${dotfiles}; then
-            run ${git} -C ${dotfiles} remote set-url --push origin git@github.com:abayomi185/nix-dotfiles.git
-          else
-            warnEcho "Could not clone nix-dotfiles; rerun activation once online"
-          fi
-        fi
-      '';
-    };
   };
 }
