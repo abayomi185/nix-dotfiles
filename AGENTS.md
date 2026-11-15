@@ -64,7 +64,9 @@ nix eval .#darwinConfigurations.<hostname>.config.system.build.toplevel --no-bui
 
 ## Linting
 
-No CI pipeline or pre-commit hooks exist. Linters are available in the dev
+No lint CI or pre-commit hooks exist. `.github/workflows/deploy.yml` auto-deploys
+selected hosts on push to `main` (see
+`hosts/lxc/machine-learning/docs/GITHUB-RUNNER.md`). Linters are available in the dev
 environment (via Neovim) but have no project-level config files:
 
 ```bash
