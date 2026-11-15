@@ -74,7 +74,7 @@ in {
       logDestinations = ["stdout"];
       # Headroom so a brief stall doesn't drop relay UDP packets.
       udpReadBufferSize = 8388608;
-      # RTMP and unencrypted SRT are LAN-only. Authentication below limits
+      # Unencrypted SRT and RTSP are LAN-only. Authentication below limits
       # access by source network, not stream key.
       authMethod = "internal";
       authInternalUsers = [
@@ -99,9 +99,12 @@ in {
       metrics = false;
       pprof = false;
       playback = false;
-      rtsp = false;
-      rtmp = true;
-      rtmpAddress = ":1935";
+      # RTSP is for low-latency previews (e.g. OBS); TCP only, so no RTP ports.
+      rtsp = true;
+      rtspAddress = ":8554";
+      rtspTransports = ["tcp"];
+      # All cameras publish HEVC over SRT; RTMP only carries H.264 from Sony.
+      rtmp = false;
       hls = true;
       hlsAddress = ":8888";
       hlsAllowOrigins = [];
@@ -159,7 +162,7 @@ in {
 
   # MediaMTX also checks source networks for every publish/read request. Relay
   # ports bypass that (MediaMTX sees 127.0.0.1), so the VM must stay LAN-only.
-  networking.firewall.allowedTCPPorts = [1935 8888];
+  networking.firewall.allowedTCPPorts = [8554 8888];
   networking.firewall.allowedUDPPorts = [8890] ++ lib.attrValues sonySrtRelays;
   environment.systemPackages = with pkgs; [git];
   system.stateVersion = "26.05";

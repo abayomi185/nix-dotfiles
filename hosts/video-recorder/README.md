@@ -85,8 +85,8 @@ The mount is `hard`, so writes stall rather than fail during a short NAS outage.
 A full disk or storage error can still interrupt recordings. Monitor NAS free
 space and service logs; automatic deletion is disabled.
 
-Allow the cameras' VLAN to reach the VM on UDP 8890-8892 and TCP 1935, and trusted
-viewing clients on TCP 8888. The configuration currently permits MediaMTX requests
+Allow the cameras' VLAN to reach the VM on UDP 8890-8892, and trusted
+viewing clients on TCP 8554 and 8888. The configuration currently permits MediaMTX requests
 from `10.1.10.0/24`, `10.1.5.0/24`, `10.0.7.0/24`, and localhost. Adjust
 `trustedNetworks` if the cameras use another subnet. Routed clients must retain
 their source IP for these restrictions to apply.
@@ -96,8 +96,8 @@ their source IP for these restrictions to apply.
 Replace `RECORDER_IP` with the VM address, or use
 `video-recorder.internal.yomitosh.media` once its DHCP lease registers it.
 
-SRT carries H.265 and is the preferred route. Sony only sends H.264 over RTMP,
-which remains as a fallback.
+All cameras publish H.265 over SRT. RTMP is disabled, since Sony only sends
+H.264 over it.
 
 Creators' App strips everything after a colon in the URL, so Sony cameras can't
 set a stream ID. Each one gets its own port, where a relay passes the stream to
@@ -116,16 +116,18 @@ srt://RECORDER_IP:8890?streamid=publish:iphone13pro
 srt://RECORDER_IP:8890?streamid=publish:iphone17pro
 ```
 
-The RTMP fallback is `rtmp://RECORDER_IP:1935` with the path (`a7v`, `a7cr`,
-`iphone13pro`, `iphone17pro`) as stream key. On iPhone, use an SRT app such as
+On iPhone, use an SRT app such as
 Larix Broadcaster in caller mode.
 
-This initial configuration uses unencrypted SRT and RTMP with network-based
+This initial configuration uses unencrypted SRT and RTSP with network-based
 access control. The camera names are routing keys, not passwords. Any permitted LAN
 client can publish or view those paths. Keep the VM internal, with no
 Internet port forwards or public ingress. If traffic must cross an untrusted
-network, configure RTMPS with a camera-trusted certificate or an SRT passphrase
+network, configure an SRT passphrase
 and runtime secrets before using that network. Never put credentials in Nix strings.
+
+For low-latency previews, for example as an OBS Media Source, read over RTSP
+(TCP), for example `rtsp://RECORDER_IP:8554/a7v`.
 
 Browser previews are available while each camera is streaming:
 
