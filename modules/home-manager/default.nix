@@ -22,6 +22,9 @@
   # Music
   music = import ./music;
 
+  # Networking
+  networking = import ./networking;
+
   # Services
   services = import ./services;
 
