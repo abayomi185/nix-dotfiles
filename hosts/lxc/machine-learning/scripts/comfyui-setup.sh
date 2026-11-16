@@ -89,34 +89,43 @@ for workflow in t2i image_edit; do
   fi
 done
 
-# Wan 2.2 TI2V-5B: text/image-to-video, 720p @ 24 fps, fits the 3090.
-for model_path in \
-  diffusion_models/wan2.2_ti2v_5B_fp16.safetensors \
-  text_encoders/umt5_xxl_fp8_e4m3fn_scaled.safetensors \
-  vae/wan2.2_vae.safetensors; do
-  destination="$comfy_dir/models/$model_path"
-  mkdir -p "$(dirname "$destination")"
+# Video models. Each line: sha256, path under models/, Hugging Face repo, path in repo.
+# Downloads resume and existing files are kept; every file is then checksum-verified.
+fetch_verified() {
+  while read -r sha path repo src; do
+    destination="$comfy_dir/models/$path"
+    mkdir -p "$(dirname "$destination")"
+    if [ ! -f "$destination" ]; then
+      curl --fail --location --retry 5 --continue-at - \
+        --output "$destination.part" "https://huggingface.co/$repo/resolve/main/$src"
+      mv "$destination.part" "$destination"
+    fi
+    echo "$sha  $destination"
+  done | sha256sum --check
+}
+
+wan=Comfy-Org/Wan_2.2_ComfyUI_Repackaged
+h3=Comfy-Org/MiniMax-H3
+fetch_verified <<MODELS
+c3355d30191f1f066b26d93fba017ae9809dce6c627dda5f6a66eaa651204f68 text_encoders/umt5_xxl_fp8_e4m3fn_scaled.safetensors $wan split_files/text_encoders/umt5_xxl_fp8_e4m3fn_scaled.safetensors
+2fc39d31359a4b0a64f55876d8ff7fa8d780956ae2cb13463b0223e15148976b vae/wan_2.1_vae.safetensors $wan split_files/vae/wan_2.1_vae.safetensors
+6122e79d55e0f235698d11d657f3b196c5273c830da00b2b013c5a048d5e6a42 diffusion_models/wan2.2_i2v_high_noise_14B_fp8_scaled.safetensors $wan split_files/diffusion_models/wan2.2_i2v_high_noise_14B_fp8_scaled.safetensors
+5471a457b6ac404202a5fbe6c11595a3d5641fc766b00f38763f72303fffc21e diffusion_models/wan2.2_i2v_low_noise_14B_fp8_scaled.safetensors $wan split_files/diffusion_models/wan2.2_i2v_low_noise_14B_fp8_scaled.safetensors
+d176c808d6fc461999b68e321efcb7501b20b8c3797523ed0df14f7d1deff11e loras/wan2.2_i2v_lightx2v_4steps_lora_v1_high_noise.safetensors $wan split_files/loras/wan2.2_i2v_lightx2v_4steps_lora_v1_high_noise.safetensors
+024f21de095bc8fad9809ded3e9e49a2e170dcf27075da8145ba7d60d8aab7f9 loras/wan2.2_i2v_lightx2v_4steps_lora_v1_low_noise.safetensors $wan split_files/loras/wan2.2_i2v_lightx2v_4steps_lora_v1_low_noise.safetensors
+e889202c41dafb67b10d67b97f0d8541508036a6090af23425a5c2615d03c47a diffusion_models/minimax_h3_fl2va_pruned_int8_convrot.safetensors $h3 diffusion_models/minimax_h3_fl2va_pruned_int8_convrot.safetensors
+35a88d51044231fe332301d7a62aa81e3f2cba62febeb446e2c1e3e0ef76f2c6 text_encoders/qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors $h3 text_encoders/qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors
+52a2c8c73583c86e4f41cdcce3a6ad0ea562987bc0bf3d60a0cef5f5c8e60c0e vae/minimax_h3_video_vae_int8_convrot.safetensors $h3 vae/minimax_h3_video_vae_int8_convrot.safetensors
+8e505d95dd1561d47abd43d4238fd40d9bb1ae9e147ed0a4cba778d76ae4db48 vae/minimax_h3_audio_vae_fp32.safetensors $h3 vae/minimax_h3_audio_vae_fp32.safetensors
+2339acdf19bfe123f46b971ea35d367a84adb85de43627e1eceafa5a5b2b111e loras/minimax_h3_fl2v_turbo_8step_v1.0_comfyui_bf16.safetensors $h3 loras/minimax_h3_fl2v_turbo_8step_v1.0_comfyui_bf16.safetensors
+MODELS
+
+video_workflow_rev=ff15d86b5a143d546ed632826d72501298563ddb
+for workflow in video_minimax_h3_i2v video_wan2_2_14B_i2v; do
+  destination="$comfy_dir/user/default/workflows/$workflow.json"
   if [ ! -f "$destination" ]; then
-    curl --fail --location --retry 5 --continue-at - \
-      --output "$destination.part" \
-      "https://huggingface.co/Comfy-Org/Wan_2.2_ComfyUI_Repackaged/resolve/main/split_files/$model_path"
+    curl --fail --location --retry 5 --output "$destination.part" \
+      "https://raw.githubusercontent.com/Comfy-Org/workflow_templates/$video_workflow_rev/templates/$workflow.json"
     mv "$destination.part" "$destination"
   fi
 done
-
-(
-  cd "$comfy_dir/models"
-  sha256sum --check <<'SHA256'
-456f901338bd9eadbded3828b819109a9b68e8a525ca5cf8d0049a69fcfeca1e  diffusion_models/wan2.2_ti2v_5B_fp16.safetensors
-c3355d30191f1f066b26d93fba017ae9809dce6c627dda5f6a66eaa651204f68  text_encoders/umt5_xxl_fp8_e4m3fn_scaled.safetensors
-e40321bd36b9709991dae2530eb4ac303dd168276980d3e9bc4b6e2b75fed156  vae/wan2.2_vae.safetensors
-SHA256
-)
-
-wan_workflow_rev=ff15d86b5a143d546ed632826d72501298563ddb
-destination="$comfy_dir/user/default/workflows/Wan-2.2-5B-ti2v.json"
-if [ ! -f "$destination" ]; then
-  curl --fail --location --retry 5 --output "$destination.part" \
-    "https://raw.githubusercontent.com/Comfy-Org/workflow_templates/$wan_workflow_rev/templates/video_wan2_2_5B_ti2v.json"
-  mv "$destination.part" "$destination"
-fi
