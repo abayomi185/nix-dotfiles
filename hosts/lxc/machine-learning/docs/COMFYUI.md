@@ -51,6 +51,24 @@ settings: 1024 × 1024, 25 steps, CFG 1, Euler sampler and simple scheduler.
 Image editing uses the same three model files. The generation workflows use
 only built-in nodes. AutoFreeMemory is a separate background extension.
 
+## Wan 2.2 video
+
+`comfyui-setup` also installs Wan 2.2 TI2V-5B, about 18 GB in total:
+
+| Directory under `ComfyUI/models` | File |
+| --- | --- |
+| `diffusion_models` | `wan2.2_ti2v_5B_fp16.safetensors` |
+| `text_encoders` | `umt5_xxl_fp8_e4m3fn_scaled.safetensors` |
+| `vae` | `wan2.2_vae.safetensors` |
+
+It seeds the official `Wan-2.2-5B-ti2v` workflow, which handles text-to-video
+and, with an optional start image, image-to-video. Official settings: 20
+steps, CFG 5, uni_pc sampler, simple scheduler and shift 8. The workflow
+outputs 24 fps.
+
+On 2026-11-16, a 704 × 1280, 73-frame (3 s) text-to-video clip took 210
+seconds on the RTX 3090, including initial model loading.
+
 ## Profile pictures from reference photos
 
 Three editable presets are seeded into the Workflows sidebar by Home Manager:

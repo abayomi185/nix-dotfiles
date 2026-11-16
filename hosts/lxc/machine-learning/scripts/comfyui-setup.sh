@@ -88,3 +88,35 @@ for workflow in t2i image_edit; do
     mv "$destination.part" "$destination"
   fi
 done
+
+# Wan 2.2 TI2V-5B: text/image-to-video, 720p @ 24 fps, fits the 3090.
+for model_path in \
+  diffusion_models/wan2.2_ti2v_5B_fp16.safetensors \
+  text_encoders/umt5_xxl_fp8_e4m3fn_scaled.safetensors \
+  vae/wan2.2_vae.safetensors; do
+  destination="$comfy_dir/models/$model_path"
+  mkdir -p "$(dirname "$destination")"
+  if [ ! -f "$destination" ]; then
+    curl --fail --location --retry 5 --continue-at - \
+      --output "$destination.part" \
+      "https://huggingface.co/Comfy-Org/Wan_2.2_ComfyUI_Repackaged/resolve/main/split_files/$model_path"
+    mv "$destination.part" "$destination"
+  fi
+done
+
+(
+  cd "$comfy_dir/models"
+  sha256sum --check <<'SHA256'
+456f901338bd9eadbded3828b819109a9b68e8a525ca5cf8d0049a69fcfeca1e  diffusion_models/wan2.2_ti2v_5B_fp16.safetensors
+c3355d30191f1f066b26d93fba017ae9809dce6c627dda5f6a66eaa651204f68  text_encoders/umt5_xxl_fp8_e4m3fn_scaled.safetensors
+e40321bd36b9709991dae2530eb4ac303dd168276980d3e9bc4b6e2b75fed156  vae/wan2.2_vae.safetensors
+SHA256
+)
+
+wan_workflow_rev=ff15d86b5a143d546ed632826d72501298563ddb
+destination="$comfy_dir/user/default/workflows/Wan-2.2-5B-ti2v.json"
+if [ ! -f "$destination" ]; then
+  curl --fail --location --retry 5 --output "$destination.part" \
+    "https://raw.githubusercontent.com/Comfy-Org/workflow_templates/$wan_workflow_rev/templates/video_wan2_2_5B_ti2v.json"
+  mv "$destination.part" "$destination"
+fi
