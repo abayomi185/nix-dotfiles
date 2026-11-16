@@ -1,0 +1,3 @@
+{
+  wireguard = import ./wireguard.nix;
+}

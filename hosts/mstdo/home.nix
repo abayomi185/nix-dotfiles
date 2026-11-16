@@ -1,5 +1,6 @@
 {
   config,
+  inputs,
   outputs,
   ...
 }: {
@@ -26,6 +27,9 @@
     # Monitoring - See ../../modules/home-manager/monitoring/default.nix
     outputs.homeManagerModules.monitoring.btop
     # outputs.homeManagerModules.monitoring.ncdu
+
+    # Networking - See ../../modules/home-manager/networking/default.nix
+    (outputs.homeManagerModules.networking.wireguard {pPeer = "mstdo";})
 
     # Shell - See ../../modules/home-manager/shell/default.nix
     outputs.homeManagerModules.shell.fzf
@@ -78,7 +82,10 @@
     username = "yomi";
     homeDirectory = "/Users/yomi";
   };
-  sops.age.sshKeyPaths = ["${config.home.homeDirectory}/.ssh/id_ed25519"];
+  sops = {
+    age.sshKeyPaths = ["${config.home.homeDirectory}/.ssh/id_ed25519"];
+    defaultSopsFile = "${inputs.nix-secrets}/hosts/mstdo/secrets.enc.yaml";
+  };
 
   # Enable home-manager
   programs.home-manager.enable = true;
