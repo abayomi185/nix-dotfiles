@@ -1,13 +1,12 @@
 # YHLD-VPSR1 — Euronodes x86 VPS.
 {
+  config,
   inputs,
+  lib,
   modulesPath,
   pkgs,
   ...
-}: let
-  secretsPath = builtins.toString inputs.nix-secrets;
-  vpnHubSecrets = builtins.fromTOML (builtins.readFile "${secretsPath}/hosts/vps/secrets.toml");
-in {
+}: {
   imports = [
     (modulesPath + "/profiles/qemu-guest.nix")
     ./disk-config.nix
@@ -95,14 +94,22 @@ in {
 
   # ── Services ───────────────────────────────────────────────────────────
   services.flaresolverr.enable = true;
-  services.tinyproxy = {
-    enable = true;
-    settings = {
-      Listen = "0.0.0.0";
-      Port = 8888;
-      BasicAuth = "tinyproxy ${vpnHubSecrets.user.initial_password}";
-    };
+
+  # The module renders settings into the Nix store, so the config (with the
+  # BasicAuth password) comes from a sops template instead.
+  services.tinyproxy.enable = true;
+  sops.secrets."tinyproxy/basicAuthPassword" = {};
+  sops.templates."tinyproxy.conf" = {
+    owner = "tinyproxy";
+    restartUnits = ["tinyproxy.service"];
+    content = ''
+      Listen 0.0.0.0
+      Port 8888
+      BasicAuth tinyproxy ${config.sops.placeholder."tinyproxy/basicAuthPassword"}
+    '';
   };
+  systemd.services.tinyproxy.serviceConfig.ExecStart =
+    lib.mkForce "${lib.getExe config.services.tinyproxy.package} -d -c ${config.sops.templates."tinyproxy.conf".path}";
 
   # ── Packages ───────────────────────────────────────────────────────────
   environment.systemPackages = with pkgs; [

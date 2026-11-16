@@ -1,5 +1,7 @@
 # VPS WireGuard hub — reuses the legacy vps-arm64 tunnel identity so every
 # existing peer keeps the same server key during the cutover.
+#
+# Peers come from the shared registry (nix-secrets shared/wireguard.nix).
 {
   config,
   inputs,
@@ -7,17 +9,14 @@
   pkgs,
   ...
 }: let
-  secretsPath = builtins.toString inputs.nix-secrets;
-  vpnHubSecrets = builtins.fromTOML (builtins.readFile "${secretsPath}/hosts/vps/secrets.toml");
-  vpnNameservers = ["10.13.13.2"] ++ vpnHubSecrets.network.nameservers;
-  vpnDnsForwarders = vpnHubSecrets.dnsmasq.server;
+  wg = import ../shared/wireguard.nix {inherit inputs;};
 in {
   sops.secrets."wireguard/privateKey" = {};
 
   boot.kernel.sysctl."net.ipv4.ip_forward" = "1";
   boot.kernel.sysctl."net.ipv6.conf.all.forwarding" = "1";
 
-  networking.nameservers = lib.unique vpnNameservers;
+  networking.nameservers = ["10.13.13.2" "8.8.8.8"];
 
   networking.nat = {
     enable = true;
@@ -27,18 +26,24 @@ in {
   };
 
   # Only the WireGuard listener is public; DNS, kubelet and flannel stay on wg0.
-  networking.firewall.allowedUDPPorts = [vpnHubSecrets.wireguard.listen_port];
+  networking.firewall.allowedUDPPorts = [wg.hub.listenPort];
   networking.firewall.interfaces.wg0 = {
-    allowedTCPPorts = lib.unique (vpnHubSecrets.wireguard.allowed_tcp_ports ++ [10250]);
-    allowedUDPPorts = lib.unique (vpnHubSecrets.wireguard.allowed_udp_ports ++ [8472]);
+    allowedTCPPorts = [53 10250];
+    allowedUDPPorts = [53 8472];
   };
 
+  # VPN clients use this as DNS: internal zones go to the firewall's Unbound.
   services.dnsmasq = {
     enable = true;
     settings = {
       bind-interfaces = true;
       interface = "wg0";
-      server = vpnDnsForwarders;
+      server = [
+        "/internal.yomitosh.media/10.13.13.2"
+        "/local.yomitosh.media/10.13.13.2"
+        "8.8.8.8"
+        "8.8.4.4"
+      ];
     };
   };
 
@@ -50,9 +55,9 @@ in {
   };
 
   networking.wg-quick.interfaces.wg0 = {
-    address = vpnHubSecrets.wireguard.addresses;
+    address = ["${wg.hub.address}/24"];
     privateKeyFile = config.sops.secrets."wireguard/privateKey".path;
-    listenPort = vpnHubSecrets.wireguard.listen_port;
+    inherit (wg.hub) listenPort;
 
     postUp = ''
       ${pkgs.iptables}/bin/iptables -A FORWARD -i wg0 -j ACCEPT
@@ -65,15 +70,18 @@ in {
       ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -o ens18 -j MASQUERADE
     '';
 
-    peers = vpnHubSecrets.wireguard.peers;
+    peers =
+      lib.mapAttrsToList (_: peer: {
+        inherit (peer) publicKey;
+        allowedIPs = ["${peer.address}/32"] ++ peer.allowedIPs or [];
+      })
+      wg.peers;
   };
 
-  networking.interfaces.wg0.ipv4.routes =
-    lib.map
-    (route: {
-      address = route.address;
-      prefixLength = route.prefix_length;
-      via = route.via;
-    })
-    vpnHubSecrets.wireguard.routes;
+  # Home LANs behind the firewall peer.
+  networking.interfaces.wg0.ipv4.routes = map (address: {
+    inherit address;
+    prefixLength = 24;
+    via = wg.peers.firewall.address;
+  }) ["10.1.10.0" "10.1.50.0" "10.1.1.0"];
 }
