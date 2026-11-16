@@ -5,7 +5,7 @@
   "0xa4c138f81b40f98d".friendly_name = "Desk Light";
   "0xe0798dfffecf8485".friendly_name = "Presence Sensor";
   "0x70b3d52b600492d6" = {
-    friendly_name = "Extenstion Socket";
+    friendly_name = "Extension Socket";
     homeassistant.name = "Extension Socket";
     legacy = false;
     optimistic = true;
