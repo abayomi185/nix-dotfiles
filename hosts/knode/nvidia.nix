@@ -1,10 +1,11 @@
 # knode6: RTX 3090 by PCIe passthrough, headless.
 #
 # The container toolkit writes a CDI spec to
-# /var/run/cdi/nvidia-container-toolkit.json. k3s' containerd (2.x) reads CDI
-# specs by default, so a CDI device plugin in home-ops can hand the GPU to pods.
-# See nixpkgs pkgs/applications/networking/cluster/k3s/docs/examples/NVIDIA.md.
-{
+# /var/run/cdi/nvidia-container-toolkit.json. k3s finds
+# nvidia-container-runtime.cdi on its PATH and registers the `nvidia-cdi`
+# containerd runtime, which injects that spec. Pods opt in with the home-ops
+# `gpu` RuntimeClass; no device plugin, so any number of pods share the card.
+{pkgs, ...}: {
   nixpkgs.config.allowUnfree = true;
 
   # Selects the NVIDIA driver; no X server runs.
@@ -18,4 +19,5 @@
   };
 
   hardware.nvidia-container-toolkit.enable = true;
+  systemd.services.k3s.path = [pkgs.nvidia-container-toolkit.tools];
 }
