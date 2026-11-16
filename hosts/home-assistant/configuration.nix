@@ -19,7 +19,9 @@ in {
   services.qemuGuest.enable = true;
 
   networking = {
-    hostName = "home-assistant";
+    # Matches HAOS, so home.internal.yomitosh.media (mobile apps, hass-cli)
+    # keeps resolving via DHCP.
+    hostName = "home";
     domain = "internal.yomitosh.media";
     useDHCP = true;
   };
@@ -42,12 +44,15 @@ in {
   # ── Home Assistant ──────────────────────────────────────
   services.home-assistant = {
     enable = true;
+    # HomeKit bridge: TCP 21063, mDNS UDP 5353.
+    openFirewallForComponents = true;
     extraComponents = [
       "analytics"
       "backup"
       "default_config"
       "esphome"
       "go2rtc"
+      "google_translate"
       "homekit"
       "isal"
       "matter"
@@ -68,7 +73,10 @@ in {
     ];
     config = {
       default_config = {};
+      # The HAOS config entry was imported from YAML; keep it declared.
+      homekit = {};
       prometheus = {};
+      tts = [{platform = "google_translate";}];
       # UI-managed files stay mutable in /var/lib/hass.
       "automation ui" = "!include automations.yaml";
       "scene ui" = "!include scenes.yaml";

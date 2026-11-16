@@ -22,15 +22,22 @@ lags the HAOS release.
 
 ## Provisioning
 
-Create the VM like `video-recorder` on VLAN 10 next to HAOS: 2 vCPU, 2 GiB RAM,
-16 GiB `local-lvm`. The `pve-firewall` thin pool is close to full, so keep the
-disk small. Install from the repo `livecd` ISO:
+Create the VM like `video-recorder` on VLAN 10: 2 vCPU, 2 GiB RAM, 24 GiB
+`local-lvm` (the `pve-firewall` thin pool is close to full). The ESPHome build
+cache and Whisper models need ~5 GiB.
+
+Take a full HAOS backup first, then shut HAOS down before installing
+(`qm shutdown 306 && qm set 306 --onboot 0`). The new VM reuses the `home`
+hostname, and its services connect to the SLZB radios on first boot. To roll
+back, stop the new VM and start 306.
+
+Install from the repo `livecd` ISO:
 
 ```sh
 qm create <VMID> --name home-assistant --onboot 1 --startup order=2 \
   --ostype l26 --machine q35 --bios ovmf --efidisk0 local-lvm:0,efitype=4m \
   --cores 2 --memory 2048 --agent 1 \
-  --scsihw virtio-scsi-single --scsi0 local-lvm:16,iothread=1,ssd=1,discard=on \
+  --scsihw virtio-scsi-single --scsi0 local-lvm:24,iothread=1,ssd=1,discard=on \
   --net0 virtio,bridge=vmbr5,tag=10 \
   --ide2 local:iso/livecd.iso,media=cdrom --boot 'order=scsi0;ide2'
 
@@ -40,8 +47,8 @@ nix run github:nix-community/nixos-anywhere -- \
 
 ## Migration
 
-Take a full HAOS backup (Settings > System > Backups) that includes the database,
-then stop HAOS so it releases the radios. Restore from the extracted backup:
+Restore from the extracted HAOS backup (Settings > System > Backups, including
+the database):
 
 | HAOS backup | NixOS path |
 | --- | --- |
@@ -71,6 +78,10 @@ Update afterwards:
 - the `otbr` integration's URL: `http://127.0.0.1:8081`
 - the Music Assistant URL: `http://127.0.0.1:8095`
 - the Whisper Wyoming integration: `127.0.0.1:10300`
+- delete the `hassio` integration; Supervisor does not exist outside HAOS
+
+Dashboards use no custom cards. HACS frontend leftovers (card-mod, minimalist
+themes, Frigate card) are not carried over.
 
 Restoring `/var/lib/thread` and `/var/lib/matter-server` keeps the Thread network
 and Matter fabric. Without them, expect to re-pair Thread/Matter devices.
