@@ -67,20 +67,22 @@
     };
   };
 
-  switchPort = index: p:
+  # Declared on unifi_device so all ports go out in one write; separate
+  # unifi_device_port resources race and overwrite each other.
+  portOverride = index: p:
     {
-      device_mac = switchMac;
       index = lib.toInt index;
       inherit (p) name;
       native_networkconf_id = networkId p.native;
       forward = p.forward or "customize";
+      autoneg = p.autoneg or true;
       # Controller defaults; not computed by the provider, so pin them.
       setting_preference = "auto";
       stp_edge_state = "auto";
       tagged_vlan_mgmt = "auto";
     }
     // lib.optionalAttrs (p.poe or true) {poe_mode = "auto";}
-    // lib.filterAttrs (n: _: lib.elem n ["autoneg" "speed" "full_duplex"]) p;
+    // lib.filterAttrs (n: _: lib.elem n ["speed" "full_duplex"]) p;
 in {
   terraform = {
     required_providers.unifi.source = "ubiquiti-community/unifi";
@@ -128,6 +130,7 @@ in {
         name = "yhld-swch2";
         stp.version = "rstp";
         led.override = "on";
+        port_override = lib.mapAttrsToList portOverride switchPorts;
       };
 
       ap = {
@@ -136,7 +139,13 @@ in {
         led.override = "on";
       };
     };
-
-    unifi_device_port = lib.mapAttrs' (i: p: lib.nameValuePair "switch_${i}" (switchPort i p)) switchPorts;
   };
+
+  # NOTE: one-off; forget the old per-port resources without touching ports.
+  removed =
+    lib.mapAttrsToList (i: _: {
+      from = "unifi_device_port.switch_${i}";
+      lifecycle.destroy = false;
+    })
+    switchPorts;
 }
