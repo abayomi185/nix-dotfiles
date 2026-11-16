@@ -8,7 +8,7 @@ replacing the HAOS VM (306). HAOS add-ons map to NixOS services:
 | Mosquitto | `services.mosquitto`, localhost only |
 | Zigbee2MQTT | `services.zigbee2mqtt`, CC2652P on SLZB-MR2 `:7638` |
 | OpenThread Border Router | `services.openthread-border-router`, EFR32MG21 on SLZB-MR2 `:6638` via socat |
-| Matter Server | `services.matter-server` |
+| Matter Server | `services.matterjs-server` (the add-on runs matter.js) |
 | ESPHome Device Builder | `services.esphome` |
 | Music Assistant | `services.music-assistant` |
 | Whisper | `services.wyoming.faster-whisper` |
@@ -55,12 +55,12 @@ the database):
 | `homeassistant.tar.gz` `data/` | `/var/lib/hass` (`.storage`, `home-assistant_v2.db`, `automations.yaml`, …) |
 | `homeassistant` `data/zigbee2mqtt/` | `/var/lib/zigbee2mqtt` (`database.db`, `coordinator_backup.json`) |
 | `esphome` add-on | `/var/lib/esphome` |
-| `core_matter_server` add-on | `/var/lib/matter-server` |
+| `core_matter_server` add-on | `/var/lib/matterjs-server` |
 | `core_openthread_border_router` add-on | `/var/lib/thread` |
 | `music_assistant` add-on | `/var/lib/music-assistant` |
 
 Fix ownership (`chown -R hass:hass /var/lib/hass`, likewise for
-`zigbee2mqtt`), then start the services. `esphome` and `matter-server` use
+`zigbee2mqtt`), then start the services. `esphome` and `matterjs-server` use
 `DynamicUser`, so copy into `/var/lib/private/<name>` while they are stopped.
 
 History and long-term statistics live in `home-assistant_v2.db` and carry over
@@ -83,7 +83,7 @@ Update afterwards:
 Dashboards use no custom cards. HACS frontend leftovers (card-mod, minimalist
 themes, Frigate card) are not carried over.
 
-Restoring `/var/lib/thread` and `/var/lib/matter-server` keeps the Thread network
+Restoring `/var/lib/thread` and `/var/lib/matterjs-server` keeps the Thread network
 and Matter fabric. Without them, expect to re-pair Thread/Matter devices.
 
 ## Backups
