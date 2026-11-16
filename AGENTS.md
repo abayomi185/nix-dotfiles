@@ -62,6 +62,18 @@ nix eval .#nixosConfigurations.<hostname>.config.system.build.toplevel --no-buil
 nix eval .#darwinConfigurations.<hostname>.config.system.build.toplevel --no-build
 ```
 
+## Infra (OpenTofu)
+
+`infra/<stack>/default.nix` is a terranix module for APIs Nix can't activate on
+(e.g. the UniFi controller). `nix run .#<stack> -- <tofu args>` renders it,
+decrypts `secrets.enc.yaml` into the env and runs `tofu`. State is encrypted
+and committed; commit `terraform.tfstate` after every apply.
+
+```bash
+nix run .#unifi -- plan
+nix run .#unifi -- apply
+```
+
 ## Linting
 
 No CI pipeline or pre-commit hooks exist. Linters are available in the dev
