@@ -152,7 +152,17 @@ in {
     after = ["otbr-radio.service"];
   };
 
-  services.matter-server.enable = true;
+  # The HAOS add-on (9.x) runs matter.js; python matter-server cannot read its
+  # storage. Flags mirror the add-on so the existing fabric is reused.
+  services.matterjs-server = {
+    enable = true;
+    extraArgs = [
+      "--fabricid=2"
+      "--vendorid=4939"
+      "--primary-interface=${lan}"
+      "--enable-time-sync"
+    ];
+  };
 
   # ── Add-on replacements ─────────────────────────────────
   services.esphome = {
@@ -185,6 +195,7 @@ in {
     8080 # zigbee2mqtt frontend
     8123 # home assistant
   ];
+  networking.firewall.allowedUDPPorts = [5540]; # matter operational
   environment.systemPackages = with pkgs; [git sqlite];
   system.stateVersion = "26.05";
 }
