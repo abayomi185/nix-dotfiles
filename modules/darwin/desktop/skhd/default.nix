@@ -3,8 +3,13 @@
   # Installed with Homebrew rather than Nix: `nix store optimise` gives store
   # binaries extra paths, and macOS permission checks sometimes land on an
   # ungranted one, dropping skhd's key events. A brew binary has one path.
-  homebrew.taps = [ "koekeishiya/formulae" ];
-  homebrew.brews = [ "koekeishiya/formulae/skhd" ];
+  homebrew.taps = [
+    {
+      name = "asmvik/formulae"; # koekeishiya/formulae was renamed
+      trusted = true;
+    }
+  ];
+  homebrew.brews = [ "asmvik/formulae/skhd" ];
 
   services.skhd = {
     enable = true;

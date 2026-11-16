@@ -1,8 +1,13 @@
 { pkgs, ... }:
 {
   # Installed with Homebrew rather than Nix; see ../skhd/default.nix for why.
-  homebrew.taps = [ "koekeishiya/formulae" ];
-  homebrew.brews = [ "koekeishiya/formulae/yabai" ];
+  homebrew.taps = [
+    {
+      name = "asmvik/formulae"; # koekeishiya/formulae was renamed
+      trusted = true;
+    }
+  ];
+  homebrew.brews = [ "asmvik/formulae/yabai" ];
 
   services.yabai = {
     enable = true;
