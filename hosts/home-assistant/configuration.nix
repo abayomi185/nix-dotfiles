@@ -61,7 +61,6 @@ in {
       "mqtt"
       "music_assistant"
       "otbr"
-      "prometheus"
       "speedtestdotnet"
       "spotify"
       "sun"
@@ -75,7 +74,6 @@ in {
       default_config = {};
       # The HAOS config entry was imported from YAML; keep it declared.
       homekit = {};
-      prometheus = {};
       tts = [{platform = "google_translate";}];
       # UI-managed files stay mutable in /var/lib/hass.
       "automation ui" = "!include automations.yaml";
