@@ -121,6 +121,8 @@ in {
     before = ["otbr-agent.service"];
     after = ["network-online.target"];
     wants = ["network-online.target"];
+    # bindsTo stops the agent when the bridge drops; upholds restarts it.
+    upholds = ["otbr-agent.service"];
     serviceConfig = {
       ExecStart = "${pkgs.socat}/bin/socat pty,raw,echo=0,link=${otbrRadio},ignoreeof tcp:${slzb}:6638";
       Restart = "always";
