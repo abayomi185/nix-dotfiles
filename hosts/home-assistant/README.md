@@ -60,11 +60,10 @@ History and long-term statistics live in `home-assistant_v2.db` and carry over
 with it. The old `configuration.yaml` is replaced by the module config, so merge
 any YAML-only config into `config`.
 
-Zigbee2MQTT also regenerates `configuration.yaml` on every start. Move its
-`devices:` and `groups:` sections into `devices.yaml` and `groups.yaml` (top-level
-maps keyed by IEEE address / group ID) so friendly names survive. The network
-key and PAN IDs are Z2M defaults and stay unset; see the `WARN` in
-`configuration.nix`.
+Zigbee2MQTT also regenerates `configuration.yaml` on every start. Device
+settings and friendly names are declared in `zigbee-devices.nix`, so rename
+devices there rather than in the Z2M frontend. The network key and PAN IDs are
+Z2M defaults and stay unset; see the `WARN` in `configuration.nix`.
 
 Update afterwards:
 

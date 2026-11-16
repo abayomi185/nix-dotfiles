@@ -102,6 +102,9 @@ in {
       # in the HAOS config; coordinator backup: PAN 0x1a62, channel 11). Leave
       # them unset, or set them to match coordinator_backup.json, or re-pair.
       advanced.transmit_power = 20;
+      # Declarative: renames in the Z2M frontend are lost on restart.
+      devices = import ./zigbee-devices.nix;
+      groups = {};
       frontend.enabled = true;
     };
   };
