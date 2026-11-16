@@ -86,6 +86,12 @@
     # UniFi OS Server
     unifi-os-server.url = "github:rcambrj/unifi-os-server";
 
+    # Terraform JSON from Nix (infra/)
+    terranix = {
+      url = "github:terranix/terranix";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
     # Secrets
     nix-secrets = {
       url = "git+ssh://git@github.com/abayomi185/nix-secrets.git?ref=main&shallow=1";
@@ -163,6 +169,43 @@
     # Formatter for your nix files, available through 'nix fmt'
     # Other options beside 'alejandra' include 'nixpkgs-fmt'
     formatter = forAllSystems (system: inputs.nixpkgs-stable.legacyPackages.${system}.alejandra);
+
+    # OpenTofu stacks rendered by terranix
+    # Usage: nix run .#unifi -- plan
+    apps = forAllSystems (system: let
+      pkgs = inputs.nixpkgs-unstable.legacyPackages.${system};
+      tofuStack = name: providers: let
+        config = inputs.terranix.lib.terranixConfiguration {
+          inherit system;
+          modules = [./infra/${name}];
+        };
+        tofu = pkgs.opentofu.withPlugins providers;
+      in {
+        type = "app";
+        program = toString (pkgs.writeShellScript "tofu-${name}" ''
+          set -euo pipefail
+          cd "$(${pkgs.git}/bin/git rev-parse --show-toplevel)/infra/${name}"
+          install -m 644 ${config} config.tf.json
+          export PATH=${tofu}/bin:$PATH
+          exec ${pkgs.sops}/bin/sops exec-env secrets.enc.yaml \
+            "tofu init -input=false -upgrade >/dev/null && tofu $(printf '%q ' "$@")"
+        '');
+      };
+    in {
+      # NOTE: pinned ahead of nixpkgs (0.59) for unifi_device_port and port
+      # override fixes; switch back to p.ubiquiti-community_unifi once >= 0.65.
+      unifi = tofuStack "unifi" (p: [
+        (p.mkProvider {
+          owner = "ubiquiti-community";
+          repo = "terraform-provider-unifi";
+          rev = "v0.65.0";
+          hash = "sha256-Sjmg3WIQ9nyKNZllfUKK4zJfdxGABIMx6HLWwiDKuBM=";
+          vendorHash = "sha256-UBxcPzgxYweXQ5x67zzO/lRY9YlHzOo09Hz531WmLuw=";
+          homepage = "https://registry.terraform.io/providers/ubiquiti-community/unifi";
+          spdx = "MPL-2.0";
+        })
+      ]);
+    });
 
     # Your custom packages and modifications, exported as overlays
     overlays = import ./overlays {inherit inputs;};
