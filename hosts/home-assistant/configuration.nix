@@ -8,6 +8,7 @@
   # SLZB-MR2 (YHLD-SLZB1): EFR32MG21 Thread RCP and CC2652P Zigbee coordinator.
   slzb = "slzb-mr2.internal.yomitosh.media";
   otbrRadio = "/run/otbr-radio";
+  lan = "lan0";
 in {
   imports = ["${modulesPath}/profiles/qemu-guest.nix"];
 
@@ -24,6 +25,11 @@ in {
     hostName = "home";
     domain = "internal.yomitosh.media";
     useDHCP = true;
+  };
+  # Stable NIC name for OTBR and Matter; HAOS sees this NIC as enp6s18.
+  systemd.network.links."10-lan" = {
+    matchConfig.Driver = "virtio_net";
+    linkConfig.Name = lan;
   };
   time.timeZone = "Europe/London";
   i18n.defaultLocale = "en_GB.UTF-8";
@@ -118,7 +124,7 @@ in {
   # ── Thread / Matter ─────────────────────────────────────
   services.openthread-border-router = {
     enable = true;
-    backboneInterfaces = ["ens18"];
+    backboneInterfaces = [lan];
     radio = {
       device = otbrRadio;
       baudRate = 460800;
