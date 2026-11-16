@@ -7,7 +7,6 @@
 }: let
   userName = "yomi";
   homeDirectory = "/Users/${userName}";
-  secretsPath = builtins.toString inputs.mysecrets;
 in {
   imports = [
     # Apps - See ../../modules/home-manager/apps/default.nix
@@ -46,6 +45,9 @@ in {
 
     # Music - See ../../modules/home-manager/music/default.nix
     # outputs.homeManagerModules.music.spotify
+
+    # Networking - See ../../modules/home-manager/networking/default.nix
+    (outputs.homeManagerModules.networking.wireguard {pPeer = "mbp14";})
 
     # Shell - See ../../modules/home-manager/shell/default.nix
     outputs.homeManagerModules.shell.fzf
@@ -100,7 +102,7 @@ in {
 
   sops = {
     age.sshKeyPaths = ["${config.home.homeDirectory}/.ssh/id_ed25519"];
-    defaultSopsFile = "${secretsPath}/hosts/mba13/secrets.enc.yaml";
+    defaultSopsFile = "${inputs.nix-secrets}/hosts/mbp14/secrets.enc.yaml";
   };
 
   # Enable home-manager
