@@ -120,6 +120,11 @@ in {
       frontend.enabled = true;
     };
   };
+  # The coordinator is reached by hostname over TCP.
+  systemd.services.zigbee2mqtt = {
+    after = ["network-online.target" "mosquitto.service"];
+    wants = ["network-online.target"];
+  };
 
   # ── Thread / Matter ─────────────────────────────────────
   services.openthread-border-router = {
