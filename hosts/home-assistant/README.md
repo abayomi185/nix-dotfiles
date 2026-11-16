@@ -12,11 +12,10 @@ replacing the HAOS VM (306). HAOS add-ons map to NixOS services:
 | ESPHome Device Builder | `services.esphome` |
 | Music Assistant | `services.music-assistant` |
 | Whisper | `services.wyoming.faster-whisper` |
-| Node-RED | `services.node-red` |
-| Frigate, Studio Code Server, Get HACS | dropped (unused) |
+| Frigate, Node-RED, Studio Code Server, Get HACS | dropped (unused) |
 
-HACS components: `octopus_energy` comes from nixpkgs. Custom VeSync and Apple TV
-Beta are unused and dropped.
+HACS components: `octopus_energy` comes from nixpkgs. Custom VeSync, Apple TV
+Beta and minerstat are unused and dropped.
 
 The host follows `nixpkgs-unstable`: HA cannot downgrade its database, and stable
 lags the HAOS release.
@@ -49,13 +48,12 @@ then stop HAOS so it releases the radios. Restore from the extracted backup:
 | `homeassistant.tar.gz` `data/` | `/var/lib/hass` (`.storage`, `home-assistant_v2.db`, `automations.yaml`, …) |
 | `homeassistant` `data/zigbee2mqtt/` | `/var/lib/zigbee2mqtt` (`database.db`, `coordinator_backup.json`) |
 | `esphome` add-on | `/var/lib/esphome` |
-| `nodered` add-on | `/var/lib/node-red` |
 | `core_matter_server` add-on | `/var/lib/matter-server` |
 | `core_openthread_border_router` add-on | `/var/lib/thread` |
 | `music_assistant` add-on | `/var/lib/music-assistant` |
 
-Fix ownership (`chown -R hass:hass /var/lib/hass`, likewise for `zigbee2mqtt`
-and `node-red`), then start the services. `esphome` and `matter-server` use
+Fix ownership (`chown -R hass:hass /var/lib/hass`, likewise for
+`zigbee2mqtt`), then start the services. `esphome` and `matter-server` use
 `DynamicUser`, so copy into `/var/lib/private/<name>` while they are stopped.
 
 History and long-term statistics live in `home-assistant_v2.db` and carry over

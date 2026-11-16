@@ -161,11 +161,6 @@ in {
     uri = "tcp://127.0.0.1:10300";
   };
 
-  services.node-red = {
-    enable = true;
-    openFirewall = true;
-  };
-
   networking.firewall.allowedTCPPorts = [
     8080 # zigbee2mqtt frontend
     8123 # home assistant
