@@ -94,11 +94,14 @@ in {
     settings = {
       homeassistant.enabled = true;
       mqtt.server = "mqtt://127.0.0.1:1883";
-      # NOTE: confirm against the add-on's /config/zigbee2mqtt/configuration.yaml.
       serial = {
         port = "tcp://${slzb}:7638";
         adapter = "zstack";
       };
+      # WARN: the network runs on Z2M defaults (no network_key/pan_id/ext_pan_id
+      # in the HAOS config; coordinator backup: PAN 0x1a62, channel 11). Leave
+      # them unset, or set them to match coordinator_backup.json, or re-pair.
+      advanced.transmit_power = 20;
       frontend.enabled = true;
     };
   };
