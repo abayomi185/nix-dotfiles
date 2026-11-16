@@ -1,94 +1,46 @@
 # Home Assistant
 
-NixOS VM for `pve-firewall` on [YHLD-SERV2](https://github.com/abayomi185/homelab/blob/main/devices/YHLD-SERV2/YHLD-SERV2.md),
-replacing the HAOS VM (306). HAOS add-ons map to NixOS services:
+NixOS VM on `pve-firewall` ([YHLD-SERV2](https://github.com/abayomi185/homelab/blob/main/devices/YHLD-SERV2/YHLD-SERV2.md)),
+replacing the HAOS VM (306). Follows `nixpkgs-unstable`: HA cannot downgrade
+its database.
 
 | HAOS add-on | NixOS |
 | --- | --- |
 | Mosquitto | `services.mosquitto`, localhost only |
-| Zigbee2MQTT | `services.zigbee2mqtt`, CC2652P on SLZB-MR2 `:7638` |
-| OpenThread Border Router | `services.openthread-border-router`, EFR32MG21 on SLZB-MR2 `:6638` via socat |
-| Matter Server | `services.matterjs-server` (the add-on runs matter.js) |
+| Zigbee2MQTT | `services.zigbee2mqtt`, SLZB-MR2 `:7638` |
+| OpenThread Border Router | `services.openthread-border-router`, SLZB-MR2 `:6638` via socat |
+| Matter Server | `services.matterjs-server` |
 | ESPHome Device Builder | `services.esphome` |
 | Music Assistant | `services.music-assistant` |
 | Whisper | `services.wyoming.faster-whisper` |
-| Frigate, Node-RED, Studio Code Server, Get HACS | dropped (unused) |
 
-HACS components: `octopus_energy` comes from nixpkgs. Custom VeSync, Apple TV
-Beta and minerstat are unused and dropped.
-
-The host follows `nixpkgs-unstable`: HA cannot downgrade its database, and stable
-lags the HAOS release.
+Zigbee device names live in `zigbee-devices.nix`; rename devices there, not in
+the Z2M frontend. The network key and PAN IDs are Z2M defaults; leave them unset.
 
 ## Provisioning
 
-Create the VM like `video-recorder` on VLAN 10: 2 vCPU, 2 GiB RAM, 24 GiB
-`local-lvm` (the `pve-firewall` thin pool is close to full). The ESPHome build
-cache and Whisper models need ~5 GiB.
-
-Take a full HAOS backup first, then shut HAOS down before installing
-(`qm shutdown 306 && qm set 306 --onboot 0`). The new VM reuses the `home`
-hostname, and its services connect to the SLZB radios on first boot. To roll
-back, stop the new VM and start 306.
-
-Install from the repo `livecd` ISO:
+UEFI VM on VLAN 10: 2 vCPU, 2 GiB RAM, 24 GiB `local-lvm`. It keeps HAOS's
+hostname `home` and MAC, so `home.internal.yomitosh.media` is unchanged.
+Never run it alongside HAOS: both would claim the SLZB radios.
 
 ```sh
-qm create <VMID> --name home-assistant --onboot 1 --startup order=2 \
-  --ostype l26 --machine q35 --bios ovmf --efidisk0 local-lvm:0,efitype=4m \
-  --cores 2 --memory 2048 --agent 1 \
-  --scsihw virtio-scsi-single --scsi0 local-lvm:24,iothread=1,ssd=1,discard=on \
-  --net0 virtio,bridge=vmbr5,tag=10 \
-  --ide2 local:iso/livecd.iso,media=cdrom --boot 'order=scsi0;ide2'
-
 nix run github:nix-community/nixos-anywhere -- \
-  --flake .#home-assistant --build-on remote root@<ISO_IP>
+  --flake .#home-assistant --build-on remote root@<LIVECD_IP>
 ```
 
-## Migration
+## Migration from HAOS
 
-Restore from the extracted HAOS backup (Settings > System > Backups, including
-the database):
+With HAOS stopped, copy from its `hassos-data` partition (`supervisor/`):
 
-| HAOS backup | NixOS path |
+| HAOS | NixOS |
 | --- | --- |
-| `homeassistant.tar.gz` `data/` | `/var/lib/hass` (`.storage`, `home-assistant_v2.db`, `automations.yaml`, …) |
-| `homeassistant` `data/zigbee2mqtt/` | `/var/lib/zigbee2mqtt` (`database.db`, `coordinator_backup.json`) |
-| `esphome` add-on | `/var/lib/esphome` |
-| `core_matter_server` add-on | `/var/lib/matterjs-server` |
-| `core_openthread_border_router` add-on | `/var/lib/thread` |
-| `music_assistant` add-on | `/var/lib/music-assistant` |
+| `homeassistant/` (minus `configuration.yaml`) | `/var/lib/hass` |
+| `homeassistant/zigbee2mqtt/` | `/var/lib/zigbee2mqtt` |
+| `homeassistant/esphome/` | `/var/lib/esphome` |
+| `apps/data/core_matter_server/` | `/var/lib/private/matterjs-server` |
+| `apps/data/core_openthread_border_router/thread/` | `/var/lib/thread` |
+| `apps/data/d5369777_music_assistant/` | `/var/lib/private/music-assistant` |
 
-Fix ownership (`chown -R hass:hass /var/lib/hass`, likewise for
-`zigbee2mqtt`), then start the services. `esphome` and `matterjs-server` use
-`DynamicUser`, so copy into `/var/lib/private/<name>` while they are stopped.
-
-History and long-term statistics live in `home-assistant_v2.db` and carry over
-with it. The old `configuration.yaml` is replaced by the module config, so merge
-any YAML-only config into `config`.
-
-Zigbee2MQTT also regenerates `configuration.yaml` on every start. Device
-settings and friendly names are declared in `zigbee-devices.nix`, so rename
-devices there rather than in the Z2M frontend. The network key and PAN IDs are
-Z2M defaults and stay unset; see the `WARN` in `configuration.nix`.
-
-Update afterwards:
-
-- the `mqtt` integration's broker: `127.0.0.1`
-- the `otbr` integration's URL: `http://127.0.0.1:8081`
-- the Music Assistant URL: `http://127.0.0.1:8095`
-- the Whisper Wyoming integration: `127.0.0.1:10300`
-- delete the `hassio` integration; Supervisor does not exist outside HAOS
-
-Dashboards use no custom cards. HACS frontend leftovers (card-mod, minimalist
-themes, Frigate card) are not carried over.
-
-Restoring `/var/lib/thread` and `/var/lib/matterjs-server` keeps the Thread network
-and Matter fabric. Without them, expect to re-pair Thread/Matter devices.
-
-## Backups
-
-Back up the whole VM to `mobackupserver-main` (PBS) with a Proxmox backup job.
-Snapshot mode with the guest agent quiesces the filesystem, so the SQLite
-database is consistent. The flake rebuilds the OS, so only `/var/lib` holds
-state, but a VM backup is the simplest complete restore.
+Then point integrations at localhost (MQTT `127.0.0.1:1883`, OTBR
+`http://127.0.0.1:8081`, Matter `ws://127.0.0.1:5580/ws`, Music Assistant
+`http://127.0.0.1:8095`) and delete the `hassio` integration.
