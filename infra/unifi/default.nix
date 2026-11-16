@@ -24,46 +24,54 @@
       vlan = 20;
     };
     iot = {
-      name = "IOT";
+      name = "IoT";
       vlan = 50;
     };
   };
 
-  # Managed YHLD-SWCH2 ports; undeclared ports keep their controller config.
+  # Managed YHLD-SWCH2 ports, named after what's plugged in (or the VLAN for
+  # spare access ports); undeclared ports keep their controller config.
   switchPorts = {
     "1" = {
+      name = "YHLD-ACPT2";
       native = "default";
       forward = "all";
-    }; # YHLD-ACPT2
-    "2" = {native = "infra";};
+    };
+    "2" = {
+      name = "Infra access";
+      native = "infra";
+    };
     "3" = {
-      name = "guest-net1";
+      name = "Guest access";
       native = "guest";
     };
     "7" = {
-      name = "zigbee-matter-coordinator";
+      name = "YHLD-SLZB1";
       native = "iot";
-    }; # YHLD-SLZB1
+    };
     "11" = {
-      name = "pve-ipmi";
+      name = "YHLD-IPMI1";
       native = "infra";
-    }; # YHLD-IPMI1
-    "13" = {native = "main";};
+    };
+    "13" = {
+      name = "Main access";
+      native = "main";
+    };
     "26" = {
-      name = "pve-main";
+      name = "YHLD-SERV1";
       native = "infra";
       poe = false;
       autoneg = false;
       speed = 10000;
       full_duplex = true;
-    }; # YHLD-SERV1
+    };
   };
 
   switchPort = index: p:
     {
       device_mac = switchMac;
       index = lib.toInt index;
-      name = p.name or "Port ${index}";
+      inherit (p) name;
       native_networkconf_id = networkId p.native;
       forward = p.forward or "customize";
       # Controller defaults; not computed by the provider, so pin them.
