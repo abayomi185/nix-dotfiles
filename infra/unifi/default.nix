@@ -139,31 +139,4 @@ in {
 
     unifi_device_port = lib.mapAttrs' (i: p: lib.nameValuePair "switch_${i}" (switchPort i p)) switchPorts;
   };
-
-  # NOTE: one-off adoption of existing controller objects; drop after first apply.
-  import =
-    lib.mapAttrsToList (n: id: {
-      to = "unifi_network.${n}";
-      inherit id;
-    }) {
-      infra = "6a6940379c1aaf63a60e8e36";
-      main = "6a693fd09c1aaf63a60e8e29";
-      guest = "6a6940269c1aaf63a60e8e33";
-      iot = "6a693ff09c1aaf63a60e8e30";
-    }
-    ++ [
-      {
-        to = "unifi_device.switch";
-        id = "6a6a8ebe0d852a4ee3101fe5";
-      }
-      {
-        to = "unifi_device.ap";
-        id = "6a6a8f160d852a4ee3101fe7";
-      }
-    ]
-    ++ lib.mapAttrsToList (i: _: {
-      to = "unifi_device_port.switch_${i}";
-      id = "${switchMac}/${i}";
-    })
-    switchPorts;
 }
