@@ -300,10 +300,23 @@
         pNodeId = "4";
         pK3sRole = "agent";
       };
+      # Dedicated NVIDIA GPU node; see hosts/knode/nvidia.nix.
+      knode6 = import ./hosts/knode/default.nix {
+        inherit inputs outputs;
+        pNodeId = "6";
+        pClusterAddress = "10.0.7.46";
+        pDataDiskDevice = "/dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi1";
+        pK3sRole = "agent";
+        pNodeLabels = ["yomitosh.media/gpu=nvidia"];
+        pNodeTaints = ["dedicated=gpu:NoSchedule"];
+      };
     };
 
     # Server and LXC node definitions
     nixosConfigurations = {
+      builder = import ./hosts/builder/default.nix {
+        inherit inputs outputs;
+      };
       sonamesh = import ./hosts/sonamesh/default.nix {
         inherit inputs outputs;
       };

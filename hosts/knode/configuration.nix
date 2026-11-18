@@ -10,16 +10,20 @@
   pK3sServerId,
   pNodeId,
   pNodeLabels ? [],
+  pNodeTaints ? [],
   ...
 }: let
   timeZone = "Europe/London";
   defaultLocale = "en_GB.UTF-8";
   isIntelGpuNode = pNodeId == "4";
+  isNvidiaGpuNode = pNodeId == "6";
 in {
-  imports = [
-    ./disk-config.nix
-    ./hardware-configuration.nix
-  ];
+  imports =
+    [
+      ./disk-config.nix
+      ./hardware-configuration.nix
+    ]
+    ++ lib.optionals isNvidiaGpuNode [./nvidia.nix];
 
   nix.settings = {
     auto-optimise-store = true;
@@ -128,7 +132,8 @@ in {
       ++ lib.optionals (pK3sRole == "server" && pClusterAddress != null) [
         "--tls-san=knode${pNodeId}.cluster.internal.yomitosh.media"
       ]
-      ++ map (label: "--node-label=${label}") pNodeLabels;
+      ++ map (label: "--node-label=${label}") pNodeLabels
+      ++ map (taint: "--node-taint=${taint}") pNodeTaints;
     serverAddr =
       if pK3sServerId != ""
       then
