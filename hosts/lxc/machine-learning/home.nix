@@ -35,6 +35,7 @@
 in {
   imports = [
     ./comfyui.nix
+    ./github-runner.nix
     outputs.homeManagerModules.services.llama-server
     outputs.homeManagerModules.shell.fzf
     outputs.homeManagerModules.shell.zoxide

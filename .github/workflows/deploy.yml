@@ -1,0 +1,42 @@
+# Deploys selected NixOS hosts when main changes. Runs on the self-hosted
+# runner on machine-learning (hosts/lxc/machine-learning/github-runner.nix),
+# which builds locally and copies closures to each target over root SSH.
+# Hosts whose evaluated toplevel already matches /run/current-system are
+# skipped. Keep `firewall` manual: a bad switch takes the network down.
+name: deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: github.repository == 'abayomi185/nix-dotfiles'
+    runs-on: [self-hosted, nixos-deploy]
+    env:
+      HOSTS: video-recorder
+      FLAKE: github:${{ github.repository }}/${{ github.sha }}
+      NIX_SSHOPTS: -o StrictHostKeyChecking=accept-new
+    steps:
+      - name: Deploy changed hosts
+        run: |
+          set -euo pipefail
+          for host in $HOSTS; do
+            target="root@$host.internal.yomitosh.media"
+            want=$(nix eval --raw "$FLAKE#nixosConfigurations.$host.config.system.build.toplevel.outPath")
+            have=$(ssh $NIX_SSHOPTS "$target" readlink -f /run/current-system)
+            if [ "$want" = "$have" ]; then
+              echo "$host: up to date"
+              continue
+            fi
+            echo "$host: $have -> $want"
+            nixos-rebuild switch --flake "$FLAKE#$host" --target-host "$target"
+          done
