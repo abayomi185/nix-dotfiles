@@ -1,5 +1,5 @@
 # WireGuard client for the YHLD-VPSR1 hub, delivered as a configuration
-# profile for WireGuard.app so the app's toggle and On-Demand UI keep working.
+# profile for WireGuard.app; tunnels are toggled in the app.
 #
 # sops-nix renders the profile with this Mac's private key at activation.
 # Install or update it with:
@@ -8,8 +8,8 @@
 # The fixed PayloadIdentifier makes a reinstall replace the previous tunnels.
 #
 # Tunnels:
-#   home  split: tunnel subnet + home LANs, toggled manually
-#   vps   full: On-Demand on any Wi-Fi except trustedSSIDs, off on Ethernet
+#   home  split: tunnel subnet + home LANs
+#   vps   full tunnel
 {pPeer}: {
   config,
   inputs,
@@ -18,7 +18,6 @@
 }: let
   wg = import "${builtins.toString inputs.nix-secrets}/shared/wireguard.nix";
   peer = wg.peers.${pPeer};
-  trustedSSIDs = ["Airport"];
 
   # Swapped for the sops placeholder after plist escaping (which would mangle it).
   privateKey = "@WIREGUARD_PRIVATE_KEY@";
@@ -47,7 +46,6 @@
   tunnel = {
     name,
     allowedIPs,
-    onDemand ? {},
   }: {
     PayloadDisplayName = "VPN";
     PayloadType = "com.apple.vpn.managed";
@@ -58,33 +56,10 @@
     VPNType = "VPN";
     VPNSubType = "com.wireguard.macos";
     VendorConfig.WgQuickConfig = wgQuickConfig allowedIPs;
-    VPN =
-      {
-        RemoteAddress = wg.hub.endpoint;
-        AuthenticationMethod = "Password";
-      }
-      // onDemand;
-  };
-
-  # Rule shape matches the app's "Wi-Fi only, except these SSIDs" option so
-  # it stays editable in WireGuard.app.
-  untrustedWiFi = {
-    OnDemandEnabled = 1;
-    OnDemandRules = [
-      {
-        Action = "Disconnect";
-        InterfaceTypeMatch = "WiFi";
-        SSIDMatch = trustedSSIDs;
-      }
-      {
-        Action = "Connect";
-        InterfaceTypeMatch = "WiFi";
-      }
-      {
-        Action = "Disconnect";
-        InterfaceTypeMatch = "Ethernet";
-      }
-    ];
+    VPN = {
+      RemoteAddress = wg.hub.endpoint;
+      AuthenticationMethod = "Password";
+    };
   };
 
   profile = lib.generators.toPlist {escape = true;} {
@@ -101,7 +76,6 @@
       (tunnel {
         name = "vps";
         allowedIPs = ["0.0.0.0/0" "::/0"];
-        onDemand = untrustedWiFi;
       })
     ];
   };
