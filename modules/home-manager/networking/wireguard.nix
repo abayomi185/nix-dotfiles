@@ -2,9 +2,10 @@
 # profile for WireGuard.app; tunnels are toggled in the app.
 #
 # sops-nix renders the profile with this Mac's private key at activation.
-# Install or update it with:
+# When its contents change, a launchd agent opens it; approve it in
+# System Settings → General → Device Management. (macOS only installs
+# profiles silently via MDM.) To reinstall by hand:
 #   open ~/.config/sops-nix/secrets/rendered/wireguard.mobileconfig
-# then approve it in System Settings → General → Device Management.
 # The fixed PayloadIdentifier makes a reinstall replace the previous tunnels.
 #
 # Tunnels:
@@ -14,6 +15,7 @@
   config,
   inputs,
   lib,
+  pkgs,
   ...
 }: let
   wg = import "${builtins.toString inputs.nix-secrets}/shared/wireguard.nix";
@@ -79,8 +81,31 @@
       })
     ];
   };
+
+  renderedProfile = config.sops.templates."wireguard.mobileconfig".path;
+
+  # sops-nix re-renders on every login and activation, so only open the
+  # profile when its hash differs from the last one opened.
+  openIfChanged = pkgs.writeShellScript "wireguard-profile-open" ''
+    state="${config.xdg.stateHome}/wireguard/profile.sha256"
+    [ -f "${renderedProfile}" ] || exit 0
+    new=$(/usr/bin/shasum -a 256 "${renderedProfile}" | /usr/bin/cut -d' ' -f1)
+    [ "$new" = "$(cat "$state" 2>/dev/null)" ] && exit 0
+    mkdir -p "$(dirname "$state")"
+    /usr/bin/open "${renderedProfile}" && echo "$new" > "$state"
+  '';
 in {
   sops.secrets."wireguard/privateKey" = {};
   sops.templates."wireguard.mobileconfig".content =
     builtins.replaceStrings [privateKey] [config.sops.placeholder."wireguard/privateKey"] profile;
+
+  # sops-nix swaps its secrets symlink inside this directory after rendering,
+  # which triggers the agent.
+  launchd.agents.wireguard-profile = {
+    enable = true;
+    config = {
+      ProgramArguments = ["${openIfChanged}"];
+      WatchPaths = [(builtins.dirOf config.sops.defaultSymlinkPath)];
+    };
+  };
 }
