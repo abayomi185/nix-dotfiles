@@ -29,7 +29,7 @@
     # outputs.homeManagerModules.monitoring.ncdu
 
     # Networking - See ../../modules/home-manager/networking/default.nix
-    (outputs.homeManagerModules.networking.wireguard {pPeer = "mstdo";})
+    (outputs.homeManagerModules.networking.wireguard-macos {pPeer = "mstdo";})
 
     # Shell - See ../../modules/home-manager/shell/default.nix
     outputs.homeManagerModules.shell.fzf
