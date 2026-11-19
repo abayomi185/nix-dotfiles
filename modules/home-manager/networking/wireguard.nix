@@ -100,11 +100,13 @@ in {
     builtins.replaceStrings [privateKey] [config.sops.placeholder."wireguard/privateKey"] profile;
 
   # sops-nix swaps its secrets symlink inside this directory after rendering,
-  # which triggers the agent.
+  # which triggers the agent. RunAtLoad covers a render that finished before
+  # the agent loaded (login, first deploy).
   launchd.agents.wireguard-profile = {
     enable = true;
     config = {
       ProgramArguments = ["${openIfChanged}"];
+      RunAtLoad = true;
       WatchPaths = [(builtins.dirOf config.sops.defaultSymlinkPath)];
     };
   };
