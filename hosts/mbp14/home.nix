@@ -47,7 +47,7 @@ in {
     # outputs.homeManagerModules.music.spotify
 
     # Networking - See ../../modules/home-manager/networking/default.nix
-    (outputs.homeManagerModules.networking.wireguard {pPeer = "mbp14";})
+    (outputs.homeManagerModules.networking.wireguard-macos {pPeer = "mbp14";})
 
     # Shell - See ../../modules/home-manager/shell/default.nix
     outputs.homeManagerModules.shell.fzf

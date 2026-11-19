@@ -1,4 +1,4 @@
-# WireGuard client for the YHLD-VPSR1 hub, delivered as a configuration
+# macOS WireGuard client for the YHLD-VPSR1 hub, delivered as a configuration
 # profile for WireGuard.app; tunnels are toggled in the app.
 #
 # sops-nix renders the profile with this Mac's private key at activation.
