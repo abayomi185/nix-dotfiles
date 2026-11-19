@@ -33,6 +33,7 @@
     outputs.darwinModules.casks.hex
     outputs.darwinModules.casks.heroic
     outputs.darwinModules.casks.iina
+    outputs.darwinModules.casks.jlcone
     outputs.darwinModules.casks.karabiner-elements
     outputs.darwinModules.casks.kicad
     outputs.darwinModules.casks.macs-fan-control
