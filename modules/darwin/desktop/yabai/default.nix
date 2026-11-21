@@ -1,4 +1,9 @@
-{pkgs, ...}: {
+{pkgs, ...}: let
+  # Fixed-path copy so the Accessibility grant survives brew upgrades; see
+  # ../skhd/default.nix. yabai is signed with a stable cert, so the grant
+  # carries across versions.
+  bin = "/usr/local/libexec/yabai";
+in {
   # Installed with Homebrew rather than Nix; see ../skhd/default.nix for why.
   homebrew.taps = [
     {
@@ -8,11 +13,20 @@
   ];
   homebrew.brews = ["asmvik/formulae/yabai"];
 
+  system.activationScripts.postActivation.text = ''
+    if ! cmp -s /opt/homebrew/bin/yabai ${bin}; then
+      mkdir -p /usr/local/libexec
+      cp /opt/homebrew/bin/yabai ${bin}.new
+      mv -f ${bin}.new ${bin}
+      pkill -x yabai || true
+    fi
+  '';
+
   services.yabai = {
     enable = true;
     package = pkgs.runCommand "yabai-brew" {} ''
       mkdir -p $out/bin
-      ln -s /opt/homebrew/bin/yabai $out/bin/yabai
+      ln -s ${bin} $out/bin/yabai
     '';
     config = {
       window_placement = "second_child";
