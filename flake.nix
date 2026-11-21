@@ -221,6 +221,7 @@
     # NixOS configuration entrypoint
     # Available through 'nixos-rebuild --flake .#your-hostname'
     nixosConfigurations = {
+      # NOTE: x1c6 is retired (device gone); kept for reference.
       # x1c6 = inputs.nixpkgs-stable.lib.nixosSystem {
       #   specialArgs = {inherit inputs outputs;};
       #   modules = [
