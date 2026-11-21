@@ -314,6 +314,9 @@
       network-share = import ./hosts/lxc/network-share/default.nix {
         inherit inputs outputs;
       };
+      netbird-router = import ./hosts/lxc/netbird-router/default.nix {
+        inherit inputs outputs;
+      };
       home-assistant = import ./hosts/home-assistant/default.nix {
         inherit inputs outputs;
       };
