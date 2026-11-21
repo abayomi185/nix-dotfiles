@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   # Installed with Homebrew rather than Nix; see ../skhd/default.nix for why.
   homebrew.taps = [
     {
@@ -7,11 +6,11 @@
       trusted = true;
     }
   ];
-  homebrew.brews = [ "asmvik/formulae/yabai" ];
+  homebrew.brews = ["asmvik/formulae/yabai"];
 
   services.yabai = {
     enable = true;
-    package = pkgs.runCommand "yabai-brew" { } ''
+    package = pkgs.runCommand "yabai-brew" {} ''
       mkdir -p $out/bin
       ln -s /opt/homebrew/bin/yabai $out/bin/yabai
     '';
