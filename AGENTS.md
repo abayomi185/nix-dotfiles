@@ -76,7 +76,7 @@ nix run .#unifi -- apply
 
 ## Linting
 
-No CI pipeline or pre-commit hooks exist. Linters are available in the dev
+No lint CI or pre-commit hooks exist. Linters are available in the dev
 environment (via Neovim) but have no project-level config files:
 
 ```bash
@@ -102,6 +102,16 @@ nixos-rebuild dry-build --flake .#<hostname>
 # Check the full flake (evaluates all outputs)
 nix flake check
 ```
+
+## CI
+
+- `update-flake-lock`: weekly PR bumping `flake.lock`.
+- `vulnix`: on every PR, scans each host's unbuilt closure for CVEs and lists
+  new/fixed ones in the job summary. Run locally with
+  `.github/vulnix.sh [base-rev]`. False positives go in `.github/vulnix.toml`.
+- Both need the `GH_PAT` secret: a fine-grained token with read access to the
+  private inputs (`nix-secrets`, `sonamesh`) plus contents/pull-requests write
+  on this repo.
 
 ## Secrets Management
 
