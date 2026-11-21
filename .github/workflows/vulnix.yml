@@ -1,0 +1,25 @@
+name: vulnix
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  vulnix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - uses: cachix/install-nix-action@v32
+      - name: Access private flake inputs
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
+        run: git config --global url."https://x-access-token:${GH_PAT}@github.com/".insteadOf ssh://git@github.com/
+      # NVD feeds; vulnix only refetches what changed
+      - uses: actions/cache@v6
+        with:
+          path: ~/.cache/vulnix
+          key: vulnix-nvd-${{ github.run_id }}
+          restore-keys: vulnix-nvd-
+      - run: .github/vulnix.sh ${{ github.event.pull_request.base.sha }}
