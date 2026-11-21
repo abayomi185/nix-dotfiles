@@ -1,0 +1,23 @@
+name: update-flake-lock
+
+on:
+  schedule:
+    - cron: "0 6 * * 0" # Sundays 06:00 UTC
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: cachix/install-nix-action@v32
+      - name: Access private flake inputs
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
+        run: git config --global url."https://x-access-token:${GH_PAT}@github.com/".insteadOf ssh://git@github.com/
+      # PAT (not GITHUB_TOKEN) so the PR triggers the vulnix workflow
+      - uses: DeterminateSystems/update-flake-lock@v29
+        with:
+          token: ${{ secrets.GH_PAT }}
+          commit-msg: "chore: update flake.lock"
+          pr-title: "chore: update flake.lock"
