@@ -54,7 +54,6 @@ nix shell nixpkgs#nixos-rebuild -c nixos-rebuild switch \
  #            network-share
 
 # Rebuild home-manager standalone config
-home-manager switch --flake .#yomi@A-MacBook-Pro-eth
 home-manager switch --flake .#yomi@MacBook-Pro-14
 
 # Evaluate a specific config without building (fast syntax/type check)

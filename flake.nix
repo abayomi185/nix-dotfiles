@@ -404,15 +404,6 @@
     # Standalone home-manager configuration entrypoint
     # Available through 'home-manager --flake .#your-username@your-hostname'
     homeConfigurations = {
-      "yomi@A-MacBook-Pro-eth" = home-manager.lib.homeManagerConfiguration {
-        pkgs = inputs.nixpkgs-stable.legacyPackages.aarch64-darwin; # Home-manager requires 'pkgs' instance
-        extraSpecialArgs = {inherit inputs outputs;};
-        modules = [
-          ./hosts/mstdo/home.nix
-          inputs.sops-nix.homeManagerModules.sops
-        ];
-      };
-
       "yomi@MacBook-Pro-14" = home-manager.lib.homeManagerConfiguration {
         pkgs = inputs.nixpkgs-unstable.legacyPackages.aarch64-darwin;
         extraSpecialArgs = {inherit inputs outputs;};
