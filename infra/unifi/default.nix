@@ -33,9 +33,8 @@
   # spare access ports); undeclared ports keep their controller config.
   switchPorts = {
     "1" = {
-      name = "YHLD-ACPT2";
-      native = "default";
-      forward = "all";
+      name = "Foreign AP";
+      native = "iot";
     };
     "2" = {
       name = "Infra access";
@@ -52,6 +51,11 @@
     "15" = {
       name = "YHLD-SLZB1";
       native = "iot";
+    };
+    "21" = {
+      name = "YHLD-ACPT2";
+      native = "default";
+      forward = "all";
     };
     "23" = {
       name = "Main access";
