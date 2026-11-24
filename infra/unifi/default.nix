@@ -33,9 +33,8 @@
   # spare access ports); undeclared ports keep their controller config.
   switchPorts = {
     "1" = {
-      name = "YHLD-ACPT2";
-      native = "default";
-      forward = "all";
+      name = "Foreign AP";
+      native = "iot";
     };
     "2" = {
       name = "Infra access";
@@ -45,15 +44,24 @@
       name = "Guest access";
       native = "guest";
     };
-    "7" = {
-      name = "YHLD-SLZB1";
-      native = "iot";
-    };
-    "11" = {
+    "13" = {
       name = "YHLD-IPMI1";
       native = "infra";
     };
-    "13" = {
+    "15" = {
+      name = "YHLD-SLZB1";
+      native = "iot";
+    };
+    "21" = {
+      name = "YHLD-ACPT2";
+      native = "default";
+      forward = "all";
+    };
+    "23" = {
+      name = "YHLD-GMBX1";
+      native = "main";
+    };
+    "24" = {
       name = "Main access";
       native = "main";
     };
@@ -67,20 +75,22 @@
     };
   };
 
-  switchPort = index: p:
+  # Declared on unifi_device so all ports go out in one write; separate
+  # unifi_device_port resources race and overwrite each other.
+  portOverride = index: p:
     {
-      device_mac = switchMac;
       index = lib.toInt index;
       inherit (p) name;
       native_networkconf_id = networkId p.native;
       forward = p.forward or "customize";
+      autoneg = p.autoneg or true;
       # Controller defaults; not computed by the provider, so pin them.
       setting_preference = "auto";
       stp_edge_state = "auto";
       tagged_vlan_mgmt = "auto";
     }
     // lib.optionalAttrs (p.poe or true) {poe_mode = "auto";}
-    // lib.filterAttrs (n: _: lib.elem n ["autoneg" "speed" "full_duplex"]) p;
+    // lib.filterAttrs (n: _: lib.elem n ["speed" "full_duplex"]) p;
 in {
   terraform = {
     required_providers.unifi.source = "ubiquiti-community/unifi";
@@ -128,6 +138,7 @@ in {
         name = "yhld-swch2";
         stp.version = "rstp";
         led.override = "on";
+        port_override = lib.mapAttrsToList portOverride switchPorts;
       };
 
       ap = {
@@ -136,34 +147,11 @@ in {
         led.override = "on";
       };
     };
-
-    unifi_device_port = lib.mapAttrs' (i: p: lib.nameValuePair "switch_${i}" (switchPort i p)) switchPorts;
   };
 
-  # NOTE: one-off adoption of existing controller objects; drop after first apply.
-  import =
-    lib.mapAttrsToList (n: id: {
-      to = "unifi_network.${n}";
-      inherit id;
-    }) {
-      infra = "6a6940379c1aaf63a60e8e36";
-      main = "6a693fd09c1aaf63a60e8e29";
-      guest = "6a6940269c1aaf63a60e8e33";
-      iot = "6a693ff09c1aaf63a60e8e30";
-    }
-    ++ [
-      {
-        to = "unifi_device.switch";
-        id = "6a6a8ebe0d852a4ee3101fe5";
-      }
-      {
-        to = "unifi_device.ap";
-        id = "6a6a8f160d852a4ee3101fe7";
-      }
-    ]
-    ++ lib.mapAttrsToList (i: _: {
-      to = "unifi_device_port.switch_${i}";
-      id = "${switchMac}/${i}";
-    })
-    switchPorts;
+  # NOTE: one-off; forget the old per-port resources without touching ports.
+  removed = map (i: {
+    from = "unifi_device_port.switch_${i}";
+    lifecycle.destroy = false;
+  }) ["1" "2" "3" "7" "11" "13" "26"];
 }
