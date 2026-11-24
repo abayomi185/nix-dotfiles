@@ -45,15 +45,15 @@
       name = "Guest access";
       native = "guest";
     };
-    "7" = {
-      name = "YHLD-SLZB1";
-      native = "iot";
-    };
-    "11" = {
+    "13" = {
       name = "YHLD-IPMI1";
       native = "infra";
     };
-    "13" = {
+    "15" = {
+      name = "YHLD-SLZB1";
+      native = "iot";
+    };
+    "23" = {
       name = "Main access";
       native = "main";
     };
@@ -142,10 +142,8 @@ in {
   };
 
   # NOTE: one-off; forget the old per-port resources without touching ports.
-  removed =
-    lib.mapAttrsToList (i: _: {
-      from = "unifi_device_port.switch_${i}";
-      lifecycle.destroy = false;
-    })
-    switchPorts;
+  removed = map (i: {
+    from = "unifi_device_port.switch_${i}";
+    lifecycle.destroy = false;
+  }) ["1" "2" "3" "7" "11" "13" "26"];
 }
