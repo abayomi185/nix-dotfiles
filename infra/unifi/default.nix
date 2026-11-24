@@ -58,6 +58,10 @@
       forward = "all";
     };
     "23" = {
+      name = "YHLD-GMBX1";
+      native = "main";
+    };
+    "24" = {
       name = "Main access";
       native = "main";
     };
