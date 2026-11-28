@@ -25,12 +25,17 @@ in {
     internalInterfaces = ["wg0"];
   };
 
-  # Only the WireGuard listener is public; DNS, kubelet and flannel stay on wg0.
+  # Only the WireGuard listener is public; DNS stays on wg0. Kubelet and
+  # flannel VXLAN (unauthenticated) accept the knodes only, not every peer.
   networking.firewall.allowedUDPPorts = [wg.hub.listenPort];
   networking.firewall.interfaces.wg0 = {
-    allowedTCPPorts = [53 10250];
-    allowedUDPPorts = [53 8472];
+    allowedTCPPorts = [53];
+    allowedUDPPorts = [53];
   };
+  networking.firewall.extraCommands = ''
+    iptables -A nixos-fw -i wg0 -m iprange --src-range 10.1.5.71-10.1.5.74 -p tcp --dport 10250 -j nixos-fw-accept
+    iptables -A nixos-fw -i wg0 -m iprange --src-range 10.1.5.71-10.1.5.74 -p udp --dport 8472 -j nixos-fw-accept
+  '';
 
   # VPN clients use this as DNS: internal zones go to the firewall's Unbound.
   services.dnsmasq = {

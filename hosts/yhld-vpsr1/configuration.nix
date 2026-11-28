@@ -82,6 +82,12 @@
     };
   };
 
+  # Bans brute-forcing IPs on the public SSH port (sshd jail is on by default).
+  services.fail2ban = {
+    enable = true;
+    ignoreIP = ["10.13.13.0/24"];
+  };
+
   users.users.root.openssh.authorizedKeys.keys = import ../shared/authorized-keys.nix {inherit inputs;};
   users.users.cloud = {
     isNormalUser = true;

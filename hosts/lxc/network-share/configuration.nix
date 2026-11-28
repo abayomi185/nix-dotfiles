@@ -9,8 +9,6 @@
 
   hostname = "network-share";
 
-  external_subnet = "10.1.5.0/24";
-  cluster_subnet = "10.0.7.0/24";
   vps_wireguard_ip = "10.13.13.1";
   ipv4_cluster_address = "10.0.7.202";
 
@@ -26,15 +24,21 @@
   kubernetes_home_cluster_configs = "/mnt/mofp0/kubernetes/home-cluster/configs";
   kubernetes_home_cluster_data = "/mnt/mofp0/kubernetes/home-cluster/data";
 
-  nfs_export_permissions = "rw,sync,no_subtree_check,no_root_squash";
-  nfs_export_targets = [
-    external_subnet
-    cluster_subnet
-    vps_wireguard_ip
+  # NFS trusts the client's uid, so export to named hosts, never subnets.
+  # k8s nodes keep no_root_squash: pods chown their volumes as root.
+  # Both addresses: mounts use network-share.internal and .cluster.internal.
+  knodes = [
+    "10.1.5.71"
+    "10.1.5.72"
+    "10.1.5.73"
+    "10.1.5.74" # knode4 has no cluster bridge
+    "10.0.7.41"
+    "10.0.7.42"
+    "10.0.7.43"
   ];
-  mkNfsExports = path:
+  mkNfsExports = path: targets:
     "${path} "
-    + lib.concatMapStringsSep " " (subnet: "${subnet}(${nfs_export_permissions})") nfs_export_targets;
+    + lib.concatMapStringsSep " " (target: "${target}(rw,sync,no_subtree_check,no_root_squash)") targets;
 in {
   imports = [
     # Include the default lxc/lxd configuration.
@@ -127,11 +131,14 @@ in {
     enable = true;
     nproc = 16;
     exports = ''
-      ${mkNfsExports swarm_config_directory}
-      ${mkNfsExports swarm_data_directory}
-      ${mkNfsExports nas_yom_directory}
-      ${mkNfsExports kubernetes_home_cluster_configs}
-      ${mkNfsExports kubernetes_home_cluster_data}
+      ${mkNfsExports swarm_config_directory knodes}
+      ${mkNfsExports swarm_data_directory knodes}
+      ${mkNfsExports nas_yom_directory knodes}
+      ${mkNfsExports kubernetes_home_cluster_configs knodes}
+      # VPS only needs the nfs-csi share (traefik ACME storage).
+      ${mkNfsExports kubernetes_home_cluster_data (knodes ++ [vps_wireguard_ip])}
+      # video-recorder writes as mediamtx (1001:100); squash every uid to it.
+      ${nas_yom_directory}/VideoProjects 10.1.5.105(rw,sync,no_subtree_check,all_squash,anonuid=1001,anongid=100)
     '';
   };
 

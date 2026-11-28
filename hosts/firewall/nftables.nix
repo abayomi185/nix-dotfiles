@@ -18,11 +18,25 @@
           elements = { "br-native", "vlan-infra", "br-main", "vlan-guest", "br-iot" }
         }
 
-        # Subnets a WireGuard peer (the VPS) is allowed to reach.
+        # Subnets trusted WireGuard peers may reach.
         set wg_allowed_dst {
           type ipv4_addr
           flags interval
           elements = { 10.1.5.0/24, 10.1.10.0/24, 10.1.50.0/24 }
+        }
+
+        # WireGuard peers trusted like the main LAN: y-iphone, mbp14, mstdo.
+        set wg_trusted {
+          type ipv4_addr
+          elements = { 10.13.13.7, 10.13.13.14, 10.13.13.15 }
+        }
+
+        # The VPS (10.13.13.1) is internet-facing, so it only gets what its
+        # k3s agent needs. Other peers get nothing behind the firewall.
+        set knodes {
+          type ipv4_addr
+          flags interval
+          elements = { 10.1.5.71-10.1.5.74 }
         }
 
         # ── Input: traffic TO the firewall itself ─────────────────────────
@@ -56,8 +70,9 @@
           # SSH management from the main LAN and the infra VLAN only.
           iifname { "br-main", "vlan-infra" } tcp dport 22 accept
 
-          # Prometheus exporters (reachable from any LAN for future K8s scraping).
-          iifname @lan_ifaces tcp dport { 9100, 9167, 9153 } accept
+          # Prometheus exporters. Infra only: the dnsmasq lease metrics list
+          # every device on every VLAN.
+          iifname "vlan-infra" tcp dport { 9100, 9167, 9153 } accept
 
           # Prometheus, Grafana & Blocky web UIs (admin access only).
           iifname { "br-main", "vlan-infra" } tcp dport { 9090, 3000, 4000 } accept
@@ -76,8 +91,10 @@
           # Guest captive portal redirection.
           iifname "vlan-guest" tcp dport { 8843, 8880 } accept
 
-          # WireGuard peer (VPS, 10.13.13.1) reaching firewall services.
-          iifname "wg0" ip saddr 10.13.13.0/24 accept
+          # WireGuard: trusted peers get everything; the VPS gets DNS only
+          # (its dnsmasq forwards internal zones here).
+          iifname "wg0" ip saddr @wg_trusted accept
+          iifname "wg0" ip saddr 10.13.13.1 meta l4proto { tcp, udp } th dport 53 accept
 
           log prefix "nft-input-drop: " limit rate 5/minute counter drop
         }
@@ -104,9 +121,15 @@
           iifname "br-iot" oifname "wan0" accept
           iifname "br-iot" oifname "br-iot" accept
 
-          # WireGuard: reach the allowed internal subnets and the internet.
-          iifname "wg0" ip daddr @wg_allowed_dst accept
-          iifname "wg0" oifname "wan0" accept
+          # WireGuard: trusted peers reach the internal subnets and the internet.
+          iifname "wg0" ip saddr @wg_trusted ip daddr @wg_allowed_dst accept
+          iifname "wg0" ip saddr @wg_trusted oifname "wan0" accept
+
+          # VPS k3s agent: API server, flannel VXLAN, and NFS (traefik ACME).
+          # Knode-initiated traffic (kubelet 10250) is allowed via vlan-infra.
+          iifname "wg0" ip saddr 10.13.13.1 ip daddr @knodes tcp dport 6443 accept
+          iifname "wg0" ip saddr 10.13.13.1 ip daddr @knodes udp dport 8472 accept
+          iifname "wg0" ip saddr 10.13.13.1 ip daddr 10.1.5.124 tcp dport 2049 accept
 
           log prefix "nft-fwd-drop: " limit rate 5/minute counter drop
         }
