@@ -289,6 +289,9 @@ in {
         ]
       } ${musickitEnv}";
       EnvironmentFile = "-${musickitEnv}";
+      # systemd mounts the DynamicUser state dir noexec; Soloist is downloaded
+      # into it and must run from there.
+      ExecPaths = ["-/var/lib/private/music-assistant/soloist"];
     };
   };
 
