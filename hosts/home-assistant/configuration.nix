@@ -292,6 +292,9 @@ in {
     };
   };
 
+  # Music Assistant downloads Spotify Soloist, a generic glibc binary.
+  programs.nix-ld.enable = true;
+
   # ── Secrets (sops, decrypted with the host SSH key) ─────
   sops = {
     defaultSopsFile = "${inputs.nix-secrets}/hosts/home-assistant/default.enc.yaml";
