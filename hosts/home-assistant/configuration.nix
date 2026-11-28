@@ -241,6 +241,12 @@ in {
       "spotify"
     ];
   };
+  # nixpkgs builds MA from source, without the bundled provider credentials of
+  # official builds; app_var() reads these overrides first.
+  systemd.services.music-assistant.environment = {
+    # Own Spotify app; redirect URI https://music-assistant.io/callback.
+    MASS_APP_VAR_SPOTIFY_CLIENT_ID = "ad0188d08b8e4b318cfe0fd107cc2693";
+  };
 
   networking.firewall.allowedTCPPorts = [
     8080 # zigbee2mqtt frontend
