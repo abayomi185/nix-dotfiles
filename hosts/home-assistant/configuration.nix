@@ -188,6 +188,7 @@ in {
     openFirewall = true;
     providers = [
       "airplay"
+      "apple_music"
       "builtin"
       "chromecast"
       "hass"
