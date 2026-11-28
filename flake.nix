@@ -205,6 +205,18 @@
           spdx = "MPL-2.0";
         })
       ]);
+      # Not in nixpkgs.
+      netbird = tofuStack "netbird" (p: [
+        (p.mkProvider {
+          owner = "netbirdio";
+          repo = "terraform-provider-netbird";
+          rev = "v0.0.11";
+          hash = "sha256-ojtMtGmSokA6x1ut09W6Oc8ESGT0fpLoorc5XNQvpyY=";
+          vendorHash = "sha256-s5UVLL+BZX8dTGL8SZXvPJcyPFxzIOf0VEW9iYZZ1b8=";
+          homepage = "https://registry.terraform.io/providers/netbirdio/netbird";
+          spdx = "MPL-2.0";
+        })
+      ]);
     });
 
     # Your custom packages and modifications, exported as overlays
@@ -313,6 +325,9 @@
       #   inherit inputs outputs;
       # };
       network-share = import ./hosts/lxc/network-share/default.nix {
+        inherit inputs outputs;
+      };
+      netbird-router = import ./hosts/lxc/netbird-router/default.nix {
         inherit inputs outputs;
       };
       home-assistant = import ./hosts/home-assistant/default.nix {

@@ -12,6 +12,7 @@
     ./disk-config.nix
     ./wireguard.nix
     ./k3s.nix
+    ./netbird.nix
   ];
 
   # ── Boot ───────────────────────────────────────────────────────────────
