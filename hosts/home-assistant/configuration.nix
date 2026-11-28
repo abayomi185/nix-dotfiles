@@ -199,6 +199,7 @@ in {
 
   networking.firewall.allowedTCPPorts = [
     8080 # zigbee2mqtt frontend
+    8095 # music assistant web UI and login
     8123 # home assistant
   ];
   networking.firewall.allowedUDPPorts = [5540]; # matter operational
