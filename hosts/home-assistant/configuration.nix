@@ -3,6 +3,7 @@
   inputs,
   lib,
   modulesPath,
+  options,
   pkgs,
   ...
 }: let
@@ -277,7 +278,11 @@ in {
     environment = {
       # Own Spotify app; redirect URI https://music-assistant.io/callback.
       MASS_APP_VAR_SPOTIFY_CLIENT_ID = "ad0188d08b8e4b318cfe0fd107cc2693";
+      # The Soloist backend loads libpulse by soname via ctypes.
+      LD_LIBRARY_PATH = "${pkgs.libpulseaudio}/lib";
     };
+    # The Soloist backend runs a private PulseAudio daemon to capture audio.
+    path = [pkgs.pulseaudio];
     # MusicKit developer token (JWT, max 6 months), signed from our key on
     # every start so it never needs renewing by hand.
     serviceConfig = {
@@ -292,11 +297,17 @@ in {
       # systemd mounts the DynamicUser state dir noexec; Soloist is downloaded
       # into it and must run from there.
       ExecPaths = ["-/var/lib/private/music-assistant/soloist"];
+      # PulseAudio clients and daemon talk over a unix socket.
+      RestrictAddressFamilies = ["AF_UNIX"];
     };
   };
 
-  # Music Assistant downloads Spotify Soloist, a generic glibc binary.
-  programs.nix-ld.enable = true;
+  # Music Assistant downloads Spotify Soloist, a generic glibc binary that plays
+  # through PulseAudio.
+  programs.nix-ld = {
+    enable = true;
+    libraries = options.programs.nix-ld.libraries.default ++ [pkgs.libpulseaudio];
+  };
 
   # ── Secrets (sops, decrypted with the host SSH key) ─────
   sops = {
