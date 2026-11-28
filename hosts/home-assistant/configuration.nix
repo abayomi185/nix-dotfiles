@@ -328,7 +328,11 @@ in {
     8095 # music assistant web UI and login
     8123 # home assistant
   ];
-  networking.firewall.allowedUDPPorts = [5540]; # matter operational
+  networking.firewall.allowedUDPPorts = [
+    319 # airplay 2 ptp event
+    320 # airplay 2 ptp general
+    5540 # matter operational
+  ];
   # Spotify Connect (Soloist) zeroconf endpoints listen on random ports.
   networking.firewall.allowedTCPPortRanges = [
     {
