@@ -12,7 +12,6 @@ its database.
 | Matter Server | `services.matterjs-server` |
 | ESPHome Device Builder | `services.esphome` |
 | Music Assistant | `services.music-assistant` |
-| Whisper | `services.wyoming.faster-whisper` |
 
 Zigbee device names live in `zigbee-devices.nix`; rename devices there, not in
 the Z2M frontend. The network key and PAN IDs are Z2M defaults; leave them unset.
