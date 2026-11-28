@@ -299,6 +299,9 @@ in {
       ExecPaths = ["-/var/lib/private/music-assistant/soloist"];
       # PulseAudio clients and daemon talk over a unix socket.
       RestrictAddressFamilies = ["AF_UNIX"];
+      # PulseAudio resets its uid and drops capabilities at startup; MA's filter
+      # (~@privileged) kills it (SIGSYS) otherwise. Appended so it wins.
+      SystemCallFilter = lib.mkAfter ["setresuid" "setresgid" "capset"];
     };
   };
 
