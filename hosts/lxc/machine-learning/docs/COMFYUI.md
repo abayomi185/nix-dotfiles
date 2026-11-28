@@ -51,6 +51,27 @@ settings: 1024 × 1024, 25 steps, CFG 1, Euler sampler and simple scheduler.
 Image editing uses the same three model files. The generation workflows use
 only built-in nodes. AutoFreeMemory is a separate background extension.
 
+## Image-to-video
+
+`comfyui-setup` installs two image-to-video models (about 73 GB in total) and seeds
+their official workflows, `video_minimax_h3_i2v` and `video_wan2_2_14B_i2v`.
+Every file is checked against a pinned sha256.
+
+| Model | Files under `ComfyUI/models` | Settings |
+| --- | --- | --- |
+| MiniMax H3 (default) | `diffusion_models/minimax_h3_fl2va_pruned_int8_convrot`, `text_encoders/qwen3vl_32b_minimax_h3_nvfp4_awq`, `vae/minimax_h3_{video_vae_int8_convrot,audio_vae_fp32}`, `loras/minimax_h3_fl2v_turbo_8step_v1.0_comfyui_bf16` | Turbo LoRA, 8 steps, res_multistep, 24 fps. Generates synced audio. |
+| Wan 2.2 I2V 14B | `diffusion_models/wan2.2_i2v_{high,low}_noise_14B_fp8_scaled`, `text_encoders/umt5_xxl_fp8_e4m3fn_scaled`, `vae/wan_2.1_vae`, `loras/wan2.2_i2v_lightx2v_4steps_lora_v1_{high,low}_noise` | lightx2v LoRAs, 4 steps (2 high + 2 low), CFG 1, shift 5, 16 fps |
+
+Measured on the RTX 3090 on 2026-11-16, for a 3 s portrait clip after the models were loaded:
+
+| Model | Resolution | Time | Notes |
+| --- | --- | --- | --- |
+| MiniMax H3 | 512 × 896 | ~58 s | Most faithful to real photos; strong motion; audio |
+| Wan 2.2 14B | 576 × 1024 | ~110 s | Crisp, subtler motion; morphed a real photo |
+| Wan 2.2 TI2V-5B (removed) | 704 × 1280 | ~225 s | Softer; hallucinated objects |
+
+H3's commercial use needs a separate license (H3 Community License).
+
 ## Profile pictures from reference photos
 
 Three editable presets are seeded into the Workflows sidebar by Home Manager:
