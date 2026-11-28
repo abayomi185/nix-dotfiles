@@ -1,4 +1,5 @@
 {
+  config,
   inputs,
   lib,
   modulesPath,
@@ -10,6 +11,35 @@
   slzb = "slzb-mr2.internal.yomitosh.media";
   otbrRadio = "/run/otbr-radio";
   lan = "lan0";
+  musickitEnv = "/run/music-assistant-musickit.env";
+  musickitToken =
+    pkgs.writers.writePython3 "musickit-token" {
+      libraries = with pkgs.python3Packages; [cryptography pyjwt];
+    } ''
+      import os
+      import sys
+      import time
+
+      import jwt
+
+
+      def read(path):
+          with open(path) as f:
+              return f.read().strip()
+
+
+      key, key_id, team_id = (read(p) for p in sys.argv[1:4])
+      now = int(time.time())
+      token = jwt.encode(
+          {"iss": team_id, "iat": now, "exp": now + 180 * 86400},
+          key,
+          algorithm="ES256",
+          headers={"kid": key_id},
+      )
+      fd = os.open(sys.argv[4], os.O_WRONLY | os.O_CREAT | os.O_TRUNC, 0o600)
+      with os.fdopen(fd, "w") as f:
+          f.write(f"MASS_APP_VAR_APPLE_MUSIC_TOKEN={token}\n")
+    '';
   # Sidebar webpage panels for the add-on UIs (LAN HTTPS routes in home-ops).
   panels = {
     addon-music = {
@@ -243,9 +273,34 @@ in {
   };
   # nixpkgs builds MA from source, without the bundled provider credentials of
   # official builds; app_var() reads these overrides first.
-  systemd.services.music-assistant.environment = {
-    # Own Spotify app; redirect URI https://music-assistant.io/callback.
-    MASS_APP_VAR_SPOTIFY_CLIENT_ID = "ad0188d08b8e4b318cfe0fd107cc2693";
+  systemd.services.music-assistant = {
+    environment = {
+      # Own Spotify app; redirect URI https://music-assistant.io/callback.
+      MASS_APP_VAR_SPOTIFY_CLIENT_ID = "ad0188d08b8e4b318cfe0fd107cc2693";
+    };
+    # MusicKit developer token (JWT, max 6 months), signed from our key on
+    # every start so it never needs renewing by hand.
+    serviceConfig = {
+      ExecStartPre = "+${musickitToken} ${
+        lib.concatMapStringsSep " " (s: config.sops.secrets.${s}.path) [
+          "musickit_key"
+          "musickit_key_id"
+          "musickit_team_id"
+        ]
+      } ${musickitEnv}";
+      EnvironmentFile = "-${musickitEnv}";
+    };
+  };
+
+  # ── Secrets (sops, decrypted with the host SSH key) ─────
+  sops = {
+    defaultSopsFile = "${inputs.nix-secrets}/hosts/home-assistant/default.enc.yaml";
+    age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
+    secrets = {
+      musickit_key = {};
+      musickit_key_id = {};
+      musickit_team_id = {};
+    };
   };
 
   networking.firewall.allowedTCPPorts = [
