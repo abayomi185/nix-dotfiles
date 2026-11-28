@@ -56,8 +56,9 @@
           # SSH management from the main LAN and the infra VLAN only.
           iifname { "br-main", "vlan-infra" } tcp dport 22 accept
 
-          # Prometheus exporters (reachable from any LAN for future K8s scraping).
-          iifname @lan_ifaces tcp dport { 9100, 9167, 9153 } accept
+          # Prometheus exporters. Infra only: the dnsmasq lease metrics list
+          # every device on every VLAN.
+          iifname "vlan-infra" tcp dport { 9100, 9167, 9153 } accept
 
           # Prometheus, Grafana & Blocky web UIs (admin access only).
           iifname { "br-main", "vlan-infra" } tcp dport { 9090, 3000, 4000 } accept
