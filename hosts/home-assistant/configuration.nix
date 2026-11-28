@@ -167,6 +167,14 @@ in {
       "--enable-time-sync"
     ];
   };
+  # matter.js keeps a pid lock that survives crashes and reboots; a reused pid
+  # then blocks startup. systemd already guarantees a single instance. Runs as
+  # root (+): the files may not belong to the current dynamic user.
+  systemd.services.matterjs-server.serviceConfig = {
+    ExecStartPre = "+${pkgs.findutils}/bin/find -H %S/matterjs-server -maxdepth 2 ( -name matter.lock -o -name matter.pid ) -delete";
+    Restart = "on-failure";
+    RestartSec = "10s";
+  };
 
   # ── Add-on replacements ─────────────────────────────────
   services.esphome = {
