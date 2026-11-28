@@ -1,3 +1,3 @@
 {
-  wireguard = import ./wireguard.nix;
+  wireguard-macos = import ./wireguard-macos.nix;
 }
