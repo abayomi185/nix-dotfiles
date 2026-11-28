@@ -14,7 +14,7 @@ its database.
 | Music Assistant | `services.music-assistant` |
 
 Sidebar panels embed the add-on UIs through LAN HTTPS routes in home-ops
-(`music`, `zigbee`, `esphome` `.local.yomitosh.media`).
+(`{music,zigbee,esphome}.home.local.yomitosh.media`).
 
 Zigbee device names live in `zigbee-devices.nix`; rename devices there, not in
 the Z2M frontend. The network key and PAN IDs are Z2M defaults; leave them unset.

@@ -15,19 +15,19 @@
     addon-music = {
       title = "Music Assistant";
       icon = "mdi:music";
-      url = "https://music.local.yomitosh.media";
+      url = "https://music.home.local.yomitosh.media";
       admin = false;
     };
     addon-zigbee = {
       title = "Zigbee2MQTT";
       icon = "mdi:zigbee";
-      url = "https://zigbee.local.yomitosh.media";
+      url = "https://zigbee.home.local.yomitosh.media";
       admin = true;
     };
     addon-esphome = {
       title = "ESPHome";
       icon = "mdi:chip";
-      url = "https://esphome.local.yomitosh.media";
+      url = "https://esphome.home.local.yomitosh.media";
       admin = true;
     };
   };
