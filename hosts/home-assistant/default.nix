@@ -8,6 +8,7 @@ inputs.nixpkgs-unstable.lib.nixosSystem {
   specialArgs = {inherit inputs outputs;};
   modules = [
     inputs.disko.nixosModules.disko
+    inputs.sops-nix.nixosModules.sops
     ../nixos-anywhere/disk-config.nix
     ./configuration.nix
   ];
