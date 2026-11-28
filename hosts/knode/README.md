@@ -7,6 +7,8 @@ Current roles:
 - `knode2`: k3s agent
 - `knode3`: k3s agent
 - `knode4`: k3s agent
+- `knode6`: k3s agent, dedicated NVIDIA GPU node (taint `dedicated=gpu:NoSchedule`,
+  label `yomitosh.media/gpu=nvidia`). A second disk (`scsi1`) holds `/var/lib/rancher/k3s`.
 
 Initial install is done with `nixos-anywhere`.
 
@@ -46,4 +48,11 @@ To test intel gpu passthrough on knode4:
 ```bash
 nix shell nixpkgs#intel-media-driver -c bash
 intel_gpu_top
+```
+
+To check the NVIDIA GPU and its CDI spec on knode6:
+
+```bash
+nvidia-smi
+nvidia-ctk cdi list
 ```

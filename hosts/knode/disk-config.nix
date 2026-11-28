@@ -1,5 +1,6 @@
 {
   lib,
+  pDataDiskDevice ? null,
   pDiskDevice ? "/dev/sda",
   ...
 }: {
@@ -33,6 +34,25 @@
               format = "ext4";
               mountpoint = "/";
             };
+          };
+        };
+      };
+    };
+
+    # Optional second disk for all k3s state: container images and local-path
+    # volumes (/var/lib/rancher/k3s/storage) stay off the small root disk.
+    disk.data = lib.mkIf (pDataDiskDevice != null) {
+      device = pDataDiskDevice;
+      type = "disk";
+      content = {
+        type = "gpt";
+        partitions.data = {
+          name = "data";
+          size = "100%";
+          content = {
+            type = "filesystem";
+            format = "ext4";
+            mountpoint = "/var/lib/rancher/k3s";
           };
         };
       };
