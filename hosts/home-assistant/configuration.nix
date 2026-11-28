@@ -71,7 +71,6 @@ in {
       "spotify"
       "sun"
       "thread"
-      "wyoming"
     ];
     customComponents = with pkgs.home-assistant-custom-components; [
       octopus_energy
@@ -188,12 +187,6 @@ in {
       "radiobrowser"
       "spotify"
     ];
-  };
-
-  services.wyoming.faster-whisper.servers.en = {
-    enable = true;
-    language = "en";
-    uri = "tcp://127.0.0.1:10300";
   };
 
   networking.firewall.allowedTCPPorts = [
