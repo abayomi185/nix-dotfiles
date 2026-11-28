@@ -1,5 +1,6 @@
 {
   inputs,
+  lib,
   modulesPath,
   pkgs,
   ...
@@ -9,6 +10,27 @@
   slzb = "slzb-mr2.internal.yomitosh.media";
   otbrRadio = "/run/otbr-radio";
   lan = "lan0";
+  # Sidebar webpage panels for the add-on UIs (LAN HTTPS routes in home-ops).
+  panels = {
+    addon-music = {
+      title = "Music Assistant";
+      icon = "mdi:music";
+      url = "https://music.local.yomitosh.media";
+      admin = false;
+    };
+    addon-zigbee = {
+      title = "Zigbee2MQTT";
+      icon = "mdi:zigbee";
+      url = "https://zigbee.local.yomitosh.media";
+      admin = true;
+    };
+    addon-esphome = {
+      title = "ESPHome";
+      icon = "mdi:chip";
+      url = "https://esphome.local.yomitosh.media";
+      admin = true;
+    };
+  };
 in {
   imports = ["${modulesPath}/profiles/qemu-guest.nix"];
 
@@ -84,8 +106,30 @@ in {
       "automation ui" = "!include automations.yaml";
       "scene ui" = "!include scenes.yaml";
       "script ui" = "!include scripts.yaml";
+      lovelace.dashboards =
+        lib.mapAttrs (slug: p: {
+          mode = "yaml";
+          title = p.title;
+          icon = p.icon;
+          show_in_sidebar = true;
+          require_admin = p.admin;
+          filename = "panels/${slug}.yaml";
+        })
+        panels;
     };
   };
+
+  systemd.tmpfiles.rules =
+    ["d /var/lib/hass/panels 0755 hass hass"]
+    ++ lib.mapAttrsToList (slug: p: let
+      file = pkgs.writeText "${slug}.yaml" (builtins.toJSON {
+        strategy = {
+          type = "iframe";
+          url = p.url;
+        };
+      });
+    in "L+ /var/lib/hass/panels/${slug}.yaml - - - - ${file}")
+    panels;
 
   # ── Zigbee ──────────────────────────────────────────────
   services.mosquitto = {
