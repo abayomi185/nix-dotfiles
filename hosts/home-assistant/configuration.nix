@@ -315,6 +315,13 @@ in {
     8123 # home assistant
   ];
   networking.firewall.allowedUDPPorts = [5540]; # matter operational
+  # Spotify Connect (Soloist) zeroconf endpoints listen on random ports.
+  networking.firewall.allowedTCPPortRanges = [
+    {
+      from = 32768;
+      to = 65535;
+    }
+  ];
   environment.systemPackages = with pkgs; [git sqlite];
   system.stateVersion = "26.05";
 }
